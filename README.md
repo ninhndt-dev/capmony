@@ -13,6 +13,14 @@ Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòn
 
 Hướng dẫn vận hành agent nằm trong [AGENTS.md](AGENTS.md). Công việc được theo dõi dưới `.scratch/` bằng Markdown theo [quy ước tracker](docs/agents/issue-tracker.md).
 
+## Lệnh tiếp tục cho Codex
+
+Sau khi mở repo và cập nhật nhánh `main`, dán yêu cầu sau vào Codex:
+
+```text
+Tiếp tục dự án CapMoney từ trạng thái hiện tại trên nhánh main. Đọc AGENTS.md, README.md và docs/agents/workflow.md trước. Hiện đang ở bước 9/11: đặc tả chi tiết từng module. Kiểm tra đặc tả ticket #01, #02 và các điểm kỹ thuật còn cần xác minh; tiếp tục đúng chuỗi BA → PM → Tech → PM. Cập nhật tài liệu và tracker Markdown, hỏi tôi bằng các lựa chọn A/B khi cần quyết định. Chưa viết code khi ticket chưa sẵn sàng.
+```
+
 ## Bộ skills
 
 27 skills thuộc hai nhóm `engineering` và `productivity` của [mattpocock/skills](https://github.com/mattpocock/skills) được đặt tại `.agents/skills/` ở commit `49dd158d1076134a641b33efb035946536778336`. Đây là bản có thể chỉnh trong dự án; xem [nguồn và cách cập nhật](docs/agents/upstream.md). Chỉ dùng một bản skills cho agent để tránh trùng lệnh.
