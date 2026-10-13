@@ -1,6 +1,6 @@
 # Quy trình 11 bước và chuỗi agent
 
-Quy trình này áp dụng cho lần khởi động lại. **Hiện tại: bước 1.** Không đánh dấu bước sau đã hoàn tất từ bản code hoặc tài liệu cũ.
+Quy trình này áp dụng cho lần khởi động lại. **Hiện tại: chuyển từ bước 8 sang bước 9 – đặc tả chi tiết từng module.** Bước 1 đã có phiếu tiếp nhận và mười vòng hỏi đáp; bước 2 đã có [mục tiêu và phạm vi](../requirements/goal-and-scope.md), được BA/PM rà soát và Ninh xác nhận ngày 12/10/2026; bước 3 đã có [người dùng và quyền](../requirements/actors-and-roles.md), được BA/PM rà soát và Ninh xác nhận chuyển tiếp; bước 4 đã có [nghiệp vụ chính](../requirements/core-business.md), được BA/PM rà soát và Ninh xác nhận chuyển tiếp; bước 5 đã có [luồng người dùng](../requirements/user-flows.md), được BA/Tech/PM rà soát và Ninh xác nhận chuyển tiếp; bước 6 đã có [danh mục chức năng và ưu tiên](../requirements/system-functions.md), được PM rà soát và Ninh chọn A xác nhận chuyển tiếp; bước 7 đã có [đặc tả tổng thể](../../.scratch/capmoney-overall/spec.md), được PM → Tech rà soát và Ninh chọn A/A xác nhận nội dung, điểm kiểm thử chính; bước 8 đã có [35 ticket dọc](../../.scratch/capmoney-overall/issues/) theo cách chia Ninh duyệt, ở trạng thái `needs-triage` chờ bước 9. Không đánh dấu bước sau đã hoàn tất từ bản code hoặc tài liệu cũ.
 
 | Bước Ninh đưa ra | Đầu ra | Skill hỗ trợ | Vai trò kiểm tra |
 | --- | --- | --- | --- |

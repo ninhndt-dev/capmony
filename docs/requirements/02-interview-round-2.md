@@ -1,6 +1,6 @@
 # Vòng hỏi 2: mục tiêu, người dùng và nền tảng
 
-**Trạng thái:** Chờ Ninh trả lời. Các câu này độc lập, chưa hỏi giải pháp kỹ thuật.
+**Trạng thái:** Đã trả lời ngày 12/10/2026. Các câu này độc lập, chưa hỏi giải pháp kỹ thuật.
 
 ❓ **Q1 – Mục tiêu bản đầu:** Ninh muốn bản đầu là sản phẩm dùng thật để ghi chép tiền hằng ngày, hay bản thử nghiệm để xem ý tưởng/giao diện?
 
@@ -20,4 +20,10 @@
 
 ## Nhật ký trả lời
 
-Chưa có câu trả lời. BA cập nhật phiếu tiếp nhận sau khi Ninh chọn.
+| Câu | Ninh đã xác nhận | Đề xuất chưa được xác nhận / điều chưa rõ |
+| --- | --- | --- |
+| Q1 | “tôi làm để sử dụng hàng ngày luôn” — bản đầu để dùng hằng ngày | Chưa chốt tiêu chí chính xác, độ bền dữ liệu hoặc tập chức năng tối thiểu |
+| Q2 | “hiện chỉ cần dùng cho khoảng 10 người dùng” | Đề xuất một người dùng của Bờm không được chọn. Chưa rõ dữ liệu riêng/chung và cách đăng nhập |
+| Q3 | “chạy web nhưng giao diện mobile trước” | Đề xuất iPhone/iOS của Bờm không được chọn. Chưa rõ phạm vi desktop, hỗ trợ offline, trình duyệt và thiết bị cụ thể; chưa chốt REST API |
+
+BA đã chuyển đúng ba câu trả lời trên vào [phiếu tiếp nhận](00-intake.md). Các điểm phụ thuộc được hỏi ở [vòng 3](03-interview-round-3.md).

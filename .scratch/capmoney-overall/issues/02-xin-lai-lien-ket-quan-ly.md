@@ -1,0 +1,22 @@
+# 02: Xin lại liên kết thiết lập quản lý hết hạn
+
+**What to build:** Khi thiết lập quản lý ban đầu chưa hoàn tất và liên kết đã hết hạn, Ninh tự xin liên kết mới chỉ tới email quản lý đã khai; liên kết cũ hết hiệu lực. Sau khi thiết lập xong, không thể xin thêm liên kết thiết lập.
+
+**Blocked by:** 01 – Thiết lập và đăng nhập quản lý
+
+**Status:** needs-triage
+
+**Bước:** 8/11 – Cách chia đã được Ninh duyệt; đặc tả chi tiết và rà soát module ở bước 9 trước khi Dev nhận việc.
+
+## Acceptance criteria
+
+- [ ] Trên trạng thái khởi tạo mới chưa hoàn tất, liên kết quá 3 ngày không thể hoàn tất thiết lập.
+- [ ] Ninh tự xin liên kết mới chỉ tới email quản lý đã khai; liên kết cũ hết hiệu lực.
+- [ ] Trang xin lại không cho thay email đích; sau khi đã thiết lập tài khoản quản lý, trang không cấp thêm liên kết hoặc tài khoản quản lý.
+- [ ] Ca kiểm chứng dùng môi trường khởi tạo riêng, không đặt lại dữ liệu người dùng thật.
+- [ ] Hai yêu cầu xin lại gần đồng thời hoặc email đến lệch thứ tự chỉ để một liên kết hiện hành dùng được; lỗi gửi mail không báo thành công sai và cho thử lại an toàn.
+
+## Comments
+
+- Nguồn: đặc tả tổng thể bước 7 và đề xuất bước 8 đã được Ninh xác nhận. Kiểm thử hành vi qua web và đọc lại dữ liệu; chưa chọn schema/API/công nghệ.
+- Đặc tả chi tiết bước 9: [Xin lại liên kết thiết lập quản lý hết hạn](../../capmoney-manager-link-renewal/spec.md). Giữ `needs-triage` tới khi Tech kiểm chứng phương án xác thực/email cùng #01 và PM rà lại.

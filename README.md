@@ -1,14 +1,14 @@
 # CapMoney: khởi động lại từ tiếp nhận yêu cầu
 
-**Trạng thái:** Bước 1/11, đang tiếp nhận và xác nhận yêu cầu. Dự án này hiện chưa có code ứng dụng iOS hoặc REST API.
+**Trạng thái:** Hoàn tất chia 35 ticket dọc ở bước 8/11; đang ở bước 9, đã có đặc tả chi tiết [ticket #01](.scratch/capmoney-manager-setup/spec.md), [ticket #02](.scratch/capmoney-manager-link-renewal/spec.md) và [phương án hạ tầng còn cần kiểm chứng](.scratch/capmoney-manager-setup/technical-options.md). Các ticket tại [tracker Markdown](.scratch/capmoney-overall/issues/) vẫn `needs-triage`; dự án chưa có code ứng dụng web hoặc API.
 
 Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòng phỏng vấn. Bản code trước đây đã được bỏ khỏi cây dự án này. Ninh đã chọn **hỏi lại toàn bộ từ đầu**; những câu trả lời cũ chỉ dùng làm bối cảnh, không tự động thành yêu cầu mới. Xem [phiếu tiếp nhận](docs/requirements/00-intake.md).
 
 ## Bắt đầu ở đâu
 
-1. Đọc [phiếu tiếp nhận](docs/requirements/00-intake.md) và [vòng hỏi đầu](docs/requirements/01-interview-round-1.md).
-2. Trả lời các câu hỏi của vòng hiện tại. Agent cập nhật tài liệu sau từng vòng theo `grill-with-docs` và `domain-modeling`.
-3. Khi yêu cầu đã rõ, PM kiểm tra; sau đó `to-spec` viết đặc tả và `to-tickets` chia thành các module có thể nghiệm thu.
+1. Đọc [phiếu tiếp nhận](docs/requirements/00-intake.md), [mục tiêu và phạm vi đã xác nhận](docs/requirements/goal-and-scope.md), [người dùng và quyền](docs/requirements/actors-and-roles.md), [nghiệp vụ chính đã xác nhận](docs/requirements/core-business.md), [luồng người dùng đã xác nhận](docs/requirements/user-flows.md) và [danh mục chức năng đã xác nhận](docs/requirements/system-functions.md).
+2. Từ đặc tả tổng thể đã xác nhận, 35 ticket dọc và quan hệ phụ thuộc đã được chia ở bước 8 theo `to-tickets`; PM → Tech rà soát theo [quy trình](docs/agents/workflow.md).
+3. Tiếp tục đặc tả chi tiết từng module ở bước 9 trước khi chuyển ticket sang `ready-for-agent`.
 4. Từng module đi qua BA → PM → Tech → PM → Dev → PM → QA. Chỉ triển khai sau khi yêu cầu của module đủ rõ; dữ liệu và hành vi phải được kiểm tra thực tế.
 
 Hướng dẫn vận hành agent nằm trong [AGENTS.md](AGENTS.md). Công việc được theo dõi dưới `.scratch/` bằng Markdown theo [quy ước tracker](docs/agents/issue-tracker.md).
