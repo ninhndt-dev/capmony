@@ -15,9 +15,9 @@ ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
 FROM build AS probe-build
 RUN mvn -B -q test-compile \
-    && mkdir -p target/probe/BOOT-INF/classes/com/capmoney/api \
-    && cp target/test-classes/com/capmoney/api/ProbeController.class target/probe/BOOT-INF/classes/com/capmoney/api/ \
-    && jar -uf target/capmoney-api-0.1.0-SNAPSHOT.jar -C target/probe BOOT-INF/classes/com/capmoney/api/ProbeController.class
+    && mkdir -p target/probe/BOOT-INF/classes/com/capmoney/api/security \
+    && cp target/test-classes/com/capmoney/api/security/ProbeController.class target/probe/BOOT-INF/classes/com/capmoney/api/security/ \
+    && jar -uf target/capmoney-api-0.1.0-SNAPSHOT.jar -C target/probe BOOT-INF/classes/com/capmoney/api/security/ProbeController.class
 
 FROM runtime AS probe
 USER root

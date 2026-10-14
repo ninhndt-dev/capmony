@@ -1,4 +1,4 @@
-package com.capmoney.api;
+package com.capmoney.api.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,0 +1,6 @@
+[WARNING] Tests run: 3, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 1.117 s -- in com.capmoney.api.MailpitMailTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.866 s -- in com.capmoney.api.health.service.HealthServiceTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 36.64 s -- in com.capmoney.api.ContainerDependenciesTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 1
+[INFO] BUILD SUCCESS
+[INFO] Total time:  41.096 s

@@ -1,4 +1,6 @@
-package com.capmoney.api;
+package com.capmoney.api.health.service;
+
+import com.capmoney.api.health.model.HealthStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -10,9 +12,9 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-class HealthControllerTest {
+class HealthServiceTest {
     @Test
-    void databaseOutageAndRecoveryAreReflectedByTheSameController() {
+    void databaseOutageAndRecoveryAreReflectedByTheSameService() {
         JdbcTemplate database = mock(JdbcTemplate.class);
         RedisConnectionFactory redis = mock(RedisConnectionFactory.class);
         RedisConnection connection = mock(RedisConnection.class);
@@ -22,11 +24,11 @@ class HealthControllerTest {
                 .thenReturn(1);
         when(redis.getConnection()).thenReturn(connection);
         when(connection.ping()).thenReturn("PONG");
-        HealthController controller = new HealthController(database, redis);
+        HealthService service = new HealthService(database, redis);
 
-        assertEquals(503, controller.health().getStatusCode().value());
-        assertEquals(503, controller.authReadiness().getStatusCode().value());
-        assertEquals(200, controller.authReadiness().getStatusCode().value());
+        assertEquals(HealthStatus.DB_UNAVAILABLE, service.health());
+        assertEquals(HealthStatus.DB_UNAVAILABLE, service.authReadiness());
+        assertEquals(HealthStatus.UP, service.authReadiness());
     }
 
     @Test
@@ -38,13 +40,12 @@ class HealthControllerTest {
         when(redis.getConnection()).thenThrow(new IllegalStateException("unavailable"))
                 .thenReturn(connection);
         when(connection.ping()).thenReturn("PONG");
-        HealthController controller = new HealthController(database, redis);
+        HealthService service = new HealthService(database, redis);
 
-        assertEquals(200, controller.health().getStatusCode().value());
-        var degraded = controller.authReadiness();
-        assertEquals(503, degraded.getStatusCode().value());
-        assertEquals("redis_unavailable", degraded.getBody().get("status"));
-        assertEquals("no-store", degraded.getHeaders().getCacheControl());
-        assertEquals(200, controller.authReadiness().getStatusCode().value());
+        assertEquals(HealthStatus.UP, service.health());
+        var degraded = service.authReadiness();
+        assertEquals(HealthStatus.REDIS_UNAVAILABLE, degraded);
+        assertEquals("redis_unavailable", degraded.code());
+        assertEquals(HealthStatus.UP, service.authReadiness());
     }
 }

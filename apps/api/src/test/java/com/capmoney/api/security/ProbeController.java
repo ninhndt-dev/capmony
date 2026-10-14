@@ -1,4 +1,4 @@
-package com.capmoney.api;
+package com.capmoney.api.security;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;

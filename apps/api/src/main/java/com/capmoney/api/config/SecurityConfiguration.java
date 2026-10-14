@@ -1,4 +1,6 @@
-package com.capmoney.api;
+package com.capmoney.api.config;
+
+import com.capmoney.api.security.IngressFilter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
