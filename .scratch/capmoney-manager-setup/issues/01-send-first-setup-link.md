@@ -2,8 +2,8 @@
 
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8).
 **Planio child:** [#43](https://tanninh.planio.com/issues/43).
-**Status:** `blocked-by-hard`, **chưa `READY_FOR_IMPLEMENTATION`**; bản Node/Next trước TS10–TS38 chỉ là lịch sử. BA/Tech còn phải rà ticket Java này và PM xét gate riêng.
-**Blocked by:** `HARD` [INFRA-01.1 / #47](../../capmoney-infrastructure/issues/01-docker-dev-test.md) hoàn tất/`QA_PASS` môi trường Java/Redis dev/test (Planio relation #8).
+**Status:** `ready-for-agent` — `READY_FOR_IMPLEMENTATION` ngày15/10/2026.
+**Blocked by:** None: #47Closed/QA_PASS, MVC#48Closed/QA_PASS8/8.
 **Integration blocked by:** None sau #47.
 **Owner / review:** CapmmDev sau readiness; BA rà AC, reviewer code độc lập và PM rà phạm vi, QA chạy build.
 

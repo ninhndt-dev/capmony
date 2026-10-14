@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import './style.css';
+import { SetupEntry } from './features/manager/SetupEntry';
 
 function Placeholder() {
   return (
@@ -17,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Placeholder />} />
-        <Route path="/manager/setup" element={<Placeholder />} />
+        <Route path="/manager/setup" element={<SetupEntry />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

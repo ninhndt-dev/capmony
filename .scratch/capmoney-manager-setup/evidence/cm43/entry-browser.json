@@ -1,0 +1,20 @@
+[
+  {
+    "name": "android",
+    "engine": "chromium",
+    "status": "PASS",
+    "realDevice": false,
+    "fragmentCleared": true,
+    "tokenAbsentRequestsAndStorage": true,
+    "reloadRequiresEmail": true
+  },
+  {
+    "name": "iphone",
+    "engine": "webkit",
+    "status": "PASS",
+    "realDevice": false,
+    "fragmentCleared": true,
+    "tokenAbsentRequestsAndStorage": true,
+    "reloadRequiresEmail": true
+  }
+]

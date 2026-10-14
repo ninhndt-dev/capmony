@@ -1,1 +1,21 @@
-databaseChangeLog: []
+databaseChangeLog:
+  - changeSet:
+      id: 001-cm01-bootstrap
+      author: capmoney
+      changes:
+        - sql:
+            sql: |
+              CREATE TABLE manager_bootstrap (
+                id bigint PRIMARY KEY CHECK (id = 1),
+                email varchar(320),
+                generation bigint NOT NULL DEFAULT 0 CHECK (generation >= 0),
+                token_digest varchar(64),
+                state varchar(16) NOT NULL CHECK (state IN ('empty','sending','issued','unknown','failed','consumed')),
+                send_started_at timestamptz,
+                accepted_at timestamptz,
+                expires_at timestamptz,
+                consumed_at timestamptz,
+                updated_at timestamptz NOT NULL DEFAULT clock_timestamp(),
+                CHECK (state <> 'issued' OR (token_digest IS NOT NULL AND accepted_at IS NOT NULL AND expires_at = accepted_at + interval '72 hours'))
+              );
+              INSERT INTO manager_bootstrap(id, state) VALUES (1, 'empty');

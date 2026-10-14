@@ -12,3 +12,7 @@
 - **Tech đề xuất, chưa phải quyết định sản phẩm:** chính sách mật khẩu/ngưỡng giới hạn, chi tiết giao dịch refresh/CSRF và khi Redis lỗi, mô hình trạng thái thu hồi, nhà cung cấp SMTP thật. CM01-Q3 đã chốt cách xử lý reuse không phân biệt được; PM rà diễn đạt và Tech chứng minh bằng test trước gate.
 - **Đã chốt cho CM-01:** CM01-Q2 về phạm vi đăng xuất nhiều điện thoại; CM01-Q3 về refresh reuse; PM cần đối chiếu AC7 và Tech thiết kế/kiểm thử thu hồi đúng phạm vi.
 - **Chưa rõ cho vận hành thật:** email quản lý riêng của Ninh, tên miền gửi và quyền cấu hình dịch vụ. Không cần dùng dữ liệu thật để BA/Tech thiết kế hoặc thử trong môi trường riêng; không ghi bí mật vào Git.
+
+## CM01-Q4 — Gate thiết bị trong triển khai, 15/10/2026
+
+**Ninh đã xác nhận qua giao diện:** “Dùng Chromium/WebKit giả lập để qua QA từng ticket; giữ kiểm tra thiết bị thật ở bước nghiệm thu cuối CM-01”. Theo đó #43–#45 có thể qua QA từng ticket bằng Chromium Android/WebKit iPhone viewport cùng mọi kiểm tra backend bắt buộc. Kiểm thiết bị thật vẫn bắt buộc ở nghiệm thu cuối Story; không gán emulation là thiết bị thật hoặc đóng Story trước bằng chứng/nghiệm thu đó.

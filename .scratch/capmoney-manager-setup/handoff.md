@@ -1,3 +1,9 @@
+## PM — READY_FOR_IMPLEMENTATION #43, 15/10/2026
+
+Ninh yêu cầu hoàn tất toàn bộCM-01. BA/PM reviewer `/root/review_standards` xác nhận AC1/6 và seamsT01–06 khôngP0/P1; Tech reviewer `/root/review_spec` xác nhận hợp đồng singleton/CAS/acceptedAt/SMTP/hai CLI process đủ rõ. PM đối chiếu INFRA#47/#48QA_PASS và PlanioClosed, giảiHARD#47→#43; cập nhật JUnit6/MVC/secretfile/healthcontract trong thiết kế. Cấp READY_FOR_IMPLEMENTATION riêng#43; #44/#45 vẫn đợi QA ticket trước. Không suy QA từ tài liệu.
+
+Dev kiểm theo seams trong test-spec đã review: CLI→PostgreSQL/Mailpit và browserentry; giữ mọi tài nguyên, khôngcleanup. Test trước implementation từng lát, reviewer và QA khác người code.
+
 # Handoff CM-01: Thiết lập và đăng nhập quản lý
 
 **Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md): Java Spring, JWT cookie/refresh/revocation và Redis throttle. Các mục bàn giao Next.js/Node/opaque session bên dưới là lịch sử; BA/PM đã cấp lại `BA_READY`, Tech độc lập/PM cấp `TECH_READY` cho CM-01 Java/JWT/Redis. Readiness #43–#45 còn chờ từng ticket; không có code CM-01 hoặc QA.
@@ -127,3 +133,11 @@
 **DETAIL:** [Story](story.md), [spec](spec.md), [thiết kế](technical-design.md), [test-spec](test-spec.md), [tracker](../../docs/agents/issue-tracker.md), Planio [#43](https://tanninh.planio.com/issues/43), [#44](https://tanninh.planio.com/issues/44), [#45](https://tanninh.planio.com/issues/45). Chưa có code ứng dụng, build hoặc kết quả test ứng dụng.
 
 — Codex `/root` trong vai CapmmPM; BA review `/root/cm01_pm_ba`, Tech review `/root/cm01_tech_review`
+
+## PM — CM01-Q4, 15/10/2026
+
+Ninh chọn Chromium/WebKit giả lập để qua QA từng ticket, giữ thiết bị thật ở nghiệm thu cuối CM-01; xem qnaCM01-Q4. QA43T06 dùng hai engine/viewport, ghi rõ emulation. Không còn blocker thiết bị thật cho riêng#43–45. Gate Story cuối vẫn cần iPhone/Android thật; tiếp tục mọi công việc độc lập trước đó.
+
+## PM — DEV_REVIEWED #43, 15/10/2026
+
+Đối chiếu đúngAC1/6, Dev backend `/root/review_spec`, Devweb `/root`; backendSpec reviewer `/root`, Standards toàncode/webSpec reviewer `/root/review_standards` khôngP0/P1. Freshintegration SMTP/PostgreSQL/twoJVM/Mailpitdigest và clock/CAS targetedtests green, webbuild +hai engineviewportgreen. Fullsuite cũ có positiveclockfixturefail doVMahead87ms; fixfixturekhôngđổi guard đãgreen riêng; QA phải rerunfullsnapshot và kiểm actualDBloss. Cấp DEV_REVIEWED riêng#43 đểQA thực thi, chưaQA_PASS/#44Ready. Xem dev43-evidence.md/code-review43.md/qa43-plan.md.

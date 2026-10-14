@@ -29,3 +29,7 @@
 | CM-J-T21 | Story sau #43–#45 / AC1–AC7 | regression, integration | Chạy toàn luồng Mailpit → entry → setup → login → refresh → logout → reload trên build pin, viewport iPhone/Android và thiết bị thật khi có; ba ticket đã được QA xác nhận riêng, không kế thừa pass Node. Case này chỉ chặn `QA_PASS` cấp Story sau #45, không chặn hoàn tất riêng #43/#44. | not-run |
 
 **Tám chiều QA:** AC (T01/T07/T13/T15), BR (T01/T07/T10/T13), state transition (T04/T10/T15–T17), boundary (T05/T07/T08/T15/T18), error/recovery (T03/T11/T16/T20), security/permission (T02/T09/T14/T17–T20), integration (T01/T06/T13/T21), regression (T12/T21). QA xác nhận phần #43 bằng T01–T06, phần #44 bằng T07–T12 và các phép setup của T18–T19, phần #45 bằng T13–T20; T21 là regression cấp Story sau #45. Kết quả ticket trước là điều kiện `HARD` cho ticket sau; `QA_PASS` chỉ cấp Story sau khi mọi AC và T21 chạy đủ. Email thật, domain/VPS production và thiết bị thật chưa có bằng chứng; nếu case bắt buộc chưa chạy, giữ `not-run`/`blocked`, không tự ghi QA_PASS. Ninh đã chọn email thật kiểm khi có hạ tầng, nên QA dùng Mailpit cho vòng dev/test hiện tại và ghi giới hạn rõ.
+
+## Điều chỉnh gate CM01-Q4, 15/10/2026
+
+Ninh xác nhận Chromium/WebKit giả lập đủ cho QA từng ticket; thiết bị iPhone/Android thật ở nghiệm thu cuối CM-01. T06 và phần UI ticketT13 dùng hai engine/viewport; T21/nghiệm thu Story giữ thiết bị thật. Không đánh đồng hai loại bằng chứng. #43 đãREADY_FOR_IMPLEMENTATION sau INFRAClosed/QA_PASS và BA/Tech recheck; #44/#45 vẫn theo HARD.

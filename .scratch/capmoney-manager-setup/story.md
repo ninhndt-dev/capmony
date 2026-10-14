@@ -1,9 +1,9 @@
 # Story CM-01: Thiết lập và đăng nhập tài khoản quản lý
 
 **Planio:** [CM-01 / issue 8](https://tanninh.planio.com/issues/8)
-**Lifecycle:** planning (BA_READY và TECH_READY Java/JWT/Redis; ticket Dev chờ rà riêng)
+**Lifecycle:** implementing #43; BA_READY/TECH_READY và readiness#43 được đối chiếu15/10/2026. #44/#45 chờ QA ticket trước.
 **Status nguồn bước 8:** needs-triage; trạng thái công việc hiện hành ở Planio.
-**Blocked by:** BA/Tech rà từng ticket Java rồi PM xét readiness; hạ tầng dev/test Java+Redis [INFRA-01.1 / #47](../capmoney-infrastructure/issues/01-docker-dev-test.md) phải QA_PASS trước khi #43 khởi động. Email quản lý thật, tên miền gửi và hạ tầng production chỉ là điều kiện mở vận hành thực tế, không chặn thử bằng dữ liệu riêng.
+**Blocked by:** #43 không còn HARD: INFRA#47/#48QA_PASS vàClosed, BA/Tech recheck khôngP0/P1, PM cấpREADY_FOR_IMPLEMENTATION. #44/#45 giữ phụ thuộc tuần tự; thiết bị thật ở nghiệm thu cuốiStory theoCM01-Q4. Email quản lý thật, tên miền gửi và hạ tầng production chỉ là điều kiện mở vận hành thực tế, không chặn thử bằng dữ liệu riêng.
 
 ## Phạm vi và nguồn
 
