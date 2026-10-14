@@ -1,6 +1,20 @@
 # Handoff CM-01: Thiết lập và đăng nhập quản lý
 
-**Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md): Java Spring, JWT cookie/refresh/revocation và Redis throttle. Các mục bàn giao Next.js/Node/opaque session bên dưới là lịch sử; BA_READY phần phiên, TECH_READY và readiness #43 tạm dừng cho đến khi BA → PM → Tech → PM rà lại. #44/#45 vẫn bị chặn. Không có code CM-01 hoặc QA.
+**Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md): Java Spring, JWT cookie/refresh/revocation và Redis throttle. Các mục bàn giao Next.js/Node/opaque session bên dưới là lịch sử; BA/PM đã cấp lại `BA_READY` cho bản Java/JWT, còn `TECH_READY` và readiness #43–#45 tạm dừng. Không có code CM-01 hoặc QA.
+
+## CapmmPM — CM-01 / BA gate Java-JWT
+
+**DONE:** Rà độc lập [spec 20 mục](spec.md), F11/F23–F24, R12/R13/R22/R57, TS10–TS38 và [CM01-Q1–Q3](qna.md) sau BA cập nhật. Phát hiện P1 ban đầu: AC7 đòi kiểm đổi/đặt lại mật khẩu, trong khi đặt lại thuộc #22 còn đổi mật khẩu chưa nằm trong CM-01; như vậy CM-01 không thể đạt `QA_PASS` riêng. BA đã chuyển yêu cầu R57 sang mục phụ thuộc #22, bỏ khỏi AC7. P2 về gọi nhầm đổi mật khẩu là phạm vi #22 đã sửa trong spec. Rà lại AC1–AC7: mục tiêu, actor/quyền, luồng thường/lỗi, quy tắc một quản lý, hạn 72 giờ, đăng xuất mọi thiết bị và thu hồi family khi refresh reuse đều có nguồn và tiêu chí kiểm được.
+
+**RESULT:** `BA_READY` **đạt cho CM-01 Java/JWT ngày 14/10/2026**, không còn P0/P1 BA. Thời hạn refresh 7 ngày đã chốt; cách tính hạn family qua nhiều lần rotate là `TECH_GAP` cần Tech đề xuất và PM rà trải nghiệm trước `TECH_READY`. Review này không cấp `TECH_READY`, readiness #43–#45 hay `QA_PASS`.
+
+**NEED HUMAN:** None cho gate BA. Email/tên miền/SMTP thật cần khi thử vận hành thật, không chặn thử dữ liệu riêng. Nếu Tech đề xuất gia hạn family vượt 7 ngày và PM coi đó là thay đổi sản phẩm, phải hỏi Ninh qua giao diện lựa chọn.
+
+**PENDING:** Tech lập thiết kế Java/JWT/Redis, reviewer Tech khác người lập và PM kiểm `TECH_READY`; sau đó PM xét lại từng ticket #43–#45. #43 còn bị #47 chặn trước tích hợp; #44/#45 có phụ thuộc tuần tự. QA chưa có build Java để chạy.
+
+**DETAIL:** [Spec AC1–AC7](spec.md), [Q&A](qna.md), [Story](story.md), [workflow](../../docs/workflows/capmm-end-to-end.md). Không có code, build/test CM-01 Java hoặc email thật tại thời điểm review.
+
+— `/root/pm_ba_rebaseline` trong vai CapmmPM độc lập, khác người lập BA
 
 ## CapmmBA — CM-01 / rebaseline Java-JWT
 

@@ -2,6 +2,20 @@
 
 **Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); stack Node/Hono và gate #47 cũ bị tạm dừng. Planio #46/#47 đã chuyển `Open`, QA IF-T03 fail trước khi đổi stack. Các kết quả cũ dưới đây là bằng chứng lịch sử, không cấp readiness cho Java.
 
+## CapmmPM — INFRA-01 / BA gate Java-Redis
+
+**DONE:** Rà độc lập [spec 20 mục](spec.md) sau BA rebaseline, đối chiếu IF-Q1–IF-Q5, TS01/TS04/TS06–TS08 và TS10–TS38 với AC-IF01-1–5. Mục không có nghiệp vụ sản phẩm nêu rõ lý do không áp dụng. Actor, luồng bình thường/lỗi, ranh giới dev/test, volume không phải backup, kiểm DB/Redis outage và thư thử đều có tiêu chí quan sát được. Bản Node/Hono/IF-T03 fail được phân biệt rõ là lịch sử.
+
+**RESULT:** `BA_READY` **đạt cho INFRA-01 Java/Redis ngày 14/10/2026**; không thấy P0/P1 BA còn mở. Đây là review tài liệu, không cấp `TECH_READY`, `READY_FOR_IMPLEMENTATION` cho #47 hay `QA_PASS`.
+
+**NEED HUMAN:** None cho đặc tả môi trường dev/test; VPS/domain/SMTP thật là điều kiện vận hành sau.
+
+**PENDING:** Reviewer Tech độc lập kiểm lại ADR 0003, Tech lập thiết kế INFRA Java, PM kiểm `TECH_READY`; sau đó mới xét ticket #47, chạy build/QA Java. Với AC-IF01-3, Tech phải chứng minh test-only probe không lọt vào sản phẩm và kiểm được peer/header/Origin thực.
+
+**DETAIL:** [Spec mục 1–20](spec.md), [Q&A](qna.md), [nguồn TS10–TS38](../../docs/requirements/tech-stack-round-2.md), [Story](story.md). Không có build/test Java hay email thật tại thời điểm review.
+
+— `/root/pm_ba_rebaseline` trong vai CapmmPM độc lập, khác người lập BA
+
 ## CapmmBA — INFRA-01 / rebaseline Java-Redis
 
 **DONE:** Đối chiếu TS10–TS38 với spec 20 mục, sửa AC-IF01-1–5 cho Java Spring API, Redis dev/test, PostgreSQL/Mailpit/Caddy/React placeholder, lỗi DB/Redis và network/Origin probe. CSRF sản phẩm thuộc CM-01; ghi [Q&A](qna.md) tách lựa chọn Ninh đã xác nhận khỏi kiến trúc Tech đề xuất.

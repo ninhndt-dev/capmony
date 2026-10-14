@@ -1,7 +1,7 @@
 # Feature Spec: INFRA-01 – Docker dev/test trước FE/BE
 
 **Story:** [story](story.md) · **Nguồn hiện hành:** [TS01/TS04/TS06–TS08](../../docs/requirements/tech-stack-round-1.md), [TS10–TS38](../../docs/requirements/tech-stack-round-2.md), [ADR 0003 đề xuất](../../docs/adr/0003-java-spring-and-deployment.md), [sơ đồ Java đề xuất](architecture-java-proposal.md).
-**Rebaseline BA 14/10/2026:** Bản 20 mục này đã đối chiếu Java Spring/Redis/Tailwind và Docker chỉ cho dev/test. Gate BA/TECH cũ là lịch sử Node/Hono; bản BA này **chờ PM review**, Tech design/review và PM mới trước khi ticket #47 được xét readiness. QA cũ IF-T03 fail, không `QA_PASS`.
+**Rebaseline BA/PM 14/10/2026:** Bản 20 mục này đã đối chiếu Java Spring/Redis/Tailwind và Docker chỉ cho dev/test. Gate BA/TECH cũ là lịch sử Node/Hono; PM độc lập đã xác nhận `BA_READY` cho bản Java/Redis. Tech design/review và PM vẫn cần trước khi ticket #47 được xét readiness. QA cũ IF-T03 fail, không `QA_PASS`.
 
 ## 1. Executive Summary / User Story statement
 
@@ -109,3 +109,4 @@ Xem [Q&A](qna.md) IF-Q1–IF-Q5 và [TS10–TS38](../../docs/requirements/tech-s
 | 14/10/2026 | Theo PM Tech review: hai API instance thuộc kiểm CM-01; giữ một instance trong INFRA-01, bổ sung V4 Origin trong technical-design | [technical-design](technical-design.md) |
 | 14/10/2026 | PM độc lập xác nhận `BA_READY` và `TECH_READY` ở mức thiết kế sau reviewer Tech; cho phép tạo ticket Compose, chưa chứng minh V1–V6 | [handoff](handoff.md) |
 | 14/10/2026 | BA cập nhật 20 mục/AC-IF01-1–5 cho Java Spring/Redis theo TS10–TS38; chờ PM review, chưa cấp gate Java | [tech stack vòng 2](../../docs/requirements/tech-stack-round-2.md), [ADR 0003 đề xuất](../../docs/adr/0003-java-spring-and-deployment.md) |
+| 14/10/2026 | PM độc lập đối chiếu 20 mục/5 AC với TS10–TS38 và IF-Q1–IF-Q5, xác nhận `BA_READY` cho Java/Redis; Tech gate còn chờ | [handoff](handoff.md), [story](story.md) |

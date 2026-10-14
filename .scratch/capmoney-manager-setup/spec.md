@@ -1,9 +1,9 @@
 # Feature Spec: CM-01 – Thiết lập và đăng nhập tài khoản quản lý
 
-**Rebaseline BA 14/10/2026:** Quy tắc nghiệp vụ F11/F23–F24 và AC về một tài khoản quản lý vẫn là đầu vào; Ninh đã chọn Java Spring, JWT cookie, access 15 phút, refresh 7 ngày, thu hồi ngay qua DB và Redis cho giới hạn thử đăng nhập ở [TS10–TS38](../../docs/requirements/tech-stack-round-2.md). Gate `BA_READY` cũ đang **chờ PM rà lại** bản cập nhật này. Thiết kế JWT/Redis và hiệu lực của `TECH_READY` phải được Tech độc lập/PM review lại; chưa có `READY_FOR_IMPLEMENTATION` cho Java.
+**Rebaseline BA/PM 14/10/2026:** Quy tắc nghiệp vụ F11/F23–F24 và AC về một tài khoản quản lý vẫn là đầu vào; Ninh đã chọn Java Spring, JWT cookie, access 15 phút, refresh 7 ngày, thu hồi ngay qua DB và Redis cho giới hạn thử đăng nhập ở [TS10–TS38](../../docs/requirements/tech-stack-round-2.md). PM độc lập đã rà AC1–AC7 sau CM01-Q2/B và CM01-Q3/A; `BA_READY` đạt cho bản Java/JWT này. Thiết kế JWT/Redis và hiệu lực của `TECH_READY` phải được Tech độc lập/PM review lại; chưa có `READY_FOR_IMPLEMENTATION` cho Java.
 
 **Story:** [story.md](story.md) · **Planio:** [issue 8](https://tanninh.planio.com/issues/8)
-**BA gate lịch sử:** `BA_READY` ngày 14/10/2026 áp dụng bản AC1–AC6 trước TS10–TS38; PM độc lập `/root/cm01_pm_ba` đã rà bản đó. Bản cập nhật AC1–AC7 chưa có PM review mới; xem [handoff](handoff.md).
+**BA gate lịch sử:** `BA_READY` cho AC1–AC6 trước TS10–TS38 chỉ là lịch sử. Gate mới cho AC1–AC7 có review độc lập tại [handoff](handoff.md).
 
 ## 1. Executive Summary / User Story statement
 
@@ -68,7 +68,7 @@ Email quản lý và tài khoản ghi chép cá nhân của Ninh là hai tài kh
 
 - Hành vi công khai: chưa có quản lý → liên kết được gửi → liên kết hợp lệ mở được biểu mẫu → hoàn tất thành công tạo đúng một quản lý và liên kết không dùng lại được.
 - Trước khi hoàn tất: liên kết hết hạn hoặc bị thay thế thì không còn dùng được. Thay liên kết hết hạn là #02, không phải CM-01. [F24]
-- Sau khi có quản lý: luồng thiết lập đầu tiên đóng vĩnh viễn; quản lý có thể đăng nhập, duy trì quyền truy cập khi access JWT còn hiệu lực hoặc refresh JWT còn dùng được trong hạn đã chọn. Đăng xuất trên một điện thoại thu hồi ngay mọi phiên quản lý trên các điện thoại qua trạng thái DB theo [CM01-Q2](qna.md); đổi mật khẩu/đặt lại mật khẩu quản lý cũng kết thúc mọi phiên cũ theo R57. Nếu refresh token cũ xuất hiện lại sau khi đã dùng và không phân biệt được retry hợp lệ, thu hồi family của phiên liên quan và yêu cầu đăng nhập lại theo CM01-Q3; tình huống này có thể xảy ra do hai tab/mất phản hồi, không tự thu hồi mọi điện thoại như hành động đăng xuất. Mô hình dữ liệu/trạng thái nội bộ do Tech thiết kế.
+- Sau khi có quản lý: luồng thiết lập đầu tiên đóng vĩnh viễn; quản lý có thể đăng nhập, duy trì quyền truy cập khi access JWT còn hiệu lực hoặc refresh JWT còn dùng được trong hạn đã chọn. Đăng xuất trên một điện thoại thu hồi ngay mọi phiên quản lý trên các điện thoại qua trạng thái DB theo [CM01-Q2](qna.md). Nếu refresh token cũ xuất hiện lại sau khi đã dùng và không phân biệt được retry hợp lệ, thu hồi family của phiên liên quan và yêu cầu đăng nhập lại theo CM01-Q3; tình huống này có thể xảy ra do hai tab/mất phản hồi, không tự thu hồi mọi điện thoại như hành động đăng xuất. Đặt lại mật khẩu và yêu cầu thu hồi phiên của R57 thuộc Story #22, ngoài AC/QA của CM-01; CM-01 phải cung cấp cơ chế thu hồi để #22 sử dụng sau. Nếu sau này có luồng đổi mật khẩu, TS33 cũng đòi thu hồi ngay; luồng đó không nằm trong CM-01. Mô hình dữ liệu/trạng thái nội bộ do Tech thiết kế.
 
 ## 10. Data Fallback & Offline Handling
 
@@ -114,9 +114,9 @@ Email quản lý và tài khoản ghi chép cá nhân của Ninh là hai tài kh
 - `AC4`: sau khi đã thiết lập, không thể thiết lập thêm quản lý qua liên kết cũ, email khác hoặc đường gọi trực tiếp; tài khoản quản lý không tự có quyền ngoài phạm vi. [R12/R13, Story #01]
 - `AC5`: bấm xác nhận lặp hoặc hai yêu cầu hoàn tất cùng liên kết gần đồng thời chỉ tối đa một thành công và cuối cùng đúng một tài khoản quản lý. [Story #01]
 - `AC6` (**điều kiện an toàn kỹ thuật, PM rà trải nghiệm**): nhà cung cấp từ chối yêu cầu gửi hoặc kết quả gửi chưa rõ thì hệ thống không báo đã gửi thành công; thử lại an toàn và không để hai liên kết thiết lập còn hiệu lực cùng lúc. Việc email thực sự tới hộp thư chỉ được xác nhận bằng kiểm hộp thư thử/thật, không suy từ phản hồi nhà cung cấp.
-- `AC7` (**Ninh đã xác nhận; PM rà khả năng kiểm chứng**): sau đăng nhập, access JWT được giữ trong cookie `HttpOnly`/`Secure` và hết hạn sau 15 phút; refresh JWT còn dùng được trong hạn 7 ngày cho phép tiếp tục truy cập sau khi cấp access mới. Đăng xuất trên một điện thoại thu hồi ngay **mọi token quản lý trên mọi điện thoại** qua trạng thái DB; yêu cầu bảo vệ tiếp theo ở các điện thoại khác bị từ chối và phải đăng nhập lại, kể cả khi JWT chưa hết hạn. Đổi hoặc đặt lại mật khẩu quản lý cũng kết thúc mọi phiên cũ theo R57. Khi refresh token đã dùng xuất hiện lại mà không phân biệt được retry/replay, **chỉ family của phiên liên quan** bị thu hồi ngay và phải đăng nhập lại; hai tab/mất phản hồi có thể gây trường hợp này. [TS30–TS33, R57, CM01-Q2, CM01-Q3]
+- `AC7` (**Ninh đã xác nhận; PM đã rà khả năng kiểm chứng**): sau đăng nhập, access JWT được giữ trong cookie `HttpOnly`/`Secure` và hết hạn sau 15 phút; refresh JWT còn dùng được trong hạn 7 ngày cho phép tiếp tục truy cập sau khi cấp access mới. Đăng xuất trên một điện thoại thu hồi ngay **mọi token quản lý trên mọi điện thoại** qua trạng thái DB; yêu cầu bảo vệ tiếp theo ở các điện thoại khác bị từ chối và phải đăng nhập lại, kể cả khi JWT chưa hết hạn. Khi refresh token đã dùng xuất hiện lại mà không phân biệt được retry/replay, **chỉ family của phiên liên quan** bị thu hồi ngay và phải đăng nhập lại; hai tab/mất phản hồi có thể gây trường hợp này. [TS30–TS33, CM01-Q2, CM01-Q3]
 
-`BA_READY` cần PM đối chiếu nguồn và 20 mục; `QA_PASS` cần case thực chạy trên build. Hai trạng thái này không suy từ tài liệu hiện có.
+`BA_READY` đã được PM đối chiếu nguồn và 20 mục ở [handoff](handoff.md); `QA_PASS` vẫn cần case thực chạy trên build, không suy từ tài liệu hiện có.
 
 ## 17. Figma Mapping / Visual References
 
@@ -124,7 +124,7 @@ Không áp dụng Figma vì repo chưa có Figma được duyệt. Ảnh CapMone
 
 ## 18. Dependencies (Cross-feature / Cross-story)
 
-- CM-01 không bị Story khác chặn. CM-02 phụ thuộc khả năng phát hành/tiêu thụ liên kết; CM-03 dùng phiên/quyền quản lý; CM-04 là tài khoản ghi chép riêng. Chỉ CM-01 được triển khai trong vòng này.
+- CM-01 không bị Story khác chặn. CM-02 phụ thuộc khả năng phát hành/tiêu thụ liên kết; CM-03 dùng phiên/quyền quản lý; CM-04 là tài khoản ghi chép riêng. Đặt lại mật khẩu và kiểm thu hồi phiên theo R57 thuộc #22; CM-01 chỉ cần thiết kế cơ chế thu hồi có thể dùng lại, không thực hiện luồng #22 hoặc đưa vào AC/QA CM-01. TS33 yêu cầu thu hồi khi đổi mật khẩu nếu chức năng đó được bổ sung về sau. Chỉ CM-01 được triển khai trong vòng này.
 - Hợp đồng nền tảng email, lưu trữ và phiên của CM-01 sẽ ảnh hưởng #02/#03/#04; Tech cần chốt ranh giới và kiểm tương thích trước khi PM chia ticket Dev.
 
 ## 19. Q&A Log & Resolved Decisions
@@ -144,3 +144,5 @@ Không áp dụng Figma vì repo chưa có Figma được duyệt. Ảnh CapMone
 | 14/10/2026 | BA đối chiếu TS10–TS38, thêm thời hạn JWT/cookie/thu hồi DB vào spec và AC7; tách CM01-Q2 về phạm vi đăng xuất. Gate BA chờ PM review, Tech gate cũ không còn hiệu lực | [tech stack vòng 2](../../docs/requirements/tech-stack-round-2.md), [Q&A](qna.md) |
 | 14/10/2026 | Ninh chọn CM01-Q2/B: đăng xuất một điện thoại thu hồi mọi phiên quản lý; cập nhật AC7, chờ PM review | [Q&A](qna.md) |
 | 14/10/2026 | Ninh chọn CM01-Q3/A: refresh reuse không phân biệt được thì thu hồi family của phiên và yêu cầu đăng nhập lại; cập nhật AC7, chờ PM review | [Q&A](qna.md), [Tech review](../capmoney-infrastructure/java-tech-review.md) |
+| 14/10/2026 | Theo PM review rebaseline: chuyển đổi/đặt lại mật khẩu và kiểm R57 sang phụ thuộc #22, không để trong AC7/QA CM-01 | [handoff](handoff.md) |
+| 14/10/2026 | PM độc lập rà lại AC1–AC7 và 20 mục sau sửa P1, xác nhận `BA_READY` cho Java/JWT; thời hạn family khi rotate để Tech/PM xét trước `TECH_READY` | [handoff](handoff.md), [story](story.md) |
