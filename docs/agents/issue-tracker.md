@@ -2,6 +2,8 @@
 
 Ninh chọn lưu công việc ngay trong dự án. Spec và ticket nằm tại `.scratch/` và được giữ trong phiên bản dự án.
 
+Ninh đã đề nghị [chuyển quản lý sang Dona](../workflows/dona-migration.md). Chưa có kết nối và chưa chuyển Story; quy ước Markdown dưới đây vẫn áp dụng cho tới khi đối chiếu xong dữ liệu trên Dona.
+
 Từ sau #06, theo [workflow CapMM](../workflows/capmm-end-to-end.md), 35 file tại `.scratch/capmoney-overall/issues/` là **Story ứng viên** đã được Ninh duyệt cách chia ở bước 8. Chúng chưa phải ticket Dev đạt gate. Ticket triển khai cấp dưới chỉ tạo ở `.scratch/<feature-slug>/issues/` sau `BA_READY` và `TECH_READY`; mỗi ticket phải đạt `READY_FOR_IMPLEMENTATION` riêng trước khi giao Dev. Nhãn `Status:` không thay bằng chứng gate.
 
 ## Quy ước
