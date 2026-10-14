@@ -30,7 +30,7 @@
 | F18 | Khi chuyển sang trang khác trước khi lưu ví đầu tiên rồi quay lại trong cùng phiên ứng dụng có Internet, nội dung nhập dở được giữ; ví chỉ được tạo sau khi lưu thành công. | Ninh trả lời “A cả”, Q2 vòng 4 bước 5 |
 | F19 | Trước khi xóa một khoản thu, chi hoặc lần chuyển tiền được phép xóa, ứng dụng hỏi xác nhận; lần chuyển được xóa như một đơn vị. | Ninh trả lời “A cả”, Q3 vòng 4 bước 5; R55, B13, B30 |
 | F20 | Nếu đã có ví nhưng tất cả đều ngừng sử dụng, nút ghi thu/chi chung dẫn tạo ví mới hoặc bật dùng lại ví đã ngừng; khi hoàn tất, quay về ghi thu/chi. | Ninh trả lời “A cả”, Q4 vòng 4 bước 5; B04, B06, F14 |
-| F21 | Đóng hẳn trình duyệt trước khi bấm Lưu ví hoặc giao dịch thì mở lại trên cùng điện thoại bằng cùng tài khoản không khôi phục bản nhập dở; biểu mẫu mở trống. Dữ liệu đã lưu trước đó vẫn còn. F09 áp dụng khi phiên còn mở; nếu đã bấm Lưu rồi đóng, xem F25. | Ninh chọn B, Q1 vòng 5 bước 5; F18 |
+| F21 | Đóng hẳn trình duyệt trước khi bấm Lưu ví hoặc giao dịch thì mở lại trên cùng điện thoại bằng cùng tài khoản không khôi phục bản nhập dở; biểu mẫu mở trống. Dữ liệu đã lưu trước đó vẫn còn. F09 áp dụng cho giao dịch khi phiên còn mở; nếu đã bấm Lưu **giao dịch** rồi đóng, xem F25. Với **ví đầu tiên** đã bấm Lưu rồi đóng, xem R67 được chốt riêng ở bước 9. | Ninh chọn B, Q1 vòng 5 bước 5; F18; làm rõ ranh giới F25/R67 ở bước 9 |
 | F22 | Khi B30 chặn lưu từ bản giao dịch cũ, giữ phần vừa nhập để người dùng tự so sánh và nhập lại trên bản mới nhất rồi lưu hoặc bỏ; không tự hợp nhất hay ghi đè bản mới. | Ninh chọn A, Q2 vòng 5 bước 5; B30, F08 |
 | F23 | Liên kết thiết lập tài khoản quản lý đầu tiên chỉ dùng một lần, hết hạn sau 3 ngày kể từ lúc gửi. | Ninh chọn B, Q3 vòng 5 bước 5; F11 |
 | F24 | Nếu liên kết thiết lập quản lý hết hạn trước khi hoàn tất, Ninh tự yêu cầu gửi lại trên trang thiết lập; liên kết mới chỉ gửi tới email quản lý đã cung cấp, không cho nhập email khác hay tự đăng ký quản lý; liên kết cũ hết hiệu lực. Sau khi thiết lập xong, luồng này không cấp lại tài khoản quản lý. | Ninh chọn B, Q4 vòng 5 bước 5; F11, F23 |
@@ -40,6 +40,8 @@
 Các quy tắc về quyền và xóa tức thì đã chốt ở [người dùng và quyền](actors-and-roles.md) vẫn áp dụng; bảng trên chỉ ghi chi tiết luồng được hỏi ở bước 5.
 
 **Bổ sung tại bước 9:** Ninh đã xác nhận R65: nếu lời mời chưa dùng, còn hạn và người nhận không thấy email, Ninh gửi lại chính liên kết đó tới cùng email, giữ hạn gốc. Đây là quyết định sau khi kết thúc bước 5; F07 xin lại mã xác minh và F03/F26 mời mới sau hạn giữ nguyên. Xem [vòng làm rõ #03](38-step-9-invitation-send-round-1.md).
+
+**Bổ sung cho F21/F25 tại bước 9:** Câu hỏi gốc của F25 là kết quả Lưu **giao dịch** sau đóng trình duyệt. Ninh đã xác nhận R67 riêng cho **ví đầu tiên** với cùng đường tự đối chiếu và chặn lưu trùng; không suy F25 tự áp cho mọi loại thao tác. [Vòng làm rõ #06, Q2](40-step-9-first-wallet-round-2.md)
 
 ## Tổng hợp luồng đã được Ninh xác nhận hiểu đúng
 

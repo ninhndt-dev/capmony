@@ -2,9 +2,9 @@
 
 **Ticket:** [06 – Tạo ví đầu tiên](../capmoney-overall/issues/06-tao-vi-dau-tien.md)
 
-**Status:** needs-info
+**Status:** needs-triage
 
-**Rà soát:** BA → PM → Tech đã rà phạm vi ngày 14/10/2026; chờ Ninh chọn Q2 và PM rà bản cuối. Chưa giao Dev.
+**Rà soát:** BA → PM → Tech → PM đã rà ngày 14/10/2026; PM xác nhận phạm vi tạo/đọc ví và R66–R67. Ticket vẫn `needs-triage`, chưa giao Dev.
 
 ## Problem Statement
 
@@ -12,7 +12,7 @@ Người dùng mới có tài khoản ghi chép nhưng chưa có ví nên chưa 
 
 ## Solution
 
-Khi người dùng chưa có ví và đi tới luồng ghi thu/chi, CapMoney dẫn họ tạo ví trước. Người dùng nhập tên ví bắt buộc và có thể nhập số dư ban đầu; để trống số dư thì dùng 0 VND. Số dư ban đầu là số nguyên VND có thể âm. Chỉ khi Lưu thành công, ví mới xuất hiện với số dư hiện tại bằng số dư ban đầu và thuộc riêng tài khoản đó. Trước Lưu, rời trang rồi quay lại trong cùng phiên có Internet giữ nội dung đang nhập; đóng hẳn trình duyệt rồi mở lại thì biểu mẫu trống.
+Khi người dùng chưa có ví và đi tới luồng ghi thu/chi, CapMoney dẫn họ tạo ví trước. Người dùng nhập tên ví bắt buộc và có thể nhập số dư ban đầu; để trống số dư thì dùng 0 VND. Số dư ban đầu là số nguyên VND có thể âm. Chỉ khi Lưu thành công, ví mới xuất hiện với số dư hiện tại bằng số dư ban đầu và thuộc riêng tài khoản đó. Trước Lưu, rời trang rồi quay lại trong cùng phiên có Internet giữ nội dung đang nhập; đóng hẳn trình duyệt rồi mở lại thì biểu mẫu trống. Nếu đã bấm Lưu rồi đóng khi kết quả chưa rõ, mở lại bằng cùng tài khoản có Internet sẽ tự đối chiếu đúng thao tác, báo kết quả chỉ khi chắc và chặn lưu trùng trong lúc chưa rõ.
 
 ## User Stories
 
@@ -25,8 +25,9 @@ Khi người dùng chưa có ví và đi tới luồng ghi thu/chi, CapMoney d�
 7. Là người dùng, tôi muốn số dư ban đầu không xuất hiện như một khoản thu để lịch sử không có giao dịch giả.
 8. Là người dùng, tôi muốn tạm rời biểu mẫu rồi quay lại trong cùng phiên có Internet và tiếp tục phần đang nhập mà chưa tạo ví.
 9. Là người dùng, tôi muốn mở lại sau khi đóng hẳn trình duyệt trước Lưu với biểu mẫu trống và dữ liệu đã lưu trước đó vẫn còn.
-10. Là chủ ví, tôi muốn chỉ tài khoản của mình đọc và sửa được ví đã tạo để dữ liệu tài chính được giữ riêng.
+10. Là chủ ví, tôi muốn chỉ tài khoản của mình tạo và đọc được ví của mình để dữ liệu tài chính được giữ riêng.
 11. Là người dùng, tôi muốn bấm Lưu lặp hoặc thử lại cùng một thao tác mà không bị tạo ví trùng.
+12. Là người dùng đã bấm Lưu rồi đóng trình duyệt khi kết quả chưa rõ, tôi muốn mở lại và biết chắc ví đã lưu hay chưa để không vô tình tạo bản trùng.
 
 ## Implementation Decisions
 
@@ -36,8 +37,9 @@ Khi người dùng chưa có ví và đi tới luồng ghi thu/chi, CapMoney d�
 - Khi tạo ví đầu tiên hoặc ví thêm, người dùng **phải nhập tên ví trước khi Lưu**; không tự đặt tên nếu để trống. [R66]
 - Số dư ban đầu có thể bỏ trống và dùng 0 VND; khi nhập thì phải là số nguyên VND, có thể âm. [R23, F13, B10, B15]
 - Số dư ban đầu là mốc của ví, không phải khoản thu; trước giao dịch đầu tiên, số dư hiện tại bằng số dư ban đầu. [R30, B01]
-- Chỉ chủ tài khoản được xem/sửa dữ liệu ví. Bản mới bắt đầu không có dữ liệu cũ. [R03, R12]
+- R12 xác nhận chỉ chủ tài khoản được xem/sửa dữ liệu tài chính của mình; #06 kiểm quyền **tạo/đọc ví**, còn quyền sửa ví kiểm trong #16. Bản mới bắt đầu không có dữ liệu cũ. [R03, R12]
 - Trước khi Lưu thành công, rời trang rồi quay lại trong cùng phiên có Internet giữ bản nhập dở nhưng chưa tạo ví; đóng hẳn trình duyệt trước Lưu thì mở lại biểu mẫu trống. [F18, F21]
+- Sau khi **đã bấm Lưu ví đầu tiên** rồi đóng trình duyệt khi kết quả chưa rõ, mở lại bằng cùng tài khoản có Internet thì tự đối chiếu đúng thao tác. Chỉ báo đã/chưa lưu khi biết chắc; nếu chắc chưa lưu, mở biểu mẫu trống; nếu vẫn chưa rõ, hiện đang kiểm tra và chặn lưu trùng. [R67]
 
 ### Tech đề xuất, cần kiểm chứng trước khi giao Dev
 
@@ -50,15 +52,16 @@ Khi người dùng chưa có ví và đi tới luồng ghi thu/chi, CapMoney d�
 ### Chưa rõ
 
 - Quy tắc tên trùng, giới hạn độ dài, chuẩn hóa khoảng trắng và câu chữ báo lỗi chưa được Ninh chốt riêng; không suy ra tên ví phải duy nhất từ R66.
-- Ranh giới F21/F25 đối với **ví đã bấm Lưu rồi đóng trình duyệt khi kết quả chưa rõ** đã được BA/PM đối chiếu: Ninh chưa chốt hành vi này cho ví; [Q2](../../docs/requirements/40-step-9-first-wallet-round-2.md) đang chờ Ninh chọn. Không tự coi đó là bản nháp chưa bấm Lưu hoặc tự khôi phục bản nháp ấy.
+- Cách giữ định danh thao tác Lưu qua lần đóng/mở và trình bày trạng thái đang kiểm tra chưa được chốt kỹ thuật. R67 chỉ áp dụng cho ví đầu tiên; F25/R64 gốc nói về giao dịch, không tự áp R67 cho các thao tác khác.
 
 ## Testing Decisions
 
 - Trên web điện thoại iPhone và Android, từ tài khoản ghi chép mới chưa có ví, vào ghi thu/chi được dẫn tạo ví; trước khi có ví không lưu được thu/chi. Không khẳng định màn tạo ví bật ngay sau đăng nhập.
-- Lưu ví có tên với số dư trống, 0, số nguyên dương và âm; đọc lại sau tải trang thấy số dư đầu và hiện tại đúng. Tên trống, số dư phần lẻ hoặc chữ không được lưu. Lịch sử không có khoản thu tương ứng số dư đầu.
+- Lưu ví có tên với số dư trống, 0, số nguyên dương và âm; đọc lại sau tải trang thấy số dư đầu và hiện tại đúng. Tên trống, số dư phần lẻ hoặc chữ không được lưu. Việc tạo ví không tạo bản ghi khoản thu; màn lịch sử thuộc #10.
 - Chuyển trang trước Lưu rồi quay lại cùng phiên có Internet thấy tên/số dư đang nhập nhưng chưa có ví đã lưu; đóng hẳn trình duyệt trước Lưu rồi mở lại cùng tài khoản thì biểu mẫu trống.
-- Thử hai tài khoản ghi chép và tài khoản quản lý: chỉ chủ ví đọc/sửa được ví của mình, kể cả gọi đường tạo/đọc trực tiếp và sau tải lại trang.
+- Thử hai tài khoản ghi chép và tài khoản quản lý: chỉ chủ tài khoản tạo/đọc được ví của mình, kể cả gọi đường tạo/đọc trực tiếp và sau tải lại trang; quyền sửa ví kiểm ở #16.
 - Bấm Lưu lặp, hai yêu cầu gần đồng thời cùng thao tác, hoặc mất phản hồi: cuối cùng chỉ có một ví cho thao tác đó; hai thao tác độc lập vẫn được phép. Không báo thành công khi kết quả chưa rõ.
+- Bấm Lưu rồi đóng trình duyệt khi phản hồi chưa rõ; mở lại bằng cùng tài khoản có Internet: nếu ví đã lưu thì thấy một ví và trạng thái đã lưu; nếu chắc chưa lưu thì thấy trạng thái chưa lưu và biểu mẫu trống; nếu vẫn chưa xác định được thì thấy đang kiểm tra và không thể lưu lặp đúng thao tác. Không dùng việc chưa thấy ví trong danh sách làm bằng chứng đã thất bại. [R67]
 
 ## Out of Scope
 
@@ -67,5 +70,5 @@ Khi người dùng chưa có ví và đi tới luồng ghi thu/chi, CapMoney d�
 
 ## Further Notes
 
-- Nguồn: [phiếu tiếp nhận](../../docs/requirements/00-intake.md), [vòng tên ví R66](../../docs/requirements/39-step-9-first-wallet-round-1.md), [nghiệp vụ chính](../../docs/requirements/core-business.md), [luồng người dùng](../../docs/requirements/user-flows.md), [đặc tả tổng thể](../capmoney-overall/spec.md) và ticket #06.
-- #06 phụ thuộc #04. Chưa chuyển `ready-for-agent` trước khi kiểm chứng xác thực/quyền, tiền chính xác, tạo một lần và ranh giới F21/F25.
+- Nguồn: [phiếu tiếp nhận](../../docs/requirements/00-intake.md), [vòng tên ví R66](../../docs/requirements/39-step-9-first-wallet-round-1.md), [vòng kết quả Lưu R67](../../docs/requirements/40-step-9-first-wallet-round-2.md), [nghiệp vụ chính](../../docs/requirements/core-business.md), [luồng người dùng](../../docs/requirements/user-flows.md), [đặc tả tổng thể](../capmoney-overall/spec.md) và ticket #06.
+- #06 phụ thuộc #04. Chưa chuyển `ready-for-agent` trước khi kiểm chứng xác thực/quyền, tiền chính xác, tạo một lần và tự đối chiếu sau đóng trình duyệt theo R67.
