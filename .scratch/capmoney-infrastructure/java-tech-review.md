@@ -39,3 +39,28 @@ Ghi chú “điểm bắt buộc hỏi Ninh” của review lần đầu đã đ
 3. **P1.3 Caddy→Spring — giải ở mức hợp đồng trust.** Caddy ghi đè một giá trị XFF/X-Real-IP từ TCP peer, xóa `Forwarded`/`X-Forwarded-Host`, đặt edge secret; Spring tắt forwarded-header rewriting, kiểm TCP peer + secret bằng phép so hằng thời gian + hai IP hợp lệ/trùng trước auth/throttle. Compose chỉ publish Caddy, dùng subnet `api_net` và secret; VPS bind API loopback và dùng secret. Direct API, header thiếu/nhiều/giả, Caddy recreate, cấu hình thực `caddy adapt` và Spring servlet phải được test. [Caddy xác nhận `header_up` có thể ghi đè/xóa header](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy); [runtime `{file.*}`](https://caddyserver.com/docs/caddyfile/concepts) có nguồn chính thức, nhưng cách ghép secret cụ thể chưa được chạy.
 
 **P2 còn lại trước gate ticket liên quan:** (a) pin và smoke test cặp Boot 4.1/springdoc, Java 25, Caddy config; (b) thử Origin/CSRF với dev HTTP và production HTTPS, cookie path/clear đúng; (c) quyết quota Redis, fail closed và tác động NAT trong CM-01 qua BA/PM; (d) xác định record/transaction/idempotency của từng nghiệp vụ tài chính riêng; (e) runbook direct install/rollback và nhắc lại rủi ro không backup trước production. `architecture-java-proposal.md` vẫn ghi đúng Redis cùng VPS là **Tech đề xuất**, không coi Ninh đã chọn. Không phát hiện lệch TS10–TS38 hoặc phạm vi CM-01/INFRA-01 trong hai tài liệu được review.
+
+## Review Tech độc lập — INFRA-01 technical design Java, 14/10/2026
+
+**Reviewer:** `/root/tech_adr_rereview`, khác người soạn [technical-design-java.md](technical-design-java.md). Đã đối chiếu [spec 20 mục/AC-IF01-1–5](spec.md), [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md), addendum ở trên, [TS10–TS38](../../docs/requirements/tech-stack-round-2.md) và [ticket #47](issues/01-docker-dev-test.md). Chỉ review tài liệu, chưa build/chạy Java hoặc Compose.
+
+**RESULT: TECH_REVIEW_CHANGES_REQUIRED — một P1 về outage/recovery.** Không tự cấp `TECH_READY` hoặc đổi Planio. Bản thiết kế đã bao phủ đúng stack Java/Redis/Compose dev-test và năm AC; cách đóng gói probe test-only, peer/edge secret, Caddy header override và test Mailpit có ranh giới phù hợp về mặt tài liệu.
+
+### P1 cần sửa trước PM gate
+
+1. **Hành vi JVM khi PostgreSQL/Redis mất đang mâu thuẫn.** §3 yêu cầu “mất DB/Redis không được làm JVM thoát”; §5 lại chấp nhận “JVM sống **hoặc tự phục hồi theo restart policy**” khi PG mất. V3 đòi `/api/health` và `/api/ready/auth` trả HTTP 503 trong lúc PG dừng, và Redis mất chỉ làm auth readiness 503. Nếu JVM restart liên tục khi PG mất, Caddy sẽ trả 502 và lặp lại IF-T03 cũ, trái `AC-IF01-2`. **Sửa:** quy định JVM đã khởi động phải tiếp tục phục vụ endpoint health/readiness với 503 khi PG mất; Redis mất không làm JVM thoát; cả hai tự trở về `UP` khi phụ thuộc phục hồi. Restart policy chỉ cứu crash không dự kiến/khởi động ban đầu, không thay hợp đồng outage sau startup. V3 cần kiểm PID hoặc uptime ổn định qua outage, HTTP 503 (không 502), và recovery không rebuild/restart tay.
+
+### P2 và bằng chứng triển khai
+
+- Caddy `{file.*}` là placeholder runtime có tài liệu chính thức, nhưng `caddy adapt` chỉ chứng minh cú pháp, không chứng minh header thực có secret đúng. V5 đã yêu cầu request qua Caddy/direct API; thêm kiểm secret sinh từ file không có newline ngoài ý muốn, API/Caddy đọc cùng bytes, và log/`compose config` không in giá trị. [Caddyfile placeholders](https://caddyserver.com/docs/caddyfile/concepts), [reverse_proxy `header_up`](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy).
+- Probe test-only qua image test là hợp lý nếu runtime JAR thực trả 404. Trong V5 cần chứng minh test image dùng **cùng ingress filter/config** với runtime, không tạo bypass chỉ để probe; marker phải không đổi cho tất cả request bị từ chối.
+- V1 cần chạy Testcontainers trên môi trường có Docker daemon (ví dụ runner CI/host) và pin bản vá Boot/springdoc/Maven Wrapper/JDK trước bằng chứng; Docker image runtime không chứa test class. Đây là chi tiết Dev/QA, không thay lựa chọn TS10–TS38.
+- [Ticket #47](issues/01-docker-dev-test.md) hiện còn nguyên mô tả Node/Hono lịch sử và gate `needs-info`; PM phải rebaseline ticket sau khi P1 được giải, rồi mới xét `READY_FOR_IMPLEMENTATION`.
+
+### Addendum — kiểm lại bản sửa INFRA-01 Java, 14/10/2026
+
+**RESULT: TECH_REVIEW_PASS ở mức thiết kế chi tiết INFRA-01; P1 outage đã giải.** Reviewer `/root/tech_adr_rereview` đọc lại [technical-design-java.md](technical-design-java.md) sau khi tác giả sửa §3, §5 và V3; đối chiếu `AC-IF01-2` trong [spec](spec.md). Đây vẫn là review tài liệu, **không tự cấp `TECH_READY` hoặc `READY_FOR_IMPLEMENTATION`**; PM cần rà gate và ticket #47 riêng.
+
+- JVM đã lên phải giữ cùng PID/uptime khi PostgreSQL hoặc Redis mất; endpoint liên quan trả HTTP 503 qua Caddy, không 502/restart loop; sau khi phụ thuộc trở lại, trạng thái tự `UP` trên cùng tiến trình. Restart policy chỉ áp dụng khi khởi động ban đầu hoặc crash không dự kiến. V3 ghi phép đo PID/uptime, HTTP status và recovery, nên không còn mâu thuẫn với `AC-IF01-2` hoặc lặp lại lỗi IF-T03 cũ ở mức hợp đồng.
+- P2 về secret file, test-only probe và Testcontainers đã được đưa vào §3–4, V1/V5: 64 byte hex không newline, so byte thực qua request; test image dùng cùng main JAR/filter, runtime probe 404; Testcontainers chạy nơi có Docker daemon. Cấu hình/khả năng hoạt động thực tế vẫn phải được Dev và QA kiểm trên build Java xác định.
+- Năm AC vẫn được bao phủ bởi V1–V8. Không phát hiện P1/P2 thiết kế còn mở trong phạm vi #47. Những việc CM-01 như JWT/CSRF sản phẩm, refresh, quota Redis và email lời mời vẫn là ticket sau, không được suy là đạt từ review hạ tầng này.

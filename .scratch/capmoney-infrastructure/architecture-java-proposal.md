@@ -1,6 +1,6 @@
 # Sơ đồ kiến trúc Java/Spring đề xuất cho CapMoney
 
-**Status: PROPOSED, ngày 14/10/2026.** Bản này triển khai cách hiểu kỹ thuật từ [TS10–TS38](../../docs/requirements/tech-stack-round-2.md) và [ADR 0003 đề xuất](../../docs/adr/0003-java-spring-and-deployment.md). Reviewer Tech đã nêu ba P1; bản sửa **chưa được kiểm lại hoặc PM duyệt**, chưa cấp gate cho [INFRA-01/#47](story.md) hoặc CM-01/#43. [Sơ đồ Node/Hono cũ](architecture.md) chỉ là lịch sử.
+**Status: PROPOSED, ngày 14/10/2026.** Bản này triển khai cách hiểu kỹ thuật từ [TS10–TS38](../../docs/requirements/tech-stack-round-2.md) và [ADR 0003 đề xuất](../../docs/adr/0003-java-spring-and-deployment.md). [Reviewer Tech độc lập đã kiểm lại ba P1 ở mức ADR](java-tech-review.md); kết quả đó **chưa** cấp `TECH_READY` cho [INFRA-01/#47](story.md) hoặc CM-01/#43. [Thiết kế triển khai INFRA Java](technical-design-java.md) đang chờ review Tech/PM riêng. [Sơ đồ Node/Hono cũ](architecture.md) chỉ là lịch sử.
 
 ## Luồng request và nơi giữ dữ liệu
 
@@ -60,7 +60,7 @@ JWT ký với khóa server, kiểm `iss/aud/exp/nbf/jti`, loại access/refresh,
 
 | Mốc | Công việc | Gate/bằng chứng cần trước mốc sau |
 | --- | --- | --- |
-| 1. Thiết kế | Tech ADR 0003 và sơ đồ này; BA cập nhật spec INFRA-01/CM-01; Tech reviewer độc lập, PM rà | Chưa xong; không lấy gate Node/Hono cũ |
+| 1. Thiết kế | Tech ADR 0003 và sơ đồ này; BA cập nhật spec INFRA-01/CM-01; Tech reviewer độc lập, PM rà | Ba P1 ở mức ADR đã qua review lại; spec INFRA Java đã `BA_READY`, thiết kế triển khai và gate `TECH_READY` còn chờ |
 | 2. Docker dev/test | Sau BA_READY, TECH_READY và ticket #47 READY_FOR_IMPLEMENTATION mới, dựng Java/Redis stack và QA lại IF-T01–08 đã cập nhật | Maven Java 25, Compose route/network/secret/health, Mailpit, PG/Redis outage recovery, test commit xác định |
 | 3. CM-01 | Rebaseline #43–#45 cho JWT/Redis/Java; từng ticket qua gate và Dev→PM→QA | setup email, một manager, login/refresh/logout, CSRF, revocation, concurrent/retry |
 | 4. CI và VPS | GitHub Actions và runbook direct install theo ticket/gate riêng; sau đó có VPS/domain/SMTP | CI green, migration/rollback, systemd/Caddy/TLS, Playwright, iPhone/Android thật, nhắc lại rủi ro mất dữ liệu |

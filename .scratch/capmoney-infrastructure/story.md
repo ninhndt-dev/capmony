@@ -1,8 +1,8 @@
 # Story INFRA-01: Môi trường Docker dev/test
 
-**Lifecycle:** specification (rebaseline Java Spring theo TS10–TS38)
+**Lifecycle:** planning (#47 Java/Redis đã READY_FOR_IMPLEMENTATION; chờ Dev)
 **Planio:** [#46 – INFRA-01](https://tanninh.planio.com/issues/46), issue hạ tầng riêng; [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47) là ticket DevOps cấp dưới. Đã tạo và đọc lại ngày 14/10/2026.
-**Blocked by:** reviewer Tech độc lập rà lại ba P1 của [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md), rồi Tech cập nhật thiết kế INFRA-01 và PM kiểm gate; ticket #47 Node/Hono không còn ready.
+**Blocked by:** Dev triển khai #47 trên Java, code review và QA độc lập; bản code/QA Node/Hono không dùng cho Java.
 
 ## Phạm vi và nguồn
 
@@ -15,11 +15,11 @@
 | Gate | Hiện tại | Bằng chứng | Reviewer |
 | --- | --- | --- | --- |
 | BA_READY | **Đạt ngày 14/10/2026 cho bản Java/Redis:** PM độc lập đối chiếu 20 mục/5 AC với TS10–TS38 và IF-Q1–IF-Q5; gate Node/Hono cũ chỉ là lịch sử | [spec](spec.md), [Q&A](qna.md), [handoff](handoff.md) | `/root/pm_ba_rebaseline` |
-| TECH_READY | **Tạm dừng hiệu lực**; ADR 0002 và thiết kế Node/Hono bị thay | [ADR 0002](../../docs/adr/0002-project-infrastructure-and-stack.md), [technical-design](technical-design.md) | Tech độc lập/PM phải rà lại |
-| READY_FOR_IMPLEMENTATION | **#47 không còn ready** cho Java; trạng thái đạt trước đây chỉ áp dụng bản Node/Hono | [ticket](issues/01-docker-dev-test.md), [test spec](test-spec.md) | PM xét lại sau hai gate |
+| TECH_READY | **Đạt ngày 14/10/2026 cho INFRA Java/Redis:** thiết kế V1–V8 bao phủ 5 AC; reviewer Tech độc lập đã kiểm lại P1 outage và P2, PM đối chiếu phạm vi/stack | [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md), [thiết kế Java](technical-design-java.md), [review Tech](java-tech-review.md), [handoff PM](handoff.md) | `/root/tech_adr_rereview` và `/root/pm_ba_rebaseline` |
+| READY_FOR_IMPLEMENTATION | **#47 đạt ngày 14/10/2026 cho Java/Redis:** BA/Tech độc lập rà ticket/test spec, PM giải P2 TS22 và xét 5 AC/test data/phụ thuộc; readiness Node/Hono chỉ là lịch sử | [ticket](issues/01-docker-dev-test.md), [test spec Java](test-spec.md), [handoff](handoff.md) | `/root/ba_review`, `/root/tech_adr_rereview`, `/root/pm_ba_rebaseline` |
 | DEV_REVIEWED | commit `493f3d4` đã review cho Node/Hono, **không áp dụng cho Java**; patch P1 sau QA chưa commit | [dev evidence](dev-evidence.md), [qa evidence](qa-evidence.md) | cần code/review mới sau gate |
 | QA_PASS | **chưa đạt**: IF-T03 fail trên Node/Hono, QA dừng khi đổi stack | [test spec](test-spec.md), [qa evidence](qa-evidence.md) | QA Java phải chạy lại |
 
 ## Phụ thuộc và việc tiếp theo
 
-CM-01.1 / Planio #43 tiếp tục tạm dừng. Planio có quan hệ #47 `blocks` #43 (relation #8); INFRA-01 không tự mở lại #43. Tech phải lập ADR Java Spring, BA/PM/Tech/PM rà lại spec và ticket hạ tầng, rồi mới triển khai Java. Stack Node/Hono đã dừng, volume thử vẫn giữ. VPS/domain/SMTP thật sẽ xử lý ở giai đoạn vận hành.
+CM-01.1 / Planio #43 tiếp tục tạm dừng. Planio có quan hệ #47 `blocks` #43 (relation #8); readiness #47 không giải cạnh cho đến khi #47 hoàn tất/QA_PASS. ADR, BA/PM spec, Tech độc lập/PM thiết kế và BA/Tech/PM ticket Java đã qua gate; có thể giao Dev sau khi root đồng bộ Planio. Stack Node/Hono đã dừng, volume thử vẫn giữ. VPS/domain/SMTP thật sẽ xử lý ở giai đoạn vận hành.

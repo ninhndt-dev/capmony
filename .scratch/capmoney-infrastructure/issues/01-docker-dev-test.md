@@ -1,35 +1,41 @@
-# INFRA-01.1: Dựng môi trường Docker dev/test
+# INFRA-01.1: Dựng môi trường Docker dev/test Java
 
 **Parent:** [Planio #46 – INFRA-01](https://tanninh.planio.com/issues/46).
-**Planio child:** [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47), đã tạo và đọc lại ngày 14/10/2026.
-**Status:** `needs-info`/rebaseline; gate `READY_FOR_IMPLEMENTATION` của bản Node/Hono ngày 14/10/2026 **không còn hiệu lực** sau khi Ninh chọn Java Spring (TS10–TS38). Planio chuyển `Open`; không giao Dev ticket này trước ADR/spec/Tech/PM review mới.
-**Blocked by:** `HARD` – ADR Java Spring thay ADR 0002, BA/PM cập nhật spec/AC, Tech độc lập và PM review lại `BA_READY`/`TECH_READY`, rồi PM xét `READY_FOR_IMPLEMENTATION` mới. Không phụ thuộc code CM-01.
-**Integration blocked by:** #47 vẫn `blocks` CM-01 #43 trên Planio (relation #8), nhưng bản Node/Hono cũ không thể hoàn tất cạnh này. Phải rebaseline #47 trước.
-**Owner / review:** Codex `/root` trong vai DevOps Dev; reviewer code khác người thực hiện và PM rà; QA độc lập chạy build.
+**Planio child:** [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47).
+**Status:** `ready-for-agent` — `READY_FOR_IMPLEMENTATION` đạt cho bản Java/Redis ngày 14/10/2026 sau BA/Tech ticket review và PM kiểm gate. Readiness/Dev review của Node/Hono trước TS10–TS38 chỉ là lịch sử. Planio còn `Open` tại lần đọc gần nhất; PM/root cần đồng bộ tracker trước khi giao Dev.
+**Blocked by:** None; không có `HARD` blocker khởi động.
+**Integration blocked by:** không có bên cung cấp khác. #47 là `HARD` blocker của CM-01 #43 theo relation #8, không phải ngược lại.
+**Owner / review:** PM giao DevOps Dev sau readiness; reviewer code khác người thực hiện, PM rà phạm vi và QA độc lập chạy build.
 
 ## What it delivers
 
-Người triển khai chạy một lệnh để có môi trường Docker dev/test gồm web placeholder, API health, PostgreSQL bền qua restart và Mailpit; truy cập web/API qua một Caddy origin local, còn các dịch vụ nội bộ không mở cổng ra ngoài. Môi trường này là đường thử hạ tầng cho các ticket sản phẩm về sau, chưa có tính năng CM-01.
+Một môi trường Docker dev/test cô lập để thử React/Vite placeholder, API health/readiness Java Spring, PostgreSQL, Redis và Mailpit qua một Caddy origin loopback. API/DB/Redis/Mailpit không publish host port. Dữ liệu/secret dev và test tách nhau; không dùng dữ liệu thật. Không làm tài khoản quản lý, JWT, CSRF sản phẩm, giao dịch tài chính hoặc VPS production.
 
 ## Acceptance criteria tham chiếu
 
-- [ ] `AC-IF01-1` – Compose/secret/dữ liệu thử.
-- [ ] `AC-IF01-2` – route cùng origin, SPA deep link, API/DB health.
-- [ ] `AC-IF01-3` – port/network, IP/Origin probe fail-closed.
-- [ ] `AC-IF01-4` – PostgreSQL volume và cô lập reset.
-- [ ] `AC-IF01-5` – SMTP Mailpit và lỗi gửi.
+- [ ] `AC-IF01-1` — Compose, bản vá/image được pin, secret và dữ liệu thử.
+- [ ] `AC-IF01-2` — cùng origin, SPA deep link, health DB, readiness Redis, outage/recovery.
+- [ ] `AC-IF01-3` — port/network, edge peer/header và Origin probe fail closed.
+- [ ] `AC-IF01-4` — PostgreSQL marker qua restart/recreate, reset test cô lập.
+- [ ] `AC-IF01-5` — JavaMailSender tới Mailpit và lỗi/timeout SMTP.
 
-Nội dung AC ở [spec](../spec.md); không chép lại thành AC mới. Năm mã AC ≤5 theo workflow.
+Nội dung chuẩn ở [spec 20 mục](../spec.md); đúng 5 mã AC. [Thiết kế Java V1–V8](../technical-design-java.md) là hợp đồng kiểm chứng, [ADR 0003](../../../docs/adr/0003-java-spring-and-deployment.md) là ranh giới chung. Không dùng [thiết kế Node/Hono](../technical-design.md) để triển khai.
 
-## Hợp đồng, dữ liệu thử và bằng chứng lịch sử Node/Hono
+## Hợp đồng triển khai
 
-Các mục dưới đây mô tả ticket trước TS10–TS38, **không phải hợp đồng Java hiện hành**. BA/Tech/PM phải cập nhật sau ADR Java Spring/Redis trước khi giao Dev.
+1. `apps/api` trở thành Spring Boot 4.1/Maven trên Temurin 25, Spring MVC giữ `/api`; dùng JPA/Liquibase chỉ ở mức cấu hình health, **không tạo schema nghiệp vụ**. `GET /api/health` phản ánh API+PostgreSQL; `GET /api/ready/auth` phản ánh PostgreSQL+Redis. Khi PG/Redis mất sau khi JVM đã chạy, endpoint liên quan trả **HTTP 503 từ cùng PID** qua Caddy, không 502/restart loop; tự `UP` lại khi phụ thuộc phục hồi. Springdoc/OpenAPI được pin và smoke-test trên cặp bản vá thực.
+2. `apps/web` là React/Vite/Router/Tailwind placeholder ghi rõ môi trường thử. Caddy phục vụ `/`, deep link `/manager/setup`, chuyển `/api` giữ prefix tới Java; chỉ Caddy bind host `127.0.0.1`. Tạo dev/test Compose project, volume PostgreSQL, namespace Redis và secret tách biệt. Chỉ reset volume test sau khi xác minh project name; `down` thường giữ volume. Không gắn volume Node cũ hay production.
 
-- Theo [ADR 0002](../../../docs/adr/0002-project-infrastructure-and-stack.md) và [technical-design](../technical-design.md): React/Vite web placeholder, Hono/Node 24 API health, Caddy giữ `/api`, các mạng `web_net/api_net/data_net/mail_net`, Caddy IP cố định, PostgreSQL 17 volume, Mailpit dev/test; secret ngoài Git. Bootstrap manager chỉ là CLI nội bộ ở ticket CM-01 sau.
-- Dữ liệu: DB tên thử riêng, marker không nhạy cảm, email `manager@example.test`; không dùng tài khoản, tiền hay SMTP thật. `APP_ORIGIN` là loopback Caddy. Dữ liệu test có project/volume riêng với dev.
-- Demo V1–V6 trong [technical-design](../technical-design.md) bằng lệnh và log đã che secret trên commit/build cụ thể; test browser `/`, `/manager/setup`, `/api/health`, port/network, Origin/IP giả, marker sau recreate, thư Mailpit/lỗi SMTP. Probe POST chỉ nằm trong test runner, không có trong image sản phẩm; kiểm Mailpit qua CLI/test runner nội bộ, không cần host port.
-- Chỉ nhận `DEV_REVIEWED` sau reviewer khác người code và PM rà scope; `QA_PASS` chỉ từ người kiểm thử độc lập thực chạy, không suy từ tài liệu hoặc spike CM-01.
+   TS22 **TanStack Query + fetch vẫn được Ninh chọn** nhưng #47 chưa tải dữ liệu sản phẩm; pin/cài Query ở ticket FE đầu tiên gọi API. Placeholder #47 chỉ cần React/Vite/Router/Tailwind và phép thử route/health.
+3. Caddy ghi đè IP headers/edge secret, Spring kiểm TCP peer thật + secret + XFF/X-Real-IP đơn hợp lệ trước auth/throttle. Secret edge là 64 ký tự hex ASCII từ file `0600` không newline, chỉ mount read-only; không in giá trị trong Git/image/log/`docker compose config`. `APP_ORIGIN` phải đúng Caddy loopback. Probe POST chỉ trong test source/image dùng cùng main JAR/filter, runtime image trả 404; Origin/peer/header/secret thiếu/sai không đổi marker. `caddy adapt` qua và request thật chứng minh bytes secret cùng được đọc; không coi cú pháp là bằng chứng chạy đúng. CSRF/JWT sản phẩm thuộc CM-01.
+4. JavaMailSender gửi thư thử tới `manager@example.test` qua Mailpit nội bộ; SMTP refused/timeout báo rõ thất bại hoặc kết quả chưa rõ, không báo đã gửi. Testcontainers PostgreSQL/Redis chạy ở host/CI có Docker daemon; runtime image không chứa test class hoặc probe. Pin Maven Wrapper, Java/Boot/springdoc và image versions/digests trước khi QA chạy.
 
-## Rủi ro
+## Dữ liệu và bằng chứng thực chạy cần bàn giao
 
-Không mở host port cho API/DB/Mailpit; dev Caddy chỉ bind loopback. Nếu không chứng minh được socket peer Caddy và header IP theo topology thật, dừng auth nhạy cảm và trả Tech. Volume không phải backup; production VPS/TLS/SMTP thật ngoài ticket. Không đánh dấu CM-01 #43 ready từ việc ticket này xong.
+- Secret dev/test giả nhưng ngẫu nhiên và tách biệt, DB marker không nhạy cảm, email `manager@example.test`, `APP_ORIGIN` loopback khác nhau; không có credential hay URL production.
+- Dev ghi commit, image digest, Compose project, versions, lệnh/exit code, HTTP status/body, PID/uptime qua outage, network inspect và log đã che secret cho V1–V8. Runtime probe 404; request bị từ chối không đổi marker.
+- [Test spec Java](../test-spec.md) IF-J-T01–IF-J-T08 do QA chạy sau code review. Kết quả Node/Hono IF-T03 fail trong [QA evidence cũ](../qa-evidence.md) không chuyển thành pass. `DEV_REVIEWED` cần reviewer khác người code và PM; `QA_PASS` cần chạy thật mọi AC trên build Java xác định.
+
+## Rủi ro và giới hạn
+
+Nếu Spring/Caddy không chứng minh peer/header/secret, probe lọt runtime, secret lộ hoặc DB outage tạo 502/JVM restart thì dừng gate Dev/QA và sửa trước khi tích hợp CM-01. Volume giữ dữ liệu test qua recreate **không phải backup**. Production Ubuntu/Temurin/systemd/TLS/SMTP thật, bảo mật JWT/CSRF, quota Redis và hai API instance thuộc ticket sau; #47 hoàn tất không tự mở readiness #43.
