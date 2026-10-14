@@ -13,12 +13,14 @@ Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòn
 
 Hướng dẫn vận hành agent nằm trong [AGENTS.md](AGENTS.md). Công việc được theo dõi dưới `.scratch/` bằng Markdown theo [quy ước tracker](docs/agents/issue-tracker.md).
 
+Từ Story #07, dùng [workflow CapMM end to end](docs/workflows/capmm-end-to-end.md): BA lập spec 20 mục → PM kiểm `BA_READY` → Tech thiết kế và review độc lập → PM kiểm `TECH_READY` rồi mới chia ticket Dev. [Workflow gốc của Ninh](docs/workflows/workflow-bot-capmm-original.md) được giữ làm nguồn đối chiếu. Các Story #01–#06 chưa tự đạt gate mới.
+
 ## Lệnh tiếp tục cho Codex
 
 Sau khi mở repo và cập nhật nhánh `main`, dán yêu cầu sau vào Codex:
 
 ```text
-Tiếp tục dự án CapMoney từ trạng thái hiện tại trên nhánh main. Đọc AGENTS.md, README.md và docs/agents/workflow.md trước. Hiện đang ở bước 9/11: đặc tả chi tiết từng module. Kiểm tra đặc tả ticket #01, #02 và các điểm kỹ thuật còn cần xác minh; tiếp tục đúng chuỗi BA → PM → Tech → PM. Cập nhật tài liệu và tracker Markdown, hỏi tôi bằng các lựa chọn A/B khi cần quyết định. Chưa viết code khi ticket chưa sẵn sàng.
+Tiếp tục dự án CapMoney từ trạng thái hiện tại trên nhánh main. Đọc AGENTS.md, README.md, docs/agents/workflow.md và docs/workflows/capmm-end-to-end.md trước. Hiện ở bước 9/11, Story kế tiếp là #07 Thêm ví. Áp dụng workflow CapMM: BA lập spec 20 mục và Q&A có nguồn, PM kiểm BA_READY, Tech thiết kế và được review độc lập, PM kiểm TECH_READY rồi mới chia ticket Dev. Giữ gate chưa đạt nếu còn thiếu bằng chứng; hỏi tôi bằng lựa chọn A/B trên giao diện khi cần quyết định sản phẩm. Chưa viết code khi ticket chưa READY_FOR_IMPLEMENTATION.
 ```
 
 ## Bộ skills

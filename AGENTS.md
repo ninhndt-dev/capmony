@@ -20,6 +20,8 @@ Một ngữ cảnh, `GLOSSARY.md` và `docs/adr/` ở gốc; chỉ tạo khi thu
 
 ## Luồng làm việc
 
+Từ Story #07 áp dụng [workflow CapMM end to end](docs/workflows/capmm-end-to-end.md) cùng [quy trình 11 bước](docs/agents/workflow.md). Gate `BA_READY`, `TECH_READY` và `READY_FOR_IMPLEMENTATION` cần bằng chứng trong file; các đặc tả #01–#06 không tự đạt gate mới. Không giao Dev trước khi từng ticket đủ điều kiện.
+
 - Bước 1 đã có phiếu tiếp nhận, mười vòng hỏi đáp và các câu hỏi còn mở. Tiếp tục hỏi theo các vòng quyết định độc lập bằng `grill-with-docs`; ghi rõ **Ninh đã xác nhận**, **đề xuất**, **chưa rõ**.
 - PM đối chiếu câu trả lời với mục tiêu Ninh vừa xác nhận và chỉ đánh dấu yêu cầu đã chốt khi có bằng chứng từ Ninh.
 - Sau khi đủ yêu cầu, dùng `to-spec` và review đặc tả; tiếp theo `to-tickets` tạo các lát cắt nhỏ, mỗi ticket có tiêu chí nghiệm thu và quan hệ phụ thuộc.
