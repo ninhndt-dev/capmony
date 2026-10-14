@@ -45,7 +45,9 @@ Các quy tắc về quyền và xóa tức thì đã chốt ở [người dùng 
 
 **Bổ sung cho ví thêm tại bước 9:** R68 yêu cầu mở biểu mẫu trống nếu rời trang **trước Lưu** rồi quay lại cùng phiên, khác F18 của ví đầu tiên. R69 yêu cầu tự đối chiếu đúng thao tác nếu đã bấm Lưu ví thêm rồi đóng trình duyệt khi kết quả chưa rõ, cùng cách xử lý R67 nhưng là quyết định riêng. [Vòng làm rõ #07](41-step-9-add-wallet-round-1.md)
 
-**Bổ sung cho khoản thu tại bước 9:** R70 yêu cầu biểu mẫu **khoản thu** mở từ nút ghi chung khi có ít nhất hai ví đang sử dụng **chưa chọn ví**; người dùng phải chọn trước Lưu. Vào từ ví vẫn theo F14. R71 yêu cầu rời biểu mẫu khoản thu **trước Lưu** rồi quay lại cùng phiên có Internet thì mở trống, không tạo khoản thu hay đổi số dư. R70–R71 chưa áp dụng cho khoản chi #09; F08/F21/F09/F25 giữ phạm vi và nhánh đã chốt. [Vòng làm rõ #08](42-step-9-income-round-1.md)
+**Bổ sung cho khoản thu tại bước 9:** R70 yêu cầu biểu mẫu **khoản thu** mở từ nút ghi chung khi có ít nhất hai ví đang sử dụng **chưa chọn ví**; người dùng phải chọn trước Lưu. Vào từ ví vẫn theo F14. R71 yêu cầu rời biểu mẫu khoản thu **trước Lưu** rồi quay lại cùng phiên có Internet thì mở trống, không tạo khoản thu hay đổi số dư. R70–R71 chỉ xác nhận cho khoản thu; khoản chi được xác nhận riêng sau đó ở R72–R73. F08/F21/F09/F25 giữ phạm vi và nhánh đã chốt. [Vòng làm rõ #08](42-step-9-income-round-1.md)
+
+**Bổ sung cho khoản chi tại bước 9:** R72 yêu cầu biểu mẫu **khoản chi** mở từ nút ghi chung khi có ít nhất hai ví đang sử dụng **chưa chọn ví**; người dùng tự chọn trước Lưu. Vào từ ví vẫn theo F14. R73 yêu cầu rời biểu mẫu khoản chi **trước Lưu** rồi quay lại cùng phiên có Internet thì mở trống, không tạo khoản chi hay đổi số dư. Đây là quyết định riêng cho khoản chi, trùng hành vi với R70–R71 của khoản thu nhưng không suy sang chuyển tiền/tạo ví. F09/F25/R64 tiếp tục áp dụng khi đã bấm Lưu giao dịch và kết quả chưa rõ. [Vòng làm rõ #09](43-step-9-expense-round-1.md)
 
 ## Tổng hợp luồng đã được Ninh xác nhận hiểu đúng
 
