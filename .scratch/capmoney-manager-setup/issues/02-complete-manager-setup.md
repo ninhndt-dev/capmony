@@ -2,8 +2,8 @@
 
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8).
 **Planio child:** [#44](https://tanninh.planio.com/issues/44).
-**Status:** `blocked-by-hard`, **chưa `READY_FOR_IMPLEMENTATION`**; BA/Tech cần rà ticket Java và PM xét gate riêng. Thiết kế Node/scrypt cũ chỉ là lịch sử.
-**Blocked by:** `HARD` [CM-01.1 / #43](01-send-first-setup-link.md) hoàn tất với QA xác nhận các case của **ticket #43**; `QA_PASS` cấp Story CM-01 chỉ xét sau cả #43–#45. #43 còn bị #47 chặn.
+**Status:** `ready-for-agent` — READY_FOR_IMPLEMENTATION ngày15/10/2026 sau QA43 và BA/Tech reviews.
+**Blocked by:** Đã giải `HARD` [CM-01.1 / #43](01-send-first-setup-link.md) hoàn tất với QA xác nhận các case của **ticket #43**; `QA_PASS` cấp Story CM-01 chỉ xét sau cả #43–#45. #43 đang QA; hạ tầng #47/#48 đãClosed.
 **Integration blocked by:** None sau #43.
 **Owner / review:** CapmmDev sau readiness; BA rà AC, reviewer code độc lập, PM rà phạm vi và QA độc lập chạy build.
 
@@ -29,3 +29,5 @@ Ba AC lấy từ [spec CM-01](../spec.md). Đăng nhập và phiên thuộc #45.
 ## Bằng chứng và rủi ro
 
 Dev bàn giao commit/image, Testcontainers PostgreSQL/Redis, lệnh hai JVM, DB cuối đúng một row manager, link consumed, HTTP/status/CSRF/Origin, ảnh UI mobile và log đã che secret; QA theo [test spec Java](../test-spec.md) nhóm #44. Nếu không chứng minh transaction một commit hoặc clock mốc acceptedAt, trả Tech/Dev sửa; không dùng SQL spike/QA Node cũ làm pass. #44 hoàn tất mới giải cạnh HARD tới #45.
+
+Căn chỉnh15/10/2026: MVC5a4a130/JUnit6, secretfileEDGE_SECRET_FILE. Giữ changeset001bootstrap bất biến; thêm migrationaccount riêng. BA `/root/review_standards` vàTech `/root/review_spec` rà lại nội dung khôngP0/P1; chưa cấp readiness trướcQA#43.

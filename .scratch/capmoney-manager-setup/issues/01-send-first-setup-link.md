@@ -2,7 +2,7 @@
 
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8).
 **Planio child:** [#43](https://tanninh.planio.com/issues/43).
-**Status:** `ready-for-agent` — `READY_FOR_IMPLEMENTATION` ngày15/10/2026.
+**Status:** `done` — QA_PASS ticket ngày15/10/2026, T01–06PASS trênf63efe4; chưa QA_PASS Story.
 **Blocked by:** None: #47Closed/QA_PASS, MVC#48Closed/QA_PASS8/8.
 **Integration blocked by:** None sau #47.
 **Owner / review:** CapmmDev sau readiness; BA rà AC, reviewer code độc lập và PM rà phạm vi, QA chạy build.
@@ -13,8 +13,8 @@ Người triển khai cấu hình trước email quản lý và chạy CLI nội
 
 ## Acceptance criteria tham chiếu
 
-- [ ] `AC1` — liên kết đầu tiên chỉ tới email quản lý cấu hình sẵn, không có tự đăng ký.
-- [ ] `AC6` — SMTP từ chối/chưa rõ và retry an toàn, không hai link cùng hiệu lực.
+- [x] `AC1` — liên kết đầu tiên chỉ tới email quản lý cấu hình sẵn, không có tự đăng ký.
+- [x] `AC6` — SMTP từ chối/chưa rõ và retry an toàn, không hai link cùng hiệu lực.
 
 Hai AC lấy từ [spec CM-01](../spec.md), không thêm AC mới. Trang entry là phần dọc cần để demo [thiết kế Java §4](../technical-design-java.md); xác minh/tiêu thụ link và Lưu form thuộc #44.
 

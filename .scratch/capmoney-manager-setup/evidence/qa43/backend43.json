@@ -1,0 +1,116 @@
+{
+  "commit": "f63efe4e3e5b9303ba731c4ac88e8318733acca4",
+  "image": "capmoney-cm43-api:f63efe4",
+  "results": [
+    {
+      "case": "real-cli-accepted",
+      "database": "cm01qa_accept_20261015010753",
+      "result": {
+        "container": "capmoney-cm01-qa-accept-20261015010753",
+        "exit": 0,
+        "code": "accepted",
+        "generation": 1
+      },
+      "state": {
+        "generation": 1,
+        "state": "issued",
+        "digest_hex": true,
+        "accepted_at": "2026-10-14T18:07:59.931912+00:00",
+        "expires_at": "2026-10-17T18:07:59.931912+00:00",
+        "duration72h": true
+      }
+    },
+    {
+      "case": "mailpit-fragment-digest",
+      "evidence": {
+        "mail_id": "W85f3zEHtGnxXgtGwrPt45",
+        "recipient": "manager@example.test",
+        "token_32_bytes": true,
+        "fragment_only": true,
+        "digest_matches_db": true,
+        "token_absent_cli_log": true
+      }
+    },
+    {
+      "case": "alreadyissued",
+      "result": {
+        "container": "capmoney-cm01-qa-alreadyissued-20261015010753",
+        "exit": 2,
+        "code": "unavailable",
+        "generation": 0
+      },
+      "state_unchanged": true
+    },
+    {
+      "case": "emailmismatch",
+      "result": {
+        "container": "capmoney-cm01-qa-emailmismatch-20261015010753",
+        "exit": 2,
+        "code": "unavailable",
+        "generation": 0
+      },
+      "state_unchanged": true
+    },
+    {
+      "case": "refused-retry",
+      "database": "cm01qa_refused_20261015010753",
+      "refused": {
+        "container": "capmoney-cm01-qa-refused-20261015010753",
+        "exit": 2,
+        "code": "failed",
+        "generation": 1
+      },
+      "retry": {
+        "container": "capmoney-cm01-qa-retry-20261015010753",
+        "exit": 0,
+        "code": "accepted",
+        "generation": 2
+      },
+      "state": {
+        "generation": 2,
+        "state": "issued",
+        "digest_hex": true,
+        "accepted_at": "2026-10-14T18:08:34.07664+00:00",
+        "expires_at": "2026-10-17T18:08:34.07664+00:00",
+        "duration72h": true
+      }
+    },
+    {
+      "case": "two-cli-processes",
+      "database": "cm01qa_race_20261015010753",
+      "results": [
+        {
+          "container": "capmoney-cm01-qa-race0-20261015010753",
+          "exit": 0,
+          "code": "accepted",
+          "generation": 1
+        },
+        {
+          "container": "capmoney-cm01-qa-race1-20261015010753",
+          "exit": 2,
+          "code": "unavailable",
+          "generation": 0
+        }
+      ],
+      "state": {
+        "generation": 1,
+        "state": "issued",
+        "digest_hex": true,
+        "accepted_at": "2026-10-14T18:08:48.702477+00:00",
+        "expires_at": "2026-10-17T18:08:48.702477+00:00",
+        "duration72h": true
+      }
+    },
+    {
+      "case": "existing-manager-test-fixture",
+      "database": "cm01qa_manager_20261015010753",
+      "result": {
+        "container": "capmoney-cm01-qa-managerexists-20261015010753",
+        "exit": 2,
+        "code": "unavailable",
+        "generation": 0
+      },
+      "generation_unchanged": true
+    }
+  ]
+}

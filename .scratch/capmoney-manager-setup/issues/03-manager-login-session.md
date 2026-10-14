@@ -3,7 +3,7 @@
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8).
 **Planio child:** [#45](https://tanninh.planio.com/issues/45).
 **Status:** `blocked-by-hard`, **chưa `READY_FOR_IMPLEMENTATION`**; BA/Tech phải rà ticket Java và PM xét gate riêng. Opaque session/counter DB ở thiết kế Node chỉ là lịch sử.
-**Blocked by:** `HARD` [CM-01.2 / #44](02-complete-manager-setup.md) hoàn tất với QA xác nhận các case của **ticket #44**; `QA_PASS` cấp Story CM-01 chỉ xét sau cả #43–#45. #44 còn chờ #43 và #47.
+**Blocked by:** `HARD` [CM-01.2 / #44](02-complete-manager-setup.md) hoàn tất với QA xác nhận các case của **ticket #44**; `QA_PASS` cấp Story CM-01 chỉ xét sau cả #43–#45. #44 còn chờ QA#43; hạ tầng#47/#48Closed.
 **Integration blocked by:** None sau #44.
 **Owner / review:** CapmmDev sau readiness; BA rà AC, reviewer code độc lập, PM rà phạm vi và QA độc lập chạy build.
 
@@ -30,3 +30,5 @@ Ba AC lấy từ [spec CM-01](../spec.md). Đặt lại mật khẩu R57 thuộc
 ## Bằng chứng và rủi ro
 
 Dev ghi commit/image, Testcontainers PostgreSQL/Redis, hai JVM/browser, keyring rotate test, HTTP/cookie attributes, DB epoch/family, quota, logout trên điện thoại khác và ảnh viewport iPhone/Android; QA theo [test spec Java](../test-spec.md) nhóm #45. Không tự gán pass cho email thật, thiết bị thật hoặc code Node. `DEV_REVIEWED` cần reviewer code khác người và PM; `QA_PASS` cần mọi AC trong phạm vi chạy trên build xác định.
+
+Căn chỉnh15/10/2026: MVC/JUnit6 vàEDGE_SECRET_FILE; thêm migrationfamily riêng, không sửa changesetbootstrap/account. Thay HTTPBasic/permit-all hạ tầng bằng cookieauthcontract, khôngAuthorizationfallback. BA `/root/review_standards` vàTech `/root/review_spec` rà lại nội dung khôngP0/P1; readiness chờQA#44.

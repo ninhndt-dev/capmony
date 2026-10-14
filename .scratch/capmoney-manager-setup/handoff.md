@@ -141,3 +141,13 @@ Ninh chọn Chromium/WebKit giả lập để qua QA từng ticket, giữ thiế
 ## PM — DEV_REVIEWED #43, 15/10/2026
 
 Đối chiếu đúngAC1/6, Dev backend `/root/review_spec`, Devweb `/root`; backendSpec reviewer `/root`, Standards toàncode/webSpec reviewer `/root/review_standards` khôngP0/P1. Freshintegration SMTP/PostgreSQL/twoJVM/Mailpitdigest và clock/CAS targetedtests green, webbuild +hai engineviewportgreen. Fullsuite cũ có positiveclockfixturefail doVMahead87ms; fixfixturekhôngđổi guard đãgreen riêng; QA phải rerunfullsnapshot và kiểm actualDBloss. Cấp DEV_REVIEWED riêng#43 đểQA thực thi, chưaQA_PASS/#44Ready. Xem dev43-evidence.md/code-review43.md/qa43-plan.md.
+
+## PM — review nội dung #44/#45, 15/10/2026
+
+BA `/root/review_standards` vàTech `/root/review_spec` xác nhận nội dung review14/10 vẫn phù hợpAC/data/seams sauMVC/JUnit6/Q4, khôngP0/P1. Chỉnh statusreference#47 vàmigrationimmutability/cookiefallback trước giaoDev. ChưaREADY#44/#45; chỉ cấp khiQA tickettrước giảiHARD. FixtureT14 khácrole chỉtestprincipal, không làmStory#04.
+
+## PM — QA_PASS ticket #43 và READY_FOR_IMPLEMENTATION #44, 15/10/2026
+
+PM đối chiếu qa43-evidence.md và artifacts: T01–06PASS/AC1+6đạt trênf63efe4, actualCLI/Mailpit/twoJVM/DBloss/slowproxy và2engineviewport; startupretryexit1 được giữ rõ, safeoperatorretryđạt. CM01-Q4cho emulationtừngticket, physicaldevices cònStoryfinal. Cấp QA_PASS **ticket43**, chưaStory.
+
+#44 đủAC2/4/5/data/seams, BA `/root/review_standards` vàTech `/root/review_spec` reviewnội dung lại15/10 khôngP0/P1; HARD43 đã giải. PM cấp READY_FOR_IMPLEMENTATION riêng#44. Dev theo thiết kếJava/JUnit6/MVC, migrationaccountmới khôngsửa001bootstrap. #45chờ QA44.

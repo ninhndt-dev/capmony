@@ -1,17 +1,19 @@
 # Test Specification: CM-01 — Java Spring/JWT/Redis
 
-**Trạng thái 14/10/2026:** kế hoạch QA mới cho [spec AC1–AC7](spec.md) và [thiết kế Java](technical-design-java.md); **chưa chạy case nào**, không `QA_PASS`. Ba ticket #43–#45 chưa `READY_FOR_IMPLEMENTATION`, #43 còn `HARD` #47. Test/SQL spike Node/opaque session trước TS10–TS38 không là bằng chứng Java. Ninh chọn hộp thư/dữ liệu thử trước (CM01-Q1), email thật khi có hạ tầng; iPhone/Android là nền tảng phải kiểm ở gate UI.
+**Cập nhật15/10/2026:** T01–T06 PASS riêng#43 trênf63efe4 theo [QA43](qa43-evidence.md); T06emulation theo CM01-Q4, devices thật giữStoryfinal. Các case #44/#45/Story chưa chạy.
+
+**Trạng thái lịch sử 14/10/2026:** kế hoạch QA mới cho [spec AC1–AC7](spec.md) và [thiết kế Java](technical-design-java.md); **chưa chạy case nào**, không `QA_PASS`. Ba ticket #43–#45 chưa `READY_FOR_IMPLEMENTATION`, #43 còn `HARD` #47. Test/SQL spike Node/opaque session trước TS10–TS38 không là bằng chứng Java. Ninh chọn hộp thư/dữ liệu thử trước (CM01-Q1), email thật khi có hạ tầng; iPhone/Android là nền tảng phải kiểm ở gate UI.
 
 **Bằng chứng mỗi case:** commit, image digest, Java/Boot/Spring Security/springdoc versions, Compose project, Testcontainers PostgreSQL/Redis, Mailpit inbox, lệnh/exit code, HTTP status/body/cookie attributes, DB state đã che secret, hai JVM khi ghi concurrency, ảnh/video mobile khi thuộc UI. Đánh `pass/fail/blocked/not-run` sau khi chạy thật; `QA_PASS` cần mọi case bắt buộc pass hoặc ngoại lệ Ninh xác nhận theo workflow.
 
 | Mã | Ticket / AC | Chiều | Dữ liệu/thao tác và kết quả bắt buộc | Kết quả |
 | --- | --- | --- | --- | --- |
-| CM-J-T01 | #43 / AC1 | AC, integration | DB sạch; CLI nội bộ với email thử cấu hình sẵn gửi link tới đúng Mailpit inbox; không có HTTP bootstrap/public signup/form đổi email. | not-run |
-| CM-J-T02 | #43 / AC1, AC6 | security, privacy | Token 32 byte chỉ lưu digest/generation, URL fragment không tới server GET/log/referrer; React xóa fragment, giữ memory; reload khi fragment đã xóa hướng mở lại email. Không lộ email thật/secret trong log. | not-run |
-| CM-J-T03 | #43 / AC6 | error/recovery | SMTP từ chối/timeout; CLI phân biệt lỗi/chưa rõ, không báo đã gửi hoặc link hợp lệ; retry generation mới vô hiệu hóa link cũ trước khi gửi. | not-run |
-| CM-J-T04 | #43 / AC6 | state, concurrency | Hai CLI process đồng thời; SMTP accepted rồi DB/CAS chậm hoặc mất; chỉ tối đa một generation issued, giữ acceptedAt đầu tiên, không đặt lại hạn ở CAS; kết quả chưa rõ báo đúng. | not-run |
-| CM-J-T05 | #43 / AC1, AC6 | boundary, security | Email env khác DB, đã có manager, clock skew/round-trip >5 giây: fail closed; không gửi link tới email khác hoặc phát hành link hiệu lực sai mốc. | not-run |
-| CM-J-T06 | #43 / AC1 | UI, integration | Mở thư thử trên viewport iPhone/Android và thiết bị thật khi có; trang entry hiển thị form mật khẩu/xác nhận, không khẳng định link hợp lệ hoặc tự tiêu thụ. | not-run |
+| CM-J-T01 | #43 / AC1 | AC, integration | DB sạch; CLI nội bộ với email thử cấu hình sẵn gửi link tới đúng Mailpit inbox; không có HTTP bootstrap/public signup/form đổi email. | **PASS #43 / f63efe4** — [evidence](qa43-evidence.md) |
+| CM-J-T02 | #43 / AC1, AC6 | security, privacy | Token 32 byte chỉ lưu digest/generation, URL fragment không tới server GET/log/referrer; React xóa fragment, giữ memory; reload khi fragment đã xóa hướng mở lại email. Không lộ email thật/secret trong log. | **PASS #43 / f63efe4** — [evidence](qa43-evidence.md) |
+| CM-J-T03 | #43 / AC6 | error/recovery | SMTP từ chối/timeout; CLI phân biệt lỗi/chưa rõ, không báo đã gửi hoặc link hợp lệ; retry generation mới vô hiệu hóa link cũ trước khi gửi. | **PASS #43 / f63efe4** — [evidence](qa43-evidence.md) |
+| CM-J-T04 | #43 / AC6 | state, concurrency | Hai CLI process đồng thời; SMTP accepted rồi DB/CAS chậm hoặc mất; chỉ tối đa một generation issued, giữ acceptedAt đầu tiên, không đặt lại hạn ở CAS; kết quả chưa rõ báo đúng. | **PASS #43 / f63efe4** — [evidence](qa43-evidence.md) |
+| CM-J-T05 | #43 / AC1, AC6 | boundary, security | Email env khác DB, đã có manager, clock skew/round-trip >5 giây: fail closed; không gửi link tới email khác hoặc phát hành link hiệu lực sai mốc. | **PASS #43 / f63efe4** — [evidence](qa43-evidence.md) |
+| CM-J-T06 | #43 / AC1 | UI, integration | Mở thư thử trên viewport iPhone/Android và thiết bị thật khi có; trang entry hiển thị form mật khẩu/xác nhận, không khẳng định link hợp lệ hoặc tự tiêu thụ. | **PASS #43 / f63efe4** — [evidence](qa43-evidence.md) |
 | CM-J-T07 | #44 / AC2 | AC, boundary | Link đúng dùng được tại 71:59 từ acceptedAt; đúng 72:00 hết hạn theo DB clock; link sai/used/generation cũ không tạo manager. SMTP accepted→CAS trễ không kéo hạn. | not-run |
 | CM-J-T08 | #44 / AC2 | validation | Mật khẩu <12 hoặc >72 byte UTF-8, NUL, xác nhận lệch/body quá cỡ/token sai format: báo sửa hợp lệ, không tạo manager/tiêu thụ link. Benchmark BCrypt cost 12 trên máy thử. | not-run |
 | CM-J-T09 | #44 / AC2, AC4 | security, permission | Setup POST thiếu/sai Origin hoặc CSRF/edge trust bị chặn trước thay DB; không lộ email/token; không có quyền tài chính hay tạo manager khác. | not-run |

@@ -1,0 +1,27 @@
+{
+  "commit": "f63efe4e3e5b9303ba731c4ac88e8318733acca4",
+  "postgres": "capmoney-cm43-qa-fault-pg-20261015010801",
+  "smtp250_after_pg_stopped": true,
+  "results": [
+    {
+      "container": "capmoney-cm01-qa-db-loss-20261015010801",
+      "exit": 3,
+      "code": "unknown",
+      "generation": 1
+    },
+    {
+      "container": "capmoney-cm01-qa-db-loss-retry-20261015010801",
+      "exit": 0,
+      "code": "accepted",
+      "generation": 2
+    }
+  ],
+  "first_retry_startup_exit": 1,
+  "operator_restarted_same_cli": true,
+  "state_after_successful_retry": {
+    "generation": 2,
+    "state": "issued",
+    "duration72h": true
+  },
+  "prior_not_issued_assertion": "passed in original harness before retry startup failed"
+}
