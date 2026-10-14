@@ -1,5 +1,21 @@
 # Handoff CM-01: Thiết lập và đăng nhập quản lý
 
+**Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md): Java Spring, JWT cookie/refresh/revocation và Redis throttle. Các mục bàn giao Next.js/Node/opaque session bên dưới là lịch sử; BA_READY phần phiên, TECH_READY và readiness #43 tạm dừng cho đến khi BA → PM → Tech → PM rà lại. #44/#45 vẫn bị chặn. Không có code CM-01 hoặc QA.
+
+## CapmmBA — CM-01 / rebaseline Java-JWT
+
+**DONE:** Đối chiếu F11/F23–F24, R22/R56/R57 và TS10–TS38; cập nhật [spec](spec.md) AC3/AC7, thời hạn access/refresh, cookie, thu hồi DB, Redis; ghi [CM01-Q2/Q3](qna.md) về phạm vi đăng xuất và refresh reuse. Tách quyết định Ninh đã xác nhận khỏi đề xuất Tech và đầu vào vận hành.
+
+**RESULT:** BA draft cập nhật; **chưa `BA_READY` trở lại** vì PM chưa review AC1–AC7 sau khi Ninh đã chọn CM01-Q2/B và CM01-Q3/A. `TECH_READY` cũ không còn hiệu lực cho Java/JWT/Redis. #43 chưa ready; #44/#45 còn `HARD` blocker tuần tự.
+
+**NEED HUMAN:** None cho CM01-Q2/Q3; Ninh đã chọn B: đăng xuất mọi điện thoại, và A: thu hồi family khi refresh reuse không phân biệt được. PM cần rà lại spec; hai câu trả lời này chưa duyệt thiết kế Tech.
+
+**PENDING:** PM kiểm `BA_READY` trên AC7 đã sửa; Tech lập và reviewer khác người lập rà thiết kế CM-01 Java/JWT/Redis, rồi PM kiểm `TECH_READY`. PM cập nhật ticket #43–#45 và phụ thuộc #47 trước khi xét từng `READY_FOR_IMPLEMENTATION`.
+
+**DETAIL:** [Nguồn quyết định TS10–TS38](../../docs/requirements/tech-stack-round-2.md), [spec](spec.md), [Q&A](qna.md), [story](story.md), [workflow](../../docs/workflows/capmm-end-to-end.md). Chưa chạy build/test CM-01 Java, chưa gửi email thật.
+
+— `/root/cm01_java_ba` trong vai CapmmBA; chờ PM độc lập review
+
 ## CapmmBA — CM-01
 
 **DONE:** Chuyển đặc tả cũ thành [spec 20 mục](spec.md), lập [story](story.md) và [Q&A](qna.md); tách quyết định của Ninh F11/F23–F24/R12/R13/R22 khỏi đề xuất UI/Tech; bổ sung AC3 âm và AC6 sau PM review.

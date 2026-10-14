@@ -4,4 +4,6 @@
 
 **Thay đổi phạm vi sau đó, chờ review lại:** Ninh chọn [TS01](../requirements/tech-stack-round-1.md) tách React web và API, và yêu cầu ưu tiên Docker/kiến trúc hạ tầng. Phần quyết định Next.js một ứng dụng của ADR này **không còn là cơ sở giao Dev**; các hợp đồng an toàn dữ liệu/SMTP cần đối chiếu với ADR stack mới. Gate `TECH_READY` CM-01 và readiness #43 tạm dừng hiệu lực đến khi Tech độc lập và PM rà thiết kế mới.
 
+**Thay đổi mới ngày 14/10/2026:** Ninh chọn [TS10–TS38](../requirements/tech-stack-round-2.md), trong đó API Java Spring, JWT trong cookie, refresh 7 ngày, thu hồi ngay qua DB và Redis cho bộ đếm thử đăng nhập. Quyết định token phiên opaque, scrypt/Node implementation, Next.js và counter DB trong ADR này là **lịch sử**, không áp dụng để giao Dev. BA/Tech/PM phải cập nhật CM-01 và review lại trước #43–#45; các bất biến sản phẩm về một quản lý, link 72 giờ và không tự đăng ký vẫn cần đối chiếu nguồn yêu cầu.
+
 Thay PostgreSQL hoặc mô hình phiên sau này sẽ ảnh hưởng #02–#04 và dữ liệu tài khoản. SMTP là cổng giao tiếp để đổi nhà cung cấp mà không đổi luồng sản phẩm; vận hành thật cần email, tên miền và quyền gửi của Ninh. Nguồn chọn: [thiết kế CM-01](../../.scratch/capmoney-manager-setup/technical-design.md), [phương án cũ](../../.scratch/capmoney-manager-setup/technical-options.md).

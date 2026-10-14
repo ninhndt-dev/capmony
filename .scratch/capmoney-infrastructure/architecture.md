@@ -1,6 +1,6 @@
 # Kiến trúc hạ tầng đề xuất cho CapMoney
 
-**Bước hiện tại:** kiến trúc trước Docker và FE/BE theo TS07 đã được Tech độc lập `/root/infra_tech_review`, PM độc lập `/root/cm01_pm_ba` rà, Ninh xác nhận tiếp tục theo phương án A (TS09) ngày 14/10/2026. ADR 0002 accepted ở mức thiết kế. **Docker dev/test #47 đã được Dev dựng và self-check; QA độc lập chưa chạy.** Nguồn: [TS01–TS09](../../docs/requirements/tech-stack-round-1.md), [ADR 0002](../../docs/adr/0002-project-infrastructure-and-stack.md), [workflow](../../docs/workflows/capmm-end-to-end.md).
+**Lịch sử, cần vẽ lại:** sơ đồ này thuộc TS09/ADR 0002 Node/Hono. Ninh đã chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md): Java Spring, Redis, Tailwind, production cài trực tiếp trên VPS. Không dùng sơ đồ Docker production/Node API bên dưới làm hợp đồng mới. Docker dev/test Node đã chạy một phần nhưng QA IF-T03 fail; stack đã dừng. Cần ADR/sơ đồ mới qua Tech/PM review trước code Java.
 
 ## Sơ đồ luồng chạy
 

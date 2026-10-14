@@ -1,6 +1,6 @@
 # Technical Design: INFRA-01 – Docker dev/test
 
-**Tech gate:** `TECH_READY` đạt ngày 14/10/2026 ở mức thiết kế sau `BA_READY`, reviewer độc lập `/root/infra_tech_review` không thấy P0/P1 và PM độc lập `/root/cm01_pm_ba` rà lại V4/NFR. Góp ý P2 về `getConnInfo`, IP Caddy cố định và Origin probe đã đưa vào hợp đồng. [ADR 0002](../../docs/adr/0002-project-infrastructure-and-stack.md) accepted; tài liệu này ràng buộc cách thử triển khai, **chưa phải Compose đã chạy**.
+**Lịch sử, không còn TECH_READY hiện hành:** thiết kế này dành cho Node/Hono theo [ADR 0002](../../docs/adr/0002-project-infrastructure-and-stack.md). Ninh đã chọn Java Spring/Redis trong [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); cần thiết kế và review kỹ thuật mới trước khi dùng làm hợp đồng triển khai. Compose Node/Hono từng chạy nhưng QA IF-T03 fail và đã dừng.
 
 ## Hợp đồng môi trường
 

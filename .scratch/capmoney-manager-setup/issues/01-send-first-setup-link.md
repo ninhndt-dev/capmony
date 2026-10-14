@@ -2,8 +2,8 @@
 
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8)
 **Planio child:** [#43](https://tanninh.planio.com/issues/43), tạo và đọc lại ngày 14/10/2026.
-**Status:** readiness tạm dừng sau TS01/TS06–TS08 đổi kiến trúc; PM phải xét lại `READY_FOR_IMPLEMENTATION` sau ADR stack và Tech review mới. Gate trước đó đạt ngày 14/10/2026 trên thiết kế Next.js, chỉ là lịch sử. Trạng thái công việc hiện hành xem trên Planio.
-**Blocked by:** None.
+**Status:** readiness tạm dừng sau TS10–TS38 đổi API sang Java Spring/JWT/Redis; PM phải xét lại `READY_FOR_IMPLEMENTATION` sau BA/Tech/PM review và ADR stack mới. Gate Next.js/Node trước đó chỉ là lịch sử. Hợp đồng `technical-design.md` bên dưới chưa cập nhật cho Java. Trạng thái công việc hiện hành xem trên Planio.
+**Blocked by:** `HARD` – [INFRA-01.1 / Planio #47](../../capmoney-infrastructure/issues/01-docker-dev-test.md) hoàn tất môi trường Java Spring/Redis dev/test và được QA xác nhận; Planio relation #8 là #47 `blocks` #43. Ngoài ra, BA/PM/Tech/PM phải cấp lại gate thiết kế CM-01 và PM xét readiness của chính #43 trước Dev.
 **Integration blocked by:** None.
 **Owner / review:** Codex `/root` trong vai CapmmDev thực hiện; reviewer code khác người code và CapmmPM rà trước QA. BA review `/root/cm01_pm_ba`, Tech review `/root/cm01_tech_review` đã rà nội dung.
 

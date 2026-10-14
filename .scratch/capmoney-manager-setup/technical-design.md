@@ -1,5 +1,7 @@
 # Technical Design: CM-01 – Thiết lập và đăng nhập quản lý
 
+**Lịch sử, không phải thiết kế Java hiện hành (14/10/2026):** Ninh đã thay Next.js/Node và opaque session bằng React/Vite, API Java Spring, JWT cookie và Redis trong [TS10–TS38](../../docs/requirements/tech-stack-round-2.md). `TECH_READY` bên dưới chỉ thuộc bản thiết kế cũ; hiện bị tạm dừng cho CM-01. BA → PM → Tech độc lập → PM phải cập nhật và review thiết kế mới trước khi giao Dev. Không lấy mã Node/Hono làm nền.
+
 **TECH gate:** `TECH_READY` đạt ngày 14/10/2026 sau reviewer Tech độc lập và PM; `BA_READY` đã đạt trước đó. Tài liệu này là thiết kế đã review và bằng chứng spike cô lập, **chưa phải code ứng dụng hay kiểm thử build**.
 
 ## Nguồn và ranh giới hệ thống

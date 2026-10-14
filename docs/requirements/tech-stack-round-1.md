@@ -2,6 +2,8 @@
 
 **Ngày hỏi:** 14/10/2026. Nguồn là câu trả lời của Ninh qua giao diện chọn trong phiên triển khai CM-01. Đây là quyết định kiến trúc dự án; thiết kế Tech và gate CM-01 chịu ảnh hưởng phải được rà lại trước khi tiếp tục code.
 
+**Cập nhật cùng ngày:** Ninh đã chọn Java Spring cho BE và trả lời chi tiết TS10–TS38 trong [vòng 2](tech-stack-round-2.md). TS09/ADR 0002 là lịch sử cho Node/Hono, CSS Modules và production Compose; không dùng các phần đó làm nền triển khai mới. Các lựa chọn còn hiệu lực phải đối chiếu vòng 2 và ADR thay thế.
+
 ## Ninh đã xác nhận
 
 | Mã | Nội dung Ninh chọn | Tác động cần Tech/PM xử lý |
@@ -19,5 +21,5 @@
 ## Đề xuất và chưa rõ
 
 - **Ninh trả lời Q6:** “tạm thời dùng docker để triển khai, tôi muốn xây dựng kiến trúc hạ tầng trước fe be devops”. TS06–TS08 làm rõ Docker cho dev/test, VPS riêng với PostgreSQL volume cho production và thiết kế kiến trúc trước khi dựng Docker/FE/BE.
-- **Ninh đã duyệt định hướng kiến trúc TS09:** React + Vite + TypeScript cho web; Node 24 + Hono + TypeScript cho API; Docker Compose với reverse proxy Caddy, PostgreSQL, Mailpit ở dev/test; production VPS riêng chạy reverse proxy, web, API và PostgreSQL, SMTP bên ngoài. Trình duyệt gọi API cùng origin `/api` qua proxy. Đây là công nghệ/ranh giới đã chốt trong ADR 0002, còn cấu hình thực chạy phải qua ticket, review và QA.
+- **TS09 là quyết định lịch sử đã bị TS10–TS38 thay một phần:** khi đó Ninh tiếp tục theo React/Vite, Node/Hono API, Docker dev/test và Compose production. Vòng 2 thay BE bằng Java Spring, CSS Modules bằng Tailwind và production Compose bằng cài trực tiếp; chỉ những phần được xác nhận lại hoặc không mâu thuẫn còn được xem xét trong ADR mới.
 - **Chưa rõ cho vận hành thật:** VPS cụ thể, tên miền, email/SMTP thật, quyền quản trị máy và thời điểm triển khai. Không cần đưa bí mật vào Git hoặc tự tạo dịch vụ trả phí ở bước kiến trúc.

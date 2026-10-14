@@ -2,9 +2,9 @@
 
 **Parent:** [Planio #46 – INFRA-01](https://tanninh.planio.com/issues/46).
 **Planio child:** [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47), đã tạo và đọc lại ngày 14/10/2026.
-**Status:** `ready-for-agent`; `READY_FOR_IMPLEMENTATION` đạt ngày 14/10/2026 sau BA/TECH gate, Tech và PM review ticket, đọc lại Planio. Planio hiện `In Progress` khi DevOps bắt đầu; status tracker không thay gate.
-**Blocked by:** None; ADR 0002/`BA_READY`/`TECH_READY` đã đạt ở mức thiết kế.
-**Integration blocked by:** None để dựng hạ tầng thử; không phụ thuộc CM-01 code. #47 `blocks` CM-01 #43 trên Planio (relation #8).
+**Status:** `needs-info`/rebaseline; gate `READY_FOR_IMPLEMENTATION` của bản Node/Hono ngày 14/10/2026 **không còn hiệu lực** sau khi Ninh chọn Java Spring (TS10–TS38). Planio chuyển `Open`; không giao Dev ticket này trước ADR/spec/Tech/PM review mới.
+**Blocked by:** `HARD` – ADR Java Spring thay ADR 0002, BA/PM cập nhật spec/AC, Tech độc lập và PM review lại `BA_READY`/`TECH_READY`, rồi PM xét `READY_FOR_IMPLEMENTATION` mới. Không phụ thuộc code CM-01.
+**Integration blocked by:** #47 vẫn `blocks` CM-01 #43 trên Planio (relation #8), nhưng bản Node/Hono cũ không thể hoàn tất cạnh này. Phải rebaseline #47 trước.
 **Owner / review:** Codex `/root` trong vai DevOps Dev; reviewer code khác người thực hiện và PM rà; QA độc lập chạy build.
 
 ## What it delivers
@@ -21,7 +21,9 @@ Người triển khai chạy một lệnh để có môi trường Docker dev/te
 
 Nội dung AC ở [spec](../spec.md); không chép lại thành AC mới. Năm mã AC ≤5 theo workflow.
 
-## Hợp đồng, dữ liệu thử và bằng chứng
+## Hợp đồng, dữ liệu thử và bằng chứng lịch sử Node/Hono
+
+Các mục dưới đây mô tả ticket trước TS10–TS38, **không phải hợp đồng Java hiện hành**. BA/Tech/PM phải cập nhật sau ADR Java Spring/Redis trước khi giao Dev.
 
 - Theo [ADR 0002](../../../docs/adr/0002-project-infrastructure-and-stack.md) và [technical-design](../technical-design.md): React/Vite web placeholder, Hono/Node 24 API health, Caddy giữ `/api`, các mạng `web_net/api_net/data_net/mail_net`, Caddy IP cố định, PostgreSQL 17 volume, Mailpit dev/test; secret ngoài Git. Bootstrap manager chỉ là CLI nội bộ ở ticket CM-01 sau.
 - Dữ liệu: DB tên thử riêng, marker không nhạy cảm, email `manager@example.test`; không dùng tài khoản, tiền hay SMTP thật. `APP_ORIGIN` là loopback Caddy. Dữ liệu test có project/volume riêng với dev.

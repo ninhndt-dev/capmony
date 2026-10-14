@@ -1,8 +1,8 @@
 # ADR 0002: Tech stack và hạ tầng toàn CapMoney
 
-**Status: accepted ngày 14/10/2026 ở mức kiến trúc.** Tech độc lập `/root/infra_tech_review` đã `TECH_REVIEW_PASS`, PM độc lập `/root/cm01_pm_ba` đã `PM_PASS` ở mức thiết kế; Ninh trả lời “continue” sau câu hỏi duyệt bundle A/B để chuyển sang ticket Docker dev/test, được ghi TS09. Nguồn: [TS01–TS09](../requirements/tech-stack-round-1.md). [Sơ đồ và kế hoạch](../../.scratch/capmoney-infrastructure/architecture.md) diễn giải quyết định này. Docker dev/test của ticket #47 đã được Dev dựng và self-check; review/QA độc lập chưa chốt. Chưa dựng VPS hoặc dịch vụ trả phí.
+**Status: bị thay một phần ngày 14/10/2026; chỉ giữ làm lịch sử kiến trúc Node/Hono.** ADR từng được Tech độc lập `/root/infra_tech_review`, PM `/root/cm01_pm_ba` rà và Ninh trả lời “continue” theo TS09. Sau đó Ninh chọn [TS10–TS38](../requirements/tech-stack-round-2.md): BE Java Spring, Tailwind, JWT/Redis và cài trực tiếp trên VPS. Các phần API, dữ liệu truy cập, auth/email, FE styling, production và test bên dưới **không còn là hợp đồng triển khai**. Docker Node/Hono #47 đã có commit `493f3d4` nhưng QA IF-T03 fail rồi dừng vì đổi stack; không có `QA_PASS`. Cần ADR thay thế, Tech/PM review và gate mới trước khi code Java hoặc tiếp tục #43.
 
-## Quyết định đã chấp nhận
+## Quyết định lịch sử tại TS09 (đọc cùng thông báo thay đổi ở trên)
 
 | Lớp | Chọn cho toàn dự án | Nguồn/giới hạn |
 | --- | --- | --- |

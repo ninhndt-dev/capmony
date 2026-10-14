@@ -2,7 +2,7 @@
 
 Đọc `README.md` và `docs/requirements/00-intake.md` trước khi làm việc. Dự án đang ở **bước 9: đặc tả chi tiết từng module** sau khi Ninh duyệt cách chia 35 Story ứng viên ở bước 8; chúng đã được chuyển sang Planio. Ninh đã chọn hỏi lại mọi yêu cầu từ đầu; không coi cả sáu quyết định cũ là đã chốt cho lần khởi động này. Không tạo app/API, schema hoặc ticket triển khai từ tài liệu hay code cũ.
 
-**Ngoại lệ hạ tầng đã qua gate:** [INFRA-01.1 / Planio #47](.scratch/capmoney-infrastructure/issues/01-docker-dev-test.md) được Ninh ưu tiên để dựng Docker dev/test trước FE/BE; chỉ web/API placeholder của ticket này đã được Dev thực hiện. Code review và QA vẫn phải qua gate riêng. CM-01 #43 tiếp tục chờ Tech rebaseline theo ADR 0002; không suy readiness của Story sản phẩm từ hạ tầng.
+**Thay đổi stack hiện hành:** Ninh đã chốt BE Java Spring và các lựa chọn chi tiết trong [vòng 2](docs/requirements/tech-stack-round-2.md). [ADR 0002](docs/adr/0002-project-infrastructure-and-stack.md) về Node/Hono bị thay một phần. [INFRA-01.1 / Planio #47](.scratch/capmoney-infrastructure/issues/01-docker-dev-test.md) và CM-01 #43 **tạm dừng gate** để lập ADR/thiết kế Java mới rồi BA → PM → Tech → PM rà lại. Commit Node/Hono `493f3d4` là lịch sử; QA cũ fail IF-T03 và không chứng minh stack Java. Chưa giao code mới trước gate.
 
 ## Agent skills
 
