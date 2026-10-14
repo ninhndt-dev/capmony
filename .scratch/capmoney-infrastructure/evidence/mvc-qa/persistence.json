@@ -1,0 +1,10 @@
+{
+  "restart_marker": true,
+  "successor_same_volume_marker": true,
+  "fresh_volume_marker_absent": true,
+  "old_and_dev_markers_unchanged": true,
+  "old_volume": "capmoney-mvc-qa_pg_data",
+  "successor": "capmoney-mvc-qa-pg-successor",
+  "fresh": "capmoney-mvc-qa-pg-fresh",
+  "deletions": "none"
+}

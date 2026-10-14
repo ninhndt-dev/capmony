@@ -47,9 +47,32 @@ class TrackerScopeTests(unittest.TestCase):
         path.parent.mkdir(parents=True, mode=0o700)
         self.config_patch = patch.object(module, "CONFIG", path)
         self.config_patch.start()
+        self.report = path.parent / "qa-fixture.md"
+        self.report.write_text("Ninh đã chọn A; 310ad7f\n" + "\n".join(
+            f"IF-J-T0{i} **PASS**" for i in range(1, 9)))
+        self.report_patch = patch.object(module, "REPORT", self.report)
+        self.report_patch.start()
+        self.diff_patch = patch.object(module.subprocess, "check_output", return_value="")
+        self.diff_mock = self.diff_patch.start()
 
     def tearDown(self):
+        self.diff_patch.stop()
+        self.report_patch.stop()
         self.config_patch.stop()  # Test files remain; no cleanup deletion.
+
+    def test_changed_source_stops_before_any_write(self):
+        self.diff_mock.return_value = "source changed"
+        client = FakePlanio()
+        with self.assertRaisesRegex(module.SetupError, "Source đã khác"):
+            client.sync_infra()
+        self.assertFalse(any(method == "PUT" for method, _ in client.calls))
+
+    def test_incomplete_qa_stops_before_any_write(self):
+        self.report.write_text("Ninh đã chọn A; 310ad7f\nIF-J-T01 **PASS**")
+        client = FakePlanio()
+        with self.assertRaises(module.SetupError):
+            client.sync_infra()
+        self.assertFalse(any(method == "PUT" for method, _ in client.calls))
 
     def test_wrong_project_is_rejected_before_any_write(self):
         client = FakePlanio()

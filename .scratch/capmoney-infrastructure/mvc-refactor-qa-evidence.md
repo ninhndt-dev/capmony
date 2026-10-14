@@ -1,0 +1,32 @@
+# QA INFRA-01.2 / Planio #48 — MVC refactor
+
+**QA_PASS trong phạm vi maintenance MVC**, QA độc lập `/root/java_qa`,15/10/2026 Asia/Ho_Chi_Minh. Source bất biến `5a4a130b9b207ee8478fb4e958acfbe541e3d958`, sau code review hai trục không blocker và PM DEV_REVIEWED. Không kế thừa kết quả #47; tám nhóm kiểm dưới đây chạy mới, cả3AC-MVC01-1–3 đạt.
+
+## Snapshot và môi trường
+
+Runtime `capmoney-mvc-api:5a4a130`=`sha256:1bc05a0431e1c054c40c176854f800850fb5f778356bc1b81ce9292955ffc445`; probe `sha256:14d7e4e9230b7965b3764923d398895e9acda72c304f660b9fe4b48d4a5a2405`; tools `sha256:f23c78cff8c33c0eb207be63f44e72c9e969b201996a10cff3fa957840f4ac3a`. Root build giữ intermediates bằng `--rm=false`; QA chỉ dùng image overlays `up --no-build --no-recreate`, mail runner prebuilt không build. Web dùng image placeholder đã có; không sửa frontend. [identity.json](evidence/mvc-qa/identity.json) ghi image/container/mount IDs, Java25.0.4.1 và Compose.
+
+Compose runtime `capmoney-mvc-qa` loopback18082/API172.30.61.0/24; probe `capmoney-mvc-qa-probe` loopback28082/API172.30.62.0/24. Khởi động đầu gặp Docker **default address pools exhausted**, chưa có API chạy; giữ api_net/volume đã tạo. Sau inspect mọi subnet, QA-only overlay đặt web/data/rate/mail runtime10.247.70–73/24 và probe10.247.80–83/24, vẫn internal theo compose gốc. Start lại thành công, không thay daemon/source hoặc xóa network. [runtime overlay](evidence/mvc-qa/runtime.yaml), [probe overlay](evidence/mvc-qa/probe.yaml).
+
+Secret riêng `.local/qa-mvc-final/secrets`:64hex ASCII không newline,0600/dir0700; DB/user `capmoney_qa`, RedisDB2, volume mới. Maven chạy từ bản sao mới `.local/build/mvc-qa-20261015-004050` gồm source/pom/wrapper, SHA256 khớp trước test, không dùng/xóa target cũ. [fresh-source](evidence/mvc-qa/fresh-source.json).
+
+## Kết quả8case
+
+| Case / AC | Kết quả thực |
+| --- | --- |
+| MVC-T01 / IF-J-T01 — AC1,2,3 **PASS** | Maven fresh copy JDK25/JUnit6/Spring Test/Testcontainers thật exit0,42.985s:6tests,5pass,1skip Mailpit host chưa SMTP_HOST; không coi skip là pass, T07 chạy riêng3/3. Root application scan/config/security/health controller-service-model đủ6mainclasses. Runtime không probe/testclasses; probe thêm test/security/ProbeController và **6mainclasses cùng application.yaml/changelog byte-identical**. Linux guards12/12. Secret không xuất hiện Git/JAR/config/log/image history, stream image layers196852224bytes không lộ giá trị. [Maven](evidence/mvc-qa/maven-summary.txt), [layout/config](evidence/mvc-qa/layout-config.json), [classes](evidence/mvc-qa/artifacts.json), [image scan](evidence/mvc-qa/image-layer-scan.json), [Linux](evidence/mvc-qa/linux-guards.txt). |
+| MVC-T02 / IF-J-T02 — AC1,2,3 **PASS** | `/`,`/manager/setup`200; health/readiness200 JSON `{status:UP}` no-store; runtime `/api/__probe`404; OpenAPI200. Controller đọc HealthService/ánh xạ HTTP, service giữ JDBC/Redis checks qua interface đã unit test; không thêm schema/entity/repository. [runtime](evidence/mvc-qa/runtime.json), [HTTP](evidence/mvc-qa/http-boundary.json). |
+| MVC-T03 / IF-J-T03 — AC2,3 **PASS** | PGstop health+readiness503 bốn lượt/endpoint, không502; Redisstop health200/readiness503 bốn lượt; phục hồi tự UP cùngPID/StartedAt. Sau stopped-start regression:PID223808/StartedAt2026-10-14T17:43:05.112515149Z giữ nguyên qua outage. PGpause silent:503 trong2.033s và1.010s, unpause tựUP cùngPID205667. API initialPGunavailable riêng restart1 rồi Started ApiApplication sau PGstart. [runtime](evidence/mvc-qa/runtime.json), [pause](evidence/mvc-qa/pg-paused.json), [initial](evidence/mvc-qa/initial-startup.json). |
+| MVC-T04 / IF-J-T04 — AC2,3 **PASS** | Inspect chỉ Caddy bind127.0.0.1; web chỉweb_net; Caddyweb/api; APIapi/data/rate/mail; data/rate/mail internal. Hostdirect3000/5432/6379/1025/8025 unreachable. [inspection](evidence/mvc-qa/inspection.json), [boundary](evidence/mvc-qa/http-boundary.json). |
+| MVC-T05 / IF-J-T05 — AC2,3 **PASS** | Caddyadapt0. Direct peer ngoàiapi_net, thiếu/sai secret, từngXFF/XReal thiếu/lặp/comma/malformed/mismatch403 marker không đổi. Validedge200 tăngmarker1. QuaCaddy thiếu/saiOrigin403 không đổimarker; forgedIP/edge/Forwardedheaders được overwrite, đúngOrigin200. Secret đổi1byte403 không đổimarker. Caddysuccessor cùngsecret/IP172.30.62.3→.4 vẫn200. [matrix](evidence/mvc-qa/ingress.json), [headers](evidence/mvc-qa/ingress-extra-ip.json), [Origin/secret](evidence/mvc-qa/extra-ingress.json), [successor](evidence/mvc-qa/caddy-successor.json). |
+| MVC-T06 / IF-J-T06 — AC3 **PASS** | Markerqa_mvc_48 còn qua restart/successorPG cùngvolume capmoney-mvc-qa_pg_data; container cũ giữstopped trong lúc successor chạy rồi bật lại. Freshvolume capmoney-mvc-qa-fresh-data khôngmarker; môi trường cũ/dev marker khôngđổi. Giữ cả2container/volumes; khôngreset. [persistence](evidence/mvc-qa/persistence.json). |
+| MVC-T07 / IF-J-T07 — AC2,3 **PASS** | Prebuilttools runner capmoney-mvc-qa-mailcheck-run-910696cbeaaf exit0,3/3tests,0skip: JavaMailSender gửi/đọc Mailpit manager@example.test; refused và timeout riêng hữu hạn không báo gửi thành công. KhôngmailHTTPendpoint runtime. [reports](evidence/mvc-qa/mail-tests.txt). |
+| MVC-T08 / IF-J-T08 — AC2,3 **PASS** | Stopstack→up no-build/no-recreate, exactruntimeimage khôngđổi; lặp routes/OpenAPI/runtimeprobe, PG/Redisoutage cùngJVM, topology/secretcheck, marker và start lại cùngSMTP runner exit0. [regression](evidence/mvc-qa/regression.json). |
+
+## Kết luận và giới hạn
+
+AC-MVC01-1 đạt bằng layout6classes/root scan/Spring context/serviceunit/HTTP; AC-MVC01-2 đạt bằng contract/bytecomparison/ingress/outage matrix; AC-MVC01-3 đạt bằng freshcopyhash, build/images mới,8case thực thi và tài nguyên/dữ liệu giữ nguyên. Không có case bắt buộc fail/not-run còn lại.
+
+41artifact đã sanitize tại [evidence/mvc-qa](evidence/mvc-qa/) gồm JSON/harness/test summaries/QA overlays; không secret/JAR/rawlogs. Rawlogs/builds tại `.local/qa-mvc-final/` giữ lại. QA không sửa application, không delete/reset/clean/down/rm, không rebuildCompose; mọi container/intermediate/network/volume cũ giữ nguyên. Không đổi kết quả/lịch sử #47, không ghi Planio hoặc commit. Đề nghị PM đối chiếu bằng chứng trước cập nhật #48.
+
+Đây là refactor hạ tầng, không chứng minh CM-01, iPhone/Android, giao diện sản phẩm, JWT/CSRF/throttle, productionTLS/VPS/SMTP thật hoặc backup. Pool exhaustion được giải bằng subnet QA riêng; số tài nguyên giữ lại tăng theo chính sách bảo toàn, không suy ra thiếu bộ nhớ hay lỗi sản phẩm từ thao tác khởi tạo môi trường.

@@ -1,6 +1,6 @@
 # Đề xuất cấu trúc BE Spring MVC
 
-Ngày15/10/2026. **Ninh đã đồng ý triển khai ngày15/10/2026; thiết kế chi tiết đang chờ review/gate, chưa đổi Java source.** Tài liệu này không thay hợp đồng hoặc kết quả QA của INFRA-01/#47 trên310ad7f.
+Ngày15/10/2026. **Ninh đã đồng ý triển khai ngày15/10/2026; đã triển khai trên5a4a130, qua review và QA8/8; Planio#48Closed.** Tài liệu này không thay hợp đồng hoặc kết quả QA của INFRA-01/#47 trên310ad7f.
 
 ## Nguồn yêu cầu
 
@@ -8,7 +8,7 @@ Ngày15/10/2026. **Ninh đã đồng ý triển khai ngày15/10/2026; thiết k�
 
 **Phương án Ninh đã đồng ý:** Một Maven project cho BE, package theo tính năng; mỗi tính năng phân lớp rõ theo trách nhiệm MVC/layered. [Spring Boot minh họa package theo tính năng với controller/service/repository/model](https://docs.spring.io/spring-boot/reference/using/structuring-your-code.html), không bắt buộc một layout duy nhất. Đây là cơ sở chọn cấu trúc phù hợp, không phải số liệu chứng minh thị phần/phổ biến nhất. [Spring có hướng dẫn nhiều Maven module gồm library và application](https://spring.io/guides/gs/multi-module/) khi thật sự cần thư viện dùng lại.
 
-## Cấu trúc đề xuất
+## Cấu trúc đã chốt
 
 ```text
 apps/api/

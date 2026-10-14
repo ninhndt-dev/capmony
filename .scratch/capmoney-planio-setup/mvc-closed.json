@@ -1,0 +1,24 @@
+{
+  "project_id": 4,
+  "source_commit": "5a4a130b9b207ee8478fb4e958acfbe541e3d958",
+  "issues": [
+    {
+      "id": 48,
+      "status": {
+        "id": 8,
+        "name": "Closed"
+      },
+      "done_ratio": 100,
+      "read_back": true
+    },
+    {
+      "id": 46,
+      "status": {
+        "id": 8,
+        "name": "Closed"
+      },
+      "done_ratio": 100,
+      "read_back": true
+    }
+  ]
+}

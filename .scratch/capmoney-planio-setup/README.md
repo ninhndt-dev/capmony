@@ -17,7 +17,7 @@ Wizard chỉ mở trang tài khoản, nhận key ẩn trong Terminal, kiểm pro
 ## Kiểm và review
 
 - `bash -n infra/scripts/setup-planio.sh`, Python compile: qua.
-- `python3 -B infra/scripts/test_planio.py`:5 tests qua; sai project/parent không ghi, phát hiện edit trướcPUT, chấp nhận CRLF chuẩn hóa; idempotent và giữ description/scope#46/#47.
+- `python3 -B infra/scripts/test_planio.py`:7 tests qua; source khác snapshot/QA thiếu không ghi; sai project/parent không ghi, phát hiện edit trướcPUT, chấp nhận CRLF chuẩn hóa; idempotent và giữ description/scope#46/#47.
 - Git ignore credential path: đúng; không đọc/in key trong bằng chứng.
 - Standards reviewer `/root/review_standards`:0 blocker. Spec reviewer `/root/review_spec`: khôngP0/P1; P2concurrency được bổ sung snapshot trướcPUT, kiểm issue không đổi ngay trước ghi và so toàn description sau ghi. Không coi cơ chế này là khóa atomic phía server; không tự retry khi có bất đồng.
 
@@ -26,3 +26,5 @@ Wizard dựa trên `.agents/skills/wizard/template.sh`; giữ library nguyên tr
 ## Kết quả thực ghi và đọc lại
 
 `python3 infra/scripts/planio.py sync-infra` exit0 sau review và kiểm5 mock tests. [sync-result.json](sync-result.json): #47Closed(ID8), #46InProgress(ID6), verified_after_write=true. Giữ mô tả cũ và nối evidence; snapshot trướcPUT ngoàiGit. Không sửa#43–45. Kết nối thành công qua API không đồng nghĩa đã cài connector.
+
+Kết thúc refactor: #48Closed/100% sau QA mới8/8; mọi child của#46Closed nên PM đóng#46/100%. [Readback](mvc-closed.json) xác minh status8; giữ snapshot trước ghi và description gốc. #43–45 không đổi.

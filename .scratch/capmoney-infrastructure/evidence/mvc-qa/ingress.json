@@ -1,0 +1,50 @@
+[
+  {
+    "case": "no-secret",
+    "status": 403,
+    "marker_before": 0,
+    "marker_after": 0
+  },
+  {
+    "case": "wrong-secret",
+    "status": 403,
+    "marker_before": 0,
+    "marker_after": 0
+  },
+  {
+    "case": "no-ip",
+    "status": 403,
+    "marker_before": 0,
+    "marker_after": 0
+  },
+  {
+    "case": "duplicate-ip",
+    "status": 403,
+    "marker_before": 0,
+    "marker_after": 0
+  },
+  {
+    "case": "malformed-ip",
+    "status": 403,
+    "marker_before": 0,
+    "marker_after": 0
+  },
+  {
+    "case": "mismatch-ip",
+    "status": 403,
+    "marker_before": 0,
+    "marker_after": 0
+  },
+  {
+    "case": "wrong-peer",
+    "status": 403,
+    "marker_before": 0,
+    "marker_after": 0
+  },
+  {
+    "case": "valid",
+    "status": 200,
+    "marker_before": 0,
+    "marker_after": 1
+  }
+]

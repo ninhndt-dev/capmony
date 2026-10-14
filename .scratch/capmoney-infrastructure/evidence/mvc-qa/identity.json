@@ -1,0 +1,483 @@
+{
+  "commit": "5a4a130b9b207ee8478fb4e958acfbe541e3d958",
+  "containers": [
+    {
+      "name": "/capmoney-mvc-qa-api-initial",
+      "id": "8cd939d9e6cbddd74c32a071340162cd23be9e9a4401501aa24f4f2152e389cb",
+      "image": "sha256:1bc05a0431e1c054c40c176854f800850fb5f778356bc1b81ce9292955ffc445",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/run/secrets/edge_auth"
+        },
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/pg-password",
+          "Destination": "/run/secrets/pg_password"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-linux-guards",
+      "id": "09666848204f4eb07f920f39e2cf2882b960743f3e08261ad615bb85f8383a29",
+      "image": "sha256:1bc05a0431e1c054c40c176854f800850fb5f778356bc1b81ce9292955ffc445",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony",
+          "Destination": "/repo"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-pg-fresh",
+      "id": "c5d6fbfde997ba4305087c46532a8c06bf23d91541bd89aaa6382f67aed6035c",
+      "image": "sha256:6b591f995765a189e69276dd55e0b362342d65d10d0359bb1fab67bc3391f20f",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/pg-password",
+          "Destination": "/run/secrets/pg_password"
+        },
+        {
+          "Type": "volume",
+          "Source": "/var/lib/docker/volumes/capmoney-mvc-qa-fresh-data/_data",
+          "Destination": "/var/lib/postgresql/data"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-pg-successor",
+      "id": "372e5afc7aca7e1727af38c204ff640259822707962ccee79175521fc73a8cf0",
+      "image": "sha256:6b591f995765a189e69276dd55e0b362342d65d10d0359bb1fab67bc3391f20f",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/pg-password",
+          "Destination": "/run/secrets/pg_password"
+        },
+        {
+          "Type": "volume",
+          "Source": "/var/lib/docker/volumes/capmoney-mvc-qa_pg_data/_data",
+          "Destination": "/var/lib/postgresql/data"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-mailcheck-run-910696cbeaaf",
+      "id": "c386c2b41259cb1c86d2037cf07d85a723c34f64945c1b4f4083d2da6a06742a",
+      "image": "sha256:f23c78cff8c33c0eb207be63f44e72c9e969b201996a10cff3fa957840f4ac3a",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": []
+    },
+    {
+      "name": "/capmoney-mvc-qa-caddy-successor-check",
+      "id": "1582b6a716d13fa40b3c6647eab485dd3eed8db0fbfbeb2eb92ab445388ea502",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": []
+    },
+    {
+      "name": "/capmoney-mvc-qa-caddy-successor",
+      "id": "c5b6fd2b5f0c084c22fcc058bb09eba8a137f67b5fae9eee755f8010761bfe1f",
+      "image": "sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/infra/Caddyfile",
+          "Destination": "/etc/caddy/Caddyfile"
+        },
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/run/secrets/edge_auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-comma-xreal",
+      "id": "f86f22b14537bf292b3f8f40fad8584ed4dfb2b56a89c22cd4d1916a34bd6add",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-comma-xff",
+      "id": "23faefb68cf6d13b7d9f82af1f20618bf417400d618919f19afdcb630829ba92",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-duplicate-xreal",
+      "id": "e9ecbec363f6d8ad3ac49a54f753e7ed07fea0a5c94505215f7709f0674b0d4c",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-missing-xff",
+      "id": "87763f45b7956bdced121e44e22b35a93677367ce4df28810d7e84cc83db341c",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-missing-xreal",
+      "id": "f120997bf94d6a22ae4c652482d6640e0ec074fc23dc9c395092d915039b3ae7",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-one-byte",
+      "id": "1f7ecde62cf03d211ab617fd3dd2622bd60aa97adbbd55a6813f532c26b5c6ac",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-valid",
+      "id": "fad03c846208098138d424bc6f1540800ccee7a6178e908497198c99c6ce144f",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-wrong-peer",
+      "id": "f79c23f187e86f78f18772cfac0372f07ffea37e4f118ccbe435fec253f9ee29",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-mismatch-ip",
+      "id": "924ff6486f43cf5d53c265f21783741f7005a3b79c10949c758027499e152872",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-malformed-ip",
+      "id": "36e9ac03f91296628042ac203f9d2022e239bc7a4ad802130107e318974b6ea0",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-duplicate-ip",
+      "id": "e609a473558c0965678c8a44308ec87310ced657a6c96991026b2e9d8bc7d359",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-no-ip",
+      "id": "a5b700bf3fd7bd83485ef477775bdf73b0a2a6c7e888af24cb225a699aac8bb5",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-wrong-secret",
+      "id": "b5c3137c83deb6048f9f7f968387fdab28bab61991f744e0b05834dd5d9ffc59",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-ingress-no-secret",
+      "id": "30bc5985a2fae460c4ae69cc2dc67c6523f73965bb057f7bc416c7b5565b4174",
+      "image": "sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6",
+      "state": "exited",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/edge-auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-probe-caddy-1",
+      "id": "1fb44cd207f63e258377c8ccaa90b929f59e56f9642a9178c420a63715eacd6d",
+      "image": "sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/infra/Caddyfile",
+          "Destination": "/etc/caddy/Caddyfile"
+        },
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/run/secrets/edge_auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-probe-api-1",
+      "id": "dc7cf6d5ca37fd0bcaabe3aec1b549a4a3dd8852552c2db6826dfb1ad7382298",
+      "image": "sha256:14d7e4e9230b7965b3764923d398895e9acda72c304f660b9fe4b48d4a5a2405",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/pg-password",
+          "Destination": "/run/secrets/pg_password"
+        },
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/run/secrets/edge_auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-probe-redis-1",
+      "id": "92115efe56545e2810fd8f063cb238f79b4c934844d174be9d32031e9741567a",
+      "image": "sha256:3b73847e72874be07e6657b129a94761662b79bc0f679273757d4218573b2a98",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Source": "/var/lib/docker/volumes/362091fbc2af04e12e962a35c10330f0058e80d1d43841bd7f8375f7e805d995/_data",
+          "Destination": "/data"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-probe-mailpit-1",
+      "id": "f2f3ec7cd2c37d3a30d9cba5958e101dfa2f422f0c1db627ab4e5994573c0ab1",
+      "image": "sha256:df6c2541907e1be6fac21f509927cf6ed771617a1f4b361ef66d97bd05593d2d",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": []
+    },
+    {
+      "name": "/capmoney-mvc-qa-probe-web-1",
+      "id": "ed957f2398ca35321dd41a4766e4181b72361b99e57cb84d54e0740de88178ac",
+      "image": "sha256:c17ed197abcf11a37336b04a570fa56c4ea38112ef6ad176bee421c65e384977",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": []
+    },
+    {
+      "name": "/capmoney-mvc-qa-probe-postgres-1",
+      "id": "aaded1773d89b796fb7fd392bb57ac468fb16a2fc9e401254e0836440ce70e8a",
+      "image": "sha256:6b591f995765a189e69276dd55e0b362342d65d10d0359bb1fab67bc3391f20f",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Source": "/var/lib/docker/volumes/capmoney-mvc-qa-probe_pg_data/_data",
+          "Destination": "/var/lib/postgresql/data"
+        },
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/pg-password",
+          "Destination": "/run/secrets/pg_password"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-caddy-1",
+      "id": "078fbef389ca87a6345127645c651fdeb899aa8cf40d8f3692fde069574f89db",
+      "image": "sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/infra/Caddyfile",
+          "Destination": "/etc/caddy/Caddyfile"
+        },
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/run/secrets/edge_auth"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-api-1",
+      "id": "77ea7dcbe3725babf3cb98f35916bfa4d1aac731ad835d13bedcd7bef8cf8e2f",
+      "image": "sha256:1bc05a0431e1c054c40c176854f800850fb5f778356bc1b81ce9292955ffc445",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/edge-auth",
+          "Destination": "/run/secrets/edge_auth"
+        },
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/pg-password",
+          "Destination": "/run/secrets/pg_password"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-web-1",
+      "id": "cb931550c31947891a13231ca73965fdf278a5d35cb45ddb823cdc273373cb22",
+      "image": "sha256:c17ed197abcf11a37336b04a570fa56c4ea38112ef6ad176bee421c65e384977",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": []
+    },
+    {
+      "name": "/capmoney-mvc-qa-mailpit-1",
+      "id": "9a4b290b5dffd9dff54c95bc6c4ac21de4b6ee08179aa82f6a726bfbd8c2c482",
+      "image": "sha256:df6c2541907e1be6fac21f509927cf6ed771617a1f4b361ef66d97bd05593d2d",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": []
+    },
+    {
+      "name": "/capmoney-mvc-qa-redis-1",
+      "id": "320a7a894584058a6d2fad25402d67aaf17e7887263fc2a1ca1d06bae712e84c",
+      "image": "sha256:3b73847e72874be07e6657b129a94761662b79bc0f679273757d4218573b2a98",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Source": "/var/lib/docker/volumes/46585a5e91daa57cc30540df72a5c8d78bf18a0ad03ed311ec34d0cd9794d3c3/_data",
+          "Destination": "/data"
+        }
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-postgres-1",
+      "id": "b878105d9c58ab78987f2bc11071715f7810dd0565bde644493d97c647c73e63",
+      "image": "sha256:6b591f995765a189e69276dd55e0b362342d65d10d0359bb1fab67bc3391f20f",
+      "state": "running",
+      "exit_code": 0,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Source": "/var/lib/docker/volumes/capmoney-mvc-qa_pg_data/_data",
+          "Destination": "/var/lib/postgresql/data"
+        },
+        {
+          "Type": "bind",
+          "Source": "/Users/ninhndt/Downloads/capmony/.local/qa-mvc-final/secrets/pg-password",
+          "Destination": "/run/secrets/pg_password"
+        }
+      ]
+    }
+  ],
+  "java": "openjdk 25.0.4.1 2026-08-18 LTS\nOpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)\nOpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)\n",
+  "compose": "Docker Compose version 5.6.0\n"
+}

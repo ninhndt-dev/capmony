@@ -1,0 +1,29 @@
+[
+  {
+    "case": "origin-missing",
+    "status": 403,
+    "before": 1,
+    "after": 1,
+    "body": "{\"code\":\"invalid_ingress\"}"
+  },
+  {
+    "case": "origin-wrong",
+    "status": 403,
+    "before": 1,
+    "after": 1,
+    "body": "{\"code\":\"invalid_ingress\"}"
+  },
+  {
+    "case": "forged-caddy",
+    "status": 200,
+    "before": 1,
+    "after": 2,
+    "body": "{\"marker\":2}"
+  },
+  {
+    "case": "one-byte-secret",
+    "status": 403,
+    "before": 2,
+    "after": 2
+  }
+]

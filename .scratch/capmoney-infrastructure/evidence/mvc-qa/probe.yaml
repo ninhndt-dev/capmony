@@ -1,0 +1,22 @@
+services:
+  api:
+    image: capmoney-mvc-probe:5a4a130
+  web:
+    image: capmoney-dev-web
+networks:
+  web_net:
+    ipam:
+      config:
+        - subnet: 10.247.80.0/24
+  data_net:
+    ipam:
+      config:
+        - subnet: 10.247.81.0/24
+  rate_net:
+    ipam:
+      config:
+        - subnet: 10.247.82.0/24
+  mail_net:
+    ipam:
+      config:
+        - subnet: 10.247.83.0/24

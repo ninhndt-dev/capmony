@@ -1,8 +1,8 @@
 # Story INFRA-01: Môi trường Docker dev/test
 
-**Lifecycle:** implementing follow-up#48; #47QA_PASS trên310ad7f và PlanioClosed, QA#48 chưa chạy.
+**Lifecycle:** QA_PASS; #47 trên310ad7f và #48 MVC trên5a4a130 đều qua QA riêng. Planio#46/#47/#48 Closed, đã đọc lại.
 **Planio:** [#46 – INFRA-01](https://tanninh.planio.com/issues/46), issue hạ tầng riêng; [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47) là ticket DevOps cấp dưới. Đã tạo và đọc lại ngày 14/10/2026.
-**Blocked by:** Không còn blocker kỹ thuật #47; IF-Q6 đã được Ninh giải bằng lựa chọnJUnit6. Planio đã xác minh: #47Closed, #46/#48In Progress.
+**Blocked by:** Không còn blocker kỹ thuật #47; IF-Q6 đã được Ninh giải bằng lựa chọnJUnit6. Planio đã xác minh: #47Closed, #46/#48Closed sau QA MVC8/8.
 
 ## Phạm vi và nguồn
 
@@ -22,4 +22,4 @@
 
 ## Phụ thuộc và việc tiếp theo
 
-CM-01.1 / Planio #43 chưa được giao Dev; PM phải xét readiness riêng sau bằng chứng INFRA-01/#47 đã QA_PASS. Quan hệ #47 blocks#43 (relation8) còn ở Planio theo lượt ghi trước; #47đãClosed và được đọc lại sau đồng bộ, quan hệ không bị xóa. Không dùng QA_PASS hạ tầng để tự mở toàn bộ CM-01. Ninh đã đồng ý bố cục BE MVC; [thiết kế](mvc-refactor-design.md) và ticket#48 đủreadiness, chưa kế thừaQA cũ cho code mới. Stack Node/Hono cũ và mọi volume thử được giữ. VPS/domain/SMTP thật thuộc giai đoạn vận hành sau.
+CM-01.1 / Planio #43 chưa được giao Dev; PM phải xét readiness riêng sau bằng chứng INFRA-01/#47 đã QA_PASS. Quan hệ #47 blocks#43 (relation8) còn ở Planio theo lượt ghi trước; #47đãClosed và được đọc lại sau đồng bộ, quan hệ không bị xóa. Không dùng QA_PASS hạ tầng để tự mở toàn bộ CM-01. Ninh đã đồng ý bố cục BE MVC; [thiết kế](mvc-refactor-design.md) và ticket#48 đãQA_PASS8/8 trên5a4a130, không kế thừaQA cũ; xem [QA MVC](mvc-refactor-qa-evidence.md). Stack Node/Hono cũ và mọi volume thử được giữ. VPS/domain/SMTP thật thuộc giai đoạn vận hành sau.

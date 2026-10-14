@@ -1,0 +1,16 @@
+{
+  "same_main_resource_bytes": true,
+  "resources": [
+    "BOOT-INF/classes/db/changelog/db.changelog-master.yaml",
+    "BOOT-INF/classes/application.yaml"
+  ],
+  "source_main_java": [
+    "apps/api/src/main/java/com/capmoney/api/ApiApplication.java",
+    "apps/api/src/main/java/com/capmoney/api/config/SecurityConfiguration.java",
+    "apps/api/src/main/java/com/capmoney/api/security/IngressFilter.java",
+    "apps/api/src/main/java/com/capmoney/api/health/controller/HealthController.java",
+    "apps/api/src/main/java/com/capmoney/api/health/model/HealthStatus.java",
+    "apps/api/src/main/java/com/capmoney/api/health/service/HealthService.java"
+  ],
+  "source_change_after_snapshot": ""
+}

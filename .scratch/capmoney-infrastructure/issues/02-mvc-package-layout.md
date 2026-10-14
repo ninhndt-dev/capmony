@@ -1,7 +1,7 @@
 # INFRA-01.2: Sắp xếp BE một Maven project theo tính năng và MVC
 
-**Parent:** Planio#46 INFRA-01. **Planio child:** [#48](https://tanninh.planio.com/issues/48), Task3, In Progress6, đã tạo/đọc lại đúng parent46/project4 ngày15/10/2026.
-**Status:** ready-for-agent — READY_FOR_IMPLEMENTATION đạt15/10/2026 sau BA/Tech ticket reviews và PM đối chiếu; publish/readback child Planio trước Dev.
+**Parent:** Planio#46 INFRA-01. **Planio child:** [#48](https://tanninh.planio.com/issues/48), Task3, Closed8/100% sauQA, đã tạo/đọc lại đúng parent46/project4 ngày15/10/2026.
+**Status:** done — QA_PASS; READY_FOR_IMPLEMENTATION đạt15/10/2026 sau BA/Tech ticket reviews và PM đối chiếu; publish/readback child Planio trước Dev.
 **Owner:** CapmmDev `/root`; reviewer khác người code và QA độc lập sau code review.
 **Blocked by:** Không còn HARD từ setup: Planio đã kết nối project4/user1, #47 Closed được đọc lại; sync-result.json ghi bằng chứng. Chỉ chờ readiness của ticket này.
 **Integration blocked by:** None; #43 không phải dependency của refactor.

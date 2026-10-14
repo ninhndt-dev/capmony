@@ -1,0 +1,123 @@
+{
+  "before": {
+    "Pid": 223808,
+    "StartedAt": "2026-10-14T17:43:05.112515149Z"
+  },
+  "routes": {
+    "/": 200,
+    "/manager/setup": 200,
+    "/api/health": [
+      200,
+      "{\"status\":\"UP\"}"
+    ],
+    "/api/ready/auth": [
+      200,
+      "{\"status\":\"UP\"}"
+    ],
+    "/api/__probe": [
+      404,
+      "{\"timestamp\":\"2026-10-14T17:43:13.043Z\",\"status\":404,\"error\":\"Not Found\",\"path\":\"/api/__probe\"}"
+    ],
+    "/v3/api-docs": 200
+  },
+  "postgres_outage": {
+    "/api/health": [
+      503,
+      "{\"status\":\"db_unavailable\"}"
+    ],
+    "/api/ready/auth": [
+      503,
+      "{\"status\":\"db_unavailable\"}"
+    ]
+  },
+  "postgres_outage_repeated": [
+    {
+      "/api/health": [
+        503,
+        "{\"status\":\"db_unavailable\"}"
+      ],
+      "/api/ready/auth": [
+        503,
+        "{\"status\":\"db_unavailable\"}"
+      ]
+    },
+    {
+      "/api/health": [
+        503,
+        "{\"status\":\"db_unavailable\"}"
+      ],
+      "/api/ready/auth": [
+        503,
+        "{\"status\":\"db_unavailable\"}"
+      ]
+    },
+    {
+      "/api/health": [
+        503,
+        "{\"status\":\"db_unavailable\"}"
+      ],
+      "/api/ready/auth": [
+        503,
+        "{\"status\":\"db_unavailable\"}"
+      ]
+    }
+  ],
+  "postgres_recovery": "UP; same PID and StartedAt",
+  "redis_outage": {
+    "/api/health": [
+      200,
+      "{\"status\":\"UP\"}"
+    ],
+    "/api/ready/auth": [
+      503,
+      "{\"status\":\"redis_unavailable\"}"
+    ]
+  },
+  "redis_outage_repeated": [
+    {
+      "/api/health": [
+        200,
+        "{\"status\":\"UP\"}"
+      ],
+      "/api/ready/auth": [
+        503,
+        "{\"status\":\"redis_unavailable\"}"
+      ]
+    },
+    {
+      "/api/health": [
+        200,
+        "{\"status\":\"UP\"}"
+      ],
+      "/api/ready/auth": [
+        503,
+        "{\"status\":\"redis_unavailable\"}"
+      ]
+    },
+    {
+      "/api/health": [
+        200,
+        "{\"status\":\"UP\"}"
+      ],
+      "/api/ready/auth": [
+        503,
+        "{\"status\":\"redis_unavailable\"}"
+      ]
+    }
+  ],
+  "redis_recovery": "UP; same PID and StartedAt",
+  "images": "sha256:1bc05a0431e1c054c40c176854f800850fb5f778356bc1b81ce9292955ffc445",
+  "containers": {
+    "2019/tcp": null,
+    "443/tcp": null,
+    "443/udp": null,
+    "80/tcp": null,
+    "8080/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "18082"
+      }
+    ]
+  },
+  "runtime_probe_class_absent": "not checked"
+}
