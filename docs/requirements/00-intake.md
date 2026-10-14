@@ -95,6 +95,8 @@ Bản nháp trước diễn giải tám nhóm là **Tài khoản, Ví, Danh mụ
 | R65 | Khi lời mời chưa dùng, còn hạn 3 ngày nhưng người nhận không thấy email, Ninh dùng tài khoản quản lý gửi lại chính liên kết đó tới cùng email; mốc hết hạn của lần gửi đầu không đổi. Không tạo lời mời mới trong trường hợp này. | Ninh chọn A trên giao diện, Q1 [vòng làm rõ #03 bước 9](38-step-9-invitation-send-round-1.md) ngày 14/10/2026 |
 | R66 | Khi tạo ví đầu tiên hoặc ví thêm, người dùng phải nhập tên ví trước khi Lưu; không tự đặt tên mặc định nếu để trống. | Ninh chọn A trên giao diện, Q1 [vòng làm rõ #06 bước 9](39-step-9-first-wallet-round-1.md) ngày 14/10/2026 |
 | R67 | Sau khi bấm Lưu ví đầu tiên rồi đóng trình duyệt khi kết quả chưa rõ, mở lại bằng cùng tài khoản có Internet thì CapMoney tự đối chiếu đúng thao tác; chỉ báo đã lưu/chưa lưu khi biết chắc. Nếu chắc chưa lưu, mở biểu mẫu trống; nếu vẫn chưa rõ, hiện đang kiểm tra và chặn lưu trùng. | Ninh chọn A trên giao diện, Q2 [vòng làm rõ #06 bước 9](40-step-9-first-wallet-round-2.md) ngày 14/10/2026 |
+| R68 | Khi tạo ví thêm, rời biểu mẫu trước khi bấm Lưu rồi quay lại trong cùng phiên có Internet thì mở lại biểu mẫu trống; chưa tạo ví từ phần nhập dở. Khác F18 của ví đầu tiên. | Ninh chọn B trên giao diện, Q1 [vòng làm rõ #07 bước 9](41-step-9-add-wallet-round-1.md) ngày 14/10/2026 |
+| R69 | Sau khi bấm Lưu ví thêm rồi đóng trình duyệt khi kết quả chưa rõ, mở lại cùng tài khoản có Internet thì tự đối chiếu đúng thao tác; chỉ báo đã/chưa lưu khi chắc. Nếu chắc chưa lưu, biểu mẫu trống; nếu còn chưa rõ, hiện đang kiểm tra và chặn lưu trùng. | Ninh chọn A trên giao diện, Q2 [vòng làm rõ #07 bước 9](41-step-9-add-wallet-round-1.md) ngày 14/10/2026 |
 
 ## Đề xuất, chưa được Ninh xác nhận
 

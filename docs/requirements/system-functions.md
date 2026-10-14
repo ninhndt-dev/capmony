@@ -33,6 +33,8 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 
 **Bổ sung H04 tại bước 9:** R67 áp dụng cho ví đầu tiên đã bấm Lưu rồi đóng trình duyệt khi kết quả chưa rõ: mở lại cùng tài khoản có Internet thì tự đối chiếu đúng thao tác, chỉ báo kết quả khi chắc và chặn lưu trùng lúc chưa rõ. [Vòng làm rõ #06, Q2](40-step-9-first-wallet-round-2.md)
 
+**Bổ sung H04 tại bước 9:** R68 quy định rời biểu mẫu **ví thêm** trước Lưu rồi quay lại cùng phiên thì biểu mẫu trống; R69 quy định đã bấm Lưu ví thêm rồi đóng khi chưa rõ thì mở lại tự đối chiếu đúng thao tác, chỉ báo khi chắc và chặn lưu trùng lúc chưa rõ. [Vòng làm rõ #07](41-step-9-add-wallet-round-1.md)
+
 ## Ninh đã xác nhận về thứ tự ưu tiên
 
 | Mã | Quyết định | Bằng chứng |

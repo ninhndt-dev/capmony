@@ -1,13 +1,13 @@
 # CapMoney: khởi động lại từ tiếp nhận yêu cầu
 
-**Trạng thái:** Hoàn tất chia 35 Story ứng viên ở bước 8/11; đang ở bước 9. Đặc tả #01–#06 đã qua BA → PM → Tech → PM theo quy trình trước workflow CapMM; [Story #07](.scratch/capmoney-add-wallet/story.md) có spec 20 mục nhưng `needs-info` vì hai câu hỏi ví thêm chưa được Ninh chọn, nên chưa `BA_READY`. Các Story tại [tracker Markdown](.scratch/capmoney-overall/issues/) chưa có gate sẵn sàng Dev. Dự án chưa có code ứng dụng web hoặc API.
+**Trạng thái:** Hoàn tất chia 35 Story ứng viên ở bước 8/11; đang ở bước 9. Đặc tả #01–#06 đã qua BA → PM → Tech → PM theo quy trình trước workflow CapMM. [Story #07](.scratch/capmoney-add-wallet/story.md) đã đạt `BA_READY` sau R68–R69; [thiết kế kỹ thuật](.scratch/capmoney-add-wallet/technical-design.md) đã được reviewer độc lập và PM rà, kết luận `STORY_TECH_GAP` do còn thiếu spike/hợp đồng nền tảng. Các Story tại [tracker Markdown](.scratch/capmoney-overall/issues/) chưa có gate sẵn sàng Dev. Dự án chưa có code ứng dụng web hoặc API.
 
 Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòng phỏng vấn. Bản code trước đây đã được bỏ khỏi cây dự án này. Ninh đã chọn **hỏi lại toàn bộ từ đầu**; những câu trả lời cũ chỉ dùng làm bối cảnh, không tự động thành yêu cầu mới. Xem [phiếu tiếp nhận](docs/requirements/00-intake.md).
 
 ## Bắt đầu ở đâu
 
 1. Đọc [phiếu tiếp nhận](docs/requirements/00-intake.md), [mục tiêu và phạm vi đã xác nhận](docs/requirements/goal-and-scope.md), [người dùng và quyền](docs/requirements/actors-and-roles.md), [nghiệp vụ chính đã xác nhận](docs/requirements/core-business.md), [luồng người dùng đã xác nhận](docs/requirements/user-flows.md) và [danh mục chức năng đã xác nhận](docs/requirements/system-functions.md).
-2. Từ đặc tả tổng thể đã xác nhận, 35 ticket dọc và quan hệ phụ thuộc đã được chia ở bước 8 theo `to-tickets`; PM → Tech rà soát theo [quy trình](docs/agents/workflow.md).
+2. Từ đặc tả tổng thể đã xác nhận, 35 lát và quan hệ phụ thuộc đã được chia ở bước 8 theo `to-tickets`; hiện chúng là Story ứng viên. Ticket Dev cấp dưới chỉ được chia sau các gate theo [quy trình](docs/agents/workflow.md).
 3. Tiếp tục đặc tả chi tiết từng module ở bước 9 trước khi chuyển ticket sang `ready-for-agent`.
 4. Từng module đi qua BA → PM → Tech → PM → Dev → PM → QA. Chỉ triển khai sau khi yêu cầu của module đủ rõ; dữ liệu và hành vi phải được kiểm tra thực tế.
 
@@ -20,7 +20,7 @@ Từ Story #07, dùng [workflow CapMM end to end](docs/workflows/capmm-end-to-en
 Sau khi mở repo và cập nhật nhánh `main`, dán yêu cầu sau vào Codex:
 
 ```text
-Tiếp tục dự án CapMoney từ trạng thái hiện tại trên nhánh main. Đọc AGENTS.md, README.md, docs/agents/workflow.md và docs/workflows/capmm-end-to-end.md trước. Hiện ở bước 9/11, Story kế tiếp là #07 Thêm ví. Áp dụng workflow CapMM: BA lập spec 20 mục và Q&A có nguồn, PM kiểm BA_READY, Tech thiết kế và được review độc lập, PM kiểm TECH_READY rồi mới chia ticket Dev. Giữ gate chưa đạt nếu còn thiếu bằng chứng; hỏi tôi bằng lựa chọn A/B trên giao diện khi cần quyết định sản phẩm. Chưa viết code khi ticket chưa READY_FOR_IMPLEMENTATION.
+Tiếp tục dự án CapMoney từ trạng thái hiện tại trên nhánh main. Đọc AGENTS.md, README.md, docs/agents/workflow.md và docs/workflows/capmm-end-to-end.md trước. Hiện ở bước 9/11: Story #07 Thêm ví đã BA_READY nhưng còn STORY_TECH_GAP. Đối chiếu technical-design.md và handoff.md của #07, xử lý spike/quyết định nền tảng #04/#06, đặc biệt kết quả “chắc chưa lưu” khi request tới muộn và ghi một lần dưới đồng thời; xin review kỹ thuật độc lập và PM rà lại trước TECH_READY. Chỉ chia ticket Dev sau hai gate và chỉ code khi ticket READY_FOR_IMPLEMENTATION. Hỏi tôi bằng lựa chọn A/B trên giao diện khi phát sinh quyết định sản phẩm mới.
 ```
 
 ## Bộ skills

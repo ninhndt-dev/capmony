@@ -43,6 +43,8 @@ Các quy tắc về quyền và xóa tức thì đã chốt ở [người dùng 
 
 **Bổ sung cho F21/F25 tại bước 9:** Câu hỏi gốc của F25 là kết quả Lưu **giao dịch** sau đóng trình duyệt. Ninh đã xác nhận R67 riêng cho **ví đầu tiên** với cùng đường tự đối chiếu và chặn lưu trùng; không suy F25 tự áp cho mọi loại thao tác. [Vòng làm rõ #06, Q2](40-step-9-first-wallet-round-2.md)
 
+**Bổ sung cho ví thêm tại bước 9:** R68 yêu cầu mở biểu mẫu trống nếu rời trang **trước Lưu** rồi quay lại cùng phiên, khác F18 của ví đầu tiên. R69 yêu cầu tự đối chiếu đúng thao tác nếu đã bấm Lưu ví thêm rồi đóng trình duyệt khi kết quả chưa rõ, cùng cách xử lý R67 nhưng là quyết định riêng. [Vòng làm rõ #07](41-step-9-add-wallet-round-1.md)
+
 ## Tổng hợp luồng đã được Ninh xác nhận hiểu đúng
 
 | Luồng | Diễn tiến chính | Lỗi, giới hạn và phục hồi đã chốt |
