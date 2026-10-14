@@ -10,7 +10,7 @@
 
 ## Acceptance criteria
 
-- [ ] Trên trạng thái khởi tạo mới chưa hoàn tất, liên kết quá 3 ngày không thể hoàn tất thiết lập.
+- [ ] Khi thiết lập quản lý ban đầu chưa hoàn tất, liên kết không thể hoàn tất thiết lập từ đúng mốc 72 giờ kể từ lúc hệ thống ghi nhận gửi thành công.
 - [ ] Ninh tự xin liên kết mới chỉ tới email quản lý đã khai; liên kết cũ hết hiệu lực.
 - [ ] Trang xin lại không cho thay email đích; sau khi đã thiết lập tài khoản quản lý, trang không cấp thêm liên kết hoặc tài khoản quản lý.
 - [ ] Ca kiểm chứng dùng môi trường khởi tạo riêng, không đặt lại dữ liệu người dùng thật.
@@ -20,3 +20,4 @@
 
 - Nguồn: đặc tả tổng thể bước 7 và đề xuất bước 8 đã được Ninh xác nhận. Kiểm thử hành vi qua web và đọc lại dữ liệu; chưa chọn schema/API/công nghệ.
 - Đặc tả chi tiết bước 9: [Xin lại liên kết thiết lập quản lý hết hạn](../../capmoney-manager-link-renewal/spec.md). Giữ `needs-triage` tới khi Tech kiểm chứng phương án xác thực/email cùng #01 và PM rà lại.
+- Rà soát BA → PM → Tech → PM ngày 14/10/2026: hành vi khớp F23–F24; tiêu chí mốc 72 giờ được sửa cho khớp đặc tả. Cơ chế thay liên kết, kết quả gửi email chưa rõ và giới hạn xin lại còn chờ kiểm chứng kỹ thuật, nên chưa chuyển `ready-for-agent`.

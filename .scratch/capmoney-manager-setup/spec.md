@@ -27,6 +27,7 @@ Người triển khai khởi tạo hệ thống với email quản lý Ninh đã
 - Liên kết thiết lập gửi qua email, chỉ có thể hoàn tất một lần và hết hạn sau 3 ngày kể từ lúc gửi. Mở liên kết hợp lệ chứng minh quyền dùng đúng email đích; Ninh tự đặt mật khẩu trước khi đăng nhập. [F11, F23]
 - Tài khoản quản lý tách khỏi tài khoản ghi chép cá nhân của Ninh. Chức năng mời người dùng và hỗ trợ mất email là các ticket sau; #01 chỉ cần thiết lập và đăng nhập tài khoản quản lý. Không có quản lý dự phòng hoặc tự đăng ký. [bước 3, R13]
 - Sau đăng nhập, Ninh có khu vực tài khoản quản lý tối thiểu hiển thị tài khoản đang đăng nhập. Khu vực này chỉ phiên quản lý hợp lệ xem được, kể cả khi tải lại; đường dẫn trực tiếp khi chưa đăng nhập bị từ chối. Không cần thao tác mời người dùng của #03 để chứng minh quyền ở #01.
+- Khu vực quản lý tối thiểu là cách nhóm đề xuất để trình diễn quyền ở #01, chưa phải bố cục màn hình Ninh đã xác nhận riêng.
 - Việc hoàn tất thiết lập phải là một lần duy nhất ngay cả khi Ninh bấm xác nhận lặp hoặc có hai lần hoàn tất gần đồng thời: nhiều nhất một lần thành công và chỉ có một tài khoản quản lý.
 - Nếu liên kết quá hạn trước khi thiết lập xong, không hoàn tất bằng liên kết cũ; xin liên kết mới thuộc ticket #02. Đặt lại mật khẩu quản lý thuộc #22, đổi email quản lý thuộc #23. [F24, R57–R58, R61]
 - Email quản lý đã khai được cấu hình trước khi gửi liên kết; không thể tự thay bằng email nhập trên web. Các ràng buộc kỹ thuật tối thiểu do Tech đề xuất nằm ngay dưới đây; không lấy code iOS/API cũ làm nền.
