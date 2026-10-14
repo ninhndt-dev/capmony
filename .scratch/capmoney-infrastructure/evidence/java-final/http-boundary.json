@@ -1,0 +1,17 @@
+{
+  "/api/health": {
+    "status": 200,
+    "cache_control": "no-store",
+    "body": "{\"status\":\"UP\"}"
+  },
+  "/api/ready/auth": {
+    "status": 200,
+    "cache_control": "no-store",
+    "body": "{\"status\":\"UP\"}"
+  },
+  "3000": "unreachable",
+  "5432": "unreachable",
+  "6379": "unreachable",
+  "1025": "unreachable",
+  "8025": "unreachable"
+}

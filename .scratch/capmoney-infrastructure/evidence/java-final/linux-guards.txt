@@ -1,0 +1,1 @@
+stack config guards: 12 cases passed; artifacts: /tmp/capmoney-stack-test.sv9gqE

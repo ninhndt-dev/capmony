@@ -1,0 +1,8 @@
+{
+  "initial_pg_unavailable": {
+    "restart_count": 1,
+    "status": "running"
+  },
+  "recovered_after_pg_started": true,
+  "container": "capmoney-java-qa-v2-api-initial"
+}

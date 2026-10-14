@@ -2,6 +2,34 @@
 
 **Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); stack Node/Hono và gate #47 cũ là lịch sử. #47 Java đã `READY_FOR_IMPLEMENTATION`; Planio #46/#47 đã chuyển `In Progress`, Dev đang làm. QA IF-T03 fail trên Node/Hono trước khi đổi stack; không cấp pass cho Java.
 
+## CapmmPM — #47 / IF-Q6 chờ quyết định tương thích JUnit
+
+**DONE:** QA độc lập đã chạy IF-J-T01–08 thành công trên `310ad7f`; P1 timeout đã sửa/retest. Rà dependency cuối cùng cùng reviewer Tech phát hiện TS36 chọnJUnit5 nhưng Boot4.1.1 BOM/test classpath thực tếJUnit6.0.3. Spring7 nâng baselineJUnit6, nên không tự downgrade hay coi Ninh đã duyệtJUnit6. [Quyết định đang chờ](../../docs/requirements/tech-stack-round-2.md), [Q&A IF-Q6](qna.md), [review](code-review-java.md), [QA execution](qa-evidence-java.md).
+
+**RESULT:** `TEST_EXECUTION_PASS` 8/8 case hạ tầng trên buildJUnit6. **Gate cuối #47 giữ chờ IF-Q6**; kết luận DEV_REVIEWED ở mục trước cần bổ sung điều kiện tương thích này, chưa dùng để đóng #47 hoặc cấp Story QA_PASS. Không hủy bằng chứng chạy hoặc kết luận đã đóng P1 timeout.
+
+**NEED HUMAN:** Ninh chọn A giữBoot4.1/Java25 và dùngJUnit6, hoặc B giữJUnit5 rồi review lại stack. Đây là thay đổi lựa chọn kỹ thuật đã chốt, không phải hỏi lại quyền thao tác. Chưa có API key Planio trong phiên để đồng bộ tracker; không yêu cầu gửi key vào chat.
+
+**PENDING:** Sau câu trả lời, cập nhật TS36/thiết kế/gate tương ứng; nếu chọnA, đối chiếu đúng snapshot đã chạy và PM chốt. Nếu chọnB, Tech rebaseline trước code tiếp. #43 chưa giaoDev. Giữ mọi tài nguyên đã tạo.
+
+**DETAIL:** Code310ad7f; toàn bộ evidence/review đã chuẩn bị, chỉ còn lựa chọnJUnit và đồng bộ Planio bên ngoài phiên.
+
+— Codex `/root` trong vai CapmmPM; Spec reviewer `/root/review_spec`; QA độc lập `/root/java_qa`
+
+## CapmmPM — INFRA-01.1 / #47 DEV_REVIEWED Java
+
+**DONE:** Đối chiếu snapshot code `310ad7f`, [Dev evidence Java](dev-evidence-java.md) và [code review hai trục](code-review-java.md) trên toàn diff từ `b1aa9f4`. Standards reviewer `/root/review_standards` không có blocker; Spec reviewer `/root/review_spec` đã đóng P1 timeout PostgreSQL sau QA độc lập chạy green. Phạm vi chỉ infrastructure placeholder/health/readiness/SMTP test/network; không có tài khoản, schema nghiệp vụ, tiền hoặc production. Quyền bảo toàn tài nguyên được áp dụng vào scripts, wrapper và Testcontainers; phương pháp thay thế reset/recreate đã được Tech reviewer chấp nhận.
+
+**RESULT:** `DEV_REVIEWED` đạt cho #47 Java trên `310ad7f` ngày 15/10/2026. P1 silent-DB được tái hiện trước sửa và retest sau sửa: health503 ~2.012s, readiness503 ~1.007s, tự phục hồi cùng PID/StartedAt. `QA_PASS` còn chờ tổng hợp đầy đủ IF-J-T01–08.
+
+**NEED HUMAN:** Chưa có API key Planio trong phiên để đồng bộ trạng thái khi hoàn tất; không yêu cầu Ninh gửi key vào chat. Không chặn QA cục bộ.
+
+**PENDING:** QA độc lập hoàn tất tám case trên image/commit cuối, PM kiểm evidence rồi mới kết luận QA_PASS. #43 chưa mở readiness. Không đóng issue Planio khi chưa đồng bộ qua API.
+
+**DETAIL:** Code `310ad7f`, [review](code-review-java.md), [Dev evidence](dev-evidence-java.md), [QA evidence Java](qa-evidence-java.md), [test spec](test-spec.md). Trạng thái Planio được ghi ở lượt trước là In Progress; phiên này chưa đọc lại hoặc thay đổi Planio.
+
+— Codex `/root` trong vai CapmmPM; reviewers `/root/review_standards`, `/root/review_spec`; tester độc lập `/root/java_qa`
+
 ## CapmmPM — INFRA-01.1 / #47 READY_FOR_IMPLEMENTATION Java-Redis
 
 **DONE:** Đối chiếu [ticket #47 Java](issues/01-docker-dev-test.md) và [test spec IF-J-T01–T08](test-spec.md) với `BA_READY`/`TECH_READY` cấp Story, đúng 5 mã AC, hợp đồng V1–V8, dữ liệu thử, không có `HARD` blocker khởi động và hai [review BA/Tech độc lập](handoff.md). Giải P2 TS22: Ninh đã chọn TanStack Query + fetch, nhưng #47 chỉ có web placeholder không fetch dữ liệu sản phẩm; [thiết kế §2](technical-design-java.md) và ticket nay ghi pin/cài Query ở FE ticket đầu tiên gọi API. Không thêm hành vi hay AC mới.

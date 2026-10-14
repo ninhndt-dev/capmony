@@ -1,0 +1,17 @@
+{
+  "identity": {
+    "Pid": 50128,
+    "StartedAt": "2026-10-14T16:59:22.492555631Z"
+  },
+  "paused_database": {
+    "/api/health": {
+      "status": 503,
+      "seconds": 2.012
+    },
+    "/api/ready/auth": {
+      "status": 503,
+      "seconds": 1.007
+    }
+  },
+  "recovered": true
+}

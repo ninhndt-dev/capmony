@@ -18,3 +18,12 @@
 
 - VPS/domain/SMTP thật và chi phí vận hành; không cần để chạy dữ liệu thử local.
 - Cách Spring xác thực TCP peer/IP do Caddy chuyển, secret edge và đường CSRF là chi tiết Tech phải chứng minh trong ticket, không tự coi đã chạy. ADR 0003 đang chờ reviewer rà lại sau ba P1.
+
+## IF-Q6 — JUnit5 đã chọn và baseline JUnit6 của Spring7
+
+Ngày15/10/2026; **needs-info**, người trả lời Ninh. TS36 chọnJUnit5 nhưng Boot4.1.1 BOM và classpath thực chạy làJUnit6.0.3. Tám case QA hạ tầng đã chạy pass trên commit310ad7f; đây là bằng chứng kỹ thuật cho phương ánJUnit6, chưa phải Ninh chấp nhận sửa lựa chọn. Spring7 yêu cầuJUnit6 theo [release notes chính thức](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-7.0-Release-Notes).
+
+- A (đề xuất): Giữ Spring Boot4.1/Java25, đổi TS36 sangJUnit6. Bản đã chạy dùng6.0.3; không cần viết lại chức năng hay chạy lại chỉ do cập nhật quyết định.
+- B: GiữJUnit5, rà lại lựa chọn framework/stack tương thích trước khi triển khai tiếp; không tự hạ Boot.
+
+**Chưa có câu trả lời.** Chặn PM chốt gate cuối #47 và mở #43. Không thay các lựa chọn đã xác nhận trong lúc chờ.

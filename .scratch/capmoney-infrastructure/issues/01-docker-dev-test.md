@@ -4,8 +4,8 @@
 
 **Parent:** [Planio #46 – INFRA-01](https://tanninh.planio.com/issues/46).
 **Planio child:** [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47).
-**Status:** `ready-for-agent` — `READY_FOR_IMPLEMENTATION` đạt cho bản Java/Redis ngày 14/10/2026 sau BA/Tech ticket review và PM kiểm gate. Readiness/Dev review của Node/Hono trước TS10–TS38 chỉ là lịch sử. Planio #47 đã đồng bộ `In Progress`; Dev đang làm, chưa có `DEV_REVIEWED`/`QA_PASS`.
-**Blocked by:** None; không có `HARD` blocker khởi động.
+**Status:** `needs-info` — ảnh chụp tác nghiệp 15/10/2026: code310ad7f, QA kỹ thuật8/8 pass trênJUnit6.0.3; chờ Ninh IF-Q6 vì TS36 chốtJUnit5. Gate cuối chưa cấp. Planio lượt trước ghi In Progress; phiên này chưa đọc/cập nhật tracker.
+**Blocked by:** IF-Q6 cho gate cuối; không giao code thêm trước khi xử lý lựa chọn JUnit.
 **Integration blocked by:** không có bên cung cấp khác. #47 là `HARD` blocker của CM-01 #43 theo relation #8, không phải ngược lại.
 **Owner / review:** PM giao DevOps Dev sau readiness; reviewer code khác người thực hiện, PM rà phạm vi và QA độc lập chạy build.
 
