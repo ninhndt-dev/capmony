@@ -1,29 +1,31 @@
-# CM-01.2: Hoàn tất thiết lập một quản lý
+# CM-01.2 / #44: Hoàn tất thiết lập một quản lý
 
-**Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8)
-**Planio child:** [#44](https://tanninh.planio.com/issues/44), tạo và đọc lại ngày 14/10/2026.
-**Status:** blocked-by-hard; chưa `READY_FOR_IMPLEMENTATION`, phải rà lại theo TS10–TS38/ADR Java và khi #43 xong. Hợp đồng `technical-design.md` bên dưới chưa cập nhật cho Java. Trạng thái công việc hiện hành xem trên Planio.
-**Blocked by:** `HARD` CM-01.1 / [Planio #43](https://tanninh.planio.com/issues/43) – gửi liên kết thiết lập đầu tiên; quan hệ `blocks` đã đọc lại trên Planio.
-**Integration blocked by:** None sau khi CM-01.1 xong.
-**Owner / review:** CapmmDev thực hiện; CapmmBA rà AC, reviewer code độc lập và CapmmPM rà trước QA.
+**Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8).
+**Planio child:** [#44](https://tanninh.planio.com/issues/44).
+**Status:** `blocked-by-hard`, **chưa `READY_FOR_IMPLEMENTATION`**; BA/Tech cần rà ticket Java và PM xét gate riêng. Thiết kế Node/scrypt cũ chỉ là lịch sử.
+**Blocked by:** `HARD` [CM-01.1 / #43](01-send-first-setup-link.md) hoàn tất với QA xác nhận các case của **ticket #43**; `QA_PASS` cấp Story CM-01 chỉ xét sau cả #43–#45. #43 còn bị #47 chặn.
+**Integration blocked by:** None sau #43.
+**Owner / review:** CapmmDev sau readiness; BA rà AC, reviewer code độc lập, PM rà phạm vi và QA độc lập chạy build.
 
 ## What it delivers
 
-Ninh mở liên kết còn hạn, đặt và xác nhận mật khẩu trên điện thoại, rồi hoàn tất để có đúng một tài khoản quản lý. Liên kết sai, hết hạn, đã dùng hoặc hai lần xác nhận gần đồng thời không tạo thêm tài khoản.
+Ninh mở liên kết còn hạn, nhập và xác nhận mật khẩu trên điện thoại, rồi hoàn tất đúng một tài khoản quản lý. Link sai/hết hạn/đã dùng/khác thế hệ hoặc hai submit gần đồng thời không tạo thêm quản lý. Khi commit xong nhưng response mất, UI báo kết quả chưa rõ, không khẳng định thất bại hoặc tự tạo tài khoản thứ hai.
 
 ## Acceptance criteria tham chiếu
 
-- [ ] `AC2` trong [spec CM-01](../spec.md).
-- [ ] `AC4` trong [spec CM-01](../spec.md), phần không tạo quản lý thứ hai/không tự cấp quyền khác.
-- [ ] `AC5` trong [spec CM-01](../spec.md).
+- [ ] `AC2` — link đúng mục đích, một lần, mốc 72 giờ; link sai/hết hạn không tạo quản lý.
+- [ ] `AC4` — sau khi có quản lý không thiết lập thêm hay tự cấp quyền khác.
+- [ ] `AC5` — xác nhận lặp/hai request đồng thời tối đa một thành công.
+
+Ba AC lấy từ [spec CM-01](../spec.md). Đăng nhập và phiên thuộc #45.
 
 ## Hợp đồng và dữ liệu thử
 
-- Theo [technical-design](../technical-design.md) bước 4 của “Hợp đồng và luồng dữ liệu” cùng mục “Đồng thời, idempotency và lỗi”: POST đòi Origin đúng, giới hạn body/định dạng token, mật khẩu băm scrypt và giới hạn tài nguyên; transaction khóa singleton, kiểm lại token/trạng thái/hạn bằng đồng hồ DB, insert đúng một manager và tiêu thụ link cùng commit.
-- Dữ liệu thử: link từ CM-01.1 với thời gian trước, đúng và sau 72 giờ; token sai/đã dùng/khác generation; hai browser cùng gửi. Dùng email quản lý thử, không dùng bí mật thật.
-- Demo: mở link, đặt mật khẩu, thấy thông báo hoàn tất; gửi lại hoặc gửi song song chỉ một thành công; DB cuối đúng một manager, link cũ không dùng lại.
+- Dùng [thiết kế Java §3, §5, §7](../technical-design-java.md): `POST /api/manager/setup` JSON `{token,password,passwordConfirmation}`, body ≤4 KiB, token base64url 43 ký tự, `Origin==APP_ORIGIN`, CSRF từ `/api/auth/csrf`, Caddy edge trust. Mật khẩu Tech đề xuất 12–72 byte UTF-8, không NUL; BCrypt cost 12, không prehash/truncate âm thầm. Benchmark cost và giới hạn đồng thời hash trước khi QA; không log token/mật khẩu. Redis throttle setup 10 lần/15 phút/IP, lỗi Redis trả 503 trước hash/ghi DB.
+- Sau validate/throttle/hash, transaction JPA khóa singleton bootstrap, kiểm `state=issued`, digest/generation, `expires_at > clock_timestamp()` và chưa có account; insert `manager_account(id=1)` rồi set link `consumed`/xóa digest trong cùng commit. DB unique/check là phòng tuyến thêm. Một request thắng, request còn lại lỗi chung; rollback phải hoàn nguyên cả account và trạng thái link. Mốc đúng 72:00 từ acceptedAt đã hết hạn.
+- Form từ #43 giữ token chỉ trong memory; submit lỗi validation còn sửa khi link còn hợp lệ. FE gọi API bằng TanStack Query + fetch theo TS22 (ticket FE đầu tiên thực sự gọi API), giữ cookie cùng origin và CSRF đúng. Không tự cấp JWT/session từ setup; hoàn tất chuyển tới trang login #45. Mất response sau commit báo chưa rõ và hướng thử đăng nhập sau này, không lộ email hay xác nhận đã tạo khi chưa đối chiếu.
+- Dữ liệu: link thử còn 71:59 và đúng 72:00 từ acceptedAt, sai/used/generation cũ, mật khẩu thiếu/sai/không khớp, hai JVM hoặc hai browser cùng submit, DB lỗi trước commit/sau commit, Redis down. Chỉ email quản lý thử và DB test cô lập.
 
-## Rủi ro và kiểm chứng
+## Bằng chứng và rủi ro
 
-- Hai yêu cầu đồng thời từ nhiều tiến trình thật phải giữ bất biến một quản lý; lỗi trước commit phải rollback cả tài khoản và tiêu thụ link. Không log token/mật khẩu.
-- Review theo [test-spec](../test-spec.md) T05–T09, T13 và T15. Cần lưu commit/build, lệnh test và kết quả thật; chưa có kết quả QA.
+Dev bàn giao commit/image, Testcontainers PostgreSQL/Redis, lệnh hai JVM, DB cuối đúng một row manager, link consumed, HTTP/status/CSRF/Origin, ảnh UI mobile và log đã che secret; QA theo [test spec Java](../test-spec.md) nhóm #44. Nếu không chứng minh transaction một commit hoặc clock mốc acceptedAt, trả Tech/Dev sửa; không dùng SQL spike/QA Node cũ làm pass. #44 hoàn tất mới giải cạnh HARD tới #45.

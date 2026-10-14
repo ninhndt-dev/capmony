@@ -1,27 +1,22 @@
-FROM node:24.11.1-alpine3.22 AS deps
-WORKDIR /work
-COPY package.json package-lock.json ./
-COPY apps/api/package.json apps/api/package.json
-COPY apps/web/package.json apps/web/package.json
-RUN npm ci
+FROM maven:3.9.11-eclipse-temurin-25 AS build
+WORKDIR /work/apps/api
+COPY apps/api/pom.xml ./
+RUN mvn -B -q dependency:go-offline
+COPY apps/api/src ./src
+RUN mvn -B -q -DskipTests package
 
-FROM deps AS build
-COPY apps/api apps/api
-RUN npm run build --workspace apps/api
-
-FROM deps AS probe
-COPY apps/api apps/api
-RUN npm run build:probe --workspace apps/api
-CMD ["node", "apps/api/dist/test/probe-server.js"]
-
-FROM node:24.11.1-alpine3.22 AS runtime
-ENV NODE_ENV=production
-WORKDIR /work
-COPY package.json package-lock.json ./
-COPY apps/api/package.json apps/api/package.json
-COPY apps/web/package.json apps/web/package.json
-RUN npm ci --omit=dev && npm cache clean --force
-COPY --from=build /work/apps/api/dist /work/apps/api/dist
-USER node
+FROM eclipse-temurin:25-jre-noble AS runtime
+WORKDIR /app
+COPY --from=build /work/apps/api/target/capmoney-api-0.1.0-SNAPSHOT.jar /app/app.jar
+RUN useradd --system --uid 10001 --home /app capmoney
+USER capmoney
 EXPOSE 3000
-CMD ["node", "apps/api/dist/server.js"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+FROM build AS probe-build
+RUN mvn -B -q test-compile && jar -uf target/capmoney-api-0.1.0-SNAPSHOT.jar -C target/test-classes com/capmoney/api/ProbeController.class
+
+FROM runtime AS probe
+USER root
+COPY --from=probe-build /work/apps/api/target/capmoney-api-0.1.0-SNAPSHOT.jar /app/app.jar
+USER capmoney

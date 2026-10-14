@@ -1,6 +1,48 @@
 # Handoff CM-01: Thiết lập và đăng nhập quản lý
 
-**Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md): Java Spring, JWT cookie/refresh/revocation và Redis throttle. Các mục bàn giao Next.js/Node/opaque session bên dưới là lịch sử; BA/PM đã cấp lại `BA_READY` cho bản Java/JWT, còn `TECH_READY` và readiness #43–#45 tạm dừng. Không có code CM-01 hoặc QA.
+**Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md): Java Spring, JWT cookie/refresh/revocation và Redis throttle. Các mục bàn giao Next.js/Node/opaque session bên dưới là lịch sử; BA/PM đã cấp lại `BA_READY`, Tech độc lập/PM cấp `TECH_READY` cho CM-01 Java/JWT/Redis. Readiness #43–#45 còn chờ từng ticket; không có code CM-01 hoặc QA.
+
+## CapmmBA reviewer — CM-01 / ba ticket Java #43–#45
+
+**DONE:** Rà độc lập [#43](issues/01-send-first-setup-link.md), [#44](issues/02-complete-manager-setup.md), [#45](issues/03-manager-login-session.md) và [test spec Java](test-spec.md) với [spec 20 mục/AC1–AC7](spec.md), [CM01-Q1–Q3](qna.md), [TS10–TS38](../../docs/requirements/tech-stack-round-2.md), [thiết kế Java](technical-design-java.md) và [workflow](../../docs/workflows/capmm-end-to-end.md). #43 tham chiếu AC1/AC6; #44 AC2/AC4/AC5; #45 AC3/AC4/AC7, đều không quá năm mã. Dữ liệu thử bao phủ Mailpit, mốc 71:59/72:00, SMTP/CAS, hai JVM, Redis, JWT/cookie, CSRF/Origin, nhiều điện thoại và các nhánh Q2/Q3. #43 chờ #47 hoàn tất và `QA_PASS` INFRA-01 Java; #44/#45 chờ ticket trước hoàn tất và QA xác nhận phần liên quan, không chờ `QA_PASS` toàn Story CM-01. #22 đặt lại mật khẩu chỉ là phụ thuộc tương lai, không nằm trong AC/ticket.
+
+**RESULT:** Review BA **không thấy P0/P1** hoặc AC/test data chặn ở ba ticket; không thấy hành vi sản phẩm mới bị gán cho Ninh. Một điểm P2 về câu chữ QA: [T06/T21](test-spec.md) viết “thiết bị thật khi có”, còn workflow yêu cầu case UI bắt buộc phải chạy trước `QA_PASS`; QA/PM cần đánh dấu `blocked`/`not-run` nếu thiết bị thật là điều kiện bắt buộc và chưa có, không suy `pass` từ viewport. Review này **không cấp `READY_FOR_IMPLEMENTATION`** cho ticket nào.
+
+**NEED HUMAN:** CapmmPM và CapmmQA chốt cách ghi điều kiện thiết bị thật của T06/T21 trước khi xét `QA_PASS` Story; không có câu hỏi sản phẩm mới cần Ninh trả lời trong BA ticket review.
+
+**PENDING:** CapmmTech rà hợp đồng Java từng ticket; CapmmPM xét readiness riêng sau khi kiểm phụ thuộc `HARD` và hai review. Dev/QA Java chưa chạy; #43 tiếp tục chờ INFRA-01 Java hoàn tất/`QA_PASS`, #44 và #45 chỉ mở theo kết quả ticket trước cùng QA phần liên quan.
+
+**DETAIL:** [Ba ticket #43–#45](issues/01-send-first-setup-link.md), [test spec CM-J-T01–T21](test-spec.md), [spec](spec.md), [Q&A](qna.md), [workflow](../../docs/workflows/capmm-end-to-end.md). Đây là review tài liệu; chưa có build, test run CM-01 Java hoặc cập nhật Planio ở lượt BA này.
+
+— `/root/ba_review` trong vai CapmmBA reviewer độc lập
+
+## CapmmTech reviewer độc lập — CM-01 / ticket Java #43–#45
+
+**DONE:** Rà [#43](issues/01-send-first-setup-link.md), [#44](issues/02-complete-manager-setup.md), [#45](issues/03-manager-login-session.md) và [test spec Java](test-spec.md) với [thiết kế Java đã TECH_REVIEW_PASS](technical-design-java.md), [spec AC1–AC7](spec.md), [Q&A CM01-Q1–Q3](qna.md), ADR 0003 và TS10–TS38. Kiểm ranh giới ba lát dọc, số AC (2/3/3, đều ≤5), mốc `acceptedAt+72h`, singleton/transaction JPA, CSRF/edge/Redis, JWT family và logout-all, dữ liệu thử, ca đồng thời hai process/JVM và chuỗi `HARD` #47→#43→#44→#45. Không thấy vòng phụ thuộc QA cấp Story: QA xác nhận phần ticket trước để giải `HARD`; `QA_PASS` của Story chỉ sau #45 và regression T21.
+
+**RESULT:** `TECH_TICKET_REVIEW_PASS` cho nội dung kỹ thuật cả ba ticket; không thấy P0/P1 Tech. #43 mô tả acceptedAt bất biến qua CAS và fail closed khi mốc không đáng tin; #44 kiểm đúng biên 71:59/72:00 và chỉ một manager; #45 tách refresh reuse thu hồi một family khỏi logout chủ động thu hồi mọi family. [Test spec](test-spec.md) có case CM-J-T01–T21 cho AC1–AC7, kể cả DB/Redis lỗi, Origin/CSRF, key rotation và race. Đây là review tài liệu; **không cấp `READY_FOR_IMPLEMENTATION`, `DEV_REVIEWED` hoặc `QA_PASS`**, không có build Java hay test ứng dụng đã chạy.
+
+**NEED HUMAN:** None cho review Tech. PM vẫn xét readiness của từng ticket sau khi kiểm blocker; email/domain/thiết bị thật là đầu vào kiểm vận hành sau.
+
+**PENDING:** #43 chờ #47 hoàn tất và QA xác nhận môi trường Java/Redis; #44 chờ phần #43 được QA xác nhận; #45 chờ phần #44 được QA xác nhận. PM/QA nên ghi rõ fixture cho T14 “tài khoản ghi chép” khi #04 chưa tồn tại (ví dụ test principal/JWT không phải manager nhưng ký bằng key thử), để case quyền chạy được mà không triển khai #04. Khi chạy T18–T19 ở giai đoạn #44 chỉ đánh phần setup; các nhánh login/refresh/logout chờ #45. T06/T13/T21 dùng viewport trước, thiết bị thật được ghi `not-run/blocked` nếu chưa có thay vì suy ra pass. Reviewer code và QA phải ghi commit/image, lệnh, môi trường và kết quả thực theo từng case.
+
+**DETAIL:** [Thiết kế Java](technical-design-java.md), [review Tech Story](java-tech-review.md), [test spec](test-spec.md), [workflow](../../docs/workflows/capmm-end-to-end.md). Các kết quả SQL/HTTP Node cũ không được dùng làm bằng chứng Java; ba ticket vẫn `blocked-by-hard` trên tài liệu hiện hành.
+
+— `/root/cm01_tech_review` trong vai CapmmTech reviewer độc lập; không phải tác giả ticket hoặc thiết kế Java
+
+## CapmmPM — CM-01 / TECH_READY Java-JWT-Redis
+
+**DONE:** Đối chiếu [thiết kế Java §1–8](technical-design-java.md), [Tech review độc lập lần 3](java-tech-review.md), [spec AC1–AC7](spec.md), [CM01-Q1–Q3](qna.md) và TS10–TS38. Ba P1 đã được khép ở hợp đồng: `acceptedAt` ngay sau SMTP trả thành công rồi giữ mốc qua CAS, fail closed khi đồng hồ không kiểm được; logout chủ động bằng access còn hợp lệ được kiểm DB dưới khóa sẽ thu hồi mọi family, stale refresh đơn lẻ chỉ family; HS256/keyring/kid/rotate có lựa chọn cụ thể. PM chấp nhận **đề xuất Tech** family refresh có hạn tuyệt đối 7 ngày từ login, rotation không gia hạn, để kỳ hạn đã chọn có giới hạn rõ; đây không được ghi là lựa chọn cụ thể của Ninh. PM chấp nhận quota manager 10 lần/15 phút/IP, 60 lần/15 phút/tài khoản, setup 10 lần/15 phút/IP tính cả thành công; 429 có Retry-After, phiên đang dùng không bị chặn. Redis lỗi làm login/setup 503 trước hash/ghi DB, phiên đã có tiếp tục theo DB. Đây là chính sách Tech/PM cho CM-01 một quản lý; #04 nhiều người chung NAT phải rà quota riêng, không tái dùng mù.
+
+**RESULT:** `TECH_READY` **đạt cho CM-01 Java/JWT/Redis ngày 14/10/2026**; không có P0/P1 Tech còn mở trong phạm vi Story. Đây là chốt hợp đồng thiết kế và tác động PM, **không cấp** `READY_FOR_IMPLEMENTATION` cho #43–#45 hoặc `QA_PASS`. Hạn family 7 ngày tuyệt đối là cách hiện thực giới hạn TS32, không khẳng định Ninh đã chọn cách tính đó; nếu phát sinh kỳ vọng phiên phải được gia hạn quá 7 ngày, quay BA hỏi Ninh trước khi đổi.
+
+**NEED HUMAN:** None để thiết kế/test với dữ liệu riêng. Email/domain/SMTP thật và thiết bị thật chỉ cần khi đến gate vận hành/phát hành; không dùng chúng để tuyên bố QA hiện tại.
+
+**PENDING:** PM rebaseline ba ticket và test spec từ Node/opaque session sang Java/JWT/Redis; BA/Tech rà từng ticket, PM xét readiness riêng sau khi kiểm `HARD` #47→#43→#44→#45. #47 chỉ giải chặn #43 khi hoàn tất/QA_PASS. Dev/QA phải chứng minh Boot/springdoc/CSRF/Caddy, race hai JVM, Redis và cookie trên build thật.
+
+**DETAIL:** [Thiết kế](technical-design-java.md), [review](java-tech-review.md), [spec](spec.md), [Q&A](qna.md), [ticket](issues/01-send-first-setup-link.md), [workflow](../../docs/workflows/capmm-end-to-end.md). Chưa chạy Java/Compose/QA CM-01.
+
+— `/root/pm_ba_rebaseline` trong vai CapmmPM sau reviewer Tech độc lập
 
 ## CapmmPM — CM-01 / BA gate Java-JWT
 

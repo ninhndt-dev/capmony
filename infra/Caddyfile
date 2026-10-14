@@ -4,7 +4,10 @@
     reverse_proxy api:3000 {
       header_up X-Real-IP {remote_host}
       header_up X-Forwarded-For {remote_host}
+      header_up X-CM-Edge-Auth {file./run/secrets/edge_auth}
+      header_up X-Forwarded-Proto {scheme}
       header_up -Forwarded
+      header_up -X-Forwarded-Host
     }
   }
   handle {

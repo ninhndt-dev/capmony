@@ -20,15 +20,15 @@ fi
 if [ "$environment" = dev ]; then
   default_port=18080
   default_subnet=172.30.48.0/24
-  default_ip=172.30.48.10
+  default_redis_database=0
 else
   default_port=28080
   default_subnet=172.30.49.0/24
-  default_ip=172.30.49.10
+  default_redis_database=1
 fi
 export CAPMONEY_PORT="${CAPMONEY_PORT:-$default_port}"
 export API_SUBNET="${API_SUBNET:-$default_subnet}"
-export CADDY_API_IP="${CADDY_API_IP:-$default_ip}"
+export REDIS_DATABASE="$default_redis_database"
 expected_origin="http://127.0.0.1:$CAPMONEY_PORT"
 if [ -n "${APP_ORIGIN:-}" ] && [ "$APP_ORIGIN" != "$expected_origin" ]; then
   echo "APP_ORIGIN must equal $expected_origin for the local stack" >&2
@@ -49,6 +49,15 @@ case "$action" in
       head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n' > "$CAPMONEY_SECRET_DIR/pg-password"
     fi
     chmod 600 "$CAPMONEY_SECRET_DIR/pg-password"
+    if [ ! -e "$CAPMONEY_SECRET_DIR/edge-auth" ]; then
+      umask 077
+      head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n' > "$CAPMONEY_SECRET_DIR/edge-auth"
+    fi
+    chmod 600 "$CAPMONEY_SECRET_DIR/edge-auth"
+    if [ "$(wc -c < "$CAPMONEY_SECRET_DIR/edge-auth")" -ne 64 ] || ! LC_ALL=C grep -Eq '^[0-9a-fA-F]{64}$' "$CAPMONEY_SECRET_DIR/edge-auth"; then
+      echo 'edge-auth must contain exactly 64 ASCII hex bytes without newline' >&2
+      exit 2
+    fi
     ;;
 esac
 

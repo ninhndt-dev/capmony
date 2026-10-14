@@ -2,7 +2,6 @@ FROM node:24.11.1-alpine3.22 AS build
 WORKDIR /work
 COPY package.json package-lock.json ./
 COPY apps/web/package.json apps/web/package.json
-COPY apps/api/package.json apps/api/package.json
 RUN npm ci
 COPY apps/web apps/web
 RUN npm run build --workspace apps/web

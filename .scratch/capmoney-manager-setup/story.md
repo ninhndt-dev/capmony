@@ -1,9 +1,9 @@
 # Story CM-01: Thiết lập và đăng nhập tài khoản quản lý
 
 **Planio:** [CM-01 / issue 8](https://tanninh.planio.com/issues/8)
-**Lifecycle:** specification (rebaseline Java Spring/JWT/Redis theo TS10–TS38)
+**Lifecycle:** planning (BA_READY và TECH_READY Java/JWT/Redis; ticket Dev chờ rà riêng)
 **Status nguồn bước 8:** needs-triage; trạng thái công việc hiện hành ở Planio.
-**Blocked by:** ADR Java/Tech review/PM review trước `TECH_READY`; hạ tầng dev/test Java+Redis [INFRA-01.1 / #47](../capmoney-infrastructure/issues/01-docker-dev-test.md) trước tích hợp #43. Email quản lý thật, tên miền gửi và hạ tầng production chỉ là điều kiện mở vận hành thực tế, không chặn thử bằng dữ liệu riêng.
+**Blocked by:** BA/Tech rà từng ticket Java rồi PM xét readiness; hạ tầng dev/test Java+Redis [INFRA-01.1 / #47](../capmoney-infrastructure/issues/01-docker-dev-test.md) phải QA_PASS trước khi #43 khởi động. Email quản lý thật, tên miền gửi và hạ tầng production chỉ là điều kiện mở vận hành thực tế, không chặn thử bằng dữ liệu riêng.
 
 ## Phạm vi và nguồn
 
@@ -17,11 +17,11 @@
 | Gate | Kết quả hiện tại | Bằng chứng | Review |
 | --- | --- | --- | --- |
 | BA_READY | **Đạt ngày 14/10/2026 cho bản Java/JWT:** PM độc lập đối chiếu 20 mục/AC1–AC7 với F11/F23–F24, R12/R13/R22, TS10–TS38, CM01-Q1–Q3; BA_READY cũ chỉ có giá trị lịch sử | [spec](spec.md), [Q&A](qna.md), [TS10–TS38](../../docs/requirements/tech-stack-round-2.md), [handoff](handoff.md) | `/root/pm_ba_rebaseline` |
-| TECH_READY | **Tạm dừng hiệu lực:** thiết kế Next.js/Node/opaque session/DB counter đã bị TS10–TS38 thay; cần ADR và review Java Spring/JWT/Redis | [technical-design cũ](technical-design.md), [ADR 0001](../../docs/adr/0001-manager-auth-foundation.md), [TS10–TS38](../../docs/requirements/tech-stack-round-2.md) | Reviewer Tech và PM phải rà lại |
-| READY_FOR_IMPLEMENTATION | **Tạm dừng CM-01.1 / #43** do thiếu BA/TECH gate và hạ tầng Java #47; CM-01.2 / #44 và CM-01.3 / #45 vẫn `HARD` blocker tuần tự | [CM-01.1](issues/01-send-first-setup-link.md), [CM-01.2](issues/02-complete-manager-setup.md), [CM-01.3](issues/03-manager-login-session.md), [handoff](handoff.md) | PM phải xét lại từng ticket sau ADR/thiết kế mới |
+| TECH_READY | **Đạt ngày 14/10/2026 cho Java/JWT/Redis:** reviewer độc lập kiểm lại ba P1 về mốc 72 giờ, logout đồng thời và khóa JWT; PM chấp nhận đề xuất 7 ngày tuyệt đối, quota và Redis fail closed trong phạm vi CM-01 | [thiết kế Java](technical-design-java.md), [review Tech](java-tech-review.md), [handoff PM](handoff.md) | `/root/cm01_tech_review` và `/root/pm_ba_rebaseline` |
+| READY_FOR_IMPLEMENTATION | **#43–#45 chưa đạt:** ticket/test spec đang rebaseline Java và cần BA/Tech ticket review, PM xét riêng; #43 có HARD #47, #44 chờ #43, #45 chờ #44 | [CM-01.1](issues/01-send-first-setup-link.md), [CM-01.2](issues/02-complete-manager-setup.md), [CM-01.3](issues/03-manager-login-session.md), [handoff](handoff.md) | chưa cấp |
 | DEV_REVIEWED | chưa có code | diff/commit và review | chưa chạy |
 | QA_PASS | chưa có build | test spec, log chạy và thiết bị | chưa chạy |
 
 ## Việc tiếp theo
 
-Ninh đã chọn A duyệt ba lát cắt dọc và chuỗi `HARD` CM-01.1 → CM-01.2 → CM-01.3. Planio đã tạo/đọc lại [#43](https://tanninh.planio.com/issues/43), [#44](https://tanninh.planio.com/issues/44), [#45](https://tanninh.planio.com/issues/45) và hai quan hệ `blocks`. Sau TS10–TS38, Ninh đã chốt CM01-Q2/B và CM01-Q3/A; PM đã rà BA spec mới. Tech/PM còn phải lập và review thiết kế Java/JWT/Redis; #43 vẫn dừng trước code và chờ #47 để tích hợp, #44/#45 vẫn bị chặn tuần tự. Không dùng QA stack Node/Hono cho CM-01.
+Ninh đã chọn A duyệt ba lát cắt dọc và chuỗi `HARD` CM-01.1 → CM-01.2 → CM-01.3. Planio đã tạo/đọc lại [#43](https://tanninh.planio.com/issues/43), [#44](https://tanninh.planio.com/issues/44), [#45](https://tanninh.planio.com/issues/45) và hai quan hệ `blocks`. Sau TS10–TS38, Ninh đã chốt CM01-Q2/B và CM01-Q3/A; BA/PM và Tech độc lập/PM đã cấp lại hai gate cấp Story. PM đang rebaseline ticket/test spec Java, từng ticket còn cần BA/Tech rà và PM xét riêng; #43 chờ #47 QA_PASS, #44/#45 bị chặn tuần tự. Không dùng QA stack Node/Hono cho CM-01.

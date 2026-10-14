@@ -1,16 +1,16 @@
 # Handoff INFRA-01
 
-**Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); stack Node/Hono và gate #47 cũ bị tạm dừng. Planio #46/#47 đã chuyển `Open`, QA IF-T03 fail trước khi đổi stack. Các kết quả cũ dưới đây là bằng chứng lịch sử, không cấp readiness cho Java.
+**Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); stack Node/Hono và gate #47 cũ là lịch sử. #47 Java đã `READY_FOR_IMPLEMENTATION`; Planio #46/#47 đã chuyển `In Progress`, Dev đang làm. QA IF-T03 fail trên Node/Hono trước khi đổi stack; không cấp pass cho Java.
 
 ## CapmmPM — INFRA-01.1 / #47 READY_FOR_IMPLEMENTATION Java-Redis
 
 **DONE:** Đối chiếu [ticket #47 Java](issues/01-docker-dev-test.md) và [test spec IF-J-T01–T08](test-spec.md) với `BA_READY`/`TECH_READY` cấp Story, đúng 5 mã AC, hợp đồng V1–V8, dữ liệu thử, không có `HARD` blocker khởi động và hai [review BA/Tech độc lập](handoff.md). Giải P2 TS22: Ninh đã chọn TanStack Query + fetch, nhưng #47 chỉ có web placeholder không fetch dữ liệu sản phẩm; [thiết kế §2](technical-design-java.md) và ticket nay ghi pin/cài Query ở FE ticket đầu tiên gọi API. Không thêm hành vi hay AC mới.
 
-**RESULT:** `READY_FOR_IMPLEMENTATION` **đạt cho #47 Java/Redis ngày 14/10/2026**; ticket `ready-for-agent`. Không còn P0/P1 ticket đã biết, P2 TS22 đã giải. `DEV_REVIEWED`/`QA_PASS` **chưa đạt** vì chưa code/build/test Java. Planio #47 còn `Open` theo lần đọc gần nhất; root PM đồng bộ trước khi giao Dev.
+**RESULT:** `READY_FOR_IMPLEMENTATION` **đạt cho #47 Java/Redis ngày 14/10/2026**; ticket `ready-for-agent`. Không còn P0/P1 ticket đã biết, P2 TS22 đã giải. `DEV_REVIEWED`/`QA_PASS` **chưa đạt**; Planio #47 đã đồng bộ `In Progress` và Dev đang làm.
 
 **NEED HUMAN:** None cho #47 dev/test; không cần VPS/domain/SMTP thật. TS22 vẫn là quyết định đã xác nhận, chỉ dời lúc cài dependency tới FE ticket thích hợp.
 
-**PENDING:** PM/root đồng bộ Planio #47, giao DevOps Dev; Dev chạy V1–V8 với commit/image xác định, reviewer code độc lập và PM rà, QA thực chạy IF-J-T01–T08. #47 chỉ giải cạnh HARD tới CM-01 #43 khi hoàn tất/QA_PASS, không từ readiness.
+**PENDING:** Dev chạy V1–V8 với commit/image xác định, reviewer code độc lập và PM rà, QA thực chạy IF-J-T01–T08. #47 chỉ giải cạnh HARD tới CM-01 #43 khi hoàn tất/QA_PASS, không từ readiness.
 
 **DETAIL:** [Ticket](issues/01-docker-dev-test.md), [test spec](test-spec.md), [thiết kế](technical-design-java.md), [spec](spec.md), [Story](story.md), [TS22](../../docs/requirements/tech-stack-round-2.md). Đây là PM review tài liệu/gate; không chạy Java hoặc cập nhật Planio trong lượt này.
 

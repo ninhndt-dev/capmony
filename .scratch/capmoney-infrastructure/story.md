@@ -1,6 +1,6 @@
 # Story INFRA-01: Môi trường Docker dev/test
 
-**Lifecycle:** planning (#47 Java/Redis đã READY_FOR_IMPLEMENTATION; chờ Dev)
+**Lifecycle:** implementing (#47 Java/Redis đã READY_FOR_IMPLEMENTATION; Dev đang làm)
 **Planio:** [#46 – INFRA-01](https://tanninh.planio.com/issues/46), issue hạ tầng riêng; [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47) là ticket DevOps cấp dưới. Đã tạo và đọc lại ngày 14/10/2026.
 **Blocked by:** Dev triển khai #47 trên Java, code review và QA độc lập; bản code/QA Node/Hono không dùng cho Java.
 
@@ -8,7 +8,7 @@
 
 - **Ninh đã xác nhận:** React web + Java Spring API riêng, Docker cho dev/test, kiến trúc và review trước Docker/FE/BE, PostgreSQL volume trên VPS chạy thật, Caddy, Redis cho throttle, Tailwind và production cài trực tiếp theo [TS01/TS06–TS08](../../docs/requirements/tech-stack-round-1.md) và [TS10–TS38](../../docs/requirements/tech-stack-round-2.md). TS09/ADR 0002 thuộc stack lịch sử.
 - **Phạm vi:** môi trường Docker Compose dev/test cô lập với Caddy, web React/Vite placeholder, API health Java Spring, PostgreSQL volume, Redis và Mailpit. [Spec 20 mục](spec.md) định nghĩa AC-IF01-1–AC-IF01-5. Không triển khai hành vi CM-01 hoặc dữ liệu tài chính trong ticket này.
-- **Tech đề xuất đang review:** [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md), [sơ đồ Java](architecture-java-proposal.md), [review P1](java-tech-review.md). Chưa chấp nhận là hợp đồng triển khai.
+- **Thiết kế đã review cho INFRA-01:** [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md), [sơ đồ Java](architecture-java-proposal.md), [review Tech độc lập](java-tech-review.md) và [thiết kế chi tiết](technical-design-java.md). ADR còn là đề xuất kiến trúc toàn dự án; hợp đồng #47 đã qua gate Story/ticket, chưa có bằng chứng Java chạy/QA.
 
 ## Gate và bằng chứng
 
@@ -22,4 +22,4 @@
 
 ## Phụ thuộc và việc tiếp theo
 
-CM-01.1 / Planio #43 tiếp tục tạm dừng. Planio có quan hệ #47 `blocks` #43 (relation #8); readiness #47 không giải cạnh cho đến khi #47 hoàn tất/QA_PASS. ADR, BA/PM spec, Tech độc lập/PM thiết kế và BA/Tech/PM ticket Java đã qua gate; có thể giao Dev sau khi root đồng bộ Planio. Stack Node/Hono đã dừng, volume thử vẫn giữ. VPS/domain/SMTP thật sẽ xử lý ở giai đoạn vận hành.
+CM-01.1 / Planio #43 tiếp tục tạm dừng. Planio có quan hệ #47 `blocks` #43 (relation #8); readiness #47 không giải cạnh cho đến khi #47 hoàn tất/QA_PASS. ADR, BA/PM spec, Tech độc lập/PM thiết kế và BA/Tech/PM ticket Java đã qua gate; Planio #46/#47 đã đồng bộ `In Progress` và Dev đang làm. Stack Node/Hono đã dừng, volume thử vẫn giữ. VPS/domain/SMTP thật sẽ xử lý ở giai đoạn vận hành.

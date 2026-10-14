@@ -5,13 +5,14 @@ services:
       - "127.0.0.1:${CAPMONEY_PORT:?set CAPMONEY_PORT}:8080"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    secrets:
+      - edge_auth
     depends_on:
       - web
       - api
     networks:
       web_net: {}
-      api_net:
-        ipv4_address: ${CADDY_API_IP:?set CADDY_API_IP}
+      api_net: {}
   web:
     build:
       context: ..
@@ -23,22 +24,29 @@ services:
       context: ..
       dockerfile: apps/api/Dockerfile
       target: runtime
+    restart: unless-stopped
     environment:
-      PORT: "3000"
       APP_ORIGIN: ${APP_ORIGIN:?set APP_ORIGIN}
-      CADDY_TRUSTED_IP: ${CADDY_API_IP:?set CADDY_API_IP}
+      API_SUBNET: ${API_SUBNET:?set API_SUBNET}
+      EDGE_SECRET_FILE: /run/secrets/edge_auth
       DB_HOST: postgres
       DB_NAME: ${DB_NAME:?set DB_NAME}
       DB_USER: ${DB_USER:?set DB_USER}
-      DB_PASSWORD_FILE: /run/secrets/pg_password
+      REDIS_HOST: redis
+      REDIS_DATABASE: ${REDIS_DATABASE:?set REDIS_DATABASE}
+      SMTP_HOST: mailpit
     secrets:
       - pg_password
+      - edge_auth
     depends_on:
       postgres:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     networks:
       - api_net
       - data_net
+      - rate_net
       - mail_net
   postgres:
     image: postgres:17.7-alpine3.22
@@ -57,28 +65,39 @@ services:
       retries: 15
     networks:
       - data_net
+  redis:
+    image: redis:7.4.6-alpine3.21
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+    networks:
+      - rate_net
   mailpit:
     image: axllent/mailpit:v1.27.4
     networks:
       - mail_net
   mailcheck:
     profiles: ["tools"]
-    depends_on:
-      - mailpit
     build:
       context: ..
       dockerfile: apps/api/Dockerfile
-      target: probe
+      target: build
+    command: ["mvn", "-B", "-q", "-Dtest=MailpitMailTest", "test"]
     environment:
       SMTP_HOST: mailpit
       SMTP_PORT: "1025"
-      SMTP_TO: manager@example.test
-    command: ["node", "apps/api/dist/test/send-test-mail.js"]
+    depends_on:
+      - mailpit
     networks:
       - mail_net
 secrets:
   pg_password:
     file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/pg-password
+  edge_auth:
+    file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/edge-auth
 volumes:
   pg_data:
 networks:
@@ -88,6 +107,8 @@ networks:
       config:
         - subnet: ${API_SUBNET:?set API_SUBNET}
   data_net:
+    internal: true
+  rate_net:
     internal: true
   mail_net:
     internal: true

@@ -1,29 +1,32 @@
-# CM-01.3: Đăng nhập và giữ phiên quản lý
+# CM-01.3 / #45: Đăng nhập và giữ phiên quản lý
 
-**Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8)
-**Planio child:** [#45](https://tanninh.planio.com/issues/45), tạo và đọc lại ngày 14/10/2026.
-**Status:** blocked-by-hard; chưa `READY_FOR_IMPLEMENTATION`, phải rà lại theo TS10–TS38/ADR Java/JWT/Redis và khi #44 xong. Hợp đồng opaque session/counter DB bên dưới là lịch sử, chưa cập nhật cho Java. Trạng thái công việc hiện hành xem trên Planio.
-**Blocked by:** `HARD` CM-01.2 / [Planio #44](https://tanninh.planio.com/issues/44) – hoàn tất thiết lập một quản lý; quan hệ `blocks` đã đọc lại trên Planio.
-**Integration blocked by:** None sau khi CM-01.2 xong.
-**Owner / review:** CapmmDev thực hiện; CapmmBA rà AC, reviewer code độc lập và CapmmPM rà trước QA.
+**Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8).
+**Planio child:** [#45](https://tanninh.planio.com/issues/45).
+**Status:** `blocked-by-hard`, **chưa `READY_FOR_IMPLEMENTATION`**; BA/Tech phải rà ticket Java và PM xét gate riêng. Opaque session/counter DB ở thiết kế Node chỉ là lịch sử.
+**Blocked by:** `HARD` [CM-01.2 / #44](02-complete-manager-setup.md) hoàn tất với QA xác nhận các case của **ticket #44**; `QA_PASS` cấp Story CM-01 chỉ xét sau cả #43–#45. #44 còn chờ #43 và #47.
+**Integration blocked by:** None sau #44.
+**Owner / review:** CapmmDev sau readiness; BA rà AC, reviewer code độc lập, PM rà phạm vi và QA độc lập chạy build.
 
 ## What it delivers
 
-Ninh đăng nhập bằng email quản lý và mật khẩu đã đặt, tải lại vẫn vào khu vực quản lý tối thiểu. JWT trong cookie cho phép tiếp tục trong thời hạn đã chốt; đăng xuất trên một điện thoại thu hồi mọi phiên quản lý, còn refresh token cũ xuất hiện lại sau khi đã dùng thì thu hồi family liên quan và yêu cầu đăng nhập lại theo CM01-Q2/Q3. Khách, thông tin sai, token hết hạn/thu hồi hoặc gọi URL trực tiếp không xem được nội dung quản lý; không có đăng ký công khai. Hợp đồng kỹ thuật chi tiết bên dưới thuộc bản cũ và phải được thay trước readiness.
+Ninh đăng nhập bằng email quản lý/mật khẩu đã đặt, tải lại hoặc mở URL trực tiếp vẫn thấy khu vực quản lý tối thiểu khi phiên hợp lệ. Access JWT 15 phút và refresh JWT tối đa 7 ngày trong cookie HttpOnly/Secure; server kiểm trạng thái DB mỗi request. Đăng xuất chủ động trên một điện thoại kết thúc mọi điện thoại. Refresh cũ bị dùng lại mà không phân biệt được retry/replay thì chỉ family liên quan bị thu hồi và yêu cầu đăng nhập lại. Khách, login sai, token hết hạn/bị thu hồi hoặc tài khoản ghi chép không xem được khu vực quản lý.
 
 ## Acceptance criteria tham chiếu
 
-- [ ] `AC3` trong [spec CM-01](../spec.md).
-- [ ] `AC4` trong [spec CM-01](../spec.md), phần quyền quản lý ở server và không có đường tạo quản lý khác.
-- [ ] `AC7` trong [spec CM-01](../spec.md), access/refresh JWT, đăng xuất mọi điện thoại và refresh reuse theo CM01-Q2/Q3.
+- [ ] `AC3` — login, tải lại, server guard và chặn khách/token không hợp lệ.
+- [ ] `AC4` — quyền quản lý giới hạn, không tạo thêm quản lý hoặc tự cấp quyền khác.
+- [ ] `AC7` — JWT/cookie 15 phút/7 ngày, logout mọi thiết bị, refresh reuse chỉ family.
+
+Ba AC lấy từ [spec CM-01](../spec.md). Đặt lại mật khẩu R57 thuộc Story #22; #45 chỉ cung cấp primitive `revokeAll(managerId)` cho #22 dùng về sau.
 
 ## Hợp đồng và dữ liệu thử
 
-- Theo [technical-design](../technical-design.md) mục 5–6: email/mật khẩu kiểm ở server, lỗi chung; giới hạn 10 yêu cầu/IP/cửa sổ 15 phút và 60/tài khoản, counter DB nguyên tử, IP tin cậy/Origin fail-closed. Session token ngẫu nhiên chỉ lưu hash, cookie `HttpOnly`, `SameSite=Lax`, host-only, `Secure` khi HTTPS; quyền kiểm trên mọi route/action, không chỉ UI. Logout thu hồi ở DB.
-- Dữ liệu thử: một manager từ CM-01.2; mật khẩu đúng/sai, email sai, hai tiến trình ứng dụng cùng DB, phiên còn hạn/hết hạn/bị thu hồi, Origin thiếu/sai, lỗi DB throttle. Không dùng tài khoản thật.
-- Demo: đăng nhập, tải lại/mở URL trực tiếp, đăng xuất; khách và phiên cũ bị chặn. Quota **đếm cả lần đăng nhập thành công**; vượt ngưỡng trả thời gian thử lại nhưng phiên đã mở còn dùng. Nếu bị thử sai liên tục, Ninh có thể bị cản qua nhiều cửa sổ; không có `/signup`.
+- [Thiết kế Java §6–7](../technical-design-java.md): Spring Security đọc **cookie** access, không nhận Authorization header; JWT HS256 key ≥256 bit, `kid` allowlist, kiểm typ/iss/aud/iat/nbf/exp và DB account+family/epoch mỗi request. Access 15m, family refresh hết hạn **tuyệt đối 7 ngày từ login**, rotate không kéo dài; access `jti` độc lập current refresh `jti`. Cookie host-only HttpOnly/Secure/SameSite=Lax, access Path=/api, refresh Path=/api/auth; dev HTTP profile riêng, production fail nếu không Secure. Không lưu JWT ở JS storage; clear cookie đúng name/path.
+- `GET /api/auth/csrf` public/no-store cấp cookie CSRF JS đọc được; mọi POST login/refresh/logout đòi `Origin` đúng và `X-XSRF-TOKEN`, sau auth transition FE lấy CSRF mới. Caddy peer/secret/IP header trước auth/throttle. `GET /api/manager/me` là server guard trả email+role tối thiểu; FE route guard không phải bảo mật quyết định. Web dùng TanStack Query + fetch (TS22) để gọi API, không cache quyền vượt trạng thái DB.
+- Redis Lua throttle login 10 lần/15 phút/IP tin cậy + 60 lần/15 phút/tài khoản quản lý cố định, đếm cả thành công; 429 có Retry-After, TTL cố định. Redis hỏng 503 trước hash/DB, phiên hợp lệ hiện có vẫn kiểm DB và dùng được. Quota này chỉ cho CM-01 quản lý; khi mở #04 nhiều người/NAT phải review lại.
+- Refresh transaction khóa account→family, CAS current refresh digest; reuse jti cũ đã xác thực thu hồi **family đó**. Logout ưu tiên access còn hợp lệ đã kiểm DB dưới khóa, kể cả refresh cookie stale, để `revokeAll` tăng epoch và thu hồi mọi family; không có access thì current refresh hợp lệ mới logout-all, stale refresh đơn lẻ không nâng thành logout-all. DB lỗi báo thu hồi chưa rõ, không khẳng định đã đăng xuất mọi nơi; request protected fail closed. Hai tab/mất response có thể cần đăng nhập lại theo CM01-Q3/A.
+- Dữ liệu: một manager đã lập từ #44; hai/ba điện thoại thử, hai JVM chung DB/Redis, mật khẩu đúng/sai, IP chung NAT, Redis/DB down, access/refresh trước/sau hạn, hai tab rotate, lost Set-Cookie, stale refresh + valid access logout, token ký sai/alg/kid lạ, Origin/CSRF thiếu/sai. Không dùng tài khoản thật.
 
-## Rủi ro và kiểm chứng
+## Bằng chứng và rủi ro
 
-- Kiểm thử nhiều tiến trình thật và cấu hình proxy/IP của môi trường chạy; spike Tech mới kiểm hai cổng cùng một tiến trình. Nếu đổi host/proxy phải Tech review lại ADR. Khi #04 mở nhiều tài khoản/NAT chung phải rà quota.
-- Review theo [test-spec](../test-spec.md) T10–T15. Cần lưu commit/build, lệnh test và kết quả thật; chưa có kết quả QA.
+Dev ghi commit/image, Testcontainers PostgreSQL/Redis, hai JVM/browser, keyring rotate test, HTTP/cookie attributes, DB epoch/family, quota, logout trên điện thoại khác và ảnh viewport iPhone/Android; QA theo [test spec Java](../test-spec.md) nhóm #45. Không tự gán pass cho email thật, thiết bị thật hoặc code Node. `DEV_REVIEWED` cần reviewer code khác người và PM; `QA_PASS` cần mọi AC trong phạm vi chạy trên build xác định.

@@ -4,9 +4,8 @@ services:
       context: ..
       dockerfile: apps/api/Dockerfile
       target: probe
-    command: ["node", "apps/api/dist/test/probe-server.js"]
   peercheck:
-    image: node:24.11.1-alpine3.22
+    image: curlimages/curl:8.16.0
     profiles: ["tools"]
     networks:
       - api_net
