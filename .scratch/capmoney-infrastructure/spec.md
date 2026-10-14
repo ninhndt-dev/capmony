@@ -1,5 +1,7 @@
 # Feature Spec: INFRA-01 – Docker dev/test trước FE/BE
 
+> **Ưu tiên bảo toàn tài nguyên — Ninh 14/10/2026:** Không chạy reset/down/force-recreate hay xóa container/volume/file. Các nhắc reset/recreate dưới đây là phương pháp kiểm cũ, không còn được phép thực thi. Thay bằng restart và container kế tiếp dùng cùng volume khi container trước đã dừng (giữ cả hai), cùng một môi trường/volume mới để kiểm dữ liệu sạch và dữ liệu cũ không đổi. Caddy dùng container bổ sung cùng secret/subnet để kiểm IP peer thay đổi. `up --no-recreate`, `stop`, `probe-stop` giữ tài nguyên; probe dùng project/cổng/subnet riêng. Đây là điều chỉnh phương pháp theo quyền Ninh đã xác nhận, không thêm chức năng sản phẩm.
+
 **Story:** [story](story.md) · **Nguồn hiện hành:** [TS01/TS04/TS06–TS08](../../docs/requirements/tech-stack-round-1.md), [TS10–TS38](../../docs/requirements/tech-stack-round-2.md), [ADR 0003 đề xuất](../../docs/adr/0003-java-spring-and-deployment.md), [sơ đồ Java đề xuất](architecture-java-proposal.md).
 **Rebaseline BA/PM 14/10/2026:** Bản 20 mục này đã đối chiếu Java Spring/Redis/Tailwind và Docker chỉ cho dev/test. Gate BA/TECH cũ là lịch sử Node/Hono; PM độc lập đã xác nhận `BA_READY` cho bản Java/Redis. Tech design/review và PM vẫn cần trước khi ticket #47 được xét readiness. QA cũ IF-T03 fail, không `QA_PASS`.
 

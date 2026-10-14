@@ -1,0 +1,59 @@
+{
+  "before": {
+    "Pid": 3542,
+    "StartedAt": "2026-10-14T16:44:37.616582683Z"
+  },
+  "routes": {
+    "/": 200,
+    "/manager/setup": 200,
+    "/api/health": [
+      200,
+      "{\"status\":\"UP\"}"
+    ],
+    "/api/ready/auth": [
+      200,
+      "{\"status\":\"UP\"}"
+    ],
+    "/api/__probe": [
+      404,
+      "{\"timestamp\":\"2026-10-14T16:45:39.357Z\",\"status\":404,\"error\":\"Not Found\",\"path\":\"/api/__probe\"}"
+    ],
+    "/v3/api-docs": 200
+  },
+  "postgres_outage": {
+    "/api/health": [
+      503,
+      "{\"status\":\"db_unavailable\"}"
+    ],
+    "/api/ready/auth": [
+      503,
+      "{\"status\":\"db_unavailable\"}"
+    ]
+  },
+  "postgres_recovery": "UP; same PID and StartedAt",
+  "redis_outage": {
+    "/api/health": [
+      200,
+      "{\"status\":\"UP\"}"
+    ],
+    "/api/ready/auth": [
+      503,
+      "{\"status\":\"redis_unavailable\"}"
+    ]
+  },
+  "redis_recovery": "UP; same PID and StartedAt",
+  "images": "sha256:c7028ead464d4106a6c8d5a0a2368167d63a86a8c58574f4f3e130528421c82f",
+  "containers": {
+    "2019/tcp": null,
+    "443/tcp": null,
+    "443/udp": null,
+    "80/tcp": null,
+    "8080/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "28080"
+      }
+    ]
+  },
+  "runtime_probe_class_absent": "not checked"
+}

@@ -1,5 +1,7 @@
 # Technical Design đề xuất: INFRA-01 / Planio #47 — Docker dev/test Java
 
+> **Ưu tiên bảo toàn tài nguyên — Ninh 14/10/2026:** Không chạy reset/down/force-recreate hay xóa container/volume/file. Các nhắc reset/recreate dưới đây là phương pháp kiểm cũ, không còn được phép thực thi. Thay bằng restart và container kế tiếp dùng cùng volume khi container trước đã dừng (giữ cả hai), cùng một môi trường/volume mới để kiểm dữ liệu sạch và dữ liệu cũ không đổi. Caddy dùng container bổ sung cùng secret/subnet để kiểm IP peer thay đổi. `up --no-recreate`, `stop`, `probe-stop` giữ tài nguyên; probe dùng project/cổng/subnet riêng. Đây là điều chỉnh phương pháp theo quyền Ninh đã xác nhận, không thêm chức năng sản phẩm.
+
 **Trạng thái:** `TECH_READY` cho INFRA-01 Java/Redis và `READY_FOR_IMPLEMENTATION` cho ticket #47 ngày 14/10/2026 sau [Tech review độc lập](java-tech-review.md), [BA/Tech ticket review và PM gate](handoff.md); chưa build/chạy Java hoặc QA. [Thiết kế Node/Hono](technical-design.md) và kết quả IF-T01–08 cũ chỉ là lịch sử. **Phạm vi:** [spec 20 mục](spec.md), `AC-IF01-1`–`AC-IF01-5`, [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md), [TS10–TS38](../../docs/requirements/tech-stack-round-2.md). Không triển khai CM-01 hoặc production VPS trong #47.
 
 ## 1. Quyết định đã xác nhận và đề xuất Tech

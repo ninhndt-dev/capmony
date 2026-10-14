@@ -5,14 +5,19 @@ repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 environment="${1:-}"
 action="${2:-}"
 if [ "$environment" != dev ] && [ "$environment" != test ]; then
-  echo 'Usage: infra/scripts/stack.sh dev|test up|down|config|ps|mailcheck|probe-up|probe-down|reset' >&2
+  echo 'Usage: infra/scripts/stack.sh dev|test up|stop|config|ps|mailcheck|probe-up|probe-stop' >&2
   exit 2
 fi
+case "$action" in
+  down|probe-down|reset)
+    echo 'Resource deletion is forbidden. Use stop to preserve containers, networks and volumes; use a new isolated environment for clean tests.' >&2
+    exit 2 ;;
+esac
 if [ -z "$action" ]; then
   echo 'Missing action' >&2
   exit 2
 fi
-if [ "$environment" != test ] && { [ "$action" = probe-up ] || [ "$action" = probe-down ]; }; then
+if [ "$environment" != test ] && { [ "$action" = probe-up ] || [ "$action" = probe-stop ]; }; then
   echo 'Security probe is allowed only in the isolated test project' >&2
   exit 2
 fi
@@ -25,6 +30,10 @@ else
   default_port=28080
   default_subnet=172.30.49.0/24
   default_redis_database=1
+fi
+if [ "$action" = probe-up ] || [ "$action" = probe-stop ]; then
+  default_port=38080
+  default_subnet=172.30.50.0/24
 fi
 export CAPMONEY_PORT="${CAPMONEY_PORT:-$default_port}"
 export API_SUBNET="${API_SUBNET:-$default_subnet}"
@@ -62,24 +71,17 @@ case "$action" in
 esac
 
 compose() {
-  if [ "$action" = probe-up ] || [ "$action" = probe-down ]; then
-    docker compose -p "capmoney-$environment" -f "$repo_root/infra/compose.yaml" -f "$repo_root/infra/compose.probe.yaml" "$@"
+  if [ "$action" = probe-up ] || [ "$action" = probe-stop ]; then
+    docker compose -p "capmoney-$environment-probe" -f "$repo_root/infra/compose.yaml" -f "$repo_root/infra/compose.probe.yaml" "$@"
   else
     docker compose -p "capmoney-$environment" -f "$repo_root/infra/compose.yaml" "$@"
   fi
 }
 case "$action" in
-  up|probe-up) compose up --build -d ;;
-  down|probe-down) compose down ;;
+  up|probe-up) compose up --build --no-recreate -d ;;
+  stop|probe-stop) compose stop ;;
   config) compose config ;;
   ps) compose ps ;;
-  mailcheck) compose --profile tools run --rm mailcheck ;;
-  reset)
-    if [ "$environment" != test ]; then
-      echo 'Reset is allowed only for the isolated test project' >&2
-      exit 2
-    fi
-    compose down --volumes
-    echo 'Isolated test volume removed' ;;
+  mailcheck) compose --profile tools run --build --no-deps mailcheck ;;
   *) echo "Unknown action: $action" >&2; exit 2 ;;
 esac

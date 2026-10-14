@@ -1,5 +1,7 @@
 # INFRA-01.1: Dựng môi trường Docker dev/test Java
 
+> **Ưu tiên bảo toàn tài nguyên — Ninh 14/10/2026:** Không chạy reset/down/force-recreate hay xóa container/volume/file. Các nhắc reset/recreate dưới đây là phương pháp kiểm cũ, không còn được phép thực thi. Thay bằng restart và container kế tiếp dùng cùng volume khi container trước đã dừng (giữ cả hai), cùng một môi trường/volume mới để kiểm dữ liệu sạch và dữ liệu cũ không đổi. Caddy dùng container bổ sung cùng secret/subnet để kiểm IP peer thay đổi. `up --no-recreate`, `stop`, `probe-stop` giữ tài nguyên; probe dùng project/cổng/subnet riêng. Đây là điều chỉnh phương pháp theo quyền Ninh đã xác nhận, không thêm chức năng sản phẩm.
+
 **Parent:** [Planio #46 – INFRA-01](https://tanninh.planio.com/issues/46).
 **Planio child:** [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47).
 **Status:** `ready-for-agent` — `READY_FOR_IMPLEMENTATION` đạt cho bản Java/Redis ngày 14/10/2026 sau BA/Tech ticket review và PM kiểm gate. Readiness/Dev review của Node/Hono trước TS10–TS38 chỉ là lịch sử. Planio #47 đã đồng bộ `In Progress`; Dev đang làm, chưa có `DEV_REVIEWED`/`QA_PASS`.

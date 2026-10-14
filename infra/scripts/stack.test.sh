@@ -4,7 +4,7 @@ set -eu
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 stack="$repo_root/infra/scripts/stack.sh"
 test_root="$(mktemp -d "${TMPDIR:-/tmp}/capmoney-stack-test.XXXXXX")"
-trap 'rm -rf "$test_root"' EXIT
+# Keep test artifacts for inspection; project policy forbids cleanup deletion.
 mkdir -p "$test_root/bin"
 export FAKE_DOCKER_LOG="$test_root/docker.log"
 cat > "$test_root/bin/docker" <<'EOF'
@@ -38,7 +38,13 @@ if [ ! -f "$test_root/secrets/test/pg-password" ]; then
   echo 'test secret was not created in its own directory' >&2
   exit 1
 fi
-if [ "$(stat -c %a "$test_root/secrets/dev/pg-password")" != 600 ] || [ "$(stat -c %a "$test_root/secrets/test/pg-password")" != 600 ]; then
+file_mode() {
+  case "$(uname -s)" in
+    Darwin) stat -f %Lp "$1" ;;
+    *) stat -c %a "$1" ;;
+  esac
+}
+if [ "$(file_mode "$test_root/secrets/dev/pg-password")" != 600 ] || [ "$(file_mode "$test_root/secrets/test/pg-password")" != 600 ]; then
   echo 'secret file permissions are not 600' >&2
   exit 1
 fi
@@ -57,4 +63,26 @@ if [ "$(wc -l < "$FAKE_DOCKER_LOG")" != "$calls_before" ] || [ -d "$test_root/pr
   exit 1
 fi
 
-echo 'stack config guards: 4 cases passed'
+for environment in dev test; do
+  for action in down probe-down reset; do
+    if CAPMONEY_SECRET_DIR="$test_root/blocked-secrets" "$stack" "$environment" "$action" > "$test_root/output" 2>&1; then
+      echo "destructive action was accepted: $environment $action" >&2
+      exit 1
+    fi
+  done
+done
+if [ "$(wc -l < "$FAKE_DOCKER_LOG")" != "$calls_before" ] || [ -d "$test_root/blocked-secrets" ]; then
+  echo 'destructive action reached Docker or created a secret' >&2
+  exit 1
+fi
+APP_ORIGIN= CAPMONEY_SECRET_DIR="$test_root/secrets" "$stack" test stop
+if ! tail -1 "$FAKE_DOCKER_LOG" | grep -Fq ' stop|'; then
+  echo 'stop did not preserve resources with Compose stop' >&2
+  exit 1
+fi
+APP_ORIGIN= CAPMONEY_SECRET_DIR="$test_root/secrets" "$stack" test probe-up
+if ! tail -1 "$FAKE_DOCKER_LOG" | grep -Fq -- '-p capmoney-test-probe ' || ! tail -1 "$FAKE_DOCKER_LOG" | grep -Fq -- 'up --build --no-recreate -d|http://127.0.0.1:38080|'; then
+  echo 'probe project/port or preservation guard is incorrect' >&2
+  exit 1
+fi
+printf 'stack config guards: 12 cases passed; artifacts: %s\n' "$test_root"
