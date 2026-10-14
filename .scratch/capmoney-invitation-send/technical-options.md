@@ -1,0 +1,12 @@
+# Bước 9: đối chiếu kỹ thuật cho gửi lời mời (#03)
+
+**Trạng thái:** Tech đề xuất, BA → PM → Tech → PM đã rà phần độc lập ngày 14/10/2026. Chờ Ninh quyết định cách gửi lại lời mời còn hạn; chưa chốt stack hoặc giao Dev.
+
+- Phải kiểm quyền tài khoản quản lý tại phía hệ thống cho từng yêu cầu gửi, kể cả đường gọi trực tiếp. Đường tự đăng ký cần bị chặn; [Next.js Authentication](https://nextjs.org/docs/app/guides/authentication) yêu cầu kiểm quyền ở Server Actions/Route Handlers. Cách xác thực còn phụ thuộc spike [#01](../capmoney-manager-setup/technical-options.md): `disableSignUp: true` của Better Auth cũng chặn lệnh đăng ký gọi từ server.
+- Trạng thái lời mời phải bền vững qua nhiều phiên xử lý. Tech cần chứng minh một lời mời chỉ dùng cho email đích, hết hạn sau 72 giờ từ lúc yêu cầu gửi đầu được nhà cung cấp tiếp nhận, không thể dùng sau khi đã hoàn tất, và không có hai lời mời có thể dùng do gửi gần đồng thời. Việc xác minh mã và hoàn tất tài khoản thuộc #04–#05.
+- Việc lưu trạng thái và gửi email không nằm trong một giao dịch nguyên tử chung. [Resend idempotency keys](https://resend.com/docs/dashboard/emails/idempotency-keys) chỉ chống gửi trùng cùng yêu cầu trong 24 giờ; CapMoney phải tự giữ trạng thái trong toàn bộ hạn 72 giờ. Thử lỗi, timeout, provider tiếp nhận nhưng phản hồi bị mất, và dữ liệu không cập nhật sau khi provider tiếp nhận. Không báo đã gửi khi kết quả chưa rõ.
+- Hạn chế yêu cầu gửi lặp theo tài khoản quản lý, email đích và tín hiệu truy cập phù hợp; dùng nơi lưu chung nếu chạy nhiều phiên xử lý. Bộ đếm mặc định của [Better Auth Rate Limit](https://better-auth.com/docs/concepts/rate-limit) ở bộ nhớ tiến trình và không tự bảo vệ đường gửi lời mời tùy biến. Tech còn chọn ngưỡng/thời gian chờ; PM đối chiếu trải nghiệm với yêu cầu đã chốt và chỉ hỏi Ninh nếu xuất hiện lựa chọn sản phẩm mới.
+- Email đang có tài khoản hoạt động không được tạo tài khoản thứ hai hoặc làm lộ/đổi dữ liệu cũ. Tech cần thử chuẩn hóa email, gửi và hoàn tất gần đồng thời, tài khoản đã xóa rồi được mời lại với dữ liệu trống. Cách báo cụ thể chưa được chốt trong ticket #03.
+- Cách gửi lại lời mời **còn hạn** phụ thuộc lựa chọn của Ninh; không giả định có thể tạo liên kết mới, hủy liên kết cũ hoặc kéo dài hạn khi R47 chưa cho hủy trước hạn.
+
+**Chặn trước `ready-for-agent`:** Ninh chọn nhánh gửi lại lời mời còn hạn; spike #01 chứng minh xác thực chỉ mời; Tech kiểm chứng vòng đời lời mời, lỗi gửi và chống đồng thời; PM rà lại phạm vi/quyền và ngưỡng giới hạn.
