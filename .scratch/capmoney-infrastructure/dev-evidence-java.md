@@ -33,3 +33,9 @@ Ngày 14/10/2026, Dev `/root`; tiếp tục từ commit `13f2935` trên `feat/cm
 Standards reviewer `/root/review_standards` không thấy blocker; Tech/Spec reviewer `/root/review_spec` xác nhận phương pháp bảo toàn tài nguyên giữ đúng mục tiêu kiểm thử, không còn blocker code trong phạm vi WIP. Reviewer không cấp QA_PASS. Các finding probe subnet, stat Linux và probe-stop đã sửa.
 
 Dev còn phải bàn giao snapshot commit/image cuối; QA độc lập chạy IF-J-T01–08 trên snapshot đó, gồm Linux guard, secret/log/image checks, topology, giả header qua Caddy, secret đổi một byte, fresh environment và stopped-start regression. Chưa kiểm thiết bị hay sản phẩm CM-01, chưa sửa Planio/đóng #47. CM-01 #43 vẫn chờ #47 hoàn tất.
+
+## P1 bổ sung — PostgreSQL im lặng
+
+Review toàn bộ diff Java từ `b1aa9f4` đến `7dfe7b3` phát hiện Hikari acquisition/validation timeout không giới hạn đọc truy vấn đang chạy. `infra/scripts/postgres-timeout.test.py` đã tái hiện red trên dev image `7dfe7b3`: pause PostgreSQL, HTTP không hoàn tất trong 5 giây; script luôn unpause trong finally. Log `.local/db-timeout-before.log`. Đây là test hồi quy đúng đường HTTP qua Caddy, không phải unit test mô phỏng.
+
+Sửa PgJDBC connectTimeout=1, socketTimeout=2, cancelSignalTimeout=1 và JdbcTemplate query-timeout=1s. Standards/Tech reviewers không thấy blocker mới; P1 chỉ đóng khi QA chạy green trên image mới và giữ nguyên PID/StartedAt. Wrapper unit suite sau sửa exit0: tổng6, pass4, skip2 (Testcontainers/Mailpit opt-in); không coi skip là pass. QA đang dựng project v2 riêng; chưa DEV_REVIEWED/QA_PASS khi chưa có green.

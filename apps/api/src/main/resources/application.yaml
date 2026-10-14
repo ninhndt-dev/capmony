@@ -7,7 +7,7 @@ spring:
   application:
     name: capmoney-api
   datasource:
-    url: jdbc:postgresql://${DB_HOST:postgres}:5432/${DB_NAME}
+    url: jdbc:postgresql://${DB_HOST:postgres}:5432/${DB_NAME}?connectTimeout=1&socketTimeout=2&cancelSignalTimeout=1&tcpKeepAlive=true
     username: ${DB_USER}
     password: ${pg_password}
     hikari:
@@ -22,6 +22,9 @@ spring:
       timeout: 1s
       connect-timeout: 1s
       database: ${REDIS_DATABASE:0}
+  jdbc:
+    template:
+      query-timeout: 1s
   jpa:
     hibernate:
       ddl-auto: none
