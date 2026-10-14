@@ -1,6 +1,6 @@
 # CapMoney: khởi động lại từ tiếp nhận yêu cầu
 
-**Trạng thái:** Hoàn tất chia 35 ticket dọc ở bước 8/11; đang ở bước 9, đã có đặc tả chi tiết [ticket #01](.scratch/capmoney-manager-setup/spec.md), [ticket #02](.scratch/capmoney-manager-link-renewal/spec.md), [ticket #03](.scratch/capmoney-invitation-send/spec.md), [ticket #04](.scratch/capmoney-invitation-accept/spec.md), [ticket #05](.scratch/capmoney-invitation-recovery/spec.md) và [ticket #06](.scratch/capmoney-first-wallet/spec.md). #06 đã có R66–R67 và được BA → PM → Tech → PM rà; các ticket tại [tracker Markdown](.scratch/capmoney-overall/issues/) vẫn cần triage và kiểm chứng kỹ thuật. Dự án chưa có code ứng dụng web hoặc API.
+**Trạng thái:** Hoàn tất chia 35 Story ứng viên ở bước 8/11; đang ở bước 9. Đặc tả #01–#06 đã qua BA → PM → Tech → PM theo quy trình trước workflow CapMM; [Story #07](.scratch/capmoney-add-wallet/story.md) có spec 20 mục nhưng `needs-info` vì hai câu hỏi ví thêm chưa được Ninh chọn, nên chưa `BA_READY`. Các Story tại [tracker Markdown](.scratch/capmoney-overall/issues/) chưa có gate sẵn sàng Dev. Dự án chưa có code ứng dụng web hoặc API.
 
 Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòng phỏng vấn. Bản code trước đây đã được bỏ khỏi cây dự án này. Ninh đã chọn **hỏi lại toàn bộ từ đầu**; những câu trả lời cũ chỉ dùng làm bối cảnh, không tự động thành yêu cầu mới. Xem [phiếu tiếp nhận](docs/requirements/00-intake.md).
 
