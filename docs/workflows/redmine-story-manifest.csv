@@ -1,36 +1,36 @@
 source_story,subject,source_path,markdown_status,readiness,redmine_issue_id
-01,CM-01 Thiết lập và đăng nhập quản lý,.scratch/capmoney-overall/issues/01-thiet-lap-quan-ly.md,needs-triage,UNVERIFIED,
-02,CM-02 Xin lại liên kết thiết lập quản lý hết hạn,.scratch/capmoney-overall/issues/02-xin-lai-lien-ket-quan-ly.md,needs-triage,UNVERIFIED,
-03,CM-03 Gửi lời mời tài khoản ghi chép,.scratch/capmoney-overall/issues/03-gui-loi-moi.md,needs-triage,UNVERIFIED,
-04,CM-04 Nhận lời mời và đăng nhập cá nhân,.scratch/capmoney-overall/issues/04-nhan-loi-moi.md,needs-triage,UNVERIFIED,
-05,CM-05 Xử lý mã sai hoặc lời mời hết hạn,.scratch/capmoney-overall/issues/05-loi-moi-het-han-va-ma-sai.md,needs-triage,UNVERIFIED,
-06,CM-06 Tạo ví đầu tiên,.scratch/capmoney-overall/issues/06-tao-vi-dau-tien.md,needs-triage,UNVERIFIED,
-07,CM-07 Thêm ví,.scratch/capmoney-overall/issues/07-them-vi.md,needs-triage,BA_READY; STORY_TECH_GAP,
-08,CM-08 Danh mục mặc định và ghi khoản thu,.scratch/capmoney-overall/issues/08-danh-muc-mac-dinh-va-ghi-thu.md,needs-triage,BA_READY; STORY_TECH_GAP,
-09,CM-09 Ghi khoản chi,.scratch/capmoney-overall/issues/09-ghi-chi.md,needs-triage,BA_READY; STORY_TECH_GAP,
-10,CM-10 Lịch sử chung và lọc theo ví,.scratch/capmoney-overall/issues/10-lich-su-chung-va-loc-vi.md,needs-triage,UNVERIFIED,
-11,CM-11 Sửa khoản thu/chi,.scratch/capmoney-overall/issues/11-sua-thu-chi.md,needs-triage,UNVERIFIED,
-12,CM-12 Xóa mềm và khôi phục khoản thu/chi,.scratch/capmoney-overall/issues/12-xoa-va-khoi-phuc-thu-chi.md,needs-triage,UNVERIFIED,
-13,CM-13 Chuyển tiền giữa hai ví,.scratch/capmoney-overall/issues/13-chuyen-tien-giua-vi.md,needs-triage,UNVERIFIED,
-14,CM-14 Sửa lần chuyển,.scratch/capmoney-overall/issues/14-sua-lan-chuyen.md,needs-triage,UNVERIFIED,
-15,CM-15 Xóa và khôi phục lần chuyển,.scratch/capmoney-overall/issues/15-xoa-va-khoi-phuc-lan-chuyen.md,needs-triage,UNVERIFIED,
-16,CM-16 Sửa thông tin ví,.scratch/capmoney-overall/issues/16-sua-thong-tin-vi.md,needs-triage,UNVERIFIED,
-17,CM-17 Ngừng và bật lại ví trống,.scratch/capmoney-overall/issues/17-ngung-va-bat-lai-vi-trong.md,needs-triage,UNVERIFIED,
-18,"CM-18 Ngừng ví 0 có lịch sử, bảo vệ số dư và quay lại ghi thu/chi",.scratch/capmoney-overall/issues/18-ngung-vi-co-lich-su.md,needs-triage,UNVERIFIED,
-19,CM-19 Xóa ví đủ điều kiện,.scratch/capmoney-overall/issues/19-xoa-vi-du-dieu-kien.md,needs-triage,UNVERIFIED,
-20,CM-20 Thêm và đổi tên danh mục,.scratch/capmoney-overall/issues/20-them-va-doi-ten-danh-muc.md,needs-triage,UNVERIFIED,
-21,CM-21 Xóa danh mục chưa dùng,.scratch/capmoney-overall/issues/21-xoa-danh-muc-chua-dung.md,needs-triage,UNVERIFIED,
-22,CM-22 Đặt lại mật khẩu quản lý,.scratch/capmoney-overall/issues/22-dat-lai-mat-khau-quan-ly.md,needs-triage,UNVERIFIED,
-23,CM-23 Đổi email quản lý,.scratch/capmoney-overall/issues/23-doi-email-quan-ly.md,needs-triage,UNVERIFIED,
-24,CM-24 Đặt lại mật khẩu ghi chép,.scratch/capmoney-overall/issues/24-dat-lai-mat-khau-ghi-chep.md,needs-triage,UNVERIFIED,
-25,CM-25 Đổi email ghi chép,.scratch/capmoney-overall/issues/25-doi-email-ghi-chep.md,needs-triage,UNVERIFIED,
-26,CM-26 Hỗ trợ người mất email,.scratch/capmoney-overall/issues/26-ho-tro-nguoi-mat-email.md,needs-triage,UNVERIFIED,
-27,CM-27 Tự xóa tài khoản ghi chép,.scratch/capmoney-overall/issues/27-tu-xoa-tai-khoan-ghi-chep.md,needs-triage,UNVERIFIED,
-28,CM-28 Tải dữ liệu trên điện thoại thứ hai,.scratch/capmoney-overall/issues/28-tai-du-lieu-dien-thoai-thu-hai.md,needs-triage,UNVERIFIED,
-29,CM-29 Giữ các giao dịch mới lưu gần đồng thời,.scratch/capmoney-overall/issues/29-giu-giao-dich-moi-dong-thoi.md,needs-triage,UNVERIFIED,
-30,CM-30 Giữ hai giao dịch khác nhau được sửa gần đồng thời,.scratch/capmoney-overall/issues/30-giu-hai-sua-doi-dong-thoi.md,needs-triage,UNVERIFIED,
-31,CM-31 Chặn sửa/xóa/khôi phục khoản thu/chi từ bản cũ,.scratch/capmoney-overall/issues/31-chan-ban-cu-thu-chi.md,needs-triage,UNVERIFIED,
-32,CM-32 Chặn sửa/xóa/khôi phục lần chuyển từ bản cũ,.scratch/capmoney-overall/issues/32-chan-ban-cu-lan-chuyen.md,needs-triage,UNVERIFIED,
-33,CM-33 Đối chiếu lần lưu thu/chi chưa rõ trong phiên,.scratch/capmoney-overall/issues/33-doi-chieu-luu-thu-chi-chua-ro-trong-phien.md,needs-triage,UNVERIFIED,
-34,CM-34 Đối chiếu lần lưu chuyển tiền chưa rõ trong phiên,.scratch/capmoney-overall/issues/34-doi-chieu-luu-chuyen-chua-ro-trong-phien.md,needs-triage,UNVERIFIED,
-35,CM-35 Đối chiếu lần lưu giao dịch chưa rõ sau khi mở lại,.scratch/capmoney-overall/issues/35-doi-chieu-luu-chua-ro-sau-mo-lai.md,needs-triage,UNVERIFIED,
+01,CM-01 Thiết lập và đăng nhập quản lý,.scratch/capmoney-overall/issues/01-thiet-lap-quan-ly.md,needs-triage,UNVERIFIED,8
+02,CM-02 Xin lại liên kết thiết lập quản lý hết hạn,.scratch/capmoney-overall/issues/02-xin-lai-lien-ket-quan-ly.md,needs-triage,UNVERIFIED,9
+03,CM-03 Gửi lời mời tài khoản ghi chép,.scratch/capmoney-overall/issues/03-gui-loi-moi.md,needs-triage,UNVERIFIED,10
+04,CM-04 Nhận lời mời và đăng nhập cá nhân,.scratch/capmoney-overall/issues/04-nhan-loi-moi.md,needs-triage,UNVERIFIED,11
+05,CM-05 Xử lý mã sai hoặc lời mời hết hạn,.scratch/capmoney-overall/issues/05-loi-moi-het-han-va-ma-sai.md,needs-triage,UNVERIFIED,12
+06,CM-06 Tạo ví đầu tiên,.scratch/capmoney-overall/issues/06-tao-vi-dau-tien.md,needs-triage,UNVERIFIED,13
+07,CM-07 Thêm ví,.scratch/capmoney-overall/issues/07-them-vi.md,needs-triage,BA_READY; STORY_TECH_GAP,14
+08,CM-08 Danh mục mặc định và ghi khoản thu,.scratch/capmoney-overall/issues/08-danh-muc-mac-dinh-va-ghi-thu.md,needs-triage,BA_READY; STORY_TECH_GAP,15
+09,CM-09 Ghi khoản chi,.scratch/capmoney-overall/issues/09-ghi-chi.md,needs-triage,BA_READY; STORY_TECH_GAP,16
+10,CM-10 Lịch sử chung và lọc theo ví,.scratch/capmoney-overall/issues/10-lich-su-chung-va-loc-vi.md,needs-triage,UNVERIFIED,17
+11,CM-11 Sửa khoản thu/chi,.scratch/capmoney-overall/issues/11-sua-thu-chi.md,needs-triage,UNVERIFIED,18
+12,CM-12 Xóa mềm và khôi phục khoản thu/chi,.scratch/capmoney-overall/issues/12-xoa-va-khoi-phuc-thu-chi.md,needs-triage,UNVERIFIED,19
+13,CM-13 Chuyển tiền giữa hai ví,.scratch/capmoney-overall/issues/13-chuyen-tien-giua-vi.md,needs-triage,UNVERIFIED,20
+14,CM-14 Sửa lần chuyển,.scratch/capmoney-overall/issues/14-sua-lan-chuyen.md,needs-triage,UNVERIFIED,21
+15,CM-15 Xóa và khôi phục lần chuyển,.scratch/capmoney-overall/issues/15-xoa-va-khoi-phuc-lan-chuyen.md,needs-triage,UNVERIFIED,22
+16,CM-16 Sửa thông tin ví,.scratch/capmoney-overall/issues/16-sua-thong-tin-vi.md,needs-triage,UNVERIFIED,23
+17,CM-17 Ngừng và bật lại ví trống,.scratch/capmoney-overall/issues/17-ngung-va-bat-lai-vi-trong.md,needs-triage,UNVERIFIED,24
+18,"CM-18 Ngừng ví 0 có lịch sử, bảo vệ số dư và quay lại ghi thu/chi",.scratch/capmoney-overall/issues/18-ngung-vi-co-lich-su.md,needs-triage,UNVERIFIED,25
+19,CM-19 Xóa ví đủ điều kiện,.scratch/capmoney-overall/issues/19-xoa-vi-du-dieu-kien.md,needs-triage,UNVERIFIED,26
+20,CM-20 Thêm và đổi tên danh mục,.scratch/capmoney-overall/issues/20-them-va-doi-ten-danh-muc.md,needs-triage,UNVERIFIED,27
+21,CM-21 Xóa danh mục chưa dùng,.scratch/capmoney-overall/issues/21-xoa-danh-muc-chua-dung.md,needs-triage,UNVERIFIED,28
+22,CM-22 Đặt lại mật khẩu quản lý,.scratch/capmoney-overall/issues/22-dat-lai-mat-khau-quan-ly.md,needs-triage,UNVERIFIED,29
+23,CM-23 Đổi email quản lý,.scratch/capmoney-overall/issues/23-doi-email-quan-ly.md,needs-triage,UNVERIFIED,30
+24,CM-24 Đặt lại mật khẩu ghi chép,.scratch/capmoney-overall/issues/24-dat-lai-mat-khau-ghi-chep.md,needs-triage,UNVERIFIED,31
+25,CM-25 Đổi email ghi chép,.scratch/capmoney-overall/issues/25-doi-email-ghi-chep.md,needs-triage,UNVERIFIED,32
+26,CM-26 Hỗ trợ người mất email,.scratch/capmoney-overall/issues/26-ho-tro-nguoi-mat-email.md,needs-triage,UNVERIFIED,33
+27,CM-27 Tự xóa tài khoản ghi chép,.scratch/capmoney-overall/issues/27-tu-xoa-tai-khoan-ghi-chep.md,needs-triage,UNVERIFIED,34
+28,CM-28 Tải dữ liệu trên điện thoại thứ hai,.scratch/capmoney-overall/issues/28-tai-du-lieu-dien-thoai-thu-hai.md,needs-triage,UNVERIFIED,35
+29,CM-29 Giữ các giao dịch mới lưu gần đồng thời,.scratch/capmoney-overall/issues/29-giu-giao-dich-moi-dong-thoi.md,needs-triage,UNVERIFIED,36
+30,CM-30 Giữ hai giao dịch khác nhau được sửa gần đồng thời,.scratch/capmoney-overall/issues/30-giu-hai-sua-doi-dong-thoi.md,needs-triage,UNVERIFIED,37
+31,CM-31 Chặn sửa/xóa/khôi phục khoản thu/chi từ bản cũ,.scratch/capmoney-overall/issues/31-chan-ban-cu-thu-chi.md,needs-triage,UNVERIFIED,38
+32,CM-32 Chặn sửa/xóa/khôi phục lần chuyển từ bản cũ,.scratch/capmoney-overall/issues/32-chan-ban-cu-lan-chuyen.md,needs-triage,UNVERIFIED,39
+33,CM-33 Đối chiếu lần lưu thu/chi chưa rõ trong phiên,.scratch/capmoney-overall/issues/33-doi-chieu-luu-thu-chi-chua-ro-trong-phien.md,needs-triage,UNVERIFIED,40
+34,CM-34 Đối chiếu lần lưu chuyển tiền chưa rõ trong phiên,.scratch/capmoney-overall/issues/34-doi-chieu-luu-chuyen-chua-ro-trong-phien.md,needs-triage,UNVERIFIED,41
+35,CM-35 Đối chiếu lần lưu giao dịch chưa rõ sau khi mở lại,.scratch/capmoney-overall/issues/35-doi-chieu-luu-chua-ro-sau-mo-lai.md,needs-triage,UNVERIFIED,42

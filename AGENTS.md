@@ -1,6 +1,6 @@
 # Hướng dẫn agent của CapMoney
 
-Đọc `README.md` và `docs/requirements/00-intake.md` trước khi làm việc. Dự án đang chuyển sang **bước 9: đặc tả chi tiết từng module** sau khi Ninh duyệt cách chia và 35 ticket dọc đã được xuất bản ở bước 8. Ninh đã chọn hỏi lại mọi yêu cầu từ đầu; không coi cả sáu quyết định cũ là đã chốt cho lần khởi động này. Không tạo app/API, schema hoặc ticket triển khai từ tài liệu hay code cũ.
+Đọc `README.md` và `docs/requirements/00-intake.md` trước khi làm việc. Dự án đang ở **bước 9: đặc tả chi tiết từng module** sau khi Ninh duyệt cách chia 35 Story ứng viên ở bước 8; chúng đã được chuyển sang Planio. Ninh đã chọn hỏi lại mọi yêu cầu từ đầu; không coi cả sáu quyết định cũ là đã chốt cho lần khởi động này. Không tạo app/API, schema hoặc ticket triển khai từ tài liệu hay code cũ.
 
 ## Agent skills
 
@@ -8,7 +8,7 @@ Các skill được vendored trong `.agents/skills/`. Đọc `SKILL.md` tương 
 
 ### Issue tracker
 
-Issue và spec sống trong các file Markdown ở `.scratch/<feature>/`. Xem `docs/agents/issue-tracker.md`.
+Trạng thái công việc hiện hành ở [Planio](https://tanninh.planio.com/projects/capmoney); spec và bằng chứng gate sống trong Markdown ở `.scratch/<feature>/`. Xem `docs/agents/issue-tracker.md` và [manifest 35 Story](docs/workflows/redmine-story-manifest.csv).
 
 ### Triage labels
 

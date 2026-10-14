@@ -1,6 +1,6 @@
 # CapMoney: khởi động lại từ tiếp nhận yêu cầu
 
-**Trạng thái:** Hoàn tất chia 35 Story ứng viên ở bước 8/11; đang ở bước 9. Đặc tả #01–#06 đã qua BA → PM → Tech → PM theo quy trình trước workflow CapMM. [Story #07](.scratch/capmoney-add-wallet/story.md), [Story #08](.scratch/capmoney-income/story.md) và [Story #09](.scratch/capmoney-expense/story.md) đã đạt `BA_READY` nhưng thiết kế đều còn `STORY_TECH_GAP`; #09 đã được reviewer kỹ thuật độc lập và PM rà sau R72–R73. Các Story tại [tracker Markdown](.scratch/capmoney-overall/issues/) chưa có gate sẵn sàng Dev. Dự án chưa có code ứng dụng web hoặc API.
+**Trạng thái:** Hoàn tất chia 35 Story ứng viên ở bước 8/11; đang ở bước 9. Cả 35 đã được chuyển và đối chiếu trên [Planio](https://tanninh.planio.com/projects/capmoney/issues); [manifest](docs/workflows/redmine-story-manifest.csv) nối ID với file nguồn. Đặc tả #01–#06 đã qua BA → PM → Tech → PM theo quy trình trước workflow CapMM. [Story #07](.scratch/capmoney-add-wallet/story.md), [Story #08](.scratch/capmoney-income/story.md) và [Story #09](.scratch/capmoney-expense/story.md) đã đạt `BA_READY` nhưng thiết kế đều còn `STORY_TECH_GAP`; #09 đã được reviewer kỹ thuật độc lập và PM rà sau R72–R73. Chưa có Story nào đủ gate giao Dev. Dự án chưa có code ứng dụng web hoặc API.
 
 Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòng phỏng vấn. Bản code trước đây đã được bỏ khỏi cây dự án này. Ninh đã chọn **hỏi lại toàn bộ từ đầu**; những câu trả lời cũ chỉ dùng làm bối cảnh, không tự động thành yêu cầu mới. Xem [phiếu tiếp nhận](docs/requirements/00-intake.md).
 
@@ -11,7 +11,7 @@ Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòn
 3. Tiếp tục đặc tả chi tiết từng module ở bước 9 trước khi chuyển ticket sang `ready-for-agent`.
 4. Từng module đi qua BA → PM → Tech → PM → Dev → PM → QA. Chỉ triển khai sau khi yêu cầu của module đủ rõ; dữ liệu và hành vi phải được kiểm tra thực tế.
 
-Hướng dẫn vận hành agent nằm trong [AGENTS.md](AGENTS.md). Công việc được theo dõi dưới `.scratch/` bằng Markdown theo [quy ước tracker](docs/agents/issue-tracker.md).
+Hướng dẫn vận hành agent nằm trong [AGENTS.md](AGENTS.md). Trạng thái công việc ở Planio; tài liệu và bằng chứng trong Git theo [quy ước tracker](docs/agents/issue-tracker.md).
 
 Từ Story #07, dùng [workflow CapMM end to end](docs/workflows/capmm-end-to-end.md): BA lập spec 20 mục → PM kiểm `BA_READY` → Tech thiết kế và review độc lập → PM kiểm `TECH_READY` rồi mới chia ticket Dev. [Workflow gốc của Ninh](docs/workflows/workflow-bot-capmm-original.md) được giữ làm nguồn đối chiếu. Các Story #01–#06 chưa tự đạt gate mới.
 

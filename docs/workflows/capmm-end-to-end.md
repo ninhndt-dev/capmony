@@ -2,7 +2,7 @@
 
 Tài liệu này là quy trình vận hành cho **lần khởi động lại CapMoney**. Nó chuyển thể [workflow Ninh gửi](workflow-bot-capmm-original.md) sang repo hiện có. [Phiếu tiếp nhận](../requirements/00-intake.md) là nguồn quyết định sản phẩm hiện hành; workflow nguồn không xác nhận yêu cầu sản phẩm.
 
-**Hiện tại: bước 9/11, sau đặc tả ticket #06.** Bước 1–8 đã qua các xác nhận ghi trong [quy trình 11 bước](../agents/workflow.md); Ninh đã duyệt cách chia **35 lát** ở bước 8 và các file đó nay là **Story ứng viên** trong tracker Markdown. Việc ánh xạ không hủy quyết định duyệt cách chia; ticket Dev là hiện vật cấp dưới tạo sau gate. Đặc tả #01–#06 được rà theo chuỗi BA → PM → Tech → PM cũ, nhưng chưa có spec 20 mục, `technical-design.md` và bằng chứng gate mới, nên không tự gán `BA_READY`, `TECH_READY` hoặc `READY_FOR_IMPLEMENTATION` cho chúng. Bắt đầu áp dụng gate dưới đây từ Story #07; nếu quay lại #01–#06 để giao Dev, phải bổ sung bằng chứng gate trước. Repo chưa có code ứng dụng, bản build hay kết quả QA.
+**Hiện tại: bước 9/11, sau đặc tả ticket #06.** Bước 1–8 đã qua các xác nhận ghi trong [quy trình 11 bước](../agents/workflow.md); Ninh đã duyệt cách chia **35 lát** ở bước 8 và chúng nay là **Story ứng viên** trên [Planio](https://tanninh.planio.com/projects/capmoney/issues), với file nguồn trong Git. Việc chuyển tracker không hủy quyết định duyệt cách chia; ticket Dev là hiện vật cấp dưới tạo sau gate. Đặc tả #01–#06 được rà theo chuỗi BA → PM → Tech → PM cũ, nhưng chưa có spec 20 mục, `technical-design.md` và bằng chứng gate mới, nên không tự gán `BA_READY`, `TECH_READY` hoặc `READY_FOR_IMPLEMENTATION` cho chúng. Bắt đầu áp dụng gate dưới đây từ Story #07; nếu quay lại #01–#06 để giao Dev, phải bổ sung bằng chứng gate trước. Repo chưa có code ứng dụng, bản build hay kết quả QA.
 
 ## Nguồn sự thật và vị trí lưu
 
@@ -10,16 +10,16 @@ Tài liệu này là quy trình vận hành cho **lần khởi động lại Cap
 | --- | --- |
 | Câu trả lời và quyết định của Ninh | `docs/requirements/`; phân biệt đã xác nhận, đề xuất, chưa rõ |
 | Story, đặc tả, Q&A, thiết kế, test spec và bàn giao | `.scratch/<feature-slug>/`; tạo sau khi đủ yêu cầu để xác định một chức năng |
-| Story ứng viên đã chia ở bước 8 | `.scratch/capmoney-overall/issues/<NN>-<slug>.md`; không tự coi là ticket Dev |
-| Ticket triển khai sau hai gate | `.scratch/<feature-slug>/issues/<NN>-<slug>.md`; chỉ tạo khi PM chia sau `TECH_READY` |
+| Story ứng viên đã chia ở bước 8 | Planio `CM-01`–`CM-35`; [manifest](redmine-story-manifest.csv) nối ID với `.scratch/capmoney-overall/issues/<NN>-<slug>.md`; không tự coi là ticket Dev |
+| Ticket triển khai sau hai gate | Issue cấp dưới trên Planio, dẫn tới `.scratch/<feature-slug>/issues/<NN>-<slug>.md` nếu cần file chi tiết; chỉ tạo khi PM chia sau `TECH_READY` |
 | Mẫu file | `.scratch/_templates/`; copy rồi điền, không xem mẫu là bằng chứng hoàn thành |
 | Review code, kết quả build và test | Đường dẫn commit/PR, lệnh, môi trường, log hoặc ảnh trong ticket/test spec |
 
-Chưa có Dona, Notion, Figma đã duyệt, staging hay dịch vụ bên ngoài trong repo này. Không tạo ID trạng thái, đường dẫn, PR, kết quả test hoặc sự phê duyệt giả. Ảnh CapMoney trước đó chỉ là tài liệu tham khảo. Nếu sau này chọn công cụ ngoài, PM ghi quyết định và ánh xạ tracker trước khi dùng.
+Planio là tracker Ninh đã chọn và đã được [đối chiếu](redmine-migration.md). Dona trong workflow gốc không phải hệ thống CapMoney đang dùng; chưa có Notion, Figma hay staging đã duyệt. Không tạo ID trạng thái, đường dẫn, PR, kết quả test hoặc sự phê duyệt giả. Ảnh CapMoney trước đó chỉ là tài liệu tham khảo.
 
 ## Trạng thái và gate
 
-`Status:` trong ticket giữ nguyên [nhãn triage của skills](../agents/triage-labels.md): `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. Đây là nhãn điều phối, **không chứng minh** một gate đã đạt.
+Trạng thái công việc hiện hành ở Planio (`Open`, `In Progress`, `Feedback`, `Closed`). `Status:` trong các file Story nguồn là ảnh chụp lúc xuất bản. [Nhãn triage của skills](../agents/triage-labels.md) có thể ghi trong tài liệu chi tiết để điều phối, nhưng **không chứng minh** một gate đã đạt và không thay trạng thái Planio.
 
 `Lifecycle:` của Story dùng `intake → specification → design → planning → implementing → verification → closed`. Blocker được ghi riêng bằng `Blocked by:` và người xử lý; chỉ công việc phụ thuộc vào blocker phải dừng. Nếu thay đổi yêu cầu, quay về giai đoạn và gate bị ảnh hưởng, cập nhật traceability trước khi tiếp tục.
 
