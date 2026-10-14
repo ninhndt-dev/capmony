@@ -93,6 +93,7 @@ Bản nháp trước diễn giải tám nhóm là **Tài khoản, Ví, Danh mụ
 | R63 | Khi tài khoản ghi chép bị xóa, điện thoại khác bị từ chối mọi yêu cầu đọc/sửa ngay từ thời điểm xóa; lần tải lại, quay lại ứng dụng hoặc thao tác tiếp theo sẽ báo tài khoản đã xóa và đưa về đăng nhập. | Ninh trả lời “A hết”, Q2 vòng làm rõ 2 bước 8 ngày 13/10/2026 |
 | R64 | Khi kết quả Lưu giao dịch chưa rõ, người dùng có thể rời biểu mẫu và làm việc khác nếu còn Internet. Khi quay lại hoặc mở lại, nếu vẫn chưa xác định được thì thấy trạng thái đang kiểm tra; nếu đã đối chiếu xong thì thấy kết quả đã lưu/chưa lưu theo F09/F25. Ứng dụng tự đối chiếu và chặn lưu lặp đúng thao tác đang chờ. | Ninh trả lời “A hết”, Q3 vòng làm rõ 2 bước 8 ngày 13/10/2026; diễn giải cùng F09/F25 |
 | R65 | Khi lời mời chưa dùng, còn hạn 3 ngày nhưng người nhận không thấy email, Ninh dùng tài khoản quản lý gửi lại chính liên kết đó tới cùng email; mốc hết hạn của lần gửi đầu không đổi. Không tạo lời mời mới trong trường hợp này. | Ninh chọn A trên giao diện, Q1 [vòng làm rõ #03 bước 9](38-step-9-invitation-send-round-1.md) ngày 14/10/2026 |
+| R66 | Khi tạo ví đầu tiên hoặc ví thêm, người dùng phải nhập tên ví trước khi Lưu; không tự đặt tên mặc định nếu để trống. | Ninh chọn A trên giao diện, Q1 [vòng làm rõ #06 bước 9](39-step-9-first-wallet-round-1.md) ngày 14/10/2026 |
 
 ## Đề xuất, chưa được Ninh xác nhận
 

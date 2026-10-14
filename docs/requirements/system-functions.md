@@ -29,6 +29,8 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 
 **Bổ sung H02 tại bước 9:** R65 cho phép Ninh gửi lại chính liên kết mời chưa dùng, còn hạn tới cùng email khi người nhận không thấy thư; hạn 3 ngày ban đầu không đổi. Quyết định này không thay đổi F07 (xin mã mới) hoặc F03/F26 (mời mới sau hạn). [Vòng làm rõ #03](38-step-9-invitation-send-round-1.md)
 
+**Bổ sung H04 tại bước 9:** R66 yêu cầu người dùng nhập tên trước khi Lưu ví đầu tiên hoặc ví thêm; không tự đặt tên nếu để trống. [Vòng làm rõ #06](39-step-9-first-wallet-round-1.md)
+
 ## Ninh đã xác nhận về thứ tự ưu tiên
 
 | Mã | Quyết định | Bằng chứng |
