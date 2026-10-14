@@ -10,7 +10,7 @@ Mỗi dòng dưới đây là một hành vi người dùng có thể trình di�
 | --- | --- | --- | --- |
 | 01 | Thiết lập và đăng nhập quản lý | Không | Ninh dùng liên kết thiết lập một lần còn hạn gửi đến email đã khai, xác minh email, đặt mật khẩu và đăng nhập tài khoản quản lý riêng. |
 | 02 | Xin lại liên kết thiết lập quản lý hết hạn | 01 | Khi thiết lập quản lý ban đầu chưa hoàn tất, Ninh tự xin liên kết mới chỉ tới email quản lý đã khai; liên kết cũ hết hiệu lực. Sau khi hoàn tất, không cấp thêm liên kết hay tài khoản quản lý. Dùng môi trường khởi tạo riêng để thử, không đặt lại dữ liệu người dùng thật. |
-| 03 | Gửi lời mời tài khoản ghi chép | 01 | Ninh đăng nhập quản lý và gửi liên kết mời qua email; người khác không thể tự đăng ký hoặc gửi lời mời. |
+| 03 | Gửi lời mời tài khoản ghi chép | 01 | Ninh đăng nhập quản lý và gửi liên kết mời qua email; người khác không thể tự đăng ký hoặc gửi lời mời. Bổ sung bước 9 theo R65: Ninh gửi lại cùng liên kết chưa dùng, còn hạn tới cùng email, giữ hạn gốc khi người nhận không thấy thư. |
 | 04 | Nhận lời mời và đăng nhập cá nhân | 03 | Người nhận dùng lời mời còn hạn, xác minh mã đúng email, đặt mật khẩu và đăng nhập; tài khoản mới chỉ thấy dữ liệu trống của mình và không có quyền quản lý. |
 | 05 | Xử lý mã sai hoặc lời mời hết hạn | 03, 04 | Mã sai/hết hạn có thể xin lại khi lời mời còn hạn, mã cũ hết hiệu lực; lời mời quá 3 ngày, kể cả lúc nhập mã, phải để Ninh mời lại. |
 | 06 | Tạo ví đầu tiên | 04 | Người chưa có ví được dẫn tạo ví; bỏ trống số dư đầu thì dùng 0 VND. Rời trang rồi quay lại cùng phiên giữ bản nhập dở; đóng trình duyệt trước khi bấm Lưu thì mở lại biểu mẫu trống. |

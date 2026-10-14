@@ -27,6 +27,8 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 
 **Điều kiện áp dụng cho mọi nhóm:** Web ưu tiên giao diện mobile trên iPhone và Android; dữ liệu tài chính riêng từng người, chỉ chủ tài khoản xem/sửa. Dùng thật cho khoảng 10 người sau khi Ninh và 2–3 người khác thử đủ chức năng, sửa xong các lỗi đã phát hiện theo S02–S13. Không có chức năng ghi offline. [R04–R16; S01–S13]
 
+**Bổ sung H02 tại bước 9:** R65 cho phép Ninh gửi lại chính liên kết mời chưa dùng, còn hạn tới cùng email khi người nhận không thấy thư; hạn 3 ngày ban đầu không đổi. Quyết định này không thay đổi F07 (xin mã mới) hoặc F03/F26 (mời mới sau hạn). [Vòng làm rõ #03](38-step-9-invitation-send-round-1.md)
+
 ## Ninh đã xác nhận về thứ tự ưu tiên
 
 | Mã | Quyết định | Bằng chứng |

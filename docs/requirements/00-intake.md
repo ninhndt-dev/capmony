@@ -92,6 +92,7 @@ Bản nháp trước diễn giải tám nhóm là **Tài khoản, Ví, Danh mụ
 | R62 | Ninh chỉ hỗ trợ người đã quen và nhận diện chắc khi họ đã đăng xuất, mất email cũ: gọi lại số điện thoại Ninh đã lưu từ trước ở ngoài CapMoney, nhận diện qua cuộc gọi và xác nhận yêu cầu đổi email. Không có số đã biết hoặc không chắc đúng người thì chưa đổi; email mới vẫn phải được xác minh. | Ninh trả lời “A hết”, Q1 vòng làm rõ 2 bước 8 ngày 13/10/2026 |
 | R63 | Khi tài khoản ghi chép bị xóa, điện thoại khác bị từ chối mọi yêu cầu đọc/sửa ngay từ thời điểm xóa; lần tải lại, quay lại ứng dụng hoặc thao tác tiếp theo sẽ báo tài khoản đã xóa và đưa về đăng nhập. | Ninh trả lời “A hết”, Q2 vòng làm rõ 2 bước 8 ngày 13/10/2026 |
 | R64 | Khi kết quả Lưu giao dịch chưa rõ, người dùng có thể rời biểu mẫu và làm việc khác nếu còn Internet. Khi quay lại hoặc mở lại, nếu vẫn chưa xác định được thì thấy trạng thái đang kiểm tra; nếu đã đối chiếu xong thì thấy kết quả đã lưu/chưa lưu theo F09/F25. Ứng dụng tự đối chiếu và chặn lưu lặp đúng thao tác đang chờ. | Ninh trả lời “A hết”, Q3 vòng làm rõ 2 bước 8 ngày 13/10/2026; diễn giải cùng F09/F25 |
+| R65 | Khi lời mời chưa dùng, còn hạn 3 ngày nhưng người nhận không thấy email, Ninh dùng tài khoản quản lý gửi lại chính liên kết đó tới cùng email; mốc hết hạn của lần gửi đầu không đổi. Không tạo lời mời mới trong trường hợp này. | Ninh chọn A trên giao diện, Q1 [vòng làm rõ #03 bước 9](38-step-9-invitation-send-round-1.md) ngày 14/10/2026 |
 
 ## Đề xuất, chưa được Ninh xác nhận
 
@@ -106,6 +107,8 @@ Bản nháp trước diễn giải tám nhóm là **Tài khoản, Ví, Danh mụ
 - Cách ghi bằng chứng thử nhóm nhỏ, tiêu chí nghiệm thu chi tiết và phiên bản trình duyệt/thiết bị điện thoại cần hỗ trợ. Điều kiện mở rộng đã chốt tại [mục tiêu và phạm vi](goal-and-scope.md); thứ tự demo đã chốt tại [danh mục chức năng](system-functions.md).
 
 Không chuyển các mục này thành yêu cầu đã chốt chỉ vì chúng từng xuất hiện trong tài liệu hoặc code cũ.
+
+R65 chỉ xác nhận gửi lại khi người nhận không thấy email và lời mời chưa dùng, còn hạn. Trường hợp đã mở liên kết, đang nhập mã dở chưa được Ninh duyệt riêng; không suy từ R65 rằng lời mời hoặc mã được gia hạn.
 
 ## Việc đang chờ
 

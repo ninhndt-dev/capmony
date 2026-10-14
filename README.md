@@ -1,6 +1,6 @@
 # CapMoney: khởi động lại từ tiếp nhận yêu cầu
 
-**Trạng thái:** Hoàn tất chia 35 ticket dọc ở bước 8/11; đang ở bước 9, đã có đặc tả chi tiết [ticket #01](.scratch/capmoney-manager-setup/spec.md), [ticket #02](.scratch/capmoney-manager-link-renewal/spec.md) và [phương án hạ tầng còn cần kiểm chứng](.scratch/capmoney-manager-setup/technical-options.md). Các ticket tại [tracker Markdown](.scratch/capmoney-overall/issues/) vẫn `needs-triage`; dự án chưa có code ứng dụng web hoặc API.
+**Trạng thái:** Hoàn tất chia 35 ticket dọc ở bước 8/11; đang ở bước 9, đã có đặc tả chi tiết [ticket #01](.scratch/capmoney-manager-setup/spec.md), [ticket #02](.scratch/capmoney-manager-link-renewal/spec.md), [ticket #03](.scratch/capmoney-invitation-send/spec.md) và các phương án kỹ thuật còn cần kiểm chứng. Các ticket tại [tracker Markdown](.scratch/capmoney-overall/issues/) vẫn `needs-triage`; dự án chưa có code ứng dụng web hoặc API.
 
 Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòng phỏng vấn. Bản code trước đây đã được bỏ khỏi cây dự án này. Ninh đã chọn **hỏi lại toàn bộ từ đầu**; những câu trả lời cũ chỉ dùng làm bối cảnh, không tự động thành yêu cầu mới. Xem [phiếu tiếp nhận](docs/requirements/00-intake.md).
 

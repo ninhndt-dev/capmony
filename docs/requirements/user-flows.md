@@ -39,6 +39,8 @@
 
 Các quy tắc về quyền và xóa tức thì đã chốt ở [người dùng và quyền](actors-and-roles.md) vẫn áp dụng; bảng trên chỉ ghi chi tiết luồng được hỏi ở bước 5.
 
+**Bổ sung tại bước 9:** Ninh đã xác nhận R65: nếu lời mời chưa dùng, còn hạn và người nhận không thấy email, Ninh gửi lại chính liên kết đó tới cùng email, giữ hạn gốc. Đây là quyết định sau khi kết thúc bước 5; F07 xin lại mã xác minh và F03/F26 mời mới sau hạn giữ nguyên. Xem [vòng làm rõ #03](38-step-9-invitation-send-round-1.md).
+
 ## Tổng hợp luồng đã được Ninh xác nhận hiểu đúng
 
 | Luồng | Diễn tiến chính | Lỗi, giới hạn và phục hồi đã chốt |
