@@ -1,0 +1,16 @@
+{
+  "id": 48,
+  "url": "https://tanninh.planio.com/issues/48",
+  "project_id": 4,
+  "parent_id": 46,
+  "tracker": {
+    "id": 3,
+    "name": "Task"
+  },
+  "status": {
+    "id": 6,
+    "name": "In Progress"
+  },
+  "subject": "[Refactor] INFRA-01.2 Bố cục BE theo tính năng/MVC",
+  "read_back": true
+}

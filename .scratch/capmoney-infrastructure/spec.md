@@ -112,3 +112,19 @@ Xem [Q&A](qna.md) IF-Q1–IF-Q5 và [TS10–TS38](../../docs/requirements/tech-s
 | 14/10/2026 | PM độc lập xác nhận `BA_READY` và `TECH_READY` ở mức thiết kế sau reviewer Tech; cho phép tạo ticket Compose, chưa chứng minh V1–V6 | [handoff](handoff.md) |
 | 14/10/2026 | BA cập nhật 20 mục/AC-IF01-1–5 cho Java Spring/Redis theo TS10–TS38; chờ PM review, chưa cấp gate Java | [tech stack vòng 2](../../docs/requirements/tech-stack-round-2.md), [ADR 0003 đề xuất](../../docs/adr/0003-java-spring-and-deployment.md) |
 | 14/10/2026 | PM độc lập đối chiếu 20 mục/5 AC với TS10–TS38 và IF-Q1–IF-Q5, xác nhận `BA_READY` cho Java/Redis; Tech gate còn chờ | [handoff](handoff.md), [story](story.md) |
+
+## Bổ sung BA — bố cục MVC ngày15/10/2026
+
+**Nguồn Ninh xác nhận:** “ok tiến hành setup planio và sau đó sửa cấu trúc thư mục nhé”, sau đề xuất một Maven project theo tính năng/phân lớp MVC. Đây là mở rộng bảo trì hạ tầng, không thêm hành vi sản phẩm. Gate mới chỉ áp dụng follow-up này, không sửa QA_PASS snapshot310ad7f của#47.
+
+Phạm vi20 mục trên giữ nguyên với thay đổi sau: mục mục tiêu/phạm vi thêm khả năng tìm code theo trách nhiệm; actor vẫn người phát triển; luồng là setup Planio→refactor→kiểm hồi quy, không có luồng người dùng mới; quy tắc/quyền/DB/email/timeout/safety không đổi; UI/notification không áp dụng vì code nội bộ. AC/data/test/dependency được bổ sung dưới đây và trong [thiết kế MVC](mvc-refactor-design.md). Rủi ro mới là scan/package/probe/test visibility, reviewer Tech phải kiểm. Các mục còn lại không bị đổi nên giữ nội dung hiện có, không suy thêm tính năng từ code cũ.
+
+- `AC-MVC01-1`: Một Maven project; root application scan rõ, `config`/`security` và `health/controller`/`health/service`/`health/model` chứa đúng code hiện có. Controller chỉ ánh xạ HTTP, service giữ dependency checks. Không tạo repository/entity/DTO rỗng hoặc sản phẩm chưa qua gate.
+- `AC-MVC01-2`: Contract health/readiness, Origin/peer/secret và runtime/test probe giữ nguyên; DB/Redis lỗi trả đúng503 hữu hạn và phục hồi cùng JVM như IF-J-T02/T03/T05. Build runtime không chứa test class, probe dùng cùng main implementation.
+- `AC-MVC01-3`: Build/Maven/unit/Spring Test/Testcontainers và các kiểm hồi quy mạng/secret/persistence/mail/stopped-start có bằng chứng trên commit/image mới. Di chuyển giữ file/lịch sử; môi trường cũ và dữ liệu giữ nguyên. Không kế thừa pass310ad7f cho code mới.
+
+Test data vẫn marker không nhạy cảm, manager@example.test, secret giả ngẫu nhiên và origin loopback riêng. HARD: hoàn tất kết nối/đồng bộ Planio trước source refactor theo thứ tự Ninh. Không phụ thuộc#43; việc refactor không giải gate CM-01.
+
+**BA draft:** đủ nguồn để PM/Tech review; chưa tự cấp readiness hoặc tạo ticket Dev.
+
+**Kết quả addendum:** BA_READY phần mở rộng15/10/2026 sau independent PM/BA `/root/java_qa` và PM root đối chiếu; Tech_READY ở mvc-refactor-design.md có review độc lập. Ticket mới vẫn cần readiness riêng.

@@ -1,6 +1,6 @@
 # CapMoney: khởi động lại từ tiếp nhận yêu cầu
 
-**Trạng thái:** Bước 9/11, đặc tả từng module; 35 Story ứng viên đã ở [Planio](https://tanninh.planio.com/projects/capmoney/issues). Stack hiện hành: Java Spring, React/Vite/Tailwind, JWT cookie, Redis; Docker chỉ dev/test, production cài trực tiếp trên VPS theo [vòng 2](docs/requirements/tech-stack-round-2.md). INFRA-01.1 / #47 đã có code Java trên `310ad7f`, review độc lập và **QA_PASS8/8 case hạ tầng**; Ninh đã chọnJUnit6 ngày15/10, giữJava25/Boot4.1; xem [báo cáo Java](.scratch/capmoney-infrastructure/qa-evidence-java.md). [Handoff hiện hành](.scratch/capmoney-infrastructure/handoff.md) là nơi đối chiếu gate. Planio chưa được đọc/cập nhật trong phiên này vì chưa có API key; không suy trạng thái Closed. CM-01 #43–#45 chưa giao code; #43 cần PM xét readiness riêng sau khi #47 hoàn tất. Node/Hono `493f3d4` và QA IF-T03 fail chỉ là lịch sử.
+**Trạng thái:** Bước 9/11, đặc tả từng module; 35 Story ứng viên đã ở [Planio](https://tanninh.planio.com/projects/capmoney/issues). Stack hiện hành: Java Spring, React/Vite/Tailwind, JWT cookie, Redis; Docker chỉ dev/test, production cài trực tiếp trên VPS theo [vòng 2](docs/requirements/tech-stack-round-2.md). INFRA-01.1 / #47 đã có code Java trên `310ad7f`, review độc lập và **QA_PASS8/8 case hạ tầng**; Ninh đã chọnJUnit6 ngày15/10, giữJava25/Boot4.1; xem [báo cáo Java](.scratch/capmoney-infrastructure/qa-evidence-java.md). [Handoff hiện hành](.scratch/capmoney-infrastructure/handoff.md) là nơi đối chiếu gate. Planio đã kết nối cục bộ: #47Closed được đọc lại; #46In Progress và follow-up[#48](https://tanninh.planio.com/issues/48)In Progress để đổi cấu trúcMVC. CM-01 #43–#45 chưa giao code; #43 cần PM xét readiness riêng sau khi #47 hoàn tất. Node/Hono `493f3d4` và QA IF-T03 fail chỉ là lịch sử.
 
 Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòng phỏng vấn. Bản code trước đây đã được bỏ khỏi cây dự án này. Ninh đã chọn **hỏi lại toàn bộ từ đầu**; những câu trả lời cũ chỉ dùng làm bối cảnh, không tự động thành yêu cầu mới. Xem [phiếu tiếp nhận](docs/requirements/00-intake.md).
 
@@ -20,10 +20,10 @@ Từ Story #07, dùng [workflow CapMM end to end](docs/workflows/capmm-end-to-en
 Sau khi mở repo và kiểm tra nhánh đang làm việc, dán yêu cầu sau vào Codex:
 
 ```text
-Tiếp tục CapMoney bước 9/11 trên nhánh hiện tại. Đọc AGENTS.md, README.md, docs/agents/workflow.md, docs/workflows/capmm-end-to-end.md và docs/requirements/tech-stack-round-2.md. Đọc handoff, code-review-java.md và qa-evidence-java.md trong .scratch/capmoney-infrastructure để đối chiếu kết quả trên commit310ad7f; không dùng QA Node/Hono làm bằng chứng. IF-Q6 đã giải: Ninh chọnJUnit6, giữJava25/Boot4.1. #47 đã cóDEV_REVIEWED/QA_PASS hạ tầng. Đọc docs/requirements/backend-structure-proposal.md: Ninh muốnMVC rõ ràng; một Maven project/package theo tính năng mới là đề xuất, chưa tự coi đã chốt nhiều thư viện hay một project. Đồng bộ #46/#47 lên Planio khi có quyền truy cập an toàn. Sau khi #47 hoàn tất, PM kiểm readiness riêng CM-01.1 / #43 dựa BA/Tech reviews trước khi giao Dev; #43 chặn #44, #44 chặn #45. Không xóa tài nguyên; test sạch dùng môi trường mới, giữ môi trường cũ. Khi cần quyết định sản phẩm của Ninh, hỏi bằng lựa chọn A/B.
+Tiếp tục CapMoney bước 9/11 trên nhánh hiện tại. Đọc AGENTS.md, README.md, docs/agents/workflow.md, docs/workflows/capmm-end-to-end.md và docs/requirements/tech-stack-round-2.md. Đọc handoff, code-review-java.md và qa-evidence-java.md trong .scratch/capmoney-infrastructure để đối chiếu kết quả trên commit310ad7f; không dùng QA Node/Hono làm bằng chứng. IF-Q6 đã giải: Ninh chọnJUnit6, giữJava25/Boot4.1. #47 đã cóDEV_REVIEWED/QA_PASS hạ tầng. Đọc docs/requirements/backend-structure-proposal.md: Ninh muốnMVC rõ ràng; Ninh đã đồng ý mộtMavenproject/package theo tính năng/phân lớpMVC; #48 đã đủreadiness và sẽ kiểm trênbuildmới. Planio đã xác minh, #47Closed và#48In Progress; đọc .scratch/capmoney-infrastructure/mvc-refactor-handoff.md. Sau khi #47 hoàn tất, PM kiểm readiness riêng CM-01.1 / #43 dựa BA/Tech reviews trước khi giao Dev; #43 chặn #44, #44 chặn #45. Không xóa tài nguyên; test sạch dùng môi trường mới, giữ môi trường cũ. Khi cần quyết định sản phẩm của Ninh, hỏi bằng lựa chọn A/B.
 ```
 
-Đề xuất bố cục BE đang ở [backend-structure-proposal.md](docs/requirements/backend-structure-proposal.md); chưa thay source310ad7f đã QA.
+Bố cục BE đã được Ninh đồng ý ở [backend-structure-proposal.md](docs/requirements/backend-structure-proposal.md); chưa thay source310ad7f đã QA.
 
 ## Bộ skills
 
@@ -32,3 +32,5 @@ Tiếp tục CapMoney bước 9/11 trên nhánh hiện tại. Đọc AGENTS.md, 
 ## Tài liệu cũ
 
 Bản source cũ được lưu trong lịch sử phiên bản của `CapMoney_Source.zip`. Nó dùng làm nguồn đối chiếu lời Ninh đã xác nhận, không còn là code nền hay đặc tả đã duyệt của lần khởi động này.
+
+Kết nối Planio lần sau: `python3 infra/scripts/planio.py check`; nếu cần cấu hình key, chạy `bash infra/scripts/setup-planio.sh` trong Terminal. Xem [setup](.scratch/capmoney-planio-setup/README.md). Không gửi key vào chat/Git.

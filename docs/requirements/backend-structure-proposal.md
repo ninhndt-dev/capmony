@@ -1,12 +1,12 @@
 # Đề xuất cấu trúc BE Spring MVC
 
-Ngày15/10/2026. **Đề xuất để Ninh xem; chưa đổi source hoặc cấp ticket refactor.** Tài liệu này không thay hợp đồng hoặc kết quả QA của INFRA-01/#47 trên310ad7f.
+Ngày15/10/2026. **Ninh đã đồng ý triển khai ngày15/10/2026; thiết kế chi tiết đang chờ review/gate, chưa đổi Java source.** Tài liệu này không thay hợp đồng hoặc kết quả QA của INFRA-01/#47 trên310ad7f.
 
 ## Nguồn yêu cầu
 
-**Ninh đã yêu cầu:** “cấu trúc thư mục dự án BE là theo dự án thư viện nhé cho tường minh và theo mvc”. Khi hỏi phân biệt nhiều module Maven/library với một Maven project chia package MVC, Ninh hỏi cách nào phổ biến nhất hiện nay; **chưa chọn A/B**. Vì vậy không tự coi nhiều thư viện JAR hoặc phương án một Maven project đã được Ninh chốt.
+**Ninh đã yêu cầu:** “cấu trúc thư mục dự án BE là theo dự án thư viện nhé cho tường minh và theo mvc”. Khi hỏi phân biệt nhiều module Maven/library với một Maven project chia package MVC, Ninh hỏi cách nào phổ biến nhất hiện nay, rồi đồng ý sau đề xuất một Maven project bằng lời “ok tiến hành setup planio và sau đó sửa cấu trúc thư mục nhé”. Chốt một Maven project/package theo tính năng, phân lớp MVC; không chia nhiều thư viện JAR.
 
-**Đề xuất Tech:** Một Maven project cho BE, package theo tính năng; mỗi tính năng phân lớp rõ theo trách nhiệm MVC/layered. [Spring Boot minh họa package theo tính năng với controller/service/repository/model](https://docs.spring.io/spring-boot/reference/using/structuring-your-code.html), không bắt buộc một layout duy nhất. Đây là cơ sở chọn cấu trúc phù hợp, không phải số liệu chứng minh thị phần/phổ biến nhất. [Spring có hướng dẫn nhiều Maven module gồm library và application](https://spring.io/guides/gs/multi-module/) khi thật sự cần thư viện dùng lại.
+**Phương án Ninh đã đồng ý:** Một Maven project cho BE, package theo tính năng; mỗi tính năng phân lớp rõ theo trách nhiệm MVC/layered. [Spring Boot minh họa package theo tính năng với controller/service/repository/model](https://docs.spring.io/spring-boot/reference/using/structuring-your-code.html), không bắt buộc một layout duy nhất. Đây là cơ sở chọn cấu trúc phù hợp, không phải số liệu chứng minh thị phần/phổ biến nhất. [Spring có hướng dẫn nhiều Maven module gồm library và application](https://spring.io/guides/gs/multi-module/) khi thật sự cần thư viện dùng lại.
 
 ## Cấu trúc đề xuất
 
@@ -56,4 +56,4 @@ Tách JAR khi có interface ổn định và nhu cầu dùng lại/kiểm soát 
 
 ## Phần việc tiếp theo
 
-Ninh chốt cách hiểu và bố cục; Tech cập nhật thiết kế CM-01, reviewer độc lập/PM rà tác động dependency/test trước ticket triển khai. Nếu refactor hạ tầng đã QA, kiểm lại package scan, route/health, đóng gói runtime/probe và Docker build trên commit mới; không chuyển nguyên QA_PASS310ad7f sang code mới. Không tạo ticket triển khai hay viết module sản phẩm từ đề xuất này.
+Setup/đồng bộ Planio trước, sau đó thực hiện [thiết kế refactor MVC](../../.scratch/capmoney-infrastructure/mvc-refactor-design.md) khi Tech độc lập/PM đủ gate. Thiết kế CM-01 cập nhật tham chiếu bố cục này trước khi giao Dev. Nếu refactor hạ tầng đã QA, kiểm lại package scan, route/health, đóng gói runtime/probe và Docker build trên commit mới; không chuyển nguyên QA_PASS310ad7f sang code mới. Không tạo ticket triển khai hay viết module sản phẩm từ đề xuất này.

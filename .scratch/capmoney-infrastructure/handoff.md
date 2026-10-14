@@ -1,6 +1,6 @@
 # Handoff INFRA-01
 
-**Hiện hành15/10/2026:** INFRA-01/#47 Java đạt DEV_REVIEWED và QA_PASS trên code310ad7f,8/8 case độc lập. Ninh đã chọnJUnit6 tại IF-Q6, giữJava25/Boot4.1. Chưa đồng bộ Planio trong phiên này vì chưa cóAPI key; không khẳng định issueClosed. #43 chưa được giaoDev, cần PM xét readiness riêng.
+**Hiện hành15/10/2026:** #47 Java đã DEV_REVIEWED/QA_PASS trên310ad7f và đã Closed trên Planio sau đọc lại; #46 giữIn Progress vì có follow-upMVC#48. #48 đã BA_READY/TECH_READY extension và READY_FOR_IMPLEMENTATION, PlanioIn Progress được đọc lại trước Dev. #43 chưa giaoDev. Bố cục mộtMavenproject/MVC đã được Ninh đồng ý, không còn là câu hỏi chờ xác nhận.
 
 ## CapmmPM — INFRA-01/#47 QA_PASS sau Ninh giải IF-Q6
 
