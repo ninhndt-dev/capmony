@@ -32,7 +32,7 @@
 | TS33 / Q23-A | Thu hồi | **Thu hồi ngay khi đăng xuất/đổi mật khẩu qua trạng thái trong DB** | Tech xác định khóa/phiên và kiểm mỗi request; không coi JWT tự nó thu hồi được |
 | TS34 / Q24-B | Giới hạn thử đăng nhập | **Redis riêng** | Redis là dịch vụ phụ trợ cho bộ đếm; dữ liệu tài chính vẫn ở PostgreSQL |
 | TS35 / Q25-A | Redis client | **Spring Data Redis + Lettuce** | Redis dev/test và VPS phải có cấu hình riêng |
-| TS36 / Q26-A | Test BE | **JUnit 5 + Spring Boot Test + Testcontainers** | Kiểm PostgreSQL/Redis thật trên build Java |
+| TS36 / Q26-A | Test BE | **JUnit 6 + Spring Boot Test + Testcontainers** | Ninh chọn A qua giao diện ngày 15/10/2026 (IF-Q6), thay JUnit 5 trước đó; build kiểm chứng dùng 6.0.3 |
 | TS37 / Q27-A | Hợp đồng HTTP | **OpenAPI 3 + springdoc** | Tech xác minh bản springdoc tương thích Spring Boot 4.1 trước khi pin |
 | TS38 / Q28-A | Test FE | **Playwright với viewport iPhone/Android** | QA thực chạy trên build; viewport không thay kiểm thiết bị thật khi gate yêu cầu |
 
@@ -43,8 +43,8 @@
 - **Chưa rõ cho vận hành:** VPS, domain/DNS, SMTP thật, thời điểm phát hành và quyền cài đặt. Không chặn lập kiến trúc dev/test mới.
 - **Bằng chứng stack cũ:** commit Node/Hono `493f3d4` chỉ là lịch sử thử hạ tầng. QA [IF-T03 fail](../../.scratch/capmoney-infrastructure/qa-evidence.md), các case còn lại chưa đủ; không tái sử dụng kết quả để cấp `QA_PASS` cho Java.
 
-## Điểm tương thích phát hiện ngày 15/10/2026 — chờ Ninh
+## Điều chỉnh TS36 đã được Ninh xác nhận — 15/10/2026
 
-TS36 ở bảng trên vẫn là **JUnit 5 đã được Ninh chọn**. Build Spring Boot 4.1.1 hiện resolve JUnit Jupiter 6.0.3; [QA Java](../../.scratch/capmoney-infrastructure/qa-evidence-java.md) đã chạy 8/8 case hạ tầng trên snapshot `310ad7f`, không phải trên JUnit 5. [Spring Framework 7 nâng baseline lên JUnit 6](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-7.0-Release-Notes). Vì vậy không pin hạ JUnit 5 hoặc tự đổi TS36 chỉ để chốt gate.
+Lựa chọn ngày14/10 là JUnit5. Rà dependency phát hiện Boot4.1.1 dùng Jupiter6.0.3; [Spring7 yêu cầuJUnit6](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-7.0-Release-Notes). Bản `310ad7f` đã thực chạy8/8 case QA hạ tầng trênJUnit6, chưa tự coi là Ninh duyệt trước khi hỏi lại.
 
-**Đề xuất Tech, chưa xác nhận:** Giữ Java25/Spring Boot4.1 đã chọn và đổi riêng TS36 sang JUnit6 + Spring Boot Test + Testcontainers; bản thực nghiệm đã có dependency6.0.3 và bằng chứng chạy. **Lựa chọn còn lại:** Giữ JUnit5 và quay lại review stack/framework tương thích trước khi code thêm. PM giữ gate cuối #47 và phụ thuộc #43 chờ Ninh trả lời IF-Q6; kết quả chạy thành công vẫn được lưu trung thực.
+**Ninh đã xác nhận qua giao diện ngày15/10/2026:** “A — Dùng JUnit6, giữ Java25/Spring Boot4.1 (đề xuất)”. TS36 nay làJUnit6 + Spring Boot Test + Testcontainers. [IF-Q6](../../.scratch/capmoney-infrastructure/qna.md) đã giải; snapshot đã kiểm thử không thay đổi nên không chạy lại chỉ vì sửa tài liệu. [QA evidence](../../.scratch/capmoney-infrastructure/qa-evidence-java.md) và [PM handoff](../../.scratch/capmoney-infrastructure/handoff.md) là bằng chứng gate #47, không mở tự động CM-01 #43.

@@ -2,7 +2,7 @@
 
 > **Ưu tiên bảo toàn tài nguyên — Ninh 14/10/2026:** Không chạy reset/down/force-recreate hay xóa container/volume/file. Các nhắc reset/recreate dưới đây là phương pháp kiểm cũ, không còn được phép thực thi. Thay bằng restart và container kế tiếp dùng cùng volume khi container trước đã dừng (giữ cả hai), cùng một môi trường/volume mới để kiểm dữ liệu sạch và dữ liệu cũ không đổi. Caddy dùng container bổ sung cùng secret/subnet để kiểm IP peer thay đổi. `up --no-recreate`, `stop`, `probe-stop` giữ tài nguyên; probe dùng project/cổng/subnet riêng. Đây là điều chỉnh phương pháp theo quyền Ninh đã xác nhận, không thêm chức năng sản phẩm.
 
-**Trạng thái:** 8/8 phép kiểm kỹ thuật PASS trên JUnit Jupiter6.0.3; chưa Story `QA_PASS`/PM final gate do TS36 chọn JUnit5, chờ Ninh quyết định căn chỉnh. QA độc lập hoàn tất15/10/2026 trên commit `310ad7f` sau DEV_REVIEWED; xem [bằng chứng Java](qa-evidence-java.md). [QA Node/Hono cũ](qa-evidence.md) có IF-T03 fail, không chuyển kết quả `pass` sang Java.
+**Trạng thái:** 8/8 phép kiểm PASS trên JUnit Jupiter6.0.3; PM chốt Story `QA_PASS` hạ tầng sau Ninh chọnJUnit6 tại IF-Q6 ngày15/10/2026. QA độc lập hoàn tất15/10/2026 trên commit `310ad7f` sau DEV_REVIEWED; xem [bằng chứng Java](qa-evidence-java.md). [QA Node/Hono cũ](qa-evidence.md) có IF-T03 fail, không chuyển kết quả `pass` sang Java.
 
 **Build cần ghi trước chạy:** commit, image digest, Java/Boot/springdoc/PostgreSQL/Redis/Caddy/Mailpit versions, Compose project dev/test, lệnh/exit code, thiết bị/host và log đã che secret. Dữ liệu chỉ là marker, `manager@example.test`, secret thử tách môi trường. V1–V8 trong [thiết kế Java](technical-design-java.md) là checklist Dev/QA; mỗi case dưới đây cần bằng chứng riêng.
 

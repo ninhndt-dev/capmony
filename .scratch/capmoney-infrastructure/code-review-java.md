@@ -17,3 +17,7 @@ QA độc lập `/root/java_qa` đã chạy green trên final image: health503 t
 ## Bổ sung truy vết TS36 — gate chờ quyết định
 
 Rà dependency cuối phát hiện JUnit thực chạy6.0.3 khác TS36 chốtJUnit5. Reviewer `/root/review_spec` xác nhận mismatch; kết luận không còn blocker Spec phía trên chỉ áp dụng lỗi hành vi/P1 timeout, **không chứng minh tuân thủ TS36**. Spring7 yêu cầuJUnit6; phương án giữ Boot4.1/JUnit6 đã chạy được nhưng cần Ninh xác nhận IF-Q6. PM giữ gate cuối #47; chưa đóng Story hoặc mở #43. Tám case QA đã chạy pass vẫn là kết quả kỹ thuật trên snapshot310ad7f.
+
+## Kết luận sau IF-Q6 — 15/10/2026
+
+Ninh chọn A qua giao diện: dùngJUnit6, giữ Java25/Boot4.1. TS36 và thiết kế đã cập nhật đúng nguồn; `/root/review_spec` xác nhận gap TS36 đóng, không cần test lại thay đổi thuần tài liệu vì snapshot310ad7f vốn đã dùng6.0.3. Standards0 blocker; SpecP1 timeout đã đóng và gap TS36 đã giải. PM có đủ review cùng evidenceQA8/8 để chốt DEV_REVIEWED/QA_PASS hạ tầng; không cấp gate CM-01.

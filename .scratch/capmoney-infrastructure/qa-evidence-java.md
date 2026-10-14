@@ -1,6 +1,6 @@
 # QA Java — INFRA-01.1 / Planio #47
 
-**Thực thi IF-J-T01–T08: 8 PASS kỹ thuật; Story QA_PASS/gate PM tạm giữ**, QA độc lập `/root/java_qa`, hoàn tất 15/10/2026 (Asia/Ho_Chi_Minh). Source bất biến `310ad7fbf2e86d7d3b682bbfdb303af02314b34e`; PM đã cấp DEV_REVIEWED trước QA kết thúc. Không kế thừa pass Node/Hono. Lượt QA snapshot `7dfe7b3` ngày 14/10 chỉ là kiểm hỗ trợ; gate dừng khi review tìm thiếu JDBC socket/query timeout. Kết quả dưới đây đã chạy lại trên snapshot sửa `310ad7f`.
+**Thực thi IF-J-T01–T08: 8 PASS; PM chốt QA_PASS hạ tầng sau IF-Q6**, QA độc lập `/root/java_qa`, hoàn tất 15/10/2026 (Asia/Ho_Chi_Minh). Source bất biến `310ad7fbf2e86d7d3b682bbfdb303af02314b34e`; PM đã cấp DEV_REVIEWED trước QA kết thúc. Không kế thừa pass Node/Hono. Lượt QA snapshot `7dfe7b3` ngày 14/10 chỉ là kiểm hỗ trợ; gate dừng khi review tìm thiếu JDBC socket/query timeout. Kết quả dưới đây đã chạy lại trên snapshot sửa `310ad7f`.
 
 ## Build và môi trường
 
@@ -25,4 +25,4 @@ Các harness Python và JSON đã che secret lưu trong [evidence/java-final](ev
 
 ## Giới hạn và gate
 
-Tám phép kiểm kỹ thuật và năm AC-IF01-1–5 đạt theo các kết quả thực thi infrastructure nêu trên. **Chưa cấp Story QA_PASS/PM final gate:** TS36 ghi Ninh chọn JUnit5 nhưng BOM Spring Boot4.1.1 và tests thực tế dùng JUnit Jupiter6.0.3. PM đang giữ gate #47 chờ Ninh quyết định căn chỉnh TS36/stack; không coi tám PASS kỹ thuật là bằng chứng tuân thủ TS36. Spring Framework7 yêu cầu JUnit6 theo [release notes chính thức](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-7.0-Release-Notes), là đầu vào Tech cho quyết định, không thay xác nhận của Ninh. Chưa đồng bộ Planio trong phiên này. Không cấp TECH_READY/QA_PASS CM-01 #43, không chứng minh thiết lập manager, JWT/CSRF/throttle, hai instance sản phẩm, iPhone/Android, production TLS/VPS, SMTP thật hay backup. Placeholder là trang thử hạ tầng; không gọi sản phẩm đã chạy.
+Tám phép kiểm và năm AC-IF01-1–5 đạt theo kết quả thực thi nêu trên. Lúc QA hoàn tất, PM giữ gate vì TS36 chọnJUnit5 khác buildJUnit6.0.3. **Ninh đã chọn A qua giao diện ngày15/10/2026: dùngJUnit6, giữ Java25/Spring Boot4.1.** Reviewer Tech đóng gap TS36; PM đối chiếu đúng snapshot310ad7f/image đã chạy và chốt `QA_PASS` riêng INFRA-01/#47 trong [handoff](handoff.md). Không thay code hay lặp test chỉ vì cập nhật quyết định. Chưa đồng bộ Planio trong phiên này. Không cấp TECH_READY/QA_PASS CM-01 #43, không chứng minh thiết lập manager, JWT/CSRF/throttle, hai instance sản phẩm, iPhone/Android, production TLS/VPS, SMTP thật hay backup. Placeholder là trang thử hạ tầng; không gọi sản phẩm đã chạy.

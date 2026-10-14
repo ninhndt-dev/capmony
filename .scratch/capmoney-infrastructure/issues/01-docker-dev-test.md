@@ -4,8 +4,8 @@
 
 **Parent:** [Planio #46 – INFRA-01](https://tanninh.planio.com/issues/46).
 **Planio child:** [#47 – INFRA-01.1](https://tanninh.planio.com/issues/47).
-**Status:** `needs-info` — ảnh chụp tác nghiệp 15/10/2026: code310ad7f, QA kỹ thuật8/8 pass trênJUnit6.0.3; chờ Ninh IF-Q6 vì TS36 chốtJUnit5. Gate cuối chưa cấp. Planio lượt trước ghi In Progress; phiên này chưa đọc/cập nhật tracker.
-**Blocked by:** IF-Q6 cho gate cuối; không giao code thêm trước khi xử lý lựa chọn JUnit.
+**Status:** Code/QA Java hoàn tất, DEV_REVIEWED/QA_PASS đạt15/10/2026 trên310ad7f; Ninh đã chọnJUnit6 tại IF-Q6. Planio lượt trước ghi In Progress; phiên này chưa đọc/cập nhật tracker, chưa khẳng định Closed.
+**Blocked by:** Không còn blocker kỹ thuật #47; đồng bộ tracker cần quyền truy cập an toàn.
 **Integration blocked by:** không có bên cung cấp khác. #47 là `HARD` blocker của CM-01 #43 theo relation #8, không phải ngược lại.
 **Owner / review:** PM giao DevOps Dev sau readiness; reviewer code khác người thực hiện, PM rà phạm vi và QA độc lập chạy build.
 
@@ -15,11 +15,11 @@ Một môi trường Docker dev/test cô lập để thử React/Vite placeholde
 
 ## Acceptance criteria tham chiếu
 
-- [ ] `AC-IF01-1` — Compose, bản vá/image được pin, secret và dữ liệu thử.
-- [ ] `AC-IF01-2` — cùng origin, SPA deep link, health DB, readiness Redis, outage/recovery.
-- [ ] `AC-IF01-3` — port/network, edge peer/header và Origin probe fail closed.
-- [ ] `AC-IF01-4` — PostgreSQL marker qua restart/recreate, reset test cô lập.
-- [ ] `AC-IF01-5` — JavaMailSender tới Mailpit và lỗi/timeout SMTP.
+- [x] `AC-IF01-1` — Compose, bản vá/image được pin, secret và dữ liệu thử.
+- [x] `AC-IF01-2` — cùng origin, SPA deep link, health DB, readiness Redis, outage/recovery.
+- [x] `AC-IF01-3` — port/network, edge peer/header và Origin probe fail closed.
+- [x] `AC-IF01-4` — PostgreSQL marker qua restart/recreate, reset test cô lập.
+- [x] `AC-IF01-5` — JavaMailSender tới Mailpit và lỗi/timeout SMTP.
 
 Nội dung chuẩn ở [spec 20 mục](../spec.md); đúng 5 mã AC. [Thiết kế Java V1–V8](../technical-design-java.md) là hợp đồng kiểm chứng, [ADR 0003](../../../docs/adr/0003-java-spring-and-deployment.md) là ranh giới chung. Không dùng [thiết kế Node/Hono](../technical-design.md) để triển khai.
 

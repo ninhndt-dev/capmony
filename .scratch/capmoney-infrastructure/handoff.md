@@ -1,8 +1,22 @@
 # Handoff INFRA-01
 
-**Hiện hành 14/10/2026:** Ninh chọn [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); stack Node/Hono và gate #47 cũ là lịch sử. #47 Java đã `READY_FOR_IMPLEMENTATION`; Planio #46/#47 đã chuyển `In Progress`, Dev đang làm. QA IF-T03 fail trên Node/Hono trước khi đổi stack; không cấp pass cho Java.
+**Hiện hành15/10/2026:** INFRA-01/#47 Java đạt DEV_REVIEWED và QA_PASS trên code310ad7f,8/8 case độc lập. Ninh đã chọnJUnit6 tại IF-Q6, giữJava25/Boot4.1. Chưa đồng bộ Planio trong phiên này vì chưa cóAPI key; không khẳng định issueClosed. #43 chưa được giaoDev, cần PM xét readiness riêng.
 
-## CapmmPM — #47 / IF-Q6 chờ quyết định tương thích JUnit
+## CapmmPM — INFRA-01/#47 QA_PASS sau Ninh giải IF-Q6
+
+**DONE:** Đọc đủ IF-J-T01–08 tại [QA Java](qa-evidence-java.md) và35 artifact sanitised trong evidence/java-final, đối chiếu5 AC, review hai trục và code310ad7f/imagecf524a3c1e829ad0bc34b774b6f08f5c647dcf7ca1ef2e0a1b477649400ff949. Reviewer độc lập đã đóng P1 silentDB; QA chạy stop/start/pause cùngPID, ingress, network/secret, marker, Mailpit, Spring Boot/Testcontainers và stopped-start regression. Ninh chọn A qua giao diện15/10: JUnit6, giữJava25/Boot4.1; cập nhật TS36/thiết kế. Spec reviewer xác nhận gap đã giải, code không thay nên không test lặp thuần tài liệu.
+
+**RESULT:** `DEV_REVIEWED` và `QA_PASS` đạt riêng INFRA-01/#47 ngày15/10/2026. Toàn bộ5 AC có case thực chạy; không còn case bắt buộc fail/blocked/not-run. Đây là nghiệm thu hạ tầng dev/test, không phải sản phẩm hoặc CM-01. IF-Q6 đã giải.
+
+**NEED HUMAN:** Chỉ còn quyền truy cập Planio an toàn để đồng bộ tracker; phiên này không cóAPI key, không yêu cầu gửi key vào chat. Không còn câu hỏi kỹ thuật chặn nghiệm thu #47.
+
+**PENDING:** Đồng bộ bằng chứng/trạng thái #46/#47 trên Planio khi có quyền truy cập. #43 cần PM kiểm readiness riêng trước Dev; chưa có code CM-01. Yêu cầu mới về bố cục BE đang lập đề xuất, chưa chuyển thành cấu trúc được Ninh chốt hoặc thay đổi snapshot đã QA.
+
+**DETAIL:** [TS36/IF-Q6](../../docs/requirements/tech-stack-round-2.md), [review](code-review-java.md), [QA](qa-evidence-java.md), [test spec](test-spec.md). Mọi tài nguyên giữ nguyên; trạng thái Closed của Planio chưa được xác minh/cập nhật.
+
+— Codex `/root` trong vai CapmmPM; reviewers `/root/review_standards`, `/root/review_spec`; QA độc lập `/root/java_qa`
+
+## Lịch sử trước câu trả lời — IF-Q6 chờ quyết định tương thích JUnit
 
 **DONE:** QA độc lập đã chạy IF-J-T01–08 thành công trên `310ad7f`; P1 timeout đã sửa/retest. Rà dependency cuối cùng cùng reviewer Tech phát hiện TS36 chọnJUnit5 nhưng Boot4.1.1 BOM/test classpath thực tếJUnit6.0.3. Spring7 nâng baselineJUnit6, nên không tự downgrade hay coi Ninh đã duyệtJUnit6. [Quyết định đang chờ](../../docs/requirements/tech-stack-round-2.md), [Q&A IF-Q6](qna.md), [review](code-review-java.md), [QA execution](qa-evidence-java.md).
 
