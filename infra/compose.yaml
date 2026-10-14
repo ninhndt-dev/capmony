@@ -1,0 +1,93 @@
+services:
+  caddy:
+    image: caddy:2.10.2-alpine
+    ports:
+      - "127.0.0.1:${CAPMONEY_PORT:?set CAPMONEY_PORT}:8080"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - web
+      - api
+    networks:
+      web_net: {}
+      api_net:
+        ipv4_address: ${CADDY_API_IP:?set CADDY_API_IP}
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    networks:
+      - web_net
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+      target: runtime
+    environment:
+      PORT: "3000"
+      APP_ORIGIN: ${APP_ORIGIN:?set APP_ORIGIN}
+      CADDY_TRUSTED_IP: ${CADDY_API_IP:?set CADDY_API_IP}
+      DB_HOST: postgres
+      DB_NAME: ${DB_NAME:?set DB_NAME}
+      DB_USER: ${DB_USER:?set DB_USER}
+      DB_PASSWORD_FILE: /run/secrets/pg_password
+    secrets:
+      - pg_password
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - api_net
+      - data_net
+      - mail_net
+  postgres:
+    image: postgres:17.7-alpine3.22
+    environment:
+      POSTGRES_DB: ${DB_NAME:?set DB_NAME}
+      POSTGRES_USER: ${DB_USER:?set DB_USER}
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_password
+    secrets:
+      - pg_password
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+    networks:
+      - data_net
+  mailpit:
+    image: axllent/mailpit:v1.27.4
+    networks:
+      - mail_net
+  mailcheck:
+    profiles: ["tools"]
+    depends_on:
+      - mailpit
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+      target: probe
+    environment:
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      SMTP_TO: manager@example.test
+    command: ["node", "apps/api/dist/test/send-test-mail.js"]
+    networks:
+      - mail_net
+secrets:
+  pg_password:
+    file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/pg-password
+volumes:
+  pg_data:
+networks:
+  web_net: {}
+  api_net:
+    ipam:
+      config:
+        - subnet: ${API_SUBNET:?set API_SUBNET}
+  data_net:
+    internal: true
+  mail_net:
+    internal: true

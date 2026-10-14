@@ -1,9 +1,9 @@
 # CM-01.2: Hoàn tất thiết lập một quản lý
 
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8)
-**Planio child:** chờ tạo sau khi có API key; không tự đặt ID.
-**Status:** draft, chờ đồng bộ Planio và review readiness.
-**Blocked by:** `HARD` CM-01.1 – gửi liên kết thiết lập đầu tiên.
+**Planio child:** [#44](https://tanninh.planio.com/issues/44), tạo và đọc lại ngày 14/10/2026.
+**Status:** blocked-by-hard; chưa `READY_FOR_IMPLEMENTATION`, phải rà lại khi #43 xong. Trạng thái công việc hiện hành xem trên Planio.
+**Blocked by:** `HARD` CM-01.1 / [Planio #43](https://tanninh.planio.com/issues/43) – gửi liên kết thiết lập đầu tiên; quan hệ `blocks` đã đọc lại trên Planio.
 **Integration blocked by:** None sau khi CM-01.1 xong.
 **Owner / review:** CapmmDev thực hiện; CapmmBA rà AC, reviewer code độc lập và CapmmPM rà trước QA.
 

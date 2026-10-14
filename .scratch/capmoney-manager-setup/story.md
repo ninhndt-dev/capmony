@@ -1,7 +1,7 @@
 # Story CM-01: Thiết lập và đăng nhập tài khoản quản lý
 
 **Planio:** [CM-01 / issue 8](https://tanninh.planio.com/issues/8)
-**Lifecycle:** planning
+**Lifecycle:** design (quay lại do TS01 thay kiến trúc)
 **Status nguồn bước 8:** needs-triage; trạng thái công việc hiện hành ở Planio.
 **Blocked by:** None cho đặc tả và triển khai CM-01. Email quản lý thật, tên miền gửi và hạ tầng thật là điều kiện mở vận hành thực tế, không phải điều kiện viết/kiểm luồng bằng dữ liệu thử.
 
@@ -17,11 +17,11 @@
 | Gate | Kết quả hiện tại | Bằng chứng | Review |
 | --- | --- | --- | --- |
 | BA_READY | **Đạt ngày 14/10/2026**: 20 mục và AC1–AC6 có nguồn, PM rà không còn P0/P1 BA | [spec](spec.md), [Q&A](qna.md), [handoff](handoff.md) | `/root/cm01_pm_ba` độc lập |
-| TECH_READY | **Đạt ngày 14/10/2026**: thiết kế, spike DB/SMTP/HTTP, ADR và PM scope review; chưa phải kiểm chứng app | [technical-design](technical-design.md), [ADR 0001](../../docs/adr/0001-manager-auth-foundation.md), [handoff](handoff.md) | `/root/cm01_tech_review` độc lập, `/root/cm01_pm_ba` PM độc lập |
-| READY_FOR_IMPLEMENTATION | ba ticket dự thảo đã được Ninh duyệt cách chia; chưa có issue con Planio, chưa ticket nào ready | [CM-01.1](issues/01-send-first-setup-link.md), [CM-01.2](issues/02-complete-manager-setup.md), [CM-01.3](issues/03-manager-login-session.md), [handoff](handoff.md) | BA/Tech đã rà nội dung; PM gate từng ticket chờ Planio |
+| TECH_READY | **Tạm dừng hiệu lực:** đã đạt trên phương án một ứng dụng Next.js ngày 14/10/2026, nhưng TS01 đổi sang React web + API riêng; phải review kiến trúc mới | [technical-design cũ](technical-design.md), [ADR 0001](../../docs/adr/0001-manager-auth-foundation.md), [TS01–TS05](../../docs/requirements/tech-stack-round-1.md) | Reviewer Tech và PM phải rà lại |
+| READY_FOR_IMPLEMENTATION | **Tạm dừng CM-01.1 / #43** do phụ thuộc `TECH_READY`; CM-01.2 / #44 và CM-01.3 / #45 vẫn `HARD` blocker | [CM-01.1](issues/01-send-first-setup-link.md), [CM-01.2](issues/02-complete-manager-setup.md), [CM-01.3](issues/03-manager-login-session.md), [handoff](handoff.md) | PM phải xét lại từng ticket sau ADR mới |
 | DEV_REVIEWED | chưa có code | diff/commit và review | chưa chạy |
 | QA_PASS | chưa có build | test spec, log chạy và thiết bị | chưa chạy |
 
 ## Việc tiếp theo
 
-Ninh đã chọn A duyệt ba lát cắt dọc và chuỗi `HARD` CM-01.1 → CM-01.2 → CM-01.3. PM chờ Planio API key cục bộ để tạo và đọc lại issue cấp dưới, sau đó xét `READY_FOR_IMPLEMENTATION` từng ticket. Chưa có code ứng dụng hoặc build.
+Ninh đã chọn A duyệt ba lát cắt dọc và chuỗi `HARD` CM-01.1 → CM-01.2 → CM-01.3. Planio đã tạo/đọc lại [#43](https://tanninh.planio.com/issues/43), [#44](https://tanninh.planio.com/issues/44), [#45](https://tanninh.planio.com/issues/45) và hai quan hệ `blocks`. Sau đó Ninh đổi hướng kiến trúc toàn dự án theo TS01 và ưu tiên hạ tầng Docker; Dev #43 đã được dừng trước khi viết code. PM giữ các ticket, quay lại Tech/PM review rồi mới phục hồi readiness. Chưa có build hoặc QA.

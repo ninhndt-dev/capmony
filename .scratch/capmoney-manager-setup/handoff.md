@@ -46,12 +46,12 @@
 
 **DONE:** Sau `BA_READY` và `TECH_READY`, đề xuất ba lát dọc theo `to-tickets`; Ninh chọn A duyệt ba ticket và chuỗi phụ thuộc CM-01.1 → CM-01.2 → CM-01.3 ngày 14/10/2026. Đã lập [CM-01.1](issues/01-send-first-setup-link.md), [CM-01.2](issues/02-complete-manager-setup.md), [CM-01.3](issues/03-manager-login-session.md) và [test-spec](test-spec.md). BA và Tech độc lập rà nội dung, không thấy P0/P1; sửa các P2 về ranh giới trang entry, dẫn thiết kế và quota.
 
-**RESULT:** Ba ticket vẫn là **draft**, chưa có issue con Planio hay `READY_FOR_IMPLEMENTATION`. BA/Tech review không thay PM gate từng ticket; CM-01.2 và CM-01.3 có `HARD` blocker tuần tự.
+**RESULT:** Đã tạo và đọc lại ba issue con Planio #43–#45 và quan hệ `blocks` #43→#44→#45. PM từng xác nhận CM-01.1 / #43 đạt `READY_FOR_IMPLEMENTATION` ngày 14/10/2026 theo thiết kế Next.js. **Sau đó Ninh chọn TS01/TS06–TS08 đổi kiến trúc toàn dự án và ưu tiên hạ tầng**, nên gate Tech và readiness #43 tạm dừng hiệu lực, Dev bị dừng trước khi viết code. CM-01.2 và CM-01.3 vẫn có `HARD` blocker.
 
-**NEED HUMAN:** Ninh đang được hướng dẫn đặt Planio API key vào file cục bộ `/tmp/capmoney-planio-api-key`; cần file có quyền 600 để PM tạo và đối chiếu issue con. Không dán key vào chat/Git.
+**NEED HUMAN:** Ninh sẽ duyệt bản kiến trúc hạ tầng/ADR toàn dự án sau Tech/PM review. API key Planio đã được Ninh đặt trong file cục bộ quyền 600; không có trong Git hoặc chat.
 
-**PENDING:** Tạo issue con Planio và quan hệ HARD, đọc lại; PM rà readiness CM-01.1 rồi mới giao Dev. Khi ticket trước xong, kiểm lại readiness ticket sau. QA chạy trên build xác định; email thật/thiết bị thật cần điều kiện riêng.
+**PENDING:** Tech lập sơ đồ, ADR, môi trường và thứ tự triển khai cho React web + API riêng, Docker dev/test và VPS/PostgreSQL production; reviewer Tech độc lập và PM rà, Ninh duyệt. Sau đó dựng Docker theo ticket/gate phù hợp rồi mới quay lại FE/BE CM-01.1. QA chạy trên build xác định; email thật/thiết bị thật cần điều kiện riêng.
 
-**DETAIL:** [Story](story.md), [spec](spec.md), [thiết kế](technical-design.md), [test-spec](test-spec.md), [tracker](../../docs/agents/issue-tracker.md). Chưa có code ứng dụng, build hoặc kết quả test ứng dụng.
+**DETAIL:** [Story](story.md), [spec](spec.md), [thiết kế](technical-design.md), [test-spec](test-spec.md), [tracker](../../docs/agents/issue-tracker.md), Planio [#43](https://tanninh.planio.com/issues/43), [#44](https://tanninh.planio.com/issues/44), [#45](https://tanninh.planio.com/issues/45). Chưa có code ứng dụng, build hoặc kết quả test ứng dụng.
 
 — Codex `/root` trong vai CapmmPM; BA review `/root/cm01_pm_ba`, Tech review `/root/cm01_tech_review`

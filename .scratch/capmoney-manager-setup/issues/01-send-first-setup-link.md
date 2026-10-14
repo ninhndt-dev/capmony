@@ -1,11 +1,11 @@
 # CM-01.1: Gửi liên kết thiết lập đầu tiên
 
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8)
-**Planio child:** chờ tạo sau khi có API key; không tự đặt ID.
-**Status:** draft, chờ đồng bộ Planio và review readiness.
+**Planio child:** [#43](https://tanninh.planio.com/issues/43), tạo và đọc lại ngày 14/10/2026.
+**Status:** readiness tạm dừng sau TS01/TS06–TS08 đổi kiến trúc; PM phải xét lại `READY_FOR_IMPLEMENTATION` sau ADR stack và Tech review mới. Gate trước đó đạt ngày 14/10/2026 trên thiết kế Next.js, chỉ là lịch sử. Trạng thái công việc hiện hành xem trên Planio.
 **Blocked by:** None.
 **Integration blocked by:** None.
-**Owner / review:** CapmmDev thực hiện; reviewer code độc lập và CapmmPM rà trước QA.
+**Owner / review:** Codex `/root` trong vai CapmmDev thực hiện; reviewer code khác người code và CapmmPM rà trước QA. BA review `/root/cm01_pm_ba`, Tech review `/root/cm01_tech_review` đã rà nội dung.
 
 ## What it delivers
 
