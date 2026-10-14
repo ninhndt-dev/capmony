@@ -9,12 +9,13 @@
 
 ## What it delivers
 
-Ninh đăng nhập bằng email quản lý và mật khẩu đã đặt, tải lại vẫn vào khu vực quản lý tối thiểu, và đăng xuất thu hồi phiên. Khách, thông tin sai, phiên hết hạn/thu hồi hoặc gọi URL trực tiếp không xem được nội dung quản lý; không có đăng ký công khai.
+Ninh đăng nhập bằng email quản lý và mật khẩu đã đặt, tải lại vẫn vào khu vực quản lý tối thiểu. JWT trong cookie cho phép tiếp tục trong thời hạn đã chốt; đăng xuất trên một điện thoại thu hồi mọi phiên quản lý, còn refresh token cũ xuất hiện lại sau khi đã dùng thì thu hồi family liên quan và yêu cầu đăng nhập lại theo CM01-Q2/Q3. Khách, thông tin sai, token hết hạn/thu hồi hoặc gọi URL trực tiếp không xem được nội dung quản lý; không có đăng ký công khai. Hợp đồng kỹ thuật chi tiết bên dưới thuộc bản cũ và phải được thay trước readiness.
 
 ## Acceptance criteria tham chiếu
 
 - [ ] `AC3` trong [spec CM-01](../spec.md).
 - [ ] `AC4` trong [spec CM-01](../spec.md), phần quyền quản lý ở server và không có đường tạo quản lý khác.
+- [ ] `AC7` trong [spec CM-01](../spec.md), access/refresh JWT, đăng xuất mọi điện thoại và refresh reuse theo CM01-Q2/Q3.
 
 ## Hợp đồng và dữ liệu thử
 

@@ -1,6 +1,7 @@
 # Test Specification: CM-01 – Thiết lập và đăng nhập quản lý
 
 **Rebaseline 14/10/2026:** Các ca kiểm dưới đây cần đối chiếu lại với Java Spring, JWT cookie và Redis theo [TS10–TS38](../../docs/requirements/tech-stack-round-2.md). Kết quả/spike trên Node/Hono hoặc opaque session không chứng minh bản Java; chưa có `QA_PASS` cho CM-01.
+**Khoảng trống test hiện hành:** `AC7` và CM01-Q2/Q3 chưa có case thực chạy cho đăng xuất mọi điện thoại, refresh 15 phút/7 ngày, hai tab refresh đồng thời, mất phản hồi và thu hồi family. QA cần bổ sung sau Tech/PM gate; không dùng bảng case cũ để báo đủ AC.
 
 **QA gate:** chưa chạy; đây là kế hoạch kiểm thử theo `BA_READY` và `TECH_READY` ngày 14/10/2026. Chỉ điền pass/fail trên commit/build xác định, Mailpit và PostgreSQL thử cô lập. Ninh đã chọn hộp thư thử trước; email thật và thiết bị thật kiểm khi có hạ tầng. Spike Tech ở `/tmp` không thay kết quả QA của ứng dụng.
 
