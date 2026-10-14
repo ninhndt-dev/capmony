@@ -1,6 +1,6 @@
 # Chuyển quản lý CapMoney sang Redmine
 
-**Quyết định của Ninh ngày 14/10/2026:** dùng **Redmine qua dịch vụ Planio** làm hệ thống quản lý công việc CapMoney; Ninh chưa có instance và chọn Planio sau khi so sánh với VPS riêng. Đang chờ Ninh tạo tài khoản và gửi URL Planio; chưa có quyền truy cập. **Chưa tạo/sửa Story trên Planio; tracker Markdown vẫn ghi trạng thái hiện hành cho tới khi đối chiếu chuyển xong.** Dona trong [workflow gốc](workflow-bot-capmm-original.md) là nguồn tham khảo quy trình, không phải một hệ thống đã kết nối với CapMoney.
+**Quyết định của Ninh ngày 14/10/2026:** dùng **Redmine qua dịch vụ Planio** làm hệ thống quản lý công việc CapMoney; Ninh đã gửi URL dự án [CapMoney trên Planio](https://tanninh.planio.com/projects/capmoney). Truy cập không xác thực chuyển sang trang đăng nhập; API dự án trả `401`, nên **chưa xác minh được dự án/cấu hình/issue và chưa tạo/sửa Story trên Planio**. Tracker Markdown vẫn ghi trạng thái hiện hành cho tới khi đối chiếu chuyển xong. Dona trong [workflow gốc](workflow-bot-capmm-original.md) là nguồn tham khảo quy trình, không phải một hệ thống đã kết nối với CapMoney.
 
 ## Cấu hình đề xuất để kiểm trên Redmine thực tế
 
@@ -26,13 +26,13 @@ Planio [công bố gói Bronze miễn phí](https://plan.io/pricing/) gồm mộ
 
 ## Trình tự chuyển
 
-1. Ninh tạo tài khoản Planio và gửi URL dạng `https://<tên-miền>.planio.com`; **Bronze chỉ là gói đề xuất** nếu giới hạn một dự án/hai người dùng Planio đủ dùng. Sau đó kiểm dự án CapMoney là riêng tư, quyền tạo/sửa Story và bật REST API nếu cần. Cấp API key qua cơ chế bí mật phù hợp, **không gửi mật khẩu/token trong chat hoặc ghi Git**. Chưa có plugin Planio trong Codex; cách dùng API hoặc nhập CSV được quyết định sau khi kiểm quyền thực tế.
+1. Ninh bật REST API trong Planio và cấp API key qua file bí mật cục bộ theo hướng dẫn trong chat; **không gửi mật khẩu/token trong chat hoặc ghi Git**. Kiểm dự án CapMoney là riêng tư và quyền tạo/sửa Story. Chưa có plugin Planio trong Codex; Ninh chọn phương án dùng API để Bờm chuyển và đối chiếu trực tiếp.
 2. Đọc project, tracker, status, custom field, quyền và danh sách issue hiện có. Ghi ánh xạ thực tế; không đoán ID từ workflow Dona. Chọn một Story để nhập thử và kiểm subject, mô tả, link tài liệu, gate và quyền xem.
 3. Khi bản thử đúng, nhập các Story còn lại. Có thể dùng CSV import của Redmine hoặc API, tùy quyền/cấu hình instance; [Redmine có hướng dẫn nhập CSV](https://www.redmine.org/projects/redmine/wiki/HowTo_import_issues). Đối chiếu đủ 35 mã nguồn với 35 ID Redmine, phụ thuộc và trạng thái. #01–#06 chưa có gate mới; #07–#09 đã `BA_READY` nhưng còn `STORY_TECH_GAP`; các Story còn lại chưa tự đạt gate.
 4. Sau khi dữ liệu Redmine được kiểm đủ, cập nhật [tracker](../agents/issue-tracker.md), [workflow](capmm-end-to-end.md), [AGENTS.md](../../AGENTS.md) và [README](../../README.md) để Redmine thành nguồn trạng thái. Markdown tiếp tục giữ spec và bằng chứng; không duy trì hai trạng thái mâu thuẫn.
 
 ## Điều còn thiếu
 
-- URL Planio vừa tạo và quyền truy cập dự án CapMoney.
+- API key được cấp qua file cục bộ và quyền đọc/tạo/sửa issue trong dự án [CapMoney](https://tanninh.planio.com/projects/capmoney).
 - Bảng tracker, trạng thái, custom field và quan hệ của instance thực tế.
 - Ánh xạ ID thật, kết quả bản nhập thử và đối chiếu sau chuyển.
