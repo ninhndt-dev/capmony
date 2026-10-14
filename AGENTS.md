@@ -4,6 +4,12 @@
 
 **Thay đổi stack hiện hành:** Ninh đã chốt BE Java Spring và các lựa chọn chi tiết trong [vòng 2](docs/requirements/tech-stack-round-2.md). [ADR 0002](docs/adr/0002-project-infrastructure-and-stack.md) về Node/Hono bị thay một phần. [INFRA-01.1 / Planio #47](.scratch/capmoney-infrastructure/issues/01-docker-dev-test.md) và CM-01 #43 **tạm dừng gate** để lập ADR/thiết kế Java mới rồi BA → PM → Tech → PM rà lại. Commit Node/Hono `493f3d4` là lịch sử; QA cũ fail IF-T03 và không chứng minh stack Java. Chưa giao code mới trước gate.
 
+## Quyền thao tác Ninh xác nhận ngày 14/10/2026
+
+Ninh cho phép các thao tác cần thiết để triển khai và kiểm thử trong dự án CapMoney mà không hỏi lại về quyền thực hiện từng bước. Quyền này không mở rộng sang dự án khác và không thay thế giới hạn sandbox của phiên.
+
+**Không được xoá tài nguyên dự án:** không xoá file/thư mục, bản ghi dữ liệu, issue, nhánh, volume, container hoặc tài nguyên dịch vụ; không chạy reset/clean/drop/truncate, `docker compose down`, `docker compose down --volumes`, hoặc công cụ tương đương làm mất tài nguyên. Khi kiểm thử cần môi trường sạch, tạo môi trường hoặc dữ liệu thử mới và giữ môi trường cũ. Nếu thật sự cần xoá, phải xin phép riêng. Quy tắc này ưu tiên hơn cleanup/reset trong scripts và skills.
+
 ## Agent skills
 
 Các skill được vendored trong `.agents/skills/`. Đọc `SKILL.md` tương ứng trước khi dùng. `setup-matt-pocock-skills` đã được áp dụng cho dự án; khi môi trường có lệnh slash tương ứng thì dùng lệnh đó, còn không thì tuân theo nội dung skill cục bộ. Không tự cài thêm một bản plugin trùng kỹ năng.

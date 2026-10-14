@@ -31,9 +31,14 @@ public final class IngressFilter extends OncePerRequestFilter {
     IngressFilter(@Value("${capmoney.origin}") String origin,
                   @Value("${capmoney.api-subnet}") String subnet,
                   @Value("${capmoney.edge-secret-file}") String secretPath) throws IOException {
-        if (!origin.matches("^http://127\\.0\\.0\\.1:[0-9]{2,5}$")) {
-            throw new IllegalArgumentException("APP_ORIGIN must be a local Caddy loopback origin");
-        }
+        try {
+            var uri = java.net.URI.create(origin);
+            boolean local = "http".equals(uri.getScheme()) && "127.0.0.1".equals(uri.getHost())
+                    && uri.getPort() > 0 && uri.getPort() <= 65535;
+            boolean https = "https".equals(uri.getScheme()) && uri.getHost() != null && (uri.getPort() == -1 || (uri.getPort() > 0 && uri.getPort() <= 65535));
+            if ((!local && !https) || uri.getRawUserInfo() != null || uri.getRawQuery() != null || uri.getRawFragment() != null
+                    || (uri.getRawPath() != null && !uri.getRawPath().isEmpty())) throw new IllegalArgumentException();
+        } catch (IllegalArgumentException invalid) { throw new IllegalArgumentException("Invalid APP_ORIGIN"); }
         this.origin = origin;
         String[] cidr = subnet.split("/", -1);
         if (cidr.length != 2 || !isIp(cidr[0])) throw new IllegalArgumentException("Invalid API_SUBNET");
@@ -65,9 +70,7 @@ public final class IngressFilter extends OncePerRequestFilter {
             valid = origin.equals(singleHeader(request, "Origin"));
         }
         if (!valid) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.getWriter().write("{\"code\":\"invalid_ingress\"}");
+            com.capmoney.api.http.HttpErrors.write(response, 403, "CSRF_ORIGIN");
             return;
         }
         request.setAttribute("capmoney.clientIp", real);

@@ -1,9 +1,9 @@
 # Story CM-01: Thiết lập và đăng nhập tài khoản quản lý
 
 **Planio:** [CM-01 / issue 8](https://tanninh.planio.com/issues/8)
-**Lifecycle:** implementing #43; BA_READY/TECH_READY và readiness#43 được đối chiếu15/10/2026. #44/#45 chờ QA ticket trước.
+**Lifecycle:** implementing #44; #43Closed/QA6/6 trênf63efe4. #44READY15/10/2026, #45 chờQA44.
 **Status nguồn bước 8:** needs-triage; trạng thái công việc hiện hành ở Planio.
-**Blocked by:** #43 không còn HARD: INFRA#47/#48QA_PASS vàClosed, BA/Tech recheck khôngP0/P1, PM cấpREADY_FOR_IMPLEMENTATION. #44/#45 giữ phụ thuộc tuần tự; thiết bị thật ở nghiệm thu cuốiStory theoCM01-Q4. Email quản lý thật, tên miền gửi và hạ tầng production chỉ là điều kiện mở vận hành thực tế, không chặn thử bằng dữ liệu riêng.
+**Blocked by:** #43 không còn HARD: INFRA#47/#48QA_PASS vàClosed, BA/Tech recheck khôngP0/P1, PM cấpREADY_FOR_IMPLEMENTATION. #43QA_PASS giảiHARD#44; #45 chờQA44; thiết bị thật ở nghiệm thu cuốiStory theoCM01-Q4. Email quản lý thật, tên miền gửi và hạ tầng production chỉ là điều kiện mở vận hành thực tế, không chặn thử bằng dữ liệu riêng.
 
 ## Phạm vi và nguồn
 

@@ -26,6 +26,8 @@ services:
       target: runtime
     restart: unless-stopped
     environment:
+      SPRING_PROFILES_ACTIVE: dev
+      COOKIE_SECURE: "false"
       APP_ORIGIN: ${APP_ORIGIN:?set APP_ORIGIN}
       API_SUBNET: ${API_SUBNET:?set API_SUBNET}
       EDGE_SECRET_FILE: /run/secrets/edge_auth

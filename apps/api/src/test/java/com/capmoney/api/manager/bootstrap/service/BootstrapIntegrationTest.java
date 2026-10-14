@@ -28,6 +28,7 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 class BootstrapIntegrationTest {
     static PostgreSQLContainer postgres;
     static GenericContainer<?> smtp;
+    static org.testcontainers.containers.Network network;
     static Path directory;
     static final String EMAIL = "manager@example.test";
     @Autowired BootstrapStore store;
@@ -37,10 +38,11 @@ class BootstrapIntegrationTest {
     static void dependencies(DynamicPropertyRegistry registry) throws Exception {
         assertEquals("true", System.getenv("TESTCONTAINERS_RYUK_DISABLED"));
         assertEquals("true", System.getenv("TESTCONTAINERS_REUSE_ENABLE"));
+        network = retainedNetwork();
         postgres = new PostgreSQLContainer("postgres:17.7-alpine3.22")
-                .withPassword(UUID.randomUUID().toString()).withReuse(true);
+                .withPassword(UUID.randomUUID().toString()).withNetwork(network).withNetworkAliases("postgres").withReuse(true);
         smtp = new GenericContainer<>("axllent/mailpit:v1.27.4")
-                .withExposedPorts(1025, 8025).withReuse(true);
+                .withExposedPorts(1025, 8025).withNetwork(network).withNetworkAliases("mailpit").withReuse(true);
         postgres.start(); smtp.start();
         directory = Files.createTempDirectory("capmoney-bootstrap-test-");
         Files.setPosixFilePermissions(directory, PosixFilePermissions.fromString("rwx------"));
@@ -102,23 +104,35 @@ class BootstrapIntegrationTest {
         Path properties = directory.resolve("cli.properties");
         Properties config = new Properties();
         config.setProperty("spring.config.import", "optional:configtree:/nonexistent-capmoney-test/");
-        config.setProperty("spring.datasource.url", postgres.getJdbcUrl());
+        config.setProperty("spring.datasource.url", "jdbc:postgresql://postgres:5432/test?socketTimeout=2&connectTimeout=1");
         config.setProperty("spring.datasource.username", postgres.getUsername());
         config.setProperty("spring.datasource.password", postgres.getPassword());
         config.setProperty("capmoney.origin", "http://127.0.0.1:28080");
         config.setProperty("capmoney.api-subnet", "172.30.49.0/24");
-        config.setProperty("capmoney.edge-secret-file", directory.resolve("edge-auth").toString());
+        config.setProperty("capmoney.edge-secret-file", "/test/edge-auth");
         config.setProperty("capmoney.bootstrap.enabled", "true");
         config.setProperty("capmoney.bootstrap.email", EMAIL);
-        config.setProperty("spring.mail.host", smtp.getHost());
-        config.setProperty("spring.mail.port", smtp.getMappedPort(1025).toString());
+        config.setProperty("spring.mail.host", "mailpit");
+        config.setProperty("spring.mail.port", "1025");
         try (var out = Files.newBufferedWriter(properties)) { config.store(out, "retained isolated CLI configuration"); }
         Files.setPosixFilePermissions(properties, PosixFilePermissions.fromString("rw-------"));
-        Process first = startCli(properties, "first");
-        Process second = startCli(properties, "second");
-        assertTrue(first.waitFor(90, TimeUnit.SECONDS), "first CLI did not finish");
-        assertTrue(second.waitFor(90, TimeUnit.SECONDS), "second CLI did not finish");
-        assertEquals(Set.of(0, 2), new HashSet<>(List.of(first.exitValue(), second.exitValue())),
+        stageClasspath();
+        var first = cli();
+        var second = cli();
+        try (var workers = java.util.concurrent.Executors.newFixedThreadPool(2)) {
+            var one = workers.submit(() -> { first.start(); });
+            var two = workers.submit(() -> { second.start(); });
+            one.get(90, TimeUnit.SECONDS); two.get(90, TimeUnit.SECONDS);
+        }
+        long deadline = System.nanoTime() + Duration.ofSeconds(90).toNanos();
+        while ((first.isRunning() || second.isRunning()) && System.nanoTime() < deadline) Thread.sleep(100);
+        assertFalse(first.isRunning(), "first CLI did not finish");
+        assertFalse(second.isRunning(), "second CLI did not finish");
+        Files.writeString(directory.resolve("first.log"), first.getLogs());
+        Files.writeString(directory.resolve("second.log"), second.getLogs());
+        assertEquals(Set.of(0L, 2L), new HashSet<>(List.of(
+                first.getCurrentContainerInfo().getState().getExitCodeLong(),
+                second.getCurrentContainerInfo().getState().getExitCodeLong())),
                 "expected one accepted and one unavailable; inspect retained CLI logs");
         assertEquals("issued", state());
         assertEquals(5L, jdbc.queryForObject("SELECT generation FROM manager_bootstrap", Long.class));
@@ -156,10 +170,54 @@ class BootstrapIntegrationTest {
         return new BootstrapIssuer(store, sender, clock, true, EMAIL, "http://127.0.0.1:28080");
     }
     private String state() { return jdbc.queryForObject("SELECT state FROM manager_bootstrap", String.class); }
-    private Process startCli(Path properties, String name) throws Exception {
-        return new ProcessBuilder(Path.of(System.getProperty("java.home"), "bin/java").toString(),
-                "-cp", System.getProperty("java.class.path"), "com.capmoney.api.ApiApplication",
-                "--capmoney.bootstrap-manager", "--spring.config.on-not-found=ignore", "--spring.config.additional-location=" + properties.toUri())
-                .redirectErrorStream(true).redirectOutput(directory.resolve(name + ".log").toFile()).start();
+    private static org.testcontainers.containers.Network retainedNetwork() {
+        var docker = org.testcontainers.DockerClientFactory.instance().client();
+        var subnets = new HashSet<String>();
+        for (var existing : docker.listNetworksCmd().exec()) {
+            if (existing.getIpam() != null && existing.getIpam().getConfig() != null) {
+                for (var configuration : existing.getIpam().getConfig()) subnets.add(configuration.getSubnet());
+            }
+        }
+        for (int index = 1; index < 255; index++) {
+            String subnet = "10.233." + index + ".0/24";
+            if (subnets.contains(subnet)) continue;
+            var ipam = new com.github.dockerjava.api.model.Network.Ipam().withConfig(
+                new com.github.dockerjava.api.model.Network.Ipam.Config().withSubnet(subnet));
+            String id = docker.createNetworkCmd().withName("capmoney-cli-test-" + UUID.randomUUID())
+                .withIpam(ipam).withLabels(Map.of("capmoney.retained", "true")).exec().getId();
+            // No ResourceReaper registration or automatic network deletion on JVM shutdown.
+            return new org.testcontainers.containers.Network() {
+                @Override public String getId() { return id; }
+                @Override public void close() { /* retained for inspection */ }
+            };
+        }
+        throw new IllegalStateException("No unused explicit CapMoney test subnet");
+    }
+    private void stageClasspath() throws Exception {
+        Path libraries = directory.resolve("lib"); Files.createDirectory(libraries);
+        for (String entry : System.getProperty("java.class.path").split(java.io.File.pathSeparator)) {
+            Path source = Path.of(entry);
+            if (Files.isDirectory(source)) {
+                Path target = directory.resolve(source.getFileName());
+                try (var paths = Files.walk(source)) {
+                    for (Path path : paths.toList()) {
+                        Path destination = target.resolve(source.relativize(path));
+                        if (Files.isDirectory(path)) Files.createDirectories(destination);
+                        else Files.copy(path, destination);
+                    }
+                }
+            } else if (entry.endsWith(".jar")) {
+                Files.copy(source, libraries.resolve(source.getFileName()));
+            }
+        }
+    }
+    private GenericContainer<?> cli() {
+        // App and database share the VM clock, matching the actual Compose topology.
+        return new GenericContainer<>("eclipse-temurin:25-jre-noble")
+                .withNetwork(network).withReuse(true).withEnv("CAPMONEY_CLI_PROCESS", UUID.randomUUID().toString())
+                .withCopyFileToContainer(org.testcontainers.utility.MountableFile.forHostPath(directory), "/test")
+                .withCommand("java", "-cp", "/test/classes:/test/test-classes:/test/lib/*", "com.capmoney.api.ApiApplication",
+                    "--capmoney.bootstrap-manager", "--spring.config.on-not-found=ignore",
+                    "--spring.config.additional-location=file:/test/cli.properties");
     }
 }

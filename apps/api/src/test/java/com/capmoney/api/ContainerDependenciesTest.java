@@ -19,7 +19,8 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 /** Opt-in: reusable containers and secret test files remain for inspection. */
-@SpringBootTest(properties = "spring.config.on-not-found=ignore")
+@org.springframework.test.context.ActiveProfiles("test")
+@SpringBootTest(properties = {"spring.config.on-not-found=ignore", "capmoney.security.cookie-secure=false"})
 @EnabledIfEnvironmentVariable(named = "CAPMONEY_CONTAINER_TESTS", matches = "true")
 class ContainerDependenciesTest {
     @Autowired
