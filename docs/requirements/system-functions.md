@@ -35,6 +35,8 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 
 **Bổ sung H04 tại bước 9:** R68 quy định rời biểu mẫu **ví thêm** trước Lưu rồi quay lại cùng phiên thì biểu mẫu trống; R69 quy định đã bấm Lưu ví thêm rồi đóng khi chưa rõ thì mở lại tự đối chiếu đúng thao tác, chỉ báo khi chắc và chặn lưu trùng lúc chưa rõ. [Vòng làm rõ #07](41-step-9-add-wallet-round-1.md)
 
+**Bổ sung H06 cho Story #08 tại bước 9:** R70 quy định khi mở ghi **khoản thu** từ nút chung với ít nhất hai ví đang sử dụng thì chưa chọn ví, người dùng tự chọn trước Lưu; vào từ ví vẫn theo F14. R71 quy định rời biểu mẫu khoản thu **trước Lưu** rồi quay lại cùng phiên có Internet thì form trống, không tạo khoản thu hay đổi số dư. Chưa suy hai quyết định này cho khoản chi #09. [Vòng làm rõ #08](42-step-9-income-round-1.md)
+
 ## Ninh đã xác nhận về thứ tự ưu tiên
 
 | Mã | Quyết định | Bằng chứng |

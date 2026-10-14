@@ -1,6 +1,6 @@
 # CapMoney: khởi động lại từ tiếp nhận yêu cầu
 
-**Trạng thái:** Hoàn tất chia 35 Story ứng viên ở bước 8/11; đang ở bước 9. Đặc tả #01–#06 đã qua BA → PM → Tech → PM theo quy trình trước workflow CapMM. [Story #07](.scratch/capmoney-add-wallet/story.md) đã đạt `BA_READY` sau R68–R69; [thiết kế kỹ thuật](.scratch/capmoney-add-wallet/technical-design.md) đã được reviewer độc lập và PM rà, kết luận `STORY_TECH_GAP` do còn thiếu spike/hợp đồng nền tảng. Các Story tại [tracker Markdown](.scratch/capmoney-overall/issues/) chưa có gate sẵn sàng Dev. Dự án chưa có code ứng dụng web hoặc API.
+**Trạng thái:** Hoàn tất chia 35 Story ứng viên ở bước 8/11; đang ở bước 9. Đặc tả #01–#06 đã qua BA → PM → Tech → PM theo quy trình trước workflow CapMM. [Story #07](.scratch/capmoney-add-wallet/story.md) và [Story #08](.scratch/capmoney-income/story.md) đã đạt `BA_READY` nhưng thiết kế đều còn `STORY_TECH_GAP`; #08 đã được reviewer kỹ thuật độc lập và PM rà sau R70–R71. Các Story tại [tracker Markdown](.scratch/capmoney-overall/issues/) chưa có gate sẵn sàng Dev. Dự án chưa có code ứng dụng web hoặc API.
 
 Dự án bắt đầu lại từ nhu cầu Ninh sẽ xác nhận trong các vòng phỏng vấn. Bản code trước đây đã được bỏ khỏi cây dự án này. Ninh đã chọn **hỏi lại toàn bộ từ đầu**; những câu trả lời cũ chỉ dùng làm bối cảnh, không tự động thành yêu cầu mới. Xem [phiếu tiếp nhận](docs/requirements/00-intake.md).
 
@@ -20,7 +20,7 @@ Từ Story #07, dùng [workflow CapMM end to end](docs/workflows/capmm-end-to-en
 Sau khi mở repo và cập nhật nhánh `main`, dán yêu cầu sau vào Codex:
 
 ```text
-Tiếp tục dự án CapMoney từ trạng thái hiện tại trên nhánh main. Đọc AGENTS.md, README.md, docs/agents/workflow.md và docs/workflows/capmm-end-to-end.md trước. Hiện ở bước 9/11: Story #07 Thêm ví đã BA_READY nhưng còn STORY_TECH_GAP. Đối chiếu technical-design.md và handoff.md của #07, xử lý spike/quyết định nền tảng #04/#06, đặc biệt kết quả “chắc chưa lưu” khi request tới muộn và ghi một lần dưới đồng thời; xin review kỹ thuật độc lập và PM rà lại trước TECH_READY. Chỉ chia ticket Dev sau hai gate và chỉ code khi ticket READY_FOR_IMPLEMENTATION. Hỏi tôi bằng lựa chọn A/B trên giao diện khi phát sinh quyết định sản phẩm mới.
+Tiếp tục dự án CapMoney từ trạng thái hiện tại trên nhánh main. Đọc AGENTS.md, README.md, docs/agents/workflow.md và docs/workflows/capmm-end-to-end.md trước. Hiện ở bước 9/11: Story #07 Thêm ví và Story #08 Ghi khoản thu đều đã BA_READY nhưng còn STORY_TECH_GAP; chưa TECH_READY. Với #07, xử lý spike/quyết định nền tảng #04/#06, đặc biệt kết quả “chắc chưa lưu” khi request tới muộn và ghi một lần dưới đồng thời. Với #08, chứng minh khởi tạo danh mục nhất quán với #04, ghi thu/kết quả thao tác/số dư dưới đồng thời, hợp đồng #33/#35, VND/ngày/quyền và fault injection; xem technical-design.md và handoff.md của từng Story. Reviewer kỹ thuật độc lập rà lại, PM kiểm phạm vi trước TECH_READY. Chỉ chia ticket Dev sau hai gate và chỉ code khi ticket READY_FOR_IMPLEMENTATION. Hỏi tôi bằng lựa chọn A/B trên giao diện khi phát sinh quyết định sản phẩm mới.
 ```
 
 ## Bộ skills
