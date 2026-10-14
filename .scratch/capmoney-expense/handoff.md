@@ -26,13 +26,13 @@ Các mục tác nghiệp hiện hành cho Story #09; mỗi actor sửa mục c�
 
 **PENDING:** CapmmTech xử lý P0/P1 trong [technical design](technical-design.md) và spike/architecture review chung #08/#09: chứng minh atomicity/idempotency khoản thu/chi, operation result và số dư dưới đồng thời; quyền/trạng thái ở commit; contract #33/#35 và request tới muộn; VND/ngày; fault injection. Reviewer khác người thiết kế rà lại, PM kiểm phạm vi rồi mới xét `TECH_READY`. #08 còn `STORY_TECH_GAP`; chưa tạo ticket Dev.
 
-**DETAIL:** [Spec](spec.md) mục 1–20, BR-09-01..07 và AC1–AC8; [R72–R73](../../docs/requirements/43-step-9-expense-round-1.md) chỉ cho khoản chi. F08 giữ phần nhập khi form còn mở và dữ liệu tự tải; R73 reset sau khi rời form trước Lưu. Màn lịch sử #10 và ca phục hồi Lưu chưa rõ #33/#35 là lát riêng. [Technical design](technical-design.md) là đề xuất và danh sách gap, chưa có architecture decision được duyệt, code, build hoặc test thực chạy. Reviewer kỹ thuật độc lập là `/root/tech_independent`; PM chỉ rà phạm vi, không nhận review kỹ thuật đó là của PM.
+**DETAIL:** [Spec](spec.md) mục 1–20, BR-09-01..07 và AC1–AC8; [R72–R73](../../docs/requirements/43-step-9-expense-round-1.md) chỉ cho khoản chi. F08 giữ phần nhập khi form còn mở và dữ liệu tự tải; R73 reset sau khi rời form trước Lưu. Màn lịch sử #10 và ca phục hồi Lưu chưa rõ #33/#35 là lát riêng. Ngày 14/10/2026, Codex `/root` rà phạm vi [đề xuất hợp đồng chung](../capmoney-income/shared-ledger-proposal.md) với AC1–AC8: giữ quyền số dư âm và phép trừ B01, chưa biến ba phương án số dư hoặc quy tắc múi giờ thành quyết định Ninh. [Technical design](technical-design.md) là đề xuất và danh sách gap, chưa có architecture decision được duyệt, code, build hoặc test thực chạy. Reviewer kỹ thuật độc lập là `/root/tech_independent`; PM chỉ rà phạm vi, không nhận review kỹ thuật đó là của PM.
 
 — CapmmPM
 
 ## CapmmTech — Story #09
 
-**DONE:** Lập [technical design](technical-design.md) truy vết AC1–AC8, R72–R73, quyền theo chủ, danh mục chung #08, tiền chi nguyên dương và số dư có thể âm, ngày lịch, ghi chi và phép trừ B01; tách đường Lưu bình thường khỏi phục hồi #33/#35. `/root/tech_independent` đã review kỹ thuật độc lập ở mức tài liệu; CapmmPM đã rà phạm vi.
+**DONE:** Lập [technical design](technical-design.md) truy vết AC1–AC8, R72–R73, quyền theo chủ, danh mục chung #08, tiền chi nguyên dương và số dư có thể âm, ngày lịch, ghi chi và phép trừ B01; tách đường Lưu bình thường khỏi phục hồi #33/#35. Bổ sung [đề xuất hợp đồng sổ chung #08–#09](../capmoney-income/shared-ledger-proposal.md) cho ghi chi một lần, số dư B01 dưới đồng thời và ca phục hồi; đây là phương án Tech để spike, chưa chốt nền tảng. `/root/tech_independent` đã review kỹ thuật độc lập bản đề xuất ở mức tài liệu và giữ `STORY_TECH_GAP`; phần bổ sung về phản hồi muộn/tìm kết quả cuối chưa được reviewer xác nhận lại. CapmmPM đã rà phạm vi thiết kế trước đó.
 
 **RESULT:** `STORY_TECH_GAP`, **chưa `TECH_READY`**. Chưa có quyết định nền tảng được duyệt, spike, code, build hoặc test thực chạy.
 
@@ -40,6 +40,6 @@ Các mục tác nghiệp hiện hành cho Story #09; mỗi actor sửa mục c�
 
 **PENDING:** Giải P0 phép trừ B01/operation result atomic, idempotent và phụ thuộc `HARD` #08; giải P1 quyền/trạng thái tại commit, hợp đồng #33/#35, VND/ngày và fault injection. Xin reviewer kỹ thuật độc lập rà lại, rồi PM kiểm phạm vi trước `TECH_READY`. Chưa chia ticket Dev.
 
-**DETAIL:** Xem [findings reviewer và bằng chứng cần có](technical-design.md), [spec](spec.md), [story](story.md) và [workflow](../../docs/workflows/capmm-end-to-end.md). Review tài liệu không phải kết quả test; không có build hay log QA.
+**DETAIL:** Xem [findings reviewer và bằng chứng cần có](technical-design.md), [đề xuất hợp đồng chung](../capmoney-income/shared-ledger-proposal.md), [spec](spec.md), [story](story.md) và [workflow](../../docs/workflows/capmm-end-to-end.md). Review tài liệu không phải kết quả test; không có build hay log QA.
 
 — CapmmTech
