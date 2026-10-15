@@ -1,0 +1,126 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 393,
+      "height": 851
+    },
+    "deviceScaleFactor": 1,
+    "statuses": [
+      [
+        "POST",
+        "/api/auth/login",
+        204
+      ],
+      [
+        "GET",
+        "/api/manager/me",
+        200
+      ],
+      [
+        "POST",
+        "/api/auth/login",
+        204
+      ],
+      [
+        "GET",
+        "/api/manager/me",
+        200
+      ],
+      [
+        "GET",
+        "/api/manager/me",
+        200
+      ],
+      [
+        "POST",
+        "/api/auth/logout",
+        204
+      ],
+      [
+        "GET",
+        "/api/manager/me",
+        401
+      ],
+      [
+        "POST",
+        "/api/auth/refresh",
+        401
+      ]
+    ],
+    "accessCookie": {
+      "httpOnly": true,
+      "path": "/api",
+      "sameSite": "Lax"
+    },
+    "refreshCookie": {
+      "httpOnly": true,
+      "path": "/api/auth",
+      "sameSite": "Lax"
+    },
+    "reloadStayedAuthenticated": true,
+    "otherPhoneRevoked": true
+  },
+  {
+    "engine": "webkit",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "deviceScaleFactor": 3,
+    "statuses": [
+      [
+        "POST",
+        "/api/auth/login",
+        204
+      ],
+      [
+        "GET",
+        "/api/manager/me",
+        200
+      ],
+      [
+        "POST",
+        "/api/auth/login",
+        204
+      ],
+      [
+        "GET",
+        "/api/manager/me",
+        200
+      ],
+      [
+        "GET",
+        "/api/manager/me",
+        200
+      ],
+      [
+        "POST",
+        "/api/auth/logout",
+        204
+      ],
+      [
+        "GET",
+        "/api/manager/me",
+        401
+      ],
+      [
+        "POST",
+        "/api/auth/refresh",
+        401
+      ]
+    ],
+    "accessCookie": {
+      "httpOnly": true,
+      "path": "/api",
+      "sameSite": "Lax"
+    },
+    "refreshCookie": {
+      "httpOnly": true,
+      "path": "/api/auth",
+      "sameSite": "Lax"
+    },
+    "reloadStayedAuthenticated": true,
+    "otherPhoneRevoked": true
+  }
+]

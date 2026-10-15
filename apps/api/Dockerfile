@@ -8,10 +8,11 @@ RUN mvn -B -q package
 FROM eclipse-temurin:25-jre-noble@sha256:d9a39a23634650173f1e2bbc176227af9728587ecf0f4b62d53e9355cd7a19ab AS runtime
 WORKDIR /app
 COPY --from=build /work/apps/api/target/capmoney-api-0.1.0-SNAPSHOT.jar /app/app.jar
+COPY apps/api/entrypoint.sh /app/entrypoint.sh
 RUN useradd --system --uid 10001 --home /app capmoney
-USER capmoney
+USER root
 EXPOSE 3000
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]
 
 FROM build AS probe-build
 RUN mvn -B -q test-compile \
@@ -20,6 +21,4 @@ RUN mvn -B -q test-compile \
     && jar -uf target/capmoney-api-0.1.0-SNAPSHOT.jar -C target/probe BOOT-INF/classes/com/capmoney/api/security/ProbeController.class
 
 FROM runtime AS probe
-USER root
 COPY --from=probe-build /work/apps/api/target/capmoney-api-0.1.0-SNAPSHOT.jar /app/app.jar
-USER capmoney

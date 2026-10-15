@@ -44,10 +44,14 @@ file_mode() {
     *) stat -c %a "$1" ;;
   esac
 }
-if [ "$(file_mode "$test_root/secrets/dev/pg-password")" != 600 ] || [ "$(file_mode "$test_root/secrets/test/pg-password")" != 600 ]; then
-  echo 'secret file permissions are not 600' >&2
-  exit 1
-fi
+for environment in dev test; do
+  for secret in pg-password edge-auth jwt-signing jwt-lookup; do
+    if [ "$(file_mode "$test_root/secrets/$environment/$secret")" != 600 ]; then
+      echo "secret file permissions are not 600: $environment/$secret" >&2
+      exit 1
+    fi
+  done
+done
 if [ "$(realpath "$test_root/secrets/dev/pg-password")" = "$(realpath "$test_root/secrets/test/pg-password")" ]; then
   echo 'dev and test share a secret file' >&2
   exit 1

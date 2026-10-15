@@ -10,7 +10,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class SetupBodyFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !"POST".equals(request.getMethod()) || !"/api/manager/setup".equals(request.getRequestURI());
+        return !"POST".equals(request.getMethod()) || !("/api/manager/setup".equals(request.getRequestURI())
+                || "/api/auth/login".equals(request.getRequestURI()));
     }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

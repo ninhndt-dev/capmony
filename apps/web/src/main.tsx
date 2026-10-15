@@ -4,18 +4,16 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import './style.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SetupEntry } from './features/manager/SetupEntry';
+import { ManagerLogin } from './features/manager/ManagerLogin';
+import { ManagerHome } from './features/manager/ManagerHome';
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: 0 }, mutations: { retry: false, gcTime: 0 } } });
-
-function SetupComplete() {
-  return <main className="mx-auto max-w-md px-5 py-10"><h1 className="text-2xl font-semibold">Đăng nhập tài khoản quản lý</h1><p className="mt-4">Sử dụng email quản lý và mật khẩu đã thiết lập.</p></main>;
-}
 
 function Placeholder() {
   return (
     <main className="mx-auto mt-12 max-w-xl rounded-2xl bg-white p-6 shadow-sm">
       <h1 className="text-2xl font-semibold">CapMoney</h1>
-      <p className="mt-4 text-slate-600">Đây là trang thử hạ tầng. Chức năng tài khoản và ví chưa được triển khai.</p>
+      <p className="mt-4 text-slate-600">Tài khoản quản lý đã có thể thiết lập và đăng nhập. Chức năng ví đang được xây dựng.</p>
     </main>
   );
 }
@@ -27,7 +25,8 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<Placeholder />} />
         <Route path="/manager/setup" element={<SetupEntry />} />
-        <Route path="/manager/login" element={<SetupComplete />} />
+        <Route path="/manager/login" element={<ManagerLogin />} />
+        <Route path="/manager" element={<ManagerHome />} />
       </Routes>
     </BrowserRouter>
     </QueryClientProvider>

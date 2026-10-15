@@ -63,8 +63,26 @@ case "$action" in
       head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n' > "$CAPMONEY_SECRET_DIR/edge-auth"
     fi
     chmod 600 "$CAPMONEY_SECRET_DIR/edge-auth"
+    if [ ! -e "$CAPMONEY_SECRET_DIR/jwt-signing" ]; then
+      umask 077
+      head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n' > "$CAPMONEY_SECRET_DIR/jwt-signing"
+    fi
+    chmod 600 "$CAPMONEY_SECRET_DIR/jwt-signing"
+    if [ ! -e "$CAPMONEY_SECRET_DIR/jwt-lookup" ]; then
+      umask 077
+      head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n' > "$CAPMONEY_SECRET_DIR/jwt-lookup"
+    fi
+    chmod 600 "$CAPMONEY_SECRET_DIR/jwt-lookup"
     if [ "$(wc -c < "$CAPMONEY_SECRET_DIR/edge-auth")" -ne 64 ] || ! LC_ALL=C grep -Eq '^[0-9a-fA-F]{64}$' "$CAPMONEY_SECRET_DIR/edge-auth"; then
       echo 'edge-auth must contain exactly 64 ASCII hex bytes without newline' >&2
+      exit 2
+    fi
+    if [ "$(wc -c < "$CAPMONEY_SECRET_DIR/jwt-signing")" -ne 64 ] || ! LC_ALL=C grep -Eq '^[0-9a-fA-F]{64}$' "$CAPMONEY_SECRET_DIR/jwt-signing"; then
+      echo 'jwt-signing must contain exactly 64 ASCII hex bytes without newline' >&2
+      exit 2
+    fi
+    if [ "$(wc -c < "$CAPMONEY_SECRET_DIR/jwt-lookup")" -ne 64 ] || ! LC_ALL=C grep -Eq '^[0-9a-fA-F]{64}$' "$CAPMONEY_SECRET_DIR/jwt-lookup"; then
+      echo 'jwt-lookup must contain exactly 64 ASCII hex bytes without newline' >&2
       exit 2
     fi
     ;;

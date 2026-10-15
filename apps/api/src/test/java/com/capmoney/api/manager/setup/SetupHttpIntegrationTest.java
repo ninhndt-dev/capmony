@@ -49,6 +49,8 @@ class SetupHttpIntegrationTest {
         registry.add("capmoney.origin", () -> ORIGIN);
         registry.add("capmoney.api-subnet", () -> "127.0.0.0/8");
         registry.add("capmoney.edge-secret-file", edge::toString);
+        registry.add("capmoney.jwt-key-file", edge::toString);
+        registry.add("capmoney.jwt-lookup-key-file", edge::toString);
     }
     HttpRequest.Builder request(String path, String ip) {
         return HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + path)).timeout(java.time.Duration.ofSeconds(8))

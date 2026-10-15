@@ -44,3 +44,16 @@ export async function postJson(path: string, body: unknown): Promise<void> {
   // Refresh after the transition; success is already known if this safe GET fails.
   try { await renewCsrf(); } catch { /* The next POST obtains a fresh token itself. */ }
 }
+
+export async function managerMe(): Promise<{ email: string; role: 'MANAGER' }> {
+  let response: Response;
+  try {
+    response = await fetch('/api/manager/me', { credentials: 'same-origin', cache: 'no-store', signal: AbortSignal.timeout(10000) });
+  } catch { throw new ApiFailure('RESULT_UNKNOWN', true); }
+  if (response.status === 401) throw new ApiFailure('AUTH_REQUIRED');
+  if (!response.ok) throw new ApiFailure('RESULT_UNKNOWN', true);
+  const body: unknown = await response.json();
+  if (!body || typeof body !== 'object' || !('email' in body) || typeof body.email !== 'string'
+    || !('role' in body) || body.role !== 'MANAGER') throw new ApiFailure('RESULT_UNKNOWN', true);
+  return { email: body.email, role: 'MANAGER' };
+}

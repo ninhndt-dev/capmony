@@ -1,3 +1,25 @@
+## Dev implementation / #45 — 15/10/2026
+
+**DONE:** Triển khai login/refresh/logout/manager guard cho API Java và UI React; sửa secret mode 600 của Linux Compose bằng tmpfs/chown rồi hạ quyền API. Full Maven suite trên snapshot cuối 14 test, 0 fail/error, 1 skipped; web build, script test, luồng Caddy/Mailpit và Chromium/WebKit giả lập đạt. Xem [qa45-dev-evidence](qa45-dev-evidence.md).
+
+**RESULT:** Có implementation và bằng chứng Dev của #45; **chưa** cấp `DEV_REVIEWED`, `QA_PASS` #44/#45 hoặc Story. Gate `HARD` #44 → #45 chưa được PM/QA độc lập giải, nên việc triển khai này chưa đồng nghĩa ticket sẵn sàng nghiệm thu.
+
+**PENDING:** Reviewer code và QA khác người triển khai kiểm #44 rồi #45 trên commit/image đã pin; PM xét gate. T21 và thiết bị vật lý còn ở nghiệm thu Story theo CM01-Q4.
+
+## QA execution / #44 — 15/10/2026
+
+**DONE:** Kéo nhánh lên `059d868`; build API Java 25, web Node 24 và full Maven suite xanh (12 test, 0 fail/error, 1 skipped). Chạy setup T07–T12, phần setup T18–T19 trên các Compose project/DB test cô lập: Caddy/CSRF, biên 71:59/72:00, validation 12–72 byte, race hai JVM, Redis quota/outage, CLI sau manager, Chrome và WebKit khi response mất sau commit, WebKit success. JSON/ảnh/script và DB snapshots trong [qa44-evidence](qa44-evidence.md) và [artifacts](evidence/qa44/).
+
+**RESULT:** Các phép kiểm đã chạy pass trên build `059d868`; **chưa cấp `QA_PASS` #44**, chưa giải `HARD` cho #45. Root chạy lượt này nhưng đã là tác giả web #44 theo dev handoff, nên cần QA khác người code và PM đối chiếu. Stack mặc định trên Linux hiện lỗi quyền secret mode `600` với API UID 10001; project QA riêng dùng ngoại lệ quyền file và giữ nguyên các tài nguyên sau kiểm thử.
+
+**NEED HUMAN:** Không có quyết định sản phẩm mới cần Ninh trả lời. PM cần điều phối QA độc lập và xử lý/đánh giá lỗi quyền secret Linux trước gate.
+
+**PENDING:** QA độc lập xác nhận artifact/case và phần còn thiếu nếu có; Dev/Tech sửa cơ chế secret của stack Linux theo ticket phù hợp, kiểm lại; PM xét `QA_PASS` #44 rồi mới quyết định `READY_FOR_IMPLEMENTATION` #45. Không cập nhật Planio/commit trong lượt kiểm này.
+
+**DETAIL:** [Báo cáo và giới hạn](qa44-evidence.md), [QA plan](qa44-plan.md), [ticket #44](issues/02-complete-manager-setup.md).
+
+— `/root`, lượt thực thi bổ sung; không tự nhận vai QA độc lập
+
 ## PM — READY_FOR_IMPLEMENTATION #43, 15/10/2026
 
 Ninh yêu cầu hoàn tất toàn bộCM-01. BA/PM reviewer `/root/review_standards` xác nhận AC1/6 và seamsT01–06 khôngP0/P1; Tech reviewer `/root/review_spec` xác nhận hợp đồng singleton/CAS/acceptedAt/SMTP/hai CLI process đủ rõ. PM đối chiếu INFRA#47/#48QA_PASS và PlanioClosed, giảiHARD#47→#43; cập nhật JUnit6/MVC/secretfile/healthcontract trong thiết kế. Cấp READY_FOR_IMPLEMENTATION riêng#43; #44/#45 vẫn đợi QA ticket trước. Không suy QA từ tài liệu.

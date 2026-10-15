@@ -1,0 +1,13 @@
+{
+  "engine": "WebKit",
+  "viewport": "390x844@3x",
+  "setupStatuses": [
+    204
+  ],
+  "csrfGets": 2,
+  "loginPlaceholderShown": true,
+  "authSessionIssued": false,
+  "cookieNames": [
+    "XSRF-TOKEN"
+  ]
+}

@@ -3,7 +3,7 @@ server:
   forward-headers-strategy: none
 spring:
   config:
-    import: configtree:/run/secrets/
+    import: configtree:/run/capmoney-secrets/
   application:
     name: capmoney-api
   datasource:
@@ -51,6 +51,10 @@ capmoney:
   origin: ${APP_ORIGIN}
   api-subnet: ${API_SUBNET}
   edge-secret-file: ${EDGE_SECRET_FILE}
+  jwt-key-file: ${JWT_KEY_FILE:/run/capmoney-secrets/jwt_signing}
+  jwt-lookup-key-file: ${JWT_LOOKUP_KEY_FILE:/run/capmoney-secrets/jwt_lookup}
+  jwt-keyring-dir: ${JWT_KEYRING_DIR:}
+  jwt-active-kid: ${JWT_ACTIVE_KID:v1}
 
 logging:
   level:

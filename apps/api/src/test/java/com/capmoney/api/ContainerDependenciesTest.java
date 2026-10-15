@@ -48,6 +48,8 @@ class ContainerDependenciesTest {
         registry.add("capmoney.origin", () -> "http://127.0.0.1:28080");
         registry.add("capmoney.api-subnet", () -> "172.30.49.0/24");
         registry.add("capmoney.edge-secret-file", secret::toString);
+        registry.add("capmoney.jwt-key-file", secret::toString);
+        registry.add("capmoney.jwt-lookup-key-file", secret::toString);
     }
 
     @Test

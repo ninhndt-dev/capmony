@@ -30,7 +30,9 @@ services:
       COOKIE_SECURE: "false"
       APP_ORIGIN: ${APP_ORIGIN:?set APP_ORIGIN}
       API_SUBNET: ${API_SUBNET:?set API_SUBNET}
-      EDGE_SECRET_FILE: /run/secrets/edge_auth
+      EDGE_SECRET_FILE: /run/capmoney-secrets/edge_auth
+      JWT_KEY_FILE: /run/capmoney-secrets/jwt_signing
+      JWT_LOOKUP_KEY_FILE: /run/capmoney-secrets/jwt_lookup
       DB_HOST: postgres
       DB_NAME: ${DB_NAME:?set DB_NAME}
       DB_USER: ${DB_USER:?set DB_USER}
@@ -40,6 +42,10 @@ services:
     secrets:
       - pg_password
       - edge_auth
+      - jwt_signing
+      - jwt_lookup
+    tmpfs:
+      - /run/capmoney-secrets:mode=0700
     depends_on:
       postgres:
         condition: service_healthy
@@ -55,11 +61,16 @@ services:
     environment:
       POSTGRES_DB: ${DB_NAME:?set DB_NAME}
       POSTGRES_USER: ${DB_USER:?set DB_USER}
-      POSTGRES_PASSWORD_FILE: /run/secrets/pg_password
-    secrets:
-      - pg_password
+      POSTGRES_PASSWORD_FILE: /run/capmoney-secrets/pg_password
+    entrypoint: ["/bin/sh", "/run/capmoney-postgres-entrypoint.sh"]
+    command: ["postgres"]
     volumes:
       - pg_data:/var/lib/postgresql/data
+      - ./scripts/postgres-entrypoint.sh:/run/capmoney-postgres-entrypoint.sh:ro
+    secrets:
+      - pg_password
+    tmpfs:
+      - /run/capmoney-secrets:mode=0700
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 2s
@@ -100,6 +111,10 @@ secrets:
     file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/pg-password
   edge_auth:
     file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/edge-auth
+  jwt_signing:
+    file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/jwt-signing
+  jwt_lookup:
+    file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/jwt-lookup
 volumes:
   pg_data:
 networks:
