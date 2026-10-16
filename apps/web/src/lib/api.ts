@@ -4,6 +4,37 @@ export class ApiFailure extends Error {
   }
 }
 
+const uncertainRefreshKey = 'capmoney.manager.refresh-unknown';
+const refreshMarkerStores = [() => window.localStorage, () => window.sessionStorage];
+let uncertainRefreshInMemory = false;
+
+export function refreshResultUnknown(): boolean {
+  if (uncertainRefreshInMemory) return true;
+  let storageAvailable = false;
+  for (const getStorage of refreshMarkerStores) {
+    try {
+      const storage = getStorage();
+      if (storage.getItem(uncertainRefreshKey) === '1') return true;
+      storageAvailable = true;
+    } catch { /* If storage is unavailable, auto refresh must fail closed. */ }
+  }
+  return !storageAvailable;
+}
+
+function markRefreshResultUnknown(): void {
+  uncertainRefreshInMemory = true;
+  for (const getStorage of refreshMarkerStores) {
+    try { getStorage().setItem(uncertainRefreshKey, '1'); } catch { /* A second store may still work. */ }
+  }
+}
+
+function clearRefreshResultUnknown(): void {
+  uncertainRefreshInMemory = false;
+  for (const getStorage of refreshMarkerStores) {
+    try { getStorage().removeItem(uncertainRefreshKey); } catch { /* Auto refresh stays disabled if storage is unavailable. */ }
+  }
+}
+
 function csrfCookie(): string | undefined {
   return document.cookie.split('; ').find((value) => value.startsWith('XSRF-TOKEN='))?.slice('XSRF-TOKEN='.length);
 }
@@ -29,11 +60,15 @@ export async function postJson(path: string, body: unknown): Promise<void> {
       headers: { 'Content-Type': 'application/json', 'X-XSRF-TOKEN': csrf }, body: JSON.stringify(body),
     });
   } catch {
+    if (path === '/api/auth/refresh') markRefreshResultUnknown();
     throw new ApiFailure('RESULT_UNKNOWN', true);
   }
   if (!response.ok) {
     // A failed dependency response may follow an uncertain commit. Never promise it was not saved.
-    if (response.status >= 500) throw new ApiFailure('RESULT_UNKNOWN', true);
+    if (response.status >= 500) {
+      if (path === '/api/auth/refresh') markRefreshResultUnknown();
+      throw new ApiFailure('RESULT_UNKNOWN', true);
+    }
     let code = 'REQUEST_REJECTED';
     try {
       const data: unknown = await response.json();
@@ -41,6 +76,7 @@ export async function postJson(path: string, body: unknown): Promise<void> {
     } catch { /* The HTTP rejection remains known even if its error body is unavailable. */ }
     throw new ApiFailure(code, false, response.headers.get('Retry-After') ?? undefined);
   }
+  if (path === '/api/auth/refresh' || path === '/api/auth/login') clearRefreshResultUnknown();
   // Refresh after the transition; success is already known if this safe GET fails.
   try { await renewCsrf(); } catch { /* The next POST obtains a fresh token itself. */ }
 }

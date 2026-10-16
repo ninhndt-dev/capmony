@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
-import { ApiFailure, managerMe, postJson } from '../../lib/api';
+import { ApiFailure, managerMe, postJson, refreshResultUnknown } from '../../lib/api';
 
 export function ManagerHome() {
   const [email, setEmail] = useState<string | null>(null);
@@ -16,6 +16,10 @@ export function ManagerHome() {
         catch (error) {
           if (!(error instanceof ApiFailure) || error.code !== 'AUTH_REQUIRED') throw error;
           if (!active) return;
+          if (refreshResultUnknown()) {
+            setMessage('Lần gia hạn phiên trước chưa rõ kết quả. Hãy đăng nhập lại; ứng dụng sẽ không tự gửi lại yêu cầu cũ.');
+            return;
+          }
           await postJson('/api/auth/refresh', {});
           me = await managerMe();
         }
@@ -40,6 +44,8 @@ export function ManagerHome() {
     <p className="text-sm font-semibold text-teal-700">CapMoney</p>
     <h1 className="mt-3 text-2xl font-semibold">Khu vực quản lý</h1>
     {message && <p role="alert" className="mt-5 rounded-xl bg-white p-4">{message}</p>}
+    {message && !email && <button type="button" onClick={() => navigate('/manager/login', { replace: true })}
+      className="mt-4 rounded-lg bg-teal-700 p-3 font-semibold text-white">Đến trang đăng nhập</button>}
     {email ? <div className="mt-5 space-y-4"><p>Đang đăng nhập: <strong>{email}</strong></p>
       <button type="button" onClick={() => logout.mutate()} disabled={logout.isPending}
         className="rounded-lg bg-teal-700 p-3 font-semibold text-white disabled:opacity-60">Đăng xuất mọi điện thoại</button>
