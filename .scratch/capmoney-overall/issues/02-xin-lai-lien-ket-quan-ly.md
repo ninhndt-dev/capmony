@@ -21,3 +21,4 @@
 - Nguồn: đặc tả tổng thể bước 7 và đề xuất bước 8 đã được Ninh xác nhận. Kiểm thử hành vi qua web và đọc lại dữ liệu; chưa chọn schema/API/công nghệ.
 - Đặc tả chi tiết bước 9: [Xin lại liên kết thiết lập quản lý hết hạn](../../capmoney-manager-link-renewal/spec.md). Giữ `needs-triage` tới khi Tech kiểm chứng phương án xác thực/email cùng #01 và PM rà lại.
 - Rà soát BA → PM → Tech → PM ngày 14/10/2026: hành vi khớp F23–F24; tiêu chí mốc 72 giờ được sửa cho khớp đặc tả. Cơ chế thay liên kết, kết quả gửi email chưa rõ và giới hạn xin lại còn chờ kiểm chứng kỹ thuật, nên chưa chuyển `ready-for-agent`.
+- Bản [thiết kế Java nháp 16/10/2026](../../capmoney-manager-link-renewal/technical-design-java.md) ghi hợp đồng đề xuất dựa trên code CM-01 và các điểm BA/PM/Tech cần rà; chưa đạt `BA_READY`, `TECH_READY` hoặc `READY_FOR_IMPLEMENTATION`.

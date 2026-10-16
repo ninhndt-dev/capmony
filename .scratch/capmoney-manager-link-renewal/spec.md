@@ -2,6 +2,8 @@
 
 **Rebaseline 16/10/2026:** Đặc tả hành vi này đã qua chuỗi rà cũ; chưa có `BA_READY`/`TECH_READY` theo workflow mới. Stack Java Spring/React/Vite đã chốt ở [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); hợp đồng riêng của #02 vẫn cần thiết kế/review trước Dev.
 
+**Thiết kế Java 16/10/2026:** [Bản nháp để review](technical-design-java.md) đối chiếu code CM-01 hiện hành; các lựa chọn chứng minh link hết hạn, quota và retry mail chưa được tính là quyết định sản phẩm/gate.
+
 **Ticket:** [02 – Xin lại liên kết thiết lập quản lý hết hạn](../capmoney-overall/issues/02-xin-lai-lien-ket-quan-ly.md)
 **Status:** needs-triage
 **Trạng thái rà soát:** BA → PM → Tech → PM đã rà soát; không còn lỗi chặn về hành vi/tiêu chí. Tech còn chốt cách gửi, thay liên kết và giới hạn tần suất cùng #01 trước khi giao Dev; ticket vẫn `needs-triage`.
