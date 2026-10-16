@@ -1,7 +1,7 @@
 # Story CM-01: Thiết lập và đăng nhập tài khoản quản lý
 
 **Planio:** [CM-01 / issue 8](https://tanninh.planio.com/issues/8)
-**Lifecycle tại 16/10/2026:** triển khai #44/#45 đã có mã; #43 Closed/QA 6/6 trên `f63efe4`. #44 có bằng chứng tự kiểm nhưng còn QA độc lập/PM; #45 có mã trên `4a4a1a4` nhưng còn gate #44, code review và QA. Story chưa `QA_PASS`.
+**Lifecycle tại 16/10/2026:** triển khai #44/#45 đã có mã; #43 Closed/QA 6/6 trên `f63efe4`. #44 có bằng chứng tự kiểm nhưng còn QA độc lập/PM; Planio #44 đã được [đối chiếu](tracker-reconciliation-2026-10-16.md) về `In Progress/0%`. #45 có mã nền ở `4a4a1a4`, [sửa refresh](qa45-refresh-unknown-fix.md) tại `6676d5e`, nhưng còn gate #44, code review và QA. Story chưa `QA_PASS`.
 **Status nguồn bước 8:** needs-triage; trạng thái công việc hiện hành ở Planio.
 **Blocked by:** #43 QA_PASS đã giải HARD tới #44. #44 chưa có QA độc lập/PM chốt nên HARD #44 → #45 chưa được giải chính thức, dù code #45 đã được triển khai theo yêu cầu của Ninh. Thiết bị thật ở nghiệm thu cuối Story theo CM01-Q4. Email quản lý thật, tên miền gửi và hạ tầng production là điều kiện mở vận hành thực tế, không chặn thử bằng dữ liệu riêng.
 

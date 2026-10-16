@@ -1,3 +1,13 @@
+## Đối chiếu tracker và sửa refresh / #44–#45 — 16/10/2026
+
+**DONE:** Phát hiện Planio #44 từng `Closed/100%` theo tham chiếu `d6824ae` không đối chiếu được với Git/bằng chứng QA hiện hành; ghi [báo cáo](tracker-reconciliation-2026-10-16.md), đưa #44 về `In Progress/0%` và đọc lại #44/#45. Sửa web #45 để [không tự refresh lại sau kết quả chưa rõ](qa45-refresh-unknown-fix.md), mã `6676d5e`, build web và chạy browser regression Chromium/WebKit.
+
+**RESULT:** Tracker khớp gate trong Git. Browser regression của lỗi refresh **PASS**; lượt full Maven/Testcontainers có một lỗi khởi động PostgreSQL, ca đó chạy riêng sau đó **PASS**. Không cấp `QA_PASS` #44/#45, `READY_FOR_IMPLEMENTATION` hoặc `DEV_REVIEWED` #45 từ lượt tự kiểm này.
+
+**PENDING:** QA khác người code kiểm #44 trên bản mã pin và PM xét gate; reviewer code/QA độc lập kiểm #45 theo T13–T20; T21 và thiết bị thật còn ở gate Story.
+
+**DETAIL:** [Tracker reconciliation](tracker-reconciliation-2026-10-16.md), [bằng chứng sửa refresh](qa45-refresh-unknown-fix.md), [test spec](test-spec.md).
+
 ## Dev implementation / #45 — 15/10/2026
 
 **DONE:** Triển khai login/refresh/logout/manager guard cho API Java và UI React; sửa secret mode 600 của Linux Compose bằng tmpfs/chown rồi hạ quyền API. Full Maven suite trên snapshot cuối 14 test, 0 fail/error, 1 skipped; web build, script test, luồng Caddy/Mailpit và Chromium/WebKit giả lập đạt. Xem [qa45-dev-evidence](qa45-dev-evidence.md).

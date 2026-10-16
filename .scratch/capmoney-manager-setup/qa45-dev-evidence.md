@@ -1,5 +1,7 @@
 # CM-01.3 / #45 — bằng chứng Dev, 15/10/2026
 
+**Addendum 16/10/2026:** Bản `6676d5e` sửa web để không tự gửi lại refresh sau kết quả chưa rõ; xem [báo cáo tự kiểm](qa45-refresh-unknown-fix.md). Báo cáo bên dưới là snapshot Dev ở `4a4a1a4`; không tự cấp `DEV_REVIEWED` hoặc `QA_PASS` từ addendum.
+
 **Trạng thái:** Đã triển khai đăng nhập và phiên quản lý trên nhánh `feat/cm-01-manager-setup`. Đây là bằng chứng do người triển khai tự kiểm, chưa phải `DEV_REVIEWED`, `QA_PASS` #45 hoặc `QA_PASS` Story. `QA_PASS` #44 và gate `HARD` #44 → #45 vẫn cần QA/PM độc lập đối chiếu.
 
 ## Mã và môi trường

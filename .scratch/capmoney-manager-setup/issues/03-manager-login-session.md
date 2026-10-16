@@ -1,6 +1,6 @@
 # CM-01.3 / #45: Đăng nhập và giữ phiên quản lý
 
-**Cập nhật 16/10/2026:** Code API/web cho #45 đã được đẩy ở `4a4a1a4`; xem [bằng chứng Dev](../qa45-dev-evidence.md). Điều này không cấp `READY_FOR_IMPLEMENTATION`, `DEV_REVIEWED` hay `QA_PASS` ngược thời gian. Phụ thuộc HARD #44 → #45 và QA/review độc lập dưới đây vẫn chờ PM giải chính thức.
+**Cập nhật 16/10/2026:** Code API/web nền cho #45 đã được đẩy ở `4a4a1a4`, sửa [refresh sau kết quả chưa rõ](../qa45-refresh-unknown-fix.md) ở `6676d5e`; xem [bằng chứng Dev](../qa45-dev-evidence.md). Planio #44 đã được [đối chiếu](../tracker-reconciliation-2026-10-16.md) về `In Progress/0%`. Các bản mã này không cấp `READY_FOR_IMPLEMENTATION`, `DEV_REVIEWED` hay `QA_PASS` ngược thời gian. Phụ thuộc HARD #44 → #45 và QA/review độc lập dưới đây vẫn chờ PM giải chính thức.
 
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8).
 **Planio child:** [#45](https://tanninh.planio.com/issues/45).

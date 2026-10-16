@@ -16,3 +16,7 @@ Khôi phục #44 về `In Progress/0%` (trạng thái và tiến độ trước 
 ## Gate sau đối chiếu
 
 `QA_PASS` #44 **chưa đạt**; `READY_FOR_IMPLEMENTATION`, `DEV_REVIEWED`, `QA_PASS` #45 **chưa đạt**. QA khác người triển khai cần kiểm #44 trên build/commit pin, nhất là sửa quyền secret Linux; PM xét kết quả rồi mới giải `HARD`. Có thể tiếp tục tự kiểm, sửa lỗi và chuẩn bị bằng chứng #45, nhưng không gọi đó là QA độc lập.
+
+## Kết quả cập nhật Planio
+
+Sau khi file này được đẩy ở `a89ac4a`, Planio #44 đã được đưa về `In Progress/0%` và #45 giữ `In Progress/0%`. Mô tả cả hai issue có ghi chú đối chiếu dẫn đến file này; bản ghi `d6824ae` cũ được giữ trong lịch sử để truy vết. Cả hai issue được đọc lại sau khi ghi, đúng trạng thái và tiến độ trên. Không có gate QA nào được cấp từ thao tác tracker này.

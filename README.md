@@ -8,8 +8,8 @@ CapMoney là web quản lý tài chính cá nhân ưu tiên điện thoại, đ�
 | --- | --- | --- |
 | INFRA-01 / #47, #48 | Java/Spring, React/Vite, Compose dev/test, Caddy, PostgreSQL, Redis, Mailpit; QA hạ tầng và MVC đã ghi nhận | VPS, domain, TLS và vận hành thật chưa dựng |
 | CM-01.1 / #43 | CLI phát hành link thiết lập qua Mailpit; QA ticket #43 đã ghi 6/6 | SMTP/email thật khi có hạ tầng vận hành |
-| CM-01.2 / #44 | Form thiết lập một quản lý, token một lần/hạn 72 giờ; có bằng chứng chạy T07–T12 | QA khác người code và PM đối chiếu trước `QA_PASS` #44 |
-| CM-01.3 / #45 | Login, refresh, kiểm phiên DB, logout mọi thiết bị, giao diện quản lý tối thiểu; code ở commit `4a4a1a4` và có bằng chứng Dev | `HARD` #44 → #45, code review, QA độc lập T13–T20; chưa cấp `DEV_REVIEWED`/`QA_PASS` |
+| CM-01.2 / #44 | Form thiết lập một quản lý, token một lần/hạn 72 giờ; có bằng chứng chạy T07–T12; [Planio đã đối chiếu](.scratch/capmoney-manager-setup/tracker-reconciliation-2026-10-16.md) về `In Progress/0%` | QA khác người code và PM đối chiếu trước `QA_PASS` #44 |
+| CM-01.3 / #45 | Login, refresh, kiểm phiên DB, logout mọi thiết bị, giao diện quản lý tối thiểu; mã nền `4a4a1a4`, [sửa refresh](.scratch/capmoney-manager-setup/qa45-refresh-unknown-fix.md) ở `6676d5e` | `HARD` #44 → #45, code review, QA độc lập T13–T20; chưa cấp `DEV_REVIEWED`/`QA_PASS` |
 | CM-01 cấp Story | Spec AC1–AC7 và test spec T01–T21 | Regression T21 và iPhone/Android vật lý theo CM01-Q4, rồi PM xét `QA_PASS` Story |
 
 ## Chạy môi trường dev/test
