@@ -50,3 +50,15 @@ databaseChangeLog:
                 created_at timestamptz NOT NULL
               );
               CREATE INDEX manager_session_family_manager_active ON manager_session_family(manager_id, revoked_at);
+  - changeSet:
+      id: 004-cm02-manager-link-renewal
+      author: capmoney
+      changes:
+        - sql:
+            sql: |
+              ALTER TABLE manager_bootstrap ADD COLUMN renewal_proof_digest varchar(64);
+              ALTER TABLE manager_bootstrap ADD COLUMN renewal_reserved_at timestamptz;
+              ALTER TABLE manager_bootstrap ADD CONSTRAINT renewal_proof_digest_format
+                CHECK (renewal_proof_digest IS NULL OR renewal_proof_digest ~ '^[0-9a-f]{64}$');
+              ALTER TABLE manager_bootstrap ADD CONSTRAINT consumed_has_no_renewal_proof
+                CHECK (state <> 'consumed' OR renewal_proof_digest IS NULL);

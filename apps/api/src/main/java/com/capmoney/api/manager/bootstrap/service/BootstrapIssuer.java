@@ -1,6 +1,7 @@
 package com.capmoney.api.manager.bootstrap.service;
 
 import com.capmoney.api.manager.bootstrap.repository.BootstrapStore;
+import com.capmoney.api.http.ApiProblem;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.time.*;
@@ -35,8 +36,17 @@ public class BootstrapIssuer {
         this.email = email.trim().toLowerCase(Locale.ROOT); this.origin = origin;
     }
     public Result issue() {
-        if (!enabled) return new Result("disabled", 0);
-        if (!validOrigin(origin) || !email.matches("[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\\.[a-z]{2,63}")) {
+        return send(null);
+    }
+    public Result renew(String proofDigest) {
+        return send(proofDigest);
+    }
+    private Result send(String proofDigest) {
+        if (proofDigest == null && !enabled) return new Result("disabled", 0);
+        String destination;
+        try { destination = proofDigest == null ? email : store.bootstrapEmail(); }
+        catch (Exception unavailable) { return new Result("unknown", 0); }
+        if (!validOrigin(origin) || destination == null || !destination.matches("[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\\.[a-z]{2,63}")) {
             return new Result("invalid_configuration", 0);
         }
         BootstrapStore.Attempt attempt = null;
@@ -45,11 +55,11 @@ public class BootstrapIssuer {
             new SecureRandom().nextBytes(bytes);
             String token = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
             String digest = HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(token.getBytes(StandardCharsets.US_ASCII)));
-            attempt = store.reserve(email, digest);
+            attempt = proofDigest == null ? store.reserve(destination, digest) : store.reserveRenewal(destination, proofDigest, digest);
             if (attempt == null) return new Result("unavailable", 0);
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom("capmoney@example.test");
-            message.setTo(email);
+            message.setTo(destination);
             message.setSubject("CapMoney: thiết lập quản lý");
             message.setText("Mở liên kết để thiết lập quản lý CapMoney:\n" + origin + "/manager/setup#token=" + token
                     + "\nLiên kết chỉ có hiệu lực sau khi nhà cung cấp chấp nhận và hệ thống xác nhận, trong 72 giờ.");
@@ -63,6 +73,8 @@ public class BootstrapIssuer {
             }
             Instant acceptedAt = clock.instant(); // Capture once, immediately after SMTP returns.
             return new Result(store.issue(attempt, acceptedAt, clock) ? "accepted" : "unknown", attempt.generation());
+        } catch (ApiProblem expected) {
+            throw expected;
         } catch (Exception failure) {
             if (attempt != null) {
                 try { store.fail(attempt, "unknown"); } catch (Exception ignored) { /* next CLI can fence stale sending */ }

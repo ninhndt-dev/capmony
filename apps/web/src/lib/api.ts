@@ -81,6 +81,29 @@ export async function postJson(path: string, body: unknown): Promise<void> {
   try { await renewCsrf(); } catch { /* The next POST obtains a fresh token itself. */ }
 }
 
+export type ManagerLinkStatus = 'active' | 'expired' | 'retryable' | 'unavailable';
+
+export async function managerLinkStatus(token: string): Promise<ManagerLinkStatus> {
+  const csrf = await renewCsrf();
+  let response: Response;
+  try {
+    response = await fetch('/api/manager/setup-link/status', {
+      method: 'POST', credentials: 'same-origin', cache: 'no-store', signal: AbortSignal.timeout(10000),
+      headers: { 'Content-Type': 'application/json', 'X-XSRF-TOKEN': csrf }, body: JSON.stringify({ token }),
+    });
+  } catch { throw new ApiFailure('RESULT_UNKNOWN', true); }
+  if (!response.ok) {
+    if (response.status === 429) throw new ApiFailure('RATE_LIMITED', false, response.headers.get('Retry-After') ?? undefined);
+    throw new ApiFailure('STATUS_UNAVAILABLE', response.status >= 500);
+  }
+  const body: unknown = await response.json();
+  if (!body || typeof body !== 'object' || !('status' in body) || typeof body.status !== 'string'
+    || !['active', 'expired', 'retryable', 'unavailable'].includes(body.status)) {
+    throw new ApiFailure('STATUS_UNAVAILABLE', true);
+  }
+  return body.status as ManagerLinkStatus;
+}
+
 export async function managerMe(): Promise<{ email: string; role: 'MANAGER' }> {
   let response: Response;
   try {

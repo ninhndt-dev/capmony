@@ -38,7 +38,7 @@ public class SecurityConfiguration {
             .requestCache(cache -> cache.disable())
             .httpBasic(basic -> basic.disable()).formLogin(form -> form.disable()).logout(logout -> logout.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/health", "/api/ready/auth", "/v3/api-docs", "/v3/api-docs/**", "/api/auth/csrf", "/api/auth/login", "/api/auth/refresh", "/api/auth/logout", "/api/manager/setup", "/api/manager/me", "/api/__probe").permitAll()
+                .requestMatchers("/api/health", "/api/ready/auth", "/v3/api-docs", "/v3/api-docs/**", "/api/auth/csrf", "/api/auth/login", "/api/auth/refresh", "/api/auth/logout", "/api/manager/setup", "/api/manager/setup-link/status", "/api/manager/setup-link/renew", "/api/manager/me", "/api/__probe").permitAll()
                 .anyRequest().denyAll())
             .exceptionHandling(errors -> errors
                 .accessDeniedHandler((request, response, denied) -> HttpErrors.write(response, 403, "CSRF_ORIGIN"))

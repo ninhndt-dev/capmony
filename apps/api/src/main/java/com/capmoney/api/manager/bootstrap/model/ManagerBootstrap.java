@@ -10,6 +10,8 @@ public class ManagerBootstrap {
     public String email;
     public long generation;
     @Column(name = "token_digest") public String tokenDigest;
+    @Column(name = "renewal_proof_digest") public String renewalProofDigest;
+    @Column(name = "renewal_reserved_at") public Instant renewalReservedAt;
     public String state;
     @Column(name = "send_started_at") public Instant sendStartedAt;
     @Column(name = "accepted_at") public Instant acceptedAt;

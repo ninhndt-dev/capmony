@@ -1,8 +1,8 @@
 # CM-02 — thiết kế kỹ thuật Java (bản nháp để review)
 
-**Ngày:** 16/10/2026. **Gate:** chưa `TECH_READY`; CM-02 chưa có `BA_READY` theo workflow mới. [Đặc tả hành vi](spec.md) và [F23–F24](../../docs/requirements/user-flows.md) là nguồn sản phẩm. Hợp đồng CM-01 hiện hành ở [thiết kế Java](../capmoney-manager-setup/technical-design-java.md); [phương án Next.js/Resend cũ](../capmoney-manager-setup/technical-options.md) chỉ là lịch sử.
+**Ngày:** 16/10/2026. **Trạng thái:** thiết kế này đã được triển khai trong code theo yêu cầu mới của Ninh; chưa có review độc lập, `TECH_READY`/`DEV_REVIEWED`/`QA_PASS` không được tự suy từ code. [Đặc tả hành vi](spec.md) và [F23–F24](../../docs/requirements/user-flows.md) là nguồn sản phẩm. Hợp đồng CM-01 hiện hành ở [thiết kế Java](../capmoney-manager-setup/technical-design-java.md); [phương án Next.js/Resend cũ](../capmoney-manager-setup/technical-options.md) chỉ là lịch sử.
 
-## 1. Trạng thái code và khoảng trống
+## 1. Trạng thái code trước CM-02
 
 - CM-01 có `manager_bootstrap` singleton, generation, token digest, trạng thái `empty/sending/issued/unknown/failed/consumed`, mốc `accepted_at` và `expires_at`; chỉ CLI nội bộ phát hành link. `ManagerSetupStore.complete` khóa singleton và từ chối ở đúng/sau mốc 72 giờ theo giờ PostgreSQL.
 - `POST /api/manager/setup` trả cùng `SETUP_LINK_UNAVAILABLE` cho token sai, hết hạn, đã dùng hoặc đã bị thay. Web chưa có đường biết chắc một link **đã hết hạn** và chưa có thao tác xin lại.
@@ -32,7 +32,7 @@ Gửi SMTP ngoài transaction như `BootstrapIssuer`: timeout hữu hạn, chụ
 
 ## 4. Giới hạn và bảo vệ riêng CM-02
 
-Redis Lua nguyên tử theo IP tin cậy từ `IngressFilter` **và** theo bootstrap singleton; kiểm quota trước reserve và trả `429` cùng `Retry-After`, Redis lỗi thì `503` không gửi. Đề xuất để PM rà: tối đa 3 lần thử/IP/giờ, tối đa 5 lần gửi toàn hệ thống/24 giờ, và tối thiểu 15 phút giữa hai lần reserve thành công. Chỉ tính quota gửi khi reserve thắng; request lỗi validation không đốt quota toàn hệ thống. Tránh giữ khóa DB trong lúc gọi Redis/SMTP; quota phải được kiểm và tiêu thụ theo cách không mở race giữa nhiều JVM. Nếu dùng quota toàn cục trước DB, request thua khóa có thể tốn quota: cần refund an toàn hoặc đặt bước quota dưới khóa với thời gian Redis hữu hạn, rồi commit. Quyết định cụ thể sau spike hai JVM.
+Redis Lua nguyên tử theo IP tin cậy từ `IngressFilter` và khóa quota chung; kiểm trước reserve và trả `429` cùng `Retry-After`, Redis lỗi thì `503` không gửi. Code hiện giới hạn **3 lần xin lại/IP/giờ**, **10 lần xin lại toàn hệ thống/24 giờ**, **15 phút giữa hai lần reserve**, và riêng endpoint kiểm trạng thái là 30/IP/giờ, 300/toàn hệ thống/15 phút. Quota Redis đếm lượt xin lại đã qua kiểm proof, kể cả lượt thua race DB; thao tác đồng thời vẫn chỉ một lần gửi do row lock/generation. Request sai hình thức hoặc không có proof không đốt quota gửi. Các ngưỡng và tác động lên người dùng còn cần PM rà.
 
 Giới hạn toàn cục có thể bị người cầm link cũ làm Ninh chờ 24 giờ; ngưỡng và thông điệp phải được PM rà tác động trải nghiệm. Không hiện địa chỉ email cấu hình, kể cả che một phần, trừ khi Ninh chốt UI khác. API không được trở thành endpoint tự tạo admin hoặc gửi đến email từ request. CSRF/Origin, edge secret, body limit, no-store, referrer policy áp dụng như CM-01.
 
@@ -46,5 +46,5 @@ Không dùng mã `SETUP_LINK_UNAVAILABLE` của POST setup để tự suy luận
 
 - **BA/PM:** chốt quy tắc cần link hết hạn khi xin lại, cách vào đường dẫn trực tiếp, ngưỡng quota/cooldown và câu chữ sau kết quả SMTP chưa rõ. Rebaseline spec 20 mục, AC có mã, review BA/PM trước `BA_READY`.
 - **Tech reviewer độc lập:** kiểm race reserve/complete/status, gửi SMTP ngoài transaction, proof sau failed/unknown, quota Redis nhiều JVM, khả năng retry khi DB commit chưa rõ và quan hệ với CM-01; PM kiểm phạm vi rồi mới `TECH_READY`.
-- **Dev/QA:** migration trên DB thử riêng; đồng hồ trước/đúng/sau 72 giờ; old/new email đến lệch thứ tự; SMTP reject/timeout; Redis/DB outage; hai JVM renew đồng thời và renew đua complete; sau khi manager được tạo không phát mail. Mỗi AC chạy trên build xác định, kiểm web iPhone/Android theo scope chung. Không reset/xóa dữ liệu thật để test.
+- **Dev/QA:** migration trên DB thử riêng; đồng hồ trước/đúng/sau 72 giờ; old/new email đến lệch thứ tự; SMTP reject/timeout; Redis/DB outage; hai JVM renew đồng thời và renew đua complete; sau khi manager được tạo không phát mail. Test tích hợp hiện có mới kiểm hai request song song trong một JVM và cơ sở dữ liệu thật; hai JVM riêng, Mailpit thật, WebKit/Chromium với API thật và thiết bị vật lý vẫn là kiểm chứng tiếp theo. Không reset/xóa dữ liệu thật để test.
 - CM-01 #44 và #45 còn gate độc lập; chỉ dùng hợp đồng/code đã có làm nền thiết kế, không coi CM-02 sẵn sàng triển khai hay CM-01 đã QA_PASS.

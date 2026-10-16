@@ -11,7 +11,9 @@ public class SetupBodyFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         return !"POST".equals(request.getMethod()) || !("/api/manager/setup".equals(request.getRequestURI())
-                || "/api/auth/login".equals(request.getRequestURI()));
+                || "/api/auth/login".equals(request.getRequestURI())
+                || "/api/manager/setup-link/status".equals(request.getRequestURI())
+                || "/api/manager/setup-link/renew".equals(request.getRequestURI()));
     }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
