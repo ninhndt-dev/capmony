@@ -54,6 +54,6 @@ Luồng mặc định: `HTTP → Controller → Service → Repository → Postg
 
 Tách JAR khi có interface ổn định và nhu cầu dùng lại/kiểm soát dependency có thật. Maven parent có thể quản lý module library và application runnable; library không đóng gói executable Boot JAR. Chi tiết module, package scan, migration ownership và transaction phải được Tech review trước khi thay source. Không mặc định mỗi lớp MVC hoặc mỗi Story thành một thư viện.
 
-## Phần việc tiếp theo
+## Trạng thái sau triển khai
 
-Setup/đồng bộ Planio trước, sau đó thực hiện [thiết kế refactor MVC](../../.scratch/capmoney-infrastructure/mvc-refactor-design.md) khi Tech độc lập/PM đủ gate. Thiết kế CM-01 cập nhật tham chiếu bố cục này trước khi giao Dev. Nếu refactor hạ tầng đã QA, kiểm lại package scan, route/health, đóng gói runtime/probe và Docker build trên commit mới; không chuyển nguyên QA_PASS310ad7f sang code mới. Không tạo ticket triển khai hay viết module sản phẩm từ đề xuất này.
+Refactor MVC đã được thực hiện và QA 8/8 trên `5a4a130`, #48 Closed; xem [bằng chứng](../../.scratch/capmoney-infrastructure/mvc-refactor-qa-evidence.md). CM-01 #43–#45 đã dùng bố cục này trong code sau đó. Khi thêm module mới, giữ package theo tính năng và chỉ tạo lớp cần thiết; ticket/thiết kế riêng vẫn quyết định schema, quyền và giao dịch. Không chuyển nguyên QA của snapshot cũ sang code mới; [tổng quan hiện hành](../project-overview.md) và handoff tính năng ghi build/gate tương ứng.

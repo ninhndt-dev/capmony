@@ -1,5 +1,7 @@
 # QA CM-01.2 / Planio #44 — kiểm thử trên build Java 25
 
+**Addendum 16/10/2026:** Lỗi quyền secret Linux nêu trong báo cáo snapshot `059d868` đã được sửa bằng tmpfs/chown ở commit `4a4a1a4` và chạy lại Compose cô lập với secret host mode 600. Xem [bằng chứng Dev #45](qa45-dev-evidence.md). Đây không thay kết luận về người kiểm: #44 vẫn cần QA khác người code và PM xác nhận trên build được pin trước khi cấp `QA_PASS`.
+
 **Ngày:** 15/10/2026. **Trạng thái:** Đã chạy các phép kiểm setup T07–T12, phần setup T18–T19. Chưa cấp `QA_PASS` ticket #44 hoặc mở gate #45: người ghi lượt này cũng là tác giả web #44 trong handoff, nên cần QA độc lập và PM đối chiếu; còn vấn đề quyền đọc secret trên Linux nêu bên dưới.
 
 ## Bản mã và môi trường

@@ -1,9 +1,11 @@
 # CM-01.3 / #45: Đăng nhập và giữ phiên quản lý
 
+**Cập nhật 16/10/2026:** Code API/web cho #45 đã được đẩy ở `4a4a1a4`; xem [bằng chứng Dev](../qa45-dev-evidence.md). Điều này không cấp `READY_FOR_IMPLEMENTATION`, `DEV_REVIEWED` hay `QA_PASS` ngược thời gian. Phụ thuộc HARD #44 → #45 và QA/review độc lập dưới đây vẫn chờ PM giải chính thức.
+
 **Parent:** [CM-01 / Planio #8](https://tanninh.planio.com/issues/8).
 **Planio child:** [#45](https://tanninh.planio.com/issues/45).
-**Status:** `blocked-by-hard`, **chưa `READY_FOR_IMPLEMENTATION`**; BA/Tech phải rà ticket Java và PM xét gate riêng. Opaque session/counter DB ở thiết kế Node chỉ là lịch sử.
-**Blocked by:** `HARD` [CM-01.2 / #44](02-complete-manager-setup.md) hoàn tất với QA xác nhận các case của **ticket #44**; `QA_PASS` cấp Story CM-01 chỉ xét sau cả #43–#45. #44 còn chờ QA#43; hạ tầng#47/#48Closed.
+**Status:** `blocked-by-hard`, **chưa `READY_FOR_IMPLEMENTATION`**; BA/Tech đã rà ticket Java, PM còn xét gate sau QA #44. Opaque session/counter DB ở thiết kế Node chỉ là lịch sử.
+**Blocked by:** `HARD` [CM-01.2 / #44](02-complete-manager-setup.md) cần QA độc lập và PM xác nhận các case của **ticket #44**; #43 đã `QA_PASS`, hạ tầng #47/#48 đã Closed. `QA_PASS` cấp Story CM-01 chỉ xét sau cả #43–#45 và T21.
 **Integration blocked by:** None sau #44.
 **Owner / review:** CapmmDev sau readiness; BA rà AC, reviewer code độc lập, PM rà phạm vi và QA độc lập chạy build.
 

@@ -1,6 +1,6 @@
 # Test Specification: CM-01 — Java Spring/JWT/Redis
 
-**Cập nhật15/10/2026:** T01–T06 PASS riêng#43 trênf63efe4 theo [QA43](qa43-evidence.md); T06emulation theo CM01-Q4, devices thật giữStoryfinal. Các case #44/#45/Story chưa chạy.
+**Cập nhật 16/10/2026:** T01–T06 PASS riêng #43 trên `f63efe4` theo [QA #43](qa43-evidence.md); T06 dùng giả lập theo CM01-Q4, thiết bị thật giữ cho Story cuối. Các ô `not-run` của #44/#45 bên dưới là trạng thái **QA độc lập**: [bằng chứng tự chạy #44](qa44-evidence.md) và [bằng chứng Dev #45](qa45-dev-evidence.md) đã có, nhưng chưa cấp `QA_PASS` hai ticket hay Story. T21 chưa chạy.
 
 **Trạng thái lịch sử 14/10/2026:** kế hoạch QA mới cho [spec AC1–AC7](spec.md) và [thiết kế Java](technical-design-java.md); **chưa chạy case nào**, không `QA_PASS`. Ba ticket #43–#45 chưa `READY_FOR_IMPLEMENTATION`, #43 còn `HARD` #47. Test/SQL spike Node/opaque session trước TS10–TS38 không là bằng chứng Java. Ninh chọn hộp thư/dữ liệu thử trước (CM01-Q1), email thật khi có hạ tầng; iPhone/Android là nền tảng phải kiểm ở gate UI.
 

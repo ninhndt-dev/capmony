@@ -1,5 +1,7 @@
 # Quyết định tech stack toàn dự án – vòng 2
 
+**Cập nhật trạng thái 16/10/2026:** Java/Spring, React/Vite, Redis và Compose dev/test đã được triển khai; xem [tổng quan code](../project-overview.md). TS36 đã được Ninh đổi sang JUnit 6 ngày 15/10. Các câu trong phần “Trạng thái và điều còn cần Tech xác minh” dưới đây là ảnh chụp thời điểm ra quyết định 14/10, không phải báo cáo build/gate hiện nay. GitHub Actions và production VPS vẫn chưa có implementation trong repo.
+
 **Ngày:** 14/10/2026. Ninh yêu cầu hỏi rõ **dùng công nghệ gì cho từng phần** trước khi tiếp tục code. Câu trả lời qua giao diện chọn và câu trả lời tự do được ghi dưới đây. Vòng này thay phần BE Node/Hono, CSS Modules và cách triển khai production bằng Compose trong [vòng 1](tech-stack-round-1.md)/[ADR 0002](../adr/0002-project-infrastructure-and-stack.md). Những phần không bị thay chỉ còn hiệu lực theo nguồn đã xác nhận; Tech phải lập ADR mới và PM rà lại gate trước khi giao Dev.
 
 ## Ninh đã xác nhận

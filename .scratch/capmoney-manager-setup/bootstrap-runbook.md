@@ -10,6 +10,14 @@ Trong môi trường API đã cấu hình JDBC/secrets/SMTP hiện hành, đặt
 java -jar /app/app.jar --capmoney.bootstrap-manager
 ```
 
+Ví dụ cụ thể cho Compose dev **sau** `./infra/scripts/stack.sh dev up` từ gốc repo:
+
+```sh
+docker exec -u 10001 -e BOOTSTRAP_ENABLED=true -e MANAGER_EMAIL=manager@example.test capmoney-dev-api-1 java -jar /app/app.jar --capmoney.bootstrap-manager
+```
+
+Lệnh dùng cùng cấu hình, secret và mạng của API container nhưng chạy JVM riêng; không thay đổi API đang phục vụ HTTP. Email đi vào Mailpit nội bộ và không được CLI in ra. [Runbook Compose](../../infra/README.md) có lệnh `docker exec ... wget` để đọc danh sách/thư Mailpit qua API nội bộ; giữ link/token chỉ trong terminal riêng, không đưa vào Docker logs, chat hoặc Git. Môi trường test dùng container `capmoney-test-api-1` với dữ liệu thử riêng. Không dùng lệnh này với email thật trước khi cấu hình SMTP và origin production được kiểm.
+
 Lệnh chạy Spring không web, không mở HTTP listener. Chỉ in mã kết quả và generation, không in link/email/token. Không bật debug SMTP hoặc log tham số DB ở môi trường thật.
 
 | Kết quả | Exit | Ý nghĩa / xử lý |

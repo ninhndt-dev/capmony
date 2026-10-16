@@ -1,8 +1,8 @@
 # Hướng dẫn agent của CapMoney
 
-Đọc `README.md` và `docs/requirements/00-intake.md` trước khi làm việc. Dự án đang ở **bước 9: đặc tả chi tiết từng module** sau khi Ninh duyệt cách chia 35 Story ứng viên ở bước 8; chúng đã được chuyển sang Planio. Ninh đã chọn hỏi lại mọi yêu cầu từ đầu; không coi cả sáu quyết định cũ là đã chốt cho lần khởi động này. Không tạo app/API, schema hoặc ticket triển khai từ tài liệu hay code cũ.
+Đọc `README.md`, [tổng quan kỹ thuật](docs/project-overview.md) và `docs/requirements/00-intake.md` trước khi làm việc. Dự án đang ở **bước 9: đặc tả chi tiết từng module** sau khi Ninh duyệt cách chia 35 Story ứng viên ở bước 8; chúng đã được chuyển sang Planio. Ninh đã chọn hỏi lại mọi yêu cầu từ đầu; không coi sáu quyết định cũ là đã chốt cho lần khởi động này. Mã hạ tầng Java và CM-01 hiện có chỉ có giá trị trong phạm vi/gate đã ghi; không suy tính năng hoặc quyền mới từ code cũ hay Story ứng viên.
 
-**Thay đổi stack hiện hành:** Ninh đã chốt BE Java Spring và các lựa chọn chi tiết trong [vòng 2](docs/requirements/tech-stack-round-2.md). [ADR 0002](docs/adr/0002-project-infrastructure-and-stack.md) về Node/Hono bị thay một phần. [INFRA-01.1 / Planio #47](.scratch/capmoney-infrastructure/issues/01-docker-dev-test.md) và CM-01 #43 **tạm dừng gate** để lập ADR/thiết kế Java mới rồi BA → PM → Tech → PM rà lại. Commit Node/Hono `493f3d4` là lịch sử; QA cũ fail IF-T03 và không chứng minh stack Java. Chưa giao code mới trước gate.
+**Stack và snapshot hiện hành (16/10/2026):** Ninh đã chốt Java Spring, React/Vite, JWT cookie, Redis và Docker dev/test trong [vòng 2](docs/requirements/tech-stack-round-2.md). [ADR 0002](docs/adr/0002-project-infrastructure-and-stack.md) về Node/Hono là lịch sử ở các phần bị thay. INFRA #47/#48 và CM-01 #43 đã có QA ticket; #44 có bằng chứng tự kiểm nhưng chưa `QA_PASS` độc lập; #45 đã có code ở `4a4a1a4` nhưng chưa `DEV_REVIEWED`/`QA_PASS` và còn `HARD` #44 → #45. Đọc [Story](.scratch/capmoney-manager-setup/story.md), [handoff](.scratch/capmoney-manager-setup/handoff.md) và Planio trước khi đổi gate. Không dùng QA Node/Hono cũ hoặc test Dev của #45 để tự cấp nghiệm thu.
 
 ## Quyền thao tác Ninh xác nhận ngày 14/10/2026
 
@@ -36,6 +36,6 @@ Từ Story #07 áp dụng [workflow CapMM end to end](docs/workflows/capmm-end-t
 - Với từng ticket đã đủ rõ: Tech chọn hợp đồng và điểm kiểm thử; PM review; Dev triển khai theo `implement`/`tdd` khi phù hợp; PM kiểm tra phạm vi; QA kiểm tra hành vi và báo kết quả.
 - `implement-spec` chỉ dùng khi có spec/tickets đã được chia và môi trường cho phép phối hợp agent. `code-review` là điểm kết thúc trước khi tích hợp.
 
-Chỉ gọi phần mềm đã chạy khi web được kiểm chứng trên iPhone và Android; kiểm chứng API nếu API thuộc phạm vi được Ninh xác nhận. Ninh chọn ảnh CapMoney chỉ để tham khảo giao diện; không đặt tiêu chí giống từng pixel cho dự án mới.
+Ninh đã chọn Chromium/WebKit giả lập đủ để kiểm QA từng ticket CM-01; iPhone và Android vật lý thuộc nghiệm thu cuối Story theo CM01-Q4. Chỉ gọi phần mềm hoặc gate đã được xác nhận khi có bằng chứng đúng phạm vi; kiểm chứng API nếu API thuộc phạm vi được Ninh xác nhận. Ảnh CapMoney chỉ để tham khảo giao diện, không đặt tiêu chí giống từng pixel cho dự án mới.
 
 Chi tiết trách nhiệm và 11 bước của Ninh ở `docs/agents/workflow.md`.

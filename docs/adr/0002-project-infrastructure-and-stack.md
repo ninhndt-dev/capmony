@@ -1,5 +1,7 @@
 # ADR 0002: Tech stack và hạ tầng toàn CapMoney
 
+**Ghi chú hiện hành 16/10/2026:** [ADR 0003](0003-java-spring-and-deployment.md) và [tổng quan code](../project-overview.md) mô tả nền Java hiện có. Các câu “cần ADR/gate trước khi code Java” trong bản ADR Node/Hono dưới đây là lịch sử tại lúc đổi stack; không dùng làm trạng thái công việc hiện tại.
+
 **Status: bị thay một phần ngày 14/10/2026; chỉ giữ làm lịch sử kiến trúc Node/Hono.** ADR từng được Tech độc lập `/root/infra_tech_review`, PM `/root/cm01_pm_ba` rà và Ninh trả lời “continue” theo TS09. Sau đó Ninh chọn [TS10–TS38](../requirements/tech-stack-round-2.md): BE Java Spring, Tailwind, JWT/Redis và cài trực tiếp trên VPS. Các phần API, dữ liệu truy cập, auth/email, FE styling, production và test bên dưới **không còn là hợp đồng triển khai**. Docker Node/Hono #47 đã có commit `493f3d4` nhưng QA IF-T03 fail rồi dừng vì đổi stack; không có `QA_PASS`. Cần ADR thay thế, Tech/PM review và gate mới trước khi code Java hoặc tiếp tục #43.
 
 ## Quyết định lịch sử tại TS09 (đọc cùng thông báo thay đổi ở trên)
