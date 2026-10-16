@@ -15,9 +15,10 @@
 | --- | --- |
 | Docker build API Java 25 và web Node 24/TypeScript/Vite | PASS trên source cuối. API image `sha256:7660af2b9dafe31033645698df8a0ad8dd3b7d79a67b616fee6602f0a75cf5a8`; web image `sha256:51e508654006883a940a8f9ab59ff775523b37d27c0876ad65266414eeea0a66`. |
 | `ManagerLinkRenewalIntegrationTest` trên PostgreSQL/Redis Testcontainers riêng | PASS trên API image cuối (`capmoney-cm02-verification-20261016-newdaemon`, exit 0). Bao gồm migration, link còn hạn/hết hạn, CSRF HTTP, mail từ chối/timeout, proof thử lại, cooldown, hai request đồng thời, link mới hoàn tất một manager, link cũ/luồng sau hoàn tất bị từ chối. |
+| `ManagerLinkMailpitIntegrationTest` trên HTTP/PostgreSQL/Redis/SMTP Mailpit thật | PASS ngày 16/10/2026 trên image `sha256:578074d92e78ff413eafc06a81e4495a38d161f42a9e394659d478100db1c473` (`capmoney-cm02-mailpit-20261016`, exit 0). Dùng DB/Redis/Mailpit mới và giữ lại để kiểm tra. Link hết 72 giờ trả trạng thái expired; renew gửi đúng một email cho địa chỉ cố định; token trong Mailpit khớp digest DB; link cũ bị từ chối, link mới tạo đúng một manager; xin lại sau hoàn tất bị từ chối. Cờ CLI bootstrap tắt trong lượt này. |
 | Browser mock API: Chromium 393×851, WebKit 390×844 | PASS theo [script](browser-regression.cjs): form link còn hạn, xin lại link hết hạn, kết quả gửi chưa rõ không tự retry, URL fragment được xóa, đường dẫn trực tiếp không có token không hiện nút gửi. |
 | Hồi quy `SetupHttpIntegrationTest` + `ManagerLinkRenewalIntegrationTest` trong lượt gộp | PASS cho hai class; `BootstrapIntegrationTest` cùng lượt lỗi hạ tầng khi hai CLI JVM không kết nối được PostgreSQL trong timeout 1 giây. Chạy riêng `BootstrapIntegrationTest` sau đó **PASS**. Không gộp hai lượt thành một full suite xanh. |
 
 ## Còn cần kiểm chứng
 
-Thiết bị iPhone/Android thật, SMTP/Mailpit thật cho CM-02, hai JVM renew độc lập, lỗi Redis/DB theo thời điểm gửi, và QA độc lập trên build pin chưa chạy. CM-01 #44/#45 vẫn có gate riêng; kết quả này không đóng CM-01 hoặc CM-02 trên Planio.
+Thiết bị iPhone/Android thật, hai JVM renew độc lập, lỗi Redis/DB theo thời điểm gửi, và QA độc lập trên build pin chưa chạy. CM-01 #44/#45 vẫn có gate riêng; kết quả này không đóng CM-01 hoặc CM-02 trên Planio.
