@@ -1,0 +1,11 @@
+{
+  "browser": "Google Chrome headless Chromium",
+  "viewport": "393x851",
+  "serverStatus": 204,
+  "browserSawPostResponse": false,
+  "interceptedPosts": 1,
+  "unknownMessage": true,
+  "passwordFieldsAfterUnknown": 0,
+  "passwordFieldsAfterReload": 0,
+  "automaticRetry": false
+}

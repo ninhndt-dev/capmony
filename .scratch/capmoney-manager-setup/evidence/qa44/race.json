@@ -1,0 +1,19 @@
+{
+  "race": {
+    "api1": {
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    "api2": {
+      "status": 204,
+      "code": null,
+      "retryAfter": null
+    }
+  },
+  "replay": {
+    "status": 409,
+    "code": "SETUP_LINK_UNAVAILABLE",
+    "retryAfter": null
+  }
+}

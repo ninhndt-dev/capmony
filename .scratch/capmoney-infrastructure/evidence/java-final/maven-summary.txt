@@ -1,0 +1,6 @@
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.176 s -- in com.capmoney.api.HealthControllerTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 37.01 s -- in com.capmoney.api.ContainerDependenciesTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 1
+[INFO] BUILD SUCCESS
+[INFO] Total time:  41.343 s
+[INFO] Finished at: 2026-10-15T00:01:23+07:00

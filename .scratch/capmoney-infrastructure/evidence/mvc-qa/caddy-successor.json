@@ -1,0 +1,8 @@
+{
+  "old_container": "capmoney-mvc-qa-probe-caddy-1",
+  "old_ip": "172.30.62.3",
+  "new_container": "capmoney-mvc-qa-caddy-successor",
+  "new_ip": "172.30.62.4",
+  "status": 200,
+  "same_secret": true
+}

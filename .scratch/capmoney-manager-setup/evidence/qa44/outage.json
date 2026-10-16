@@ -1,0 +1,7 @@
+{
+  "setup": {
+    "status": 503,
+    "code": "DEPENDENCY_UNAVAILABLE",
+    "retryAfter": null
+  }
+}

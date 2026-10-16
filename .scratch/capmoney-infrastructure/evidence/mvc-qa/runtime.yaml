@@ -1,0 +1,24 @@
+services:
+  api:
+    image: capmoney-mvc-api:5a4a130
+  web:
+    image: capmoney-dev-web
+  mailcheck:
+    image: capmoney-mvc-tools:5a4a130
+networks:
+  web_net:
+    ipam:
+      config:
+        - subnet: 10.247.70.0/24
+  data_net:
+    ipam:
+      config:
+        - subnet: 10.247.71.0/24
+  rate_net:
+    ipam:
+      config:
+        - subnet: 10.247.72.0/24
+  mail_net:
+    ipam:
+      config:
+        - subnet: 10.247.73.0/24

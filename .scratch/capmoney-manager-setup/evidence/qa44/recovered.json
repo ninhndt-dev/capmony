@@ -1,0 +1,7 @@
+{
+  "setup": {
+    "status": 409,
+    "code": "SETUP_LINK_UNAVAILABLE",
+    "retryAfter": null
+  }
+}

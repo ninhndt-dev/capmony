@@ -1,0 +1,410 @@
+{
+  "containers": [
+    {
+      "name": "/capmoney-mvc-qa-caddy-1",
+      "image": "sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d",
+      "ports": {
+        "8080/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "18082"
+          }
+        ]
+      },
+      "networks": [
+        "capmoney-mvc-qa_api_net",
+        "capmoney-mvc-qa_web_net"
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-web-1",
+      "image": "sha256:c17ed197abcf11a37336b04a570fa56c4ea38112ef6ad176bee421c65e384977",
+      "ports": {},
+      "networks": [
+        "capmoney-mvc-qa_web_net"
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-api-1",
+      "image": "sha256:1bc05a0431e1c054c40c176854f800850fb5f778356bc1b81ce9292955ffc445",
+      "ports": {},
+      "networks": [
+        "capmoney-mvc-qa_api_net",
+        "capmoney-mvc-qa_data_net",
+        "capmoney-mvc-qa_mail_net",
+        "capmoney-mvc-qa_rate_net"
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-postgres-1",
+      "image": "sha256:6b591f995765a189e69276dd55e0b362342d65d10d0359bb1fab67bc3391f20f",
+      "ports": {},
+      "networks": [
+        "capmoney-mvc-qa_data_net"
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-redis-1",
+      "image": "sha256:3b73847e72874be07e6657b129a94761662b79bc0f679273757d4218573b2a98",
+      "ports": {},
+      "networks": [
+        "capmoney-mvc-qa_rate_net"
+      ]
+    },
+    {
+      "name": "/capmoney-mvc-qa-mailpit-1",
+      "image": "sha256:df6c2541907e1be6fac21f509927cf6ed771617a1f4b361ef66d97bd05593d2d",
+      "ports": {},
+      "networks": [
+        "capmoney-mvc-qa_mail_net"
+      ]
+    }
+  ],
+  "networks": [
+    {
+      "Name": "capmoney-mvc-qa_web_net",
+      "Id": "d4d38666f286140dbf10ee544634c0caef518aed15f989aaf317c6d662091b21",
+      "Created": "2026-10-15T00:40:40.768685483+07:00",
+      "Scope": "local",
+      "Driver": "bridge",
+      "EnableIPv4": true,
+      "EnableIPv6": false,
+      "IPAM": {
+        "Driver": "default",
+        "Options": null,
+        "Config": [
+          {
+            "Subnet": "10.247.70.0/24",
+            "Gateway": "10.247.70.1"
+          }
+        ]
+      },
+      "Internal": false,
+      "Attachable": false,
+      "Ingress": false,
+      "ConfigFrom": {
+        "Network": ""
+      },
+      "ConfigOnly": false,
+      "Options": {},
+      "Labels": {
+        "com.docker.compose.config-hash": "ef5b4a7dd0b6a5dbc75aac189687166588dbd93fa116eab8e7df6194fd37b047",
+        "com.docker.compose.network": "web_net",
+        "com.docker.compose.project": "capmoney-mvc-qa",
+        "com.docker.compose.version": "5.6.0"
+      },
+      "Containers": {
+        "078fbef389ca87a6345127645c651fdeb899aa8cf40d8f3692fde069574f89db": {
+          "Name": "capmoney-mvc-qa-caddy-1",
+          "EndpointID": "33ffb7ee602978d7be944b34b06e067ca930491b373d7d9222bbbda528470590",
+          "MacAddress": "fa:21:52:74:f6:12",
+          "IPv4Address": "10.247.70.3/24",
+          "IPv6Address": ""
+        },
+        "cb931550c31947891a13231ca73965fdf278a5d35cb45ddb823cdc273373cb22": {
+          "Name": "capmoney-mvc-qa-web-1",
+          "EndpointID": "1baeaa65e9719efee650fbde43e81d0bad4e6a8bb85319d7589384c836ef6a8b",
+          "MacAddress": "0e:a8:ed:cc:19:86",
+          "IPv4Address": "10.247.70.2/24",
+          "IPv6Address": ""
+        }
+      },
+      "Status": {
+        "IPAM": {
+          "Subnets": {
+            "10.247.70.0/24": {
+              "IPsInUse": 5,
+              "DynamicIPsAvailable": 251
+            }
+          }
+        }
+      }
+    },
+    {
+      "Name": "capmoney-mvc-qa_api_net",
+      "Id": "5e213a9f0c57927bfd9187cddff9e0a316f744e5af5720c48e3d6ca75f2d7b0a",
+      "Created": "2026-10-15T00:40:09.657999682+07:00",
+      "Scope": "local",
+      "Driver": "bridge",
+      "EnableIPv4": true,
+      "EnableIPv6": false,
+      "IPAM": {
+        "Driver": "default",
+        "Options": null,
+        "Config": [
+          {
+            "Subnet": "172.30.61.0/24",
+            "Gateway": "172.30.61.1"
+          }
+        ]
+      },
+      "Internal": false,
+      "Attachable": false,
+      "Ingress": false,
+      "ConfigFrom": {
+        "Network": ""
+      },
+      "ConfigOnly": false,
+      "Options": {},
+      "Labels": {
+        "com.docker.compose.config-hash": "362da04eae1a41538417dfb143b5547db3f0ad99cbd6a56d68954196a7a9cbe2",
+        "com.docker.compose.network": "api_net",
+        "com.docker.compose.project": "capmoney-mvc-qa",
+        "com.docker.compose.version": "5.6.0"
+      },
+      "Containers": {
+        "078fbef389ca87a6345127645c651fdeb899aa8cf40d8f3692fde069574f89db": {
+          "Name": "capmoney-mvc-qa-caddy-1",
+          "EndpointID": "02c6a061169a57a7e8328433cb742ed0d950896c508cc4fb83358c36a95be1a4",
+          "MacAddress": "fe:0f:b9:0f:b6:e7",
+          "IPv4Address": "172.30.61.3/24",
+          "IPv6Address": ""
+        },
+        "77ea7dcbe3725babf3cb98f35916bfa4d1aac731ad835d13bedcd7bef8cf8e2f": {
+          "Name": "capmoney-mvc-qa-api-1",
+          "EndpointID": "ce537891e1e8395e2fe1c7f36ae36c7ce51c61bcf8a3de824cd28b382c138dba",
+          "MacAddress": "06:2c:4c:d0:51:36",
+          "IPv4Address": "172.30.61.2/24",
+          "IPv6Address": ""
+        },
+        "8cd939d9e6cbddd74c32a071340162cd23be9e9a4401501aa24f4f2152e389cb": {
+          "Name": "capmoney-mvc-qa-api-initial",
+          "EndpointID": "adbaa1a973cf470f488a798aaae3b35f9178ffc58912b108047a024f3dac7f04",
+          "MacAddress": "3e:a1:74:fe:f7:c8",
+          "IPv4Address": "172.30.61.4/24",
+          "IPv6Address": ""
+        }
+      },
+      "Status": {
+        "IPAM": {
+          "Subnets": {
+            "172.30.61.0/24": {
+              "IPsInUse": 6,
+              "DynamicIPsAvailable": 250
+            }
+          }
+        }
+      }
+    },
+    {
+      "Name": "capmoney-mvc-qa_data_net",
+      "Id": "8d1faff479f21d8c4fa4b1459671931fef9f135d2a78726080cce07e50099792",
+      "Created": "2026-10-15T00:40:40.765266959+07:00",
+      "Scope": "local",
+      "Driver": "bridge",
+      "EnableIPv4": true,
+      "EnableIPv6": false,
+      "IPAM": {
+        "Driver": "default",
+        "Options": null,
+        "Config": [
+          {
+            "Subnet": "10.247.71.0/24",
+            "Gateway": "10.247.71.1"
+          }
+        ]
+      },
+      "Internal": true,
+      "Attachable": false,
+      "Ingress": false,
+      "ConfigFrom": {
+        "Network": ""
+      },
+      "ConfigOnly": false,
+      "Options": {},
+      "Labels": {
+        "com.docker.compose.config-hash": "61942cba02984c37cfea2370f324c60c9e7668dcb2d052ad1c191ac3929bda94",
+        "com.docker.compose.network": "data_net",
+        "com.docker.compose.project": "capmoney-mvc-qa",
+        "com.docker.compose.version": "5.6.0"
+      },
+      "Containers": {
+        "77ea7dcbe3725babf3cb98f35916bfa4d1aac731ad835d13bedcd7bef8cf8e2f": {
+          "Name": "capmoney-mvc-qa-api-1",
+          "EndpointID": "22b8e12add8140853cf0f09d27bd3c8c4e493b3891c9c574d89fa3813b315979",
+          "MacAddress": "2a:37:6e:89:f7:e7",
+          "IPv4Address": "10.247.71.5/24",
+          "IPv6Address": ""
+        },
+        "8cd939d9e6cbddd74c32a071340162cd23be9e9a4401501aa24f4f2152e389cb": {
+          "Name": "capmoney-mvc-qa-api-initial",
+          "EndpointID": "d0c074a79fbad502ddff2805a3b4557ec010f3b2e75b308bd2f2e3d322452077",
+          "MacAddress": "ba:a2:25:7d:bd:a8",
+          "IPv4Address": "10.247.71.2/24",
+          "IPv6Address": ""
+        },
+        "b878105d9c58ab78987f2bc11071715f7810dd0565bde644493d97c647c73e63": {
+          "Name": "capmoney-mvc-qa-postgres-1",
+          "EndpointID": "411eebe5d451481d6e9f25f57314f5d382db5ad2e12b98339d46081d7e1a7be7",
+          "MacAddress": "16:fc:18:3f:9f:fc",
+          "IPv4Address": "10.247.71.3/24",
+          "IPv6Address": ""
+        },
+        "c5d6fbfde997ba4305087c46532a8c06bf23d91541bd89aaa6382f67aed6035c": {
+          "Name": "capmoney-mvc-qa-pg-fresh",
+          "EndpointID": "82d3780cf479192eed18bdfb7676c140f18af403ce29c577f30a258fc17d2e65",
+          "MacAddress": "72:94:36:d6:5e:b9",
+          "IPv4Address": "10.247.71.4/24",
+          "IPv6Address": ""
+        }
+      },
+      "Status": {
+        "IPAM": {
+          "Subnets": {
+            "10.247.71.0/24": {
+              "IPsInUse": 7,
+              "DynamicIPsAvailable": 249
+            }
+          }
+        }
+      }
+    },
+    {
+      "Name": "capmoney-mvc-qa_rate_net",
+      "Id": "250cd7da60b910af5aa938afed63612f91768bb882cb6dd904be1967bb14f87f",
+      "Created": "2026-10-15T00:40:40.768392184+07:00",
+      "Scope": "local",
+      "Driver": "bridge",
+      "EnableIPv4": true,
+      "EnableIPv6": false,
+      "IPAM": {
+        "Driver": "default",
+        "Options": null,
+        "Config": [
+          {
+            "Subnet": "10.247.72.0/24",
+            "Gateway": "10.247.72.1"
+          }
+        ]
+      },
+      "Internal": true,
+      "Attachable": false,
+      "Ingress": false,
+      "ConfigFrom": {
+        "Network": ""
+      },
+      "ConfigOnly": false,
+      "Options": {},
+      "Labels": {
+        "com.docker.compose.config-hash": "c07efebb30bd186f710b58dcf0977d754a3bf8a0317727fae89c938580709ae5",
+        "com.docker.compose.network": "rate_net",
+        "com.docker.compose.project": "capmoney-mvc-qa",
+        "com.docker.compose.version": "5.6.0"
+      },
+      "Containers": {
+        "320a7a894584058a6d2fad25402d67aaf17e7887263fc2a1ca1d06bae712e84c": {
+          "Name": "capmoney-mvc-qa-redis-1",
+          "EndpointID": "c78b4b85751f7c7e20009cccaada8745a12219ad531a371033f9064888c7aea1",
+          "MacAddress": "16:38:53:a0:ce:5e",
+          "IPv4Address": "10.247.72.2/24",
+          "IPv6Address": ""
+        },
+        "77ea7dcbe3725babf3cb98f35916bfa4d1aac731ad835d13bedcd7bef8cf8e2f": {
+          "Name": "capmoney-mvc-qa-api-1",
+          "EndpointID": "495086c16da5c8fc7b92bfd45a8dcf0cf5ac9fd5fb7254d07870c3629dd48f88",
+          "MacAddress": "22:71:34:f0:f9:59",
+          "IPv4Address": "10.247.72.3/24",
+          "IPv6Address": ""
+        },
+        "8cd939d9e6cbddd74c32a071340162cd23be9e9a4401501aa24f4f2152e389cb": {
+          "Name": "capmoney-mvc-qa-api-initial",
+          "EndpointID": "9ad7510aa0160421e1f816d0761f1cef4370ef3b3cecd50b8b8a28b37eba4bf5",
+          "MacAddress": "56:86:3b:62:de:ff",
+          "IPv4Address": "10.247.72.4/24",
+          "IPv6Address": ""
+        }
+      },
+      "Status": {
+        "IPAM": {
+          "Subnets": {
+            "10.247.72.0/24": {
+              "IPsInUse": 6,
+              "DynamicIPsAvailable": 250
+            }
+          }
+        }
+      }
+    },
+    {
+      "Name": "capmoney-mvc-qa_mail_net",
+      "Id": "b1f0261f6179d91134bb953bbcad8846dbe42777992b0e95986ee060c5fc8384",
+      "Created": "2026-10-15T00:40:40.76856302+07:00",
+      "Scope": "local",
+      "Driver": "bridge",
+      "EnableIPv4": true,
+      "EnableIPv6": false,
+      "IPAM": {
+        "Driver": "default",
+        "Options": null,
+        "Config": [
+          {
+            "Subnet": "10.247.73.0/24",
+            "Gateway": "10.247.73.1"
+          }
+        ]
+      },
+      "Internal": true,
+      "Attachable": false,
+      "Ingress": false,
+      "ConfigFrom": {
+        "Network": ""
+      },
+      "ConfigOnly": false,
+      "Options": {},
+      "Labels": {
+        "com.docker.compose.config-hash": "ea5508b06fa17c2de8c64df9e041dcfef7a096ca22d2ac21c9a3da292c1b45b3",
+        "com.docker.compose.network": "mail_net",
+        "com.docker.compose.project": "capmoney-mvc-qa",
+        "com.docker.compose.version": "5.6.0"
+      },
+      "Containers": {
+        "77ea7dcbe3725babf3cb98f35916bfa4d1aac731ad835d13bedcd7bef8cf8e2f": {
+          "Name": "capmoney-mvc-qa-api-1",
+          "EndpointID": "e2b7fdb2c67c7a26c583d505ae367c76e310f02a687a5531822f42dfafea7820",
+          "MacAddress": "12:0f:4e:2b:47:30",
+          "IPv4Address": "10.247.73.3/24",
+          "IPv6Address": ""
+        },
+        "8cd939d9e6cbddd74c32a071340162cd23be9e9a4401501aa24f4f2152e389cb": {
+          "Name": "capmoney-mvc-qa-api-initial",
+          "EndpointID": "687a2e25a3f8bde125a08c8483c061ceed536b8b702825192b048dc0760b26d5",
+          "MacAddress": "e6:d9:2c:dd:1a:0e",
+          "IPv4Address": "10.247.73.4/24",
+          "IPv6Address": ""
+        },
+        "9a4b290b5dffd9dff54c95bc6c4ac21de4b6ee08179aa82f6a726bfbd8c2c482": {
+          "Name": "capmoney-mvc-qa-mailpit-1",
+          "EndpointID": "e0d7c75ef144041b0b5395702c51a6560bb3a9976df1cf28d6cfbe4d0131ef2d",
+          "MacAddress": "e6:ba:73:d7:cc:f9",
+          "IPv4Address": "10.247.73.2/24",
+          "IPv6Address": ""
+        }
+      },
+      "Status": {
+        "IPAM": {
+          "Subnets": {
+            "10.247.73.0/24": {
+              "IPsInUse": 6,
+              "DynamicIPsAvailable": 250
+            }
+          }
+        }
+      }
+    }
+  ],
+  "runtime_test_classes_absent": true,
+  "secret_values_absent_container_config_and_logs": true,
+  "caddy_adapt_exit": 0,
+  "secret_files": [
+    {
+      "name": "pg-password",
+      "bytes": 64,
+      "mode": "0o600"
+    },
+    {
+      "name": "edge-auth",
+      "bytes": 64,
+      "mode": "0o600"
+    }
+  ]
+}

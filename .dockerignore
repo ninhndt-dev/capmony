@@ -1,0 +1,13 @@
+.git
+.scratch
+.agents
+docs
+.local
+node_modules
+**/node_modules
+**/dist
+**/target
+*.zip
+.env
+.env.*
+!*.env.example

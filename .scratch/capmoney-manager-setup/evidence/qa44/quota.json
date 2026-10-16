@@ -1,0 +1,75 @@
+{
+  "attempts": [
+    {
+      "jvm": 1,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 2,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 1,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 2,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 1,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 2,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 1,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 2,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 1,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 2,
+      "status": 409,
+      "code": "SETUP_LINK_UNAVAILABLE",
+      "retryAfter": null
+    },
+    {
+      "jvm": 1,
+      "status": 429,
+      "code": "RATE_LIMITED",
+      "retryAfter": "898"
+    }
+  ],
+  "afterLimit": {
+    "status": 429,
+    "code": "RATE_LIMITED",
+    "retryAfter": "898"
+  }
+}

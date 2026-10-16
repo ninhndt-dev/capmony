@@ -1,0 +1,11 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+      target: probe
+  peercheck:
+    image: curlimages/curl:8.16.0
+    profiles: ["tools"]
+    networks:
+      - api_net

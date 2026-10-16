@@ -1,0 +1,10 @@
+{
+  "restart_marker": true,
+  "successor_same_volume_marker": true,
+  "fresh_volume_marker_absent": true,
+  "old_and_dev_markers_unchanged": true,
+  "old_volume": "capmoney-java-qa-v2_pg_data",
+  "successor": "capmoney-java-qa-v2-pg-successor",
+  "fresh": "capmoney-java-qa-v2-pg-fresh",
+  "deletions": "none"
+}

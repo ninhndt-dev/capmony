@@ -1,0 +1,88 @@
+[
+  {
+    "name": "android-viewport",
+    "emulationOnly": true,
+    "physicalDevice": false,
+    "url": "http://127.0.0.1:18083/manager/setup",
+    "passwordFields": 2,
+    "tokenAbsentNetwork": true,
+    "reloadText": "CapMoney\n\nThiết lập tài khoản quản lý\n\nHãy mở lại liên kết trong email thiết lập. Trang này không giữ liên kết sau khi tải lại.",
+    "requests": [
+      {
+        "url": "http://127.0.0.1:18083/manager/setup",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "http://127.0.0.1:18083/assets/index-DQ_OwWNg.js",
+        "method": "GET",
+        "body": null,
+        "referer": ""
+      },
+      {
+        "url": "http://127.0.0.1:18083/assets/index-DCU8weNR.css",
+        "method": "GET",
+        "body": null,
+        "referer": ""
+      },
+      {
+        "url": "http://127.0.0.1:18083/manager/setup",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "http://127.0.0.1:18083/assets/index-DQ_OwWNg.js",
+        "method": "GET",
+        "body": null,
+        "referer": ""
+      },
+      {
+        "url": "http://127.0.0.1:18083/assets/index-DCU8weNR.css",
+        "method": "GET",
+        "body": null,
+        "referer": ""
+      }
+    ]
+  },
+  {
+    "name": "iphone-viewport",
+    "emulationOnly": true,
+    "physicalDevice": false,
+    "url": "http://127.0.0.1:18083/manager/setup",
+    "passwordFields": 2,
+    "tokenAbsentNetwork": true,
+    "reloadText": "CapMoney\nThiết lập tài khoản quản lý\nHãy mở lại liên kết trong email thiết lập. Trang này không giữ liên kết sau khi tải lại.",
+    "requests": [
+      {
+        "url": "http://127.0.0.1:18083/manager/setup",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "http://127.0.0.1:18083/assets/index-DQ_OwWNg.js",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "http://127.0.0.1:18083/assets/index-DCU8weNR.css",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "http://127.0.0.1:18083/manager/setup",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "http://127.0.0.1:18083/assets/index-DQ_OwWNg.js",
+        "method": "GET",
+        "body": null
+      },
+      {
+        "url": "http://127.0.0.1:18083/assets/index-DCU8weNR.css",
+        "method": "GET",
+        "body": null
+      }
+    ]
+  }
+]

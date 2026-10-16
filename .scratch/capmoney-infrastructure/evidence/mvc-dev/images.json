@@ -1,0 +1,29 @@
+{
+  "source_commit": "5a4a130b9b207ee8478fb4e958acfbe541e3d958",
+  "builds": [
+    {
+      "target": "runtime",
+      "tag": "capmoney-mvc-api:5a4a130",
+      "image": "sha256:1bc05a0431e1c054c40c176854f800850fb5f778356bc1b81ce9292955ffc445",
+      "exit_code": 0,
+      "log": ".local/mvc-runtime-build.log",
+      "intermediate_containers_preserved": true
+    },
+    {
+      "target": "probe",
+      "tag": "capmoney-mvc-probe:5a4a130",
+      "image": "sha256:14d7e4e9230b7965b3764923d398895e9acda72c304f660b9fe4b48d4a5a2405",
+      "exit_code": 0,
+      "log": ".local/mvc-probe-build.log",
+      "intermediate_containers_preserved": true
+    },
+    {
+      "target": "build",
+      "tag": "capmoney-mvc-tools:5a4a130",
+      "image": "sha256:f23c78cff8c33c0eb207be63f44e72c9e969b201996a10cff3fa957840f4ac3a",
+      "exit_code": 0,
+      "log": ".local/mvc-build-build.log",
+      "intermediate_containers_preserved": true
+    }
+  ]
+}

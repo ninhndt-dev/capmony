@@ -1,59 +1,148 @@
-# Đặc tả chi tiết bước 9: thiết lập và đăng nhập tài khoản quản lý
+# Feature Spec: CM-01 – Thiết lập và đăng nhập tài khoản quản lý
 
-**Ticket:** [01 – Thiết lập và đăng nhập quản lý](../capmoney-overall/issues/01-thiet-lap-quan-ly.md)
-**Status:** needs-triage
-**Trạng thái rà soát:** BA → PM → Tech → PM đã rà soát, không còn lỗi chặn về hành vi/tiêu chí. Tech còn chọn hạ tầng email và cách lưu trạng thái/phiên; PM rà các quyết định đó trước khi giao Dev. Ticket vẫn `needs-triage`.
+**Rebaseline BA/PM 14/10/2026:** Quy tắc nghiệp vụ F11/F23–F24 và AC về một tài khoản quản lý vẫn là đầu vào; Ninh đã chọn Java Spring, JWT cookie, access 15 phút, refresh 7 ngày, thu hồi ngay qua DB và Redis cho giới hạn thử đăng nhập ở [TS10–TS38](../../docs/requirements/tech-stack-round-2.md). PM độc lập đã rà AC1–AC7 sau CM01-Q2/B và CM01-Q3/A; `BA_READY` đạt cho bản Java/JWT này. Thiết kế JWT/Redis và hiệu lực của `TECH_READY` phải được Tech độc lập/PM review lại; chưa có `READY_FOR_IMPLEMENTATION` cho Java.
 
-## Problem Statement
+**Story:** [story.md](story.md) · **Planio:** [issue 8](https://tanninh.planio.com/issues/8)
+**BA gate lịch sử:** `BA_READY` cho AC1–AC6 trước TS10–TS38 chỉ là lịch sử. Gate mới cho AC1–AC7 có review độc lập tại [handoff](handoff.md).
 
-Ninh cần một tài khoản quản lý riêng để sau này mời người dùng và hỗ trợ lấy lại tài khoản. Lần đầu hệ thống mở chưa có tài khoản quản lý, nên Ninh phải tự thiết lập quyền quản lý từ email đã cung cấp trước đó mà người ngoài không thể tự đăng ký hoặc tạo thêm tài khoản quản lý.
+## 1. Executive Summary / User Story statement
 
-## Solution
+Ninh cần tài khoản quản lý lời mời riêng để về sau mời người dùng. CM-01 cho phép Ninh nhận liên kết thiết lập gửi tới email quản lý đã cung cấp trước khi mở hệ thống, xác minh quyền dùng email bằng liên kết, đặt mật khẩu, đăng nhập và mở khu vực quản lý. Chỉ có một tài khoản quản lý, không có tự đăng ký. [F11, F23, Story #01]
 
-Người triển khai khởi tạo hệ thống với email quản lý Ninh đã cung cấp. Hệ thống gửi liên kết thiết lập một lần chỉ tới email này; liên kết hết hạn sau 3 ngày. Ninh mở liên kết còn hạn, xác minh quyền dùng email, tự đặt mật khẩu rồi đăng nhập tài khoản quản lý riêng. Thiết lập thành công chỉ tạo một tài khoản quản lý và liên kết cũ không thể dùng lại.
+## 2. Actor & Permission Matrix
 
-## User Stories
+| Actor | Thiết lập | Đăng nhập và xem khu vực quản lý | Căn cứ |
+| --- | --- | --- | --- |
+| Ninh, chủ email quản lý đã cấu hình | Dùng liên kết còn hạn, chưa dùng; đặt mật khẩu một lần | Có sau thiết lập, bằng phiên quản lý hợp lệ | F11, F23; quyền bước 3 |
+| Người ngoài hoặc email khác | Không thể yêu cầu đổi email đích, tự đăng ký hoặc dùng liên kết sai/hết hạn | Không được truy cập trực tiếp | R13; Story #01 |
+| Tài khoản ghi chép cá nhân | Không cấp quyền quản lý | Không được truy cập khu vực quản lý | R12; quyền bước 3; kiểm tích hợp sâu khi #04 có tài khoản ghi chép |
 
-1. Là Ninh, tôi muốn liên kết thiết lập gửi tới email quản lý tôi đã cung cấp để chỉ tôi bắt đầu tạo tài khoản quản lý.
-2. Là Ninh, tôi muốn mở liên kết còn hạn, xác minh email và tự đặt mật khẩu để truy cập bằng tài khoản riêng.
-3. Là Ninh, tôi muốn đăng nhập bằng email quản lý và mật khẩu vừa đặt để sử dụng quyền quản lý đã được cấp.
-4. Là người không có quyền quản lý, tôi muốn không thể tự đăng ký hoặc dùng email khác để tạo tài khoản quản lý để quyền cấp tài khoản chỉ thuộc Ninh.
-5. Là Ninh, tôi muốn liên kết đã hoàn tất hoặc quá hạn không thể tạo thêm tài khoản quản lý để quyền quản lý chỉ có một chủ.
-6. Là Ninh, tôi muốn sau đăng nhập thấy khu vực tài khoản quản lý của mình để biết quyền quản lý đã được thiết lập, ngay cả trước khi có chức năng mời người dùng.
+Email quản lý và tài khoản ghi chép cá nhân của Ninh là hai tài khoản dùng hai email khác nhau. [quyền bước 3]
 
-## Implementation Decisions
+## 3. Screen Definition & Entry Points
 
-- Luồng này chỉ áp dụng khi chưa hoàn tất thiết lập tài khoản quản lý đầu tiên; email đích là email Ninh cung cấp cho người triển khai trước khi mở hệ thống. Không có ô nhập email khác để tự chọn người quản lý. [F11]
-- Liên kết thiết lập gửi qua email, chỉ có thể hoàn tất một lần và hết hạn sau 3 ngày kể từ lúc gửi. Mở liên kết hợp lệ chứng minh quyền dùng đúng email đích; Ninh tự đặt mật khẩu trước khi đăng nhập. [F11, F23]
-- Tài khoản quản lý tách khỏi tài khoản ghi chép cá nhân của Ninh. Chức năng mời người dùng và hỗ trợ mất email là các ticket sau; #01 chỉ cần thiết lập và đăng nhập tài khoản quản lý. Không có quản lý dự phòng hoặc tự đăng ký. [bước 3, R13]
-- Sau đăng nhập, Ninh có khu vực tài khoản quản lý tối thiểu hiển thị tài khoản đang đăng nhập. Khu vực này chỉ phiên quản lý hợp lệ xem được, kể cả khi tải lại; đường dẫn trực tiếp khi chưa đăng nhập bị từ chối. Không cần thao tác mời người dùng của #03 để chứng minh quyền ở #01.
-- Khu vực quản lý tối thiểu là cách nhóm đề xuất để trình diễn quyền ở #01, chưa phải bố cục màn hình Ninh đã xác nhận riêng.
-- Việc hoàn tất thiết lập phải là một lần duy nhất ngay cả khi Ninh bấm xác nhận lặp hoặc có hai lần hoàn tất gần đồng thời: nhiều nhất một lần thành công và chỉ có một tài khoản quản lý.
-- Nếu liên kết quá hạn trước khi thiết lập xong, không hoàn tất bằng liên kết cũ; xin liên kết mới thuộc ticket #02. Đặt lại mật khẩu quản lý thuộc #22, đổi email quản lý thuộc #23. [F24, R57–R58, R61]
-- Email quản lý đã khai được cấu hình trước khi gửi liên kết; không thể tự thay bằng email nhập trên web. Các ràng buộc kỹ thuật tối thiểu do Tech đề xuất nằm ngay dưới đây; không lấy code iOS/API cũ làm nền.
+- **Ninh đã xác nhận hành vi:** liên kết đến qua email, Ninh mở để xác minh và đặt mật khẩu, sau đó đăng nhập. [F11, F23]
+- **BA đề xuất giao diện tối thiểu:** trang từ liên kết có ô mật khẩu và xác nhận mật khẩu; trang đăng nhập có email và mật khẩu; khu vực quản lý hiển thị email tài khoản đang đăng nhập. Bố cục, nhãn và hình ảnh chưa được Ninh duyệt riêng.
+- Không có form nhập email để tạo quản lý hay nút đăng ký công khai. Trang/khu vực quản lý phải chặn truy cập bằng URL trực tiếp khi chưa có phiên hợp lệ.
 
-### Hợp đồng kỹ thuật tối thiểu Tech đề xuất
+## 4. Main Flows (Happy Path)
 
-- Người triển khai nạp email quản lý qua cấu hình chỉ dành cho khởi tạo, cố định trước khi gửi liên kết. Web không nhận email quản lý mới; chỉ gửi liên kết thiết lập khi chưa có tài khoản quản lý.
-- Liên kết không đoán được, gắn với đúng mục đích thiết lập và email đã cấu hình; hết hạn sau 72 giờ từ lúc hệ thống ghi nhận gửi thành công. Hệ thống từ chối liên kết hết hạn hoặc đã dùng và không ghi liên kết vào log.
-- Mật khẩu không được lưu hoặc ghi log ở dạng đọc được. Chỉ cấp phiên sau xác thực; mỗi lần mở khu vực quản lý đều kiểm quyền ở phía hệ thống, kể cả truy cập đường dẫn trực tiếp. Phiên hợp lệ tiếp tục dùng được sau tải lại trang.
-- Việc kiểm liên kết, tạo đúng một tài khoản quản lý và vô hiệu hóa liên kết phải cho kết quả như một thao tác không thể hoàn tất dở. Nhấn xác nhận lặp hoặc hai yêu cầu gần đồng thời: tối đa một thành công; yêu cầu còn lại bị từ chối, không có tài khoản quản lý thứ hai.
-- Cách hiện thực cấu hình, lưu trạng thái, mật khẩu và phiên, cùng nhà cung cấp email/nơi triển khai sẽ do Tech chọn trước khi Dev nhận việc; phần này chưa chọn framework, schema hoặc API.
+1. Người triển khai cấu hình email quản lý riêng Ninh đã khai trong môi trường khởi tạo; hệ thống phát hành liên kết đầu tiên và gửi tới đúng email đó. Không cần Ninh nhập email đích trên web. [F11]
+2. Ninh mở liên kết còn hạn và chưa dùng. Hệ thống kiểm liên kết trước khi cho hoàn tất thiết lập. [F11, F23]
+3. Ninh nhập và xác nhận mật khẩu theo chính sách bảo mật được Tech duyệt; hệ thống tạo duy nhất một tài khoản quản lý đã xác minh email và tiêu thụ liên kết như một thao tác. [F11, F23]
+4. Ninh đăng nhập bằng email quản lý và mật khẩu vừa đặt. Phiên hợp lệ mở khu vực quản lý tối thiểu; tải lại trang vẫn mở được. [R22, Story #01]
 
-## Testing Decisions
+## 5. Alternative & Exceptional Flows
 
-- Kiểm tra tại luồng web từ email nhận được đến thiết lập, đăng nhập và quyền thực tế, rồi tải lại trang. Dùng môi trường khởi tạo riêng để thử liên kết hết hạn hoặc đã dùng, không xóa dữ liệu người dùng thật. [S05, F11, F23]
-- Trường hợp thành công: đúng email Ninh đã khai nhận liên kết; Ninh hoàn tất trước 3 ngày, đặt mật khẩu và đăng nhập được tài khoản quản lý duy nhất; sau tải lại khu vực tài khoản quản lý vẫn mở được bằng phiên hợp lệ.
-- Trường hợp từ chối: email khác không thể tự khởi tạo quản lý; liên kết đã hoàn tất hoặc hết hạn không tạo thêm quản lý; truy cập trực tiếp khu vực tài khoản quản lý khi chưa đăng nhập bị từ chối. Việc kiểm tra tài khoản ghi chép không có quyền quản lý thuộc ticket #04.
-- Cho hai lần hoàn tất cùng liên kết gần đồng thời hoặc bấm xác nhận lặp: tối đa một lần thành công, lần còn lại bị từ chối; kiểm tra cuối cùng chỉ có một tài khoản và một quyền quản lý. Kiểm tra hạn bằng hộp thư thử và đồng hồ điều khiển được ở mốc trước, đúng và sau 72 giờ, trong môi trường khởi tạo riêng; không chờ ba ngày thật hoặc đặt lại dữ liệu người dùng thật.
-- Điểm kiểm thử chính là hành vi web trên iPhone và Android và quyền đọc lại sau tải trang, đã được Ninh xác nhận ở bước 7. Bước này chưa chọn framework kiểm thử hay bộ test cụ thể.
+- Liên kết sai mục đích, không tồn tại, đã dùng hoặc hết hạn: không hoàn tất, không tạo quản lý. Liên kết hết hạn dẫn luồng xin lại thuộc #02; CM-01 chỉ báo không thể dùng liên kết cũ. [F23–F24]
+- Mật khẩu và xác nhận không khớp hoặc không đạt chính sách bảo mật Tech đã duyệt: chưa tạo quản lý, giữ khả năng sửa và thử lại khi liên kết còn hợp lệ. Chính sách cụ thể là quyết định an toàn kỹ thuật, không gán là quyết định sản phẩm của Ninh.
+- Hai lần hoàn tất cùng liên kết gần đồng thời hoặc bấm xác nhận lặp: tối đa một lần thành công, chỉ một quản lý tồn tại; lần còn lại được báo liên kết không còn dùng được. [Story #01]
+- Sai email/mật khẩu khi đăng nhập: không tạo phiên quản lý. Access JWT hết hạn nhưng refresh còn hiệu lực: tiếp tục đăng nhập theo TS32 sau khi hệ thống xác minh và cấp lại quyền truy cập. Refresh hết hạn, bị thu hồi hoặc không có: từ chối mọi đường xem dữ liệu quản lý và đưa về đăng nhập. Không coi JWT còn thời hạn là đủ quyền khi trạng thái DB đã thu hồi. [TS30–TS33]
+- Gửi email không được nhà cung cấp nhận: không báo đã gửi thành công; Tech phải có trạng thái an toàn để không phát sinh hai liên kết hợp lệ.
 
-## Out of Scope
+## 6. Field-level Specifications & Validations
 
-- Xin lại liên kết thiết lập hết hạn (#02), mời người dùng (#03), đặt lại mật khẩu quản lý (#22), đổi email quản lý (#23), tài khoản ghi chép cá nhân của Ninh và khôi phục quản lý khi Ninh mất email sau đăng xuất.
-- Chức năng mời người dùng và màn hình dữ liệu tài chính. Tech chọn nhà cung cấp email và nơi triển khai trước khi Dev nhận ticket #01.
+| Trường | Quy tắc | Nguồn / trạng thái |
+| --- | --- | --- |
+| Email quản lý | Cấu hình riêng bởi người triển khai; người dùng web không chọn/đổi trong CM-01 | **Ninh đã xác nhận** F11; email thật là đầu vào vận hành |
+| Liên kết thiết lập | Một lần, đúng email/mục đích, hết hạn 3 ngày từ lúc gửi | **Ninh đã xác nhận** F11/F23 về 3 ngày từ lúc gửi; cách xác định lúc gửi bằng phản hồi nhà cung cấp là **diễn giải Tech/BA**, xem mục 7 |
+| Mật khẩu mới | Ninh tự đặt; không lưu hoặc log dạng đọc được | **Ninh đã xác nhận** tự đặt; ngưỡng bảo mật cụ thể là **Tech đề xuất** |
+| Xác nhận mật khẩu | Khớp mật khẩu mới trước khi gửi | **BA đề xuất** để tránh gõ nhầm |
+| Email + mật khẩu đăng nhập | Phải khớp tài khoản quản lý đã thiết lập | **Ninh đã xác nhận** R22/F11 |
 
-## Further Notes
+## 7. System Parameters & Constants (`PARAM.*`)
 
-- Nguồn: [phiếu tiếp nhận](../../docs/requirements/00-intake.md), [vai trò và quyền](../../docs/requirements/actors-and-roles.md), [luồng F11/F23–F24](../../docs/requirements/user-flows.md), [danh mục H01](../../docs/requirements/system-functions.md), [đặc tả tổng thể](../capmoney-overall/spec.md) và ticket #01.
-- Mục này là bản tổng hợp cho module đầu tiên ở bước 9. Email quản lý thật của Ninh là đầu vào khi chuẩn bị mở hệ thống; Ninh chưa cần cung cấp ở bước đặc tả. Tech đã đề xuất ràng buộc tối thiểu; [phương án hạ tầng](technical-options.md) vẫn là đề xuất, cần kiểm chứng xác thực và chốt trước khi giao Dev. Chưa có code ứng dụng.
+- `PARAM.SETUP_LINK_TTL = 72 giờ` kể từ lúc nhà cung cấp nhận yêu cầu gửi và hệ thống ghi nhận đã gửi. Đây là cách Tech/BA đo mốc “kể từ lúc gửi” của F23; không đồng nhất với lúc email tới hộp thư người nhận.
+- `PARAM.MANAGER_ACCOUNT_LIMIT = 1`. [F11; quyền bước 3]
+- `PARAM.ACCESS_JWT_TTL = 15 phút`, `PARAM.REFRESH_JWT_TTL = 7 ngày`; JWT được giữ trong cookie `HttpOnly`/`Secure` và trạng thái DB cho phép thu hồi ngay. Đây là **Ninh đã xác nhận** TS30–TS33; thời hạn 7 ngày tính từ mốc nào khi refresh là chi tiết Tech cần đề xuất và PM rà tác động.
+- Nơi giữ bộ đếm giới hạn thử đăng nhập là Redis theo **Ninh đã xác nhận** TS34–TS35. Ninh đã chốt đăng xuất một điện thoại sẽ thu hồi mọi phiên quản lý theo CM01-Q2. Ngưỡng cụ thể, hành vi khi Redis lỗi và độ dài mật khẩu còn để Tech đề xuất, PM rà tác động sử dụng. Không dùng mặc định thư viện khi trái hành vi đã xác nhận.
+
+## 8. Business Rules (`BR-*`)
+
+- `BR-01-01`: chỉ email quản lý đã cấu hình được nhận liên kết đầu tiên; không có tự đăng ký. **Ví dụ:** người ngoài nhập email khác hoặc gọi trực tiếp đường đăng ký không thể tạo quản lý. [F11, R13]
+- `BR-01-02`: chỉ liên kết còn hạn, chưa dùng, đúng mục đích mới cho Ninh đặt mật khẩu để lập quản lý. **Ví dụ:** mở ở giờ 71:59 còn có thể hoàn tất; tại/qua mốc 72:00 thì không thể. [F23]
+- `BR-01-03`: một lần thiết lập chỉ tạo tối đa một quản lý. **Ví dụ:** hai yêu cầu hoàn tất cùng liên kết đến gần nhau chỉ một yêu cầu thành công; đọc dữ liệu cuối chỉ có một tài khoản quản lý. [Story #01]
+- `BR-01-04`: chỉ phiên quản lý hợp lệ xem khu vực quản lý, kể cả tải lại hoặc gõ URL trực tiếp. **Ví dụ:** sau đăng nhập tải lại vẫn thấy email quản lý; trình duyệt chưa đăng nhập không xem được. [Story #01]
+
+## 9. State Machine & Transition Rules (`STATE.*`)
+
+- Hành vi công khai: chưa có quản lý → liên kết được gửi → liên kết hợp lệ mở được biểu mẫu → hoàn tất thành công tạo đúng một quản lý và liên kết không dùng lại được.
+- Trước khi hoàn tất: liên kết hết hạn hoặc bị thay thế thì không còn dùng được. Thay liên kết hết hạn là #02, không phải CM-01. [F24]
+- Sau khi có quản lý: luồng thiết lập đầu tiên đóng vĩnh viễn; quản lý có thể đăng nhập, duy trì quyền truy cập khi access JWT còn hiệu lực hoặc refresh JWT còn dùng được trong hạn đã chọn. Đăng xuất trên một điện thoại thu hồi ngay mọi phiên quản lý trên các điện thoại qua trạng thái DB theo [CM01-Q2](qna.md). Nếu refresh token cũ xuất hiện lại sau khi đã dùng và không phân biệt được retry hợp lệ, thu hồi family của phiên liên quan và yêu cầu đăng nhập lại theo CM01-Q3; tình huống này có thể xảy ra do hai tab/mất phản hồi, không tự thu hồi mọi điện thoại như hành động đăng xuất. Đặt lại mật khẩu và yêu cầu thu hồi phiên của R57 thuộc Story #22, ngoài AC/QA của CM-01; CM-01 phải cung cấp cơ chế thu hồi để #22 sử dụng sau. Nếu sau này có luồng đổi mật khẩu, TS33 cũng đòi thu hồi ngay; luồng đó không nằm trong CM-01. Mô hình dữ liệu/trạng thái nội bộ do Tech thiết kế.
+
+## 10. Data Fallback & Offline Handling
+
+- CapMoney bản đầu yêu cầu Internet; không thiết lập tài khoản hay đăng nhập offline. [R11]
+- Bản mới bắt đầu dữ liệu trống, không nhập tài khoản/dữ liệu từ app cũ. [R03]
+- Khi gửi/hoàn tất chưa rõ kết quả, không báo thành công nếu chưa xác nhận; thử lại phải không tạo quản lý thứ hai. Tech thiết kế cách báo và đối chiếu, PM kiểm trải nghiệm.
+
+## 11. Error Messages & UI Registry (`ERR.*`)
+
+- `ERR.SETUP_LINK_INVALID`: liên kết không còn dùng được; không lộ email đích hoặc bí mật. Nếu hết hạn, hướng sang luồng #02 khi #02 có mặt.
+- `ERR.PASSWORD_INVALID`: cho sửa mật khẩu/xác nhận khi liên kết còn hợp lệ; điều kiện cụ thể theo chính sách Tech được PM duyệt.
+- `ERR.LOGIN_FAILED`: không cho biết email hay mật khẩu sai; không tạo phiên.
+- `ERR.ACCESS_DENIED`: khách chưa đăng nhập hoặc không có quyền quản lý không thấy nội dung khu vực quản lý.
+- Câu chữ/vị trí chính xác là đề xuất UX, chưa được Ninh duyệt riêng.
+
+## 12. Security & Privacy Constraints
+
+- Token liên kết phải khó đoán, đúng mục đích, không hiện trong log, không tái sử dụng; mật khẩu không lưu hoặc ghi log dạng đọc được. Quyền và phiên phải kiểm ở server trên mỗi đường truy cập, không chỉ ẩn UI. [F11, Story #01]
+- Không có public signup hoặc endpoint quản trị vượt phạm vi; không tự bật quyền xem danh sách người dùng, dữ liệu tài chính, khóa hay đóng vai tài khoản. [R12; quyền bước 3]
+- Secret email, mật khẩu cơ sở dữ liệu, khóa phiên và email quản lý thật chỉ ở môi trường server, không ở Git hoặc trình duyệt.
+
+## 13. Third-party Integrations
+
+- Ninh chọn Spring Mail/JavaMailSender qua SMTP, PostgreSQL cho dữ liệu, Redis riêng cho bộ đếm giới hạn thử đăng nhập và JWT cookie có trạng thái thu hồi trong DB. Nhà cung cấp SMTP thật chưa được chọn; Tech cần thiết kế/review hợp đồng tích hợp Java trước Dev. [TS10–TS38](../../docs/requirements/tech-stack-round-2.md)
+- Ninh đã chọn kiểm bằng hộp thư thử và dữ liệu thử trước; thử email thật khi có hạ tầng. [Q&A CM01-Q1](qna.md)
+
+## 14. Audit Log & History Requirements
+
+- Không có yêu cầu sản phẩm về lịch sử thao tác quản lý trong CM-01. Log vận hành nếu Tech cần chỉ ghi sự kiện an toàn, không ghi token, mật khẩu hay nội dung nhạy cảm.
+- Không áp dụng lịch sử giao dịch tài chính; CM-01 không tạo hoặc đọc dữ liệu ghi chép.
+
+## 15. NFR (Performance, Concurrency Bounds)
+
+- Bản đầu phục vụ khoảng 10 người, web ưu tiên điện thoại iPhone và Android; chưa có SLA hoặc ngưỡng thời gian phản hồi được Ninh chốt. [R05, R14]
+- Bắt buộc an toàn dưới xác nhận lặp và hai yêu cầu hoàn tất gần đồng thời; thử hạn bằng đồng hồ điều khiển được và dữ liệu khởi tạo riêng. [Story #01]
+- Không dùng dữ liệu thật để thử hủy/tạo lại quản lý; kiểm thử phải dùng môi trường cô lập.
+
+## 16. Acceptance Criteria (`AC1..ACn`)
+
+- `AC1`: chỉ email quản lý đã cấu hình nhận liên kết thiết lập đầu tiên; không có form hoặc API cho người ngoài tự chọn email/tạo quản lý. [F11]
+- `AC2`: liên kết đúng mục đích, chưa dùng, còn trong 72 giờ cho đặt mật khẩu; liên kết sai/đã dùng/hết hạn không tạo quản lý. [F11, F23]
+- `AC3`: Ninh đặt mật khẩu và đăng nhập được; quyền quản lý hợp lệ mở được khu vực quản lý tối thiểu sau tải lại. Đăng nhập sai không tạo quyền truy cập; khách, token hết hạn hoặc bị thu hồi truy cập URL trực tiếp đều bị chặn ở server. [R22, Story #01, TS30–TS33]
+- `AC4`: sau khi đã thiết lập, không thể thiết lập thêm quản lý qua liên kết cũ, email khác hoặc đường gọi trực tiếp; tài khoản quản lý không tự có quyền ngoài phạm vi. [R12/R13, Story #01]
+- `AC5`: bấm xác nhận lặp hoặc hai yêu cầu hoàn tất cùng liên kết gần đồng thời chỉ tối đa một thành công và cuối cùng đúng một tài khoản quản lý. [Story #01]
+- `AC6` (**điều kiện an toàn kỹ thuật, PM rà trải nghiệm**): nhà cung cấp từ chối yêu cầu gửi hoặc kết quả gửi chưa rõ thì hệ thống không báo đã gửi thành công; thử lại an toàn và không để hai liên kết thiết lập còn hiệu lực cùng lúc. Việc email thực sự tới hộp thư chỉ được xác nhận bằng kiểm hộp thư thử/thật, không suy từ phản hồi nhà cung cấp.
+- `AC7` (**Ninh đã xác nhận; PM đã rà khả năng kiểm chứng**): sau đăng nhập, access JWT được giữ trong cookie `HttpOnly`/`Secure` và hết hạn sau 15 phút; refresh JWT còn dùng được trong hạn 7 ngày cho phép tiếp tục truy cập sau khi cấp access mới. Đăng xuất trên một điện thoại thu hồi ngay **mọi token quản lý trên mọi điện thoại** qua trạng thái DB; yêu cầu bảo vệ tiếp theo ở các điện thoại khác bị từ chối và phải đăng nhập lại, kể cả khi JWT chưa hết hạn. Khi refresh token đã dùng xuất hiện lại mà không phân biệt được retry/replay, **chỉ family của phiên liên quan** bị thu hồi ngay và phải đăng nhập lại; hai tab/mất phản hồi có thể gây trường hợp này. [TS30–TS33, CM01-Q2, CM01-Q3]
+
+`BA_READY` đã được PM đối chiếu nguồn và 20 mục ở [handoff](handoff.md); `QA_PASS` vẫn cần case thực chạy trên build, không suy từ tài liệu hiện có.
+
+## 17. Figma Mapping / Visual References
+
+Không áp dụng Figma vì repo chưa có Figma được duyệt. Ảnh CapMoney cũ chỉ tham khảo giao diện, không chốt bố cục/pixel hay hành vi của CM-01. [R02]
+
+## 18. Dependencies (Cross-feature / Cross-story)
+
+- CM-01 không bị Story khác chặn. CM-02 phụ thuộc khả năng phát hành/tiêu thụ liên kết; CM-03 dùng phiên/quyền quản lý; CM-04 là tài khoản ghi chép riêng. Đặt lại mật khẩu và kiểm thu hồi phiên theo R57 thuộc #22; CM-01 chỉ cần thiết kế cơ chế thu hồi có thể dùng lại, không thực hiện luồng #22 hoặc đưa vào AC/QA CM-01. TS33 yêu cầu thu hồi khi đổi mật khẩu nếu chức năng đó được bổ sung về sau. Chỉ CM-01 được triển khai trong vòng này.
+- Hợp đồng nền tảng email, lưu trữ và phiên của CM-01 sẽ ảnh hưởng #02/#03/#04; Tech cần chốt ranh giới và kiểm tương thích trước khi PM chia ticket Dev.
+
+## 19. Q&A Log & Resolved Decisions
+
+- **Ninh đã xác nhận:** F11/F23–F24 về email thiết lập, liên kết một lần 3 ngày, đặt mật khẩu, đăng nhập; R12/R13 về tách tài khoản quản lý và giới hạn quyền. Xem [intake](../../docs/requirements/00-intake.md), [actors](../../docs/requirements/actors-and-roles.md), [flows](../../docs/requirements/user-flows.md).
+- **Ninh đã xác nhận CM01-Q1:** dùng hộp thư và dữ liệu thử để kiểm trước, email thật sau khi có hạ tầng. [Q&A](qna.md)
+- **BA/Tech đề xuất:** khu vực quản lý tối thiểu, xác nhận mật khẩu, thông báo lỗi, chi tiết refresh/Redis khi lỗi. **Ninh đã xác nhận:** CM01-Q2 đăng xuất mọi điện thoại; CM01-Q3 thu hồi family khi refresh reuse không phân biệt được. **Chưa rõ cho vận hành:** email và tên miền thật, không cần để thử cô lập.
+
+## 20. Change History & Document Traceability
+
+| Ngày | Thay đổi | Nguồn |
+| --- | --- | --- |
+| Trước 14/10/2026 | Đặc tả hành vi CM-01 qua BA → PM → Tech → PM theo quy trình cũ; chưa đạt gate workflow mới | Lịch sử Git của file này, [Story nguồn](../capmoney-overall/issues/01-thiet-lap-quan-ly.md) |
+| 14/10/2026 | Chuyển thành spec 20 mục để xét `BA_READY`, tách quyết định của Ninh khỏi đề xuất UI/Tech, ghi CM01-Q1 và AC1–AC5 | [story](story.md), [Q&A](qna.md), [workflow](../../docs/workflows/capmm-end-to-end.md) |
+| 14/10/2026 | Theo PM review độc lập: mở AC3 cho đăng nhập sai/phiên hết hạn, thêm AC6 cho gửi thất bại/chưa rõ và xác định mốc 72 giờ theo phản hồi nhà cung cấp | [handoff](handoff.md) khi PM chốt gate |
+| 14/10/2026 | PM độc lập rà lại 20 mục/AC1–AC6 và xác nhận `BA_READY`; sửa nhãn nguồn mục 6, giữ diễn giải thời điểm gửi là Tech/BA đề xuất | [handoff](handoff.md) |
+| 14/10/2026 | BA đối chiếu TS10–TS38, thêm thời hạn JWT/cookie/thu hồi DB vào spec và AC7; tách CM01-Q2 về phạm vi đăng xuất. Gate BA chờ PM review, Tech gate cũ không còn hiệu lực | [tech stack vòng 2](../../docs/requirements/tech-stack-round-2.md), [Q&A](qna.md) |
+| 14/10/2026 | Ninh chọn CM01-Q2/B: đăng xuất một điện thoại thu hồi mọi phiên quản lý; cập nhật AC7, chờ PM review | [Q&A](qna.md) |
+| 14/10/2026 | Ninh chọn CM01-Q3/A: refresh reuse không phân biệt được thì thu hồi family của phiên và yêu cầu đăng nhập lại; cập nhật AC7, chờ PM review | [Q&A](qna.md), [Tech review](../capmoney-infrastructure/java-tech-review.md) |
+| 14/10/2026 | Theo PM review rebaseline: chuyển đổi/đặt lại mật khẩu và kiểm R57 sang phụ thuộc #22, không để trong AC7/QA CM-01 | [handoff](handoff.md) |
+| 14/10/2026 | PM độc lập rà lại AC1–AC7 và 20 mục sau sửa P1, xác nhận `BA_READY` cho Java/JWT; thời hạn family khi rotate để Tech/PM xét trước `TECH_READY` | [handoff](handoff.md), [story](story.md) |

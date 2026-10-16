@@ -1,0 +1,32 @@
+[
+  {
+    "case": "missing-xreal",
+    "status": 403,
+    "marker_before": 3,
+    "marker_after": 3
+  },
+  {
+    "case": "missing-xff",
+    "status": 403,
+    "marker_before": 3,
+    "marker_after": 3
+  },
+  {
+    "case": "duplicate-xreal",
+    "status": 403,
+    "marker_before": 3,
+    "marker_after": 3
+  },
+  {
+    "case": "comma-xff",
+    "status": 403,
+    "marker_before": 3,
+    "marker_after": 3
+  },
+  {
+    "case": "comma-xreal",
+    "status": 403,
+    "marker_before": 3,
+    "marker_after": 3
+  }
+]

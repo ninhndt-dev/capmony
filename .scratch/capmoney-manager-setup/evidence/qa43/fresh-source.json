@@ -1,0 +1,28 @@
+{
+  "commit": "f63efe4e3e5b9303ba731c4ac88e8318733acca4",
+  "build_directory": "/Users/ninhndt/Downloads/capmony/.local/build/cm43-qa-20261015-010508",
+  "sha256": {
+    "pom.xml": "2ed40719b5915d8c4ecb438f8f330a75fc56c44b0d58162c9756aa2444d7f296",
+    "mvnw": "70347d7fb2ec1d0ed3fb1eecd95b7acd6bc1ff82792eb71763c9550e9850d614",
+    "mvnw.cmd": "256d162afbadb7980a1dccbea390438394cbffaebfa3f0b7294f2c5bd6ee1085",
+    ".mvn/wrapper/maven-wrapper.properties": "bb0b8f16b2661c3676ed5a6a15f5b11d864460c4e77cfb50c583f54708f944e7",
+    "src/main/resources/application.yaml": "9f4926c451fd48043dd74b2c2eb01725bd5d5d6ff9c771efcdc877ba21282f11",
+    "src/main/java/com/capmoney/api/ApiApplication.java": "3243a832b7ed7c59a5bbfbeed79fe4bbd3f40a8056dc666942865eaf49569754",
+    "src/main/java/com/capmoney/api/config/SecurityConfiguration.java": "009206d97a40d6f077c3e87399a48b1c629e54eb101b59f1873d68025527a950",
+    "src/main/java/com/capmoney/api/security/IngressFilter.java": "6d11082dba1e095b3dab766e121c54283de4e8983425e6a111e911a73a97b960",
+    "src/main/java/com/capmoney/api/manager/bootstrap/repository/BootstrapStore.java": "5162cb11369822768f2d64b53777419bc2064e59b2a4af5ebf68077085d5182c",
+    "src/main/java/com/capmoney/api/manager/bootstrap/model/ManagerBootstrap.java": "2999447bb8d5b1f6d92ef26f56b9b0acb6122b9c5df77f284c1246dae952a967",
+    "src/main/java/com/capmoney/api/manager/bootstrap/service/BootstrapIssuer.java": "8b7eec37f38bb430986cf04133b379352cbdc189933664aeb72e6cd786ecb7fb",
+    "src/main/java/com/capmoney/api/health/controller/HealthController.java": "a653feed2f3220db4e99d20a181f83a0bdc7f24de47ae4aadcdfff8f953de953",
+    "src/main/java/com/capmoney/api/health/model/HealthStatus.java": "bfae84ef86798b50433f142643ad493182026c822c7923d209f04ac1df22f8a5",
+    "src/main/java/com/capmoney/api/health/service/HealthService.java": "1b47135057bcebb7fd210c554fbd376276d576a7b920fbc129d1b5c956cd3d50",
+    "src/main/resources/db/changelog/db.changelog-master.yaml": "30e5130ef6153f33bb087402013a97a8a488df91d9d27b5229a872c19ad89456",
+    "src/test/java/com/capmoney/api/MailpitMailTest.java": "76927b05727ffd697d30b940b6230fb930f209140b6210e6467ee2ee6779b633",
+    "src/test/java/com/capmoney/api/ContainerDependenciesTest.java": "ea143ad95c9e3f7521730b4ebf81dbf1a87277d3e6777f178168eb14fe947c20",
+    "src/test/java/com/capmoney/api/security/ProbeController.java": "11da4113e1b6aa28c6f953e4f4af0951824b145d66fc9f8511b2d16ed5391b80",
+    "src/test/java/com/capmoney/api/manager/bootstrap/service/BootstrapIssuerTest.java": "1f56c4845e4dfec922ffb41ecfbb163d216bc807a9cbcf29833dfd1554650c6c",
+    "src/test/java/com/capmoney/api/manager/bootstrap/service/BootstrapIntegrationTest.java": "54deec65eead625e51f5ca0eb0fed38976addfa59c33d68072016fe01866ac37",
+    "src/test/java/com/capmoney/api/manager/bootstrap/service/BootstrapClockIntegrationTest.java": "b854c2c79986808cec7bc7332f3999161e67322e41e68a483d9ad582790a1e11",
+    "src/test/java/com/capmoney/api/health/service/HealthServiceTest.java": "26271fd3b20cb1f9e84a88052304988262da45a24208c4338f454ca21a5e8dad"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "runtime_image_unchanged": "sha256:cf524a3c1e829ad0bc34b774b6f08f5c647dcf7ca1ef2e0a1b477649400ff949",
+  "marker": "qa_310ad7f",
+  "mail_runner_exit": 0,
+  "route_outage_topology_repeated": true
+}

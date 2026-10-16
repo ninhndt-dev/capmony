@@ -1,0 +1,12 @@
+{
+  "engine": "WebKit",
+  "viewport": "390x844@3x",
+  "passwordUtf8Bytes": 72,
+  "serverStatus": 204,
+  "browserSawPostResponse": false,
+  "interceptedPosts": 1,
+  "unknownMessage": true,
+  "formCleared": true,
+  "automaticRetry": false,
+  "formEmptyAfterReload": true
+}

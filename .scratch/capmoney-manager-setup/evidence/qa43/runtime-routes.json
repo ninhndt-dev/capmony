@@ -1,0 +1,23 @@
+{
+  "/api/bootstrap": {
+    "status": 404
+  },
+  "/api/bootstrap-manager": {
+    "status": 404
+  },
+  "/api/signup": {
+    "status": 404
+  },
+  "/api/manager/bootstrap": {
+    "status": 404
+  },
+  "/api/__probe": {
+    "status": 404
+  },
+  "/api/health": {
+    "status": 200
+  },
+  "/manager/setup": {
+    "status": 200
+  }
+}

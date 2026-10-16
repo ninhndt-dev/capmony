@@ -1,0 +1,15 @@
+{
+  "source_commit": "f63efe4",
+  "api": {
+    "tag": "capmoney-cm43-api:f63efe4",
+    "id": "sha256:3bb9b38e46e1b4aa0d11b296fd7e24e1f1ee30d390464190a11f562650697227"
+  },
+  "web": {
+    "tag": "capmoney-cm43-web:f63efe4",
+    "id": "sha256:181ed2372c5c135e362948b21671b795166b1e40a415baff5cc65abcf1497fd0"
+  },
+  "build_exit": 0,
+  "preserve_intermediates": true,
+  "first_api_attempt_exit": 137,
+  "recovery": "Stopped seven named old CapMoney API containers; retained containers/data; retry same source succeeded"
+}

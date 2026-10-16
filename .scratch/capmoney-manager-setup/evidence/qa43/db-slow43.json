@@ -1,0 +1,26 @@
+{
+  "commit": "f63efe4e3e5b9303ba731c4ac88e8318733acca4",
+  "case": "smtp250-then-real-db-response-delay6s",
+  "postgres": "capmoney-cm43-qa-slow-pg-20261015010855",
+  "smtp": "capmoney-cm43-qa-slow-smtp-20261015010855",
+  "cli": {
+    "container": "capmoney-cm01-qa-db-slow-20261015010855",
+    "exit": 3,
+    "code": "unknown",
+    "generation": 1
+  },
+  "state_after_restore": {
+    "generation": 1,
+    "state": "sending",
+    "accepted_at": null,
+    "expires_at": null
+  },
+  "retry": {
+    "container": "capmoney-cm01-qa-db-slow-retry-20261015010855",
+    "exit": 0,
+    "code": "accepted",
+    "generation": 2
+  },
+  "elapsed_after_stop": 4.673,
+  "all_resources_retained": true
+}

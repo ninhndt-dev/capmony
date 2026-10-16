@@ -1,0 +1,82 @@
+[
+  {
+    "engine": "android",
+    "scenario": "success",
+    "status": "PASS",
+    "posts": 1,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "android",
+    "scenario": "unknown",
+    "status": "PASS",
+    "posts": 1,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "android",
+    "scenario": "rejected",
+    "status": "PASS",
+    "posts": 1,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "android",
+    "scenario": "rate",
+    "status": "PASS",
+    "posts": 1,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "android",
+    "scenario": "csrf-unavailable",
+    "status": "PASS",
+    "posts": 0,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "iphone",
+    "scenario": "success",
+    "status": "PASS",
+    "posts": 1,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "iphone",
+    "scenario": "unknown",
+    "status": "PASS",
+    "posts": 1,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "iphone",
+    "scenario": "rejected",
+    "status": "PASS",
+    "posts": 1,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "iphone",
+    "scenario": "rate",
+    "status": "PASS",
+    "posts": 1,
+    "fixtureHttp": true,
+    "realDevice": false
+  },
+  {
+    "engine": "iphone",
+    "scenario": "csrf-unavailable",
+    "status": "PASS",
+    "posts": 0,
+    "fixtureHttp": true,
+    "realDevice": false
+  }
+]

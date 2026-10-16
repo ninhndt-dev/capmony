@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-cm01-bootstrap
+      author: capmoney
+      changes:
+        - sql:
+            sql: |
+              CREATE TABLE manager_bootstrap (
+                id bigint PRIMARY KEY CHECK (id = 1),
+                email varchar(320),
+                generation bigint NOT NULL DEFAULT 0 CHECK (generation >= 0),
+                token_digest varchar(64),
+                state varchar(16) NOT NULL CHECK (state IN ('empty','sending','issued','unknown','failed','consumed')),
+                send_started_at timestamptz,
+                accepted_at timestamptz,
+                expires_at timestamptz,
+                consumed_at timestamptz,
+                updated_at timestamptz NOT NULL DEFAULT clock_timestamp(),
+                CHECK (state <> 'issued' OR (token_digest IS NOT NULL AND accepted_at IS NOT NULL AND expires_at = accepted_at + interval '72 hours'))
+              );
+              INSERT INTO manager_bootstrap(id, state) VALUES (1, 'empty');
+  - changeSet:
+      id: 002-cm01-manager-account
+      author: capmoney
+      changes:
+        - sql:
+            sql: |
+              CREATE TABLE manager_account (
+                id bigint PRIMARY KEY CHECK (id = 1),
+                email varchar(320) NOT NULL,
+                password_hash varchar(255) NOT NULL,
+                auth_epoch bigint NOT NULL DEFAULT 0 CHECK (auth_epoch >= 0),
+                created_at timestamptz NOT NULL
+              );
+              CREATE UNIQUE INDEX manager_account_email_unique ON manager_account (lower(email));
+  - changeSet:
+      id: 003-cm01-manager-session-family
+      author: capmoney
+      changes:
+        - sql:
+            sql: |
+              CREATE TABLE manager_session_family (
+                id uuid PRIMARY KEY,
+                manager_id bigint NOT NULL REFERENCES manager_account(id),
+                auth_epoch bigint NOT NULL,
+                current_refresh_digest varchar(64) NOT NULL,
+                absolute_expires_at timestamptz NOT NULL,
+                revoked_at timestamptz,
+                rotation_counter bigint NOT NULL DEFAULT 0 CHECK (rotation_counter >= 0),
+                created_at timestamptz NOT NULL
+              );
+              CREATE INDEX manager_session_family_manager_active ON manager_session_family(manager_id, revoked_at);

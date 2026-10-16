@@ -1,0 +1,131 @@
+services:
+  caddy:
+    image: caddy:2.10.2-alpine@sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d
+    ports:
+      - "127.0.0.1:${CAPMONEY_PORT:?set CAPMONEY_PORT}:8080"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    secrets:
+      - edge_auth
+    depends_on:
+      - web
+      - api
+    networks:
+      web_net: {}
+      api_net: {}
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    networks:
+      - web_net
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+      target: runtime
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      COOKIE_SECURE: "false"
+      APP_ORIGIN: ${APP_ORIGIN:?set APP_ORIGIN}
+      API_SUBNET: ${API_SUBNET:?set API_SUBNET}
+      EDGE_SECRET_FILE: /run/capmoney-secrets/edge_auth
+      JWT_KEY_FILE: /run/capmoney-secrets/jwt_signing
+      JWT_LOOKUP_KEY_FILE: /run/capmoney-secrets/jwt_lookup
+      DB_HOST: postgres
+      DB_NAME: ${DB_NAME:?set DB_NAME}
+      DB_USER: ${DB_USER:?set DB_USER}
+      REDIS_HOST: redis
+      REDIS_DATABASE: ${REDIS_DATABASE:?set REDIS_DATABASE}
+      SMTP_HOST: mailpit
+    secrets:
+      - pg_password
+      - edge_auth
+      - jwt_signing
+      - jwt_lookup
+    tmpfs:
+      - /run/capmoney-secrets:mode=0700
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - api_net
+      - data_net
+      - rate_net
+      - mail_net
+  postgres:
+    image: postgres:17.7-alpine3.22@sha256:6b591f995765a189e69276dd55e0b362342d65d10d0359bb1fab67bc3391f20f
+    environment:
+      POSTGRES_DB: ${DB_NAME:?set DB_NAME}
+      POSTGRES_USER: ${DB_USER:?set DB_USER}
+      POSTGRES_PASSWORD_FILE: /run/capmoney-secrets/pg_password
+    entrypoint: ["/bin/sh", "/run/capmoney-postgres-entrypoint.sh"]
+    command: ["postgres"]
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./scripts/postgres-entrypoint.sh:/run/capmoney-postgres-entrypoint.sh:ro
+    secrets:
+      - pg_password
+    tmpfs:
+      - /run/capmoney-secrets:mode=0700
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+    networks:
+      - data_net
+  redis:
+    image: redis:7.4.6-alpine3.21@sha256:3b73847e72874be07e6657b129a94761662b79bc0f679273757d4218573b2a98
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+    networks:
+      - rate_net
+  mailpit:
+    image: axllent/mailpit:v1.27.4@sha256:df6c2541907e1be6fac21f509927cf6ed771617a1f4b361ef66d97bd05593d2d
+    networks:
+      - mail_net
+  mailcheck:
+    profiles: ["tools"]
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+      target: build
+    command: ["mvn", "-B", "-q", "-Dtest=MailpitMailTest", "test"]
+    environment:
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+    depends_on:
+      - mailpit
+    networks:
+      - mail_net
+secrets:
+  pg_password:
+    file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/pg-password
+  edge_auth:
+    file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/edge-auth
+  jwt_signing:
+    file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/jwt-signing
+  jwt_lookup:
+    file: ${CAPMONEY_SECRET_DIR:?set CAPMONEY_SECRET_DIR}/jwt-lookup
+volumes:
+  pg_data:
+networks:
+  web_net: {}
+  api_net:
+    ipam:
+      config:
+        - subnet: ${API_SUBNET:?set API_SUBNET}
+  data_net:
+    internal: true
+  rate_net:
+    internal: true
+  mail_net:
+    internal: true
