@@ -4,7 +4,7 @@
 
 ## Đã có quyết định sản phẩm
 
-- Phạm vi và hành vi ghi tại [spec](spec.md) dựa trên mã R/B/F/H đã xác nhận. PM cần kiểm lại từng AC và ví dụ với nguồn gốc.
+- Phạm vi và hành vi ghi tại [spec](spec.md) dựa trên mã R/B/F/H đã xác nhận. CapmmPM đã kiểm AC và ví dụ với nguồn gốc trong [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md).
 - Ninh chọn **mở trống như thu/chi** khi rời biểu mẫu chuyển tiền **trước Lưu**, quay lại cùng phiên có Internet. Quyết định [R74](../../docs/requirements/44-step-9-transfer-round-1.md) không áp dụng sau khi đã bấm Lưu mà kết quả chưa rõ.
 
 ## Chưa rõ hoặc cần review
@@ -14,5 +14,5 @@
 
 ## Ranh giới
 
-- Khi câu hỏi chỉ liên quan cách thể hiện, không tự mở rộng AC. Khi ảnh hưởng hành vi nghiệm thu hoặc quyền, PM phải xin quyết định và cập nhật nguồn trước `BA_READY`.
-- `BA_READY` chưa được đề xuất hoặc xác nhận; `TECH_READY` chưa thiết kế/review.
+- Khi câu hỏi chỉ liên quan cách thể hiện, không tự mở rộng AC. Khi ảnh hưởng hành vi nghiệm thu hoặc quyền, PM phải xin quyết định, cập nhật nguồn và rà lại `BA_READY`.
+- `BA_READY` đạt ngày 16/10/2026 theo [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md); `TECH_READY` chưa thiết kế/review.

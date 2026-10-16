@@ -4,14 +4,14 @@
 
 ## Đã có quyết định sản phẩm
 
-- Phạm vi và hành vi ghi tại [spec](spec.md) dựa trên mã R/B/F/H đã xác nhận. PM cần kiểm lại từng AC và ví dụ với nguồn gốc.
+- Phạm vi và hành vi ghi tại [spec](spec.md) dựa trên mã R/B/F/H đã xác nhận. CapmmPM đã kiểm AC và ví dụ với nguồn gốc trong [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md).
 
 ## Chưa rõ hoặc cần review
 
 - Q1 **đã chốt R77:** khi tạo hoặc bật lại ví từ luồng mọi ví ngừng rồi quay về ghi thu/chi, ví ấy được chọn sẵn. [Nguồn](../../docs/requirements/46-step-9-wallet-edit-and-return.md).
-- Q2: Nếu người dùng đã nhập form rồi rời để bật ví trước Lưu, R71/R73 yêu cầu form trống khi quay lại; cần UX/PM xác nhận cách thể hiện mà không giữ bản nháp trái nguồn. **Phân loại:** Chi tiết UX/PM phải giữ R71/R73; không tự khôi phục bản nháp. **Trạng thái:** chờ CapmmPM rà; chưa được Ninh xác nhận riêng nếu cần quyết định sản phẩm.
+- Q2: Nếu người dùng đã nhập form rồi rời để bật ví trước Lưu, R71/R73 yêu cầu form trống khi quay lại; cần UX/PM xác nhận cách thể hiện mà không giữ bản nháp trái nguồn. **Phân loại:** Chi tiết UX/PM phải giữ R71/R73; không tự khôi phục bản nháp. **Trạng thái:** CapmmPM đã phân loại là không chặn BA theo AC hiện tại; chi tiết UX/Tech còn chờ thiết kế, và phải hỏi Ninh nếu phát sinh quyết định sản phẩm mới.
 
 ## Ranh giới
 
-- Khi câu hỏi chỉ liên quan cách thể hiện, không tự mở rộng AC. Khi ảnh hưởng hành vi nghiệm thu hoặc quyền, PM phải xin quyết định và cập nhật nguồn trước `BA_READY`.
-- `BA_READY` chưa được đề xuất hoặc xác nhận; `TECH_READY` chưa thiết kế/review.
+- Khi câu hỏi chỉ liên quan cách thể hiện, không tự mở rộng AC. Khi ảnh hưởng hành vi nghiệm thu hoặc quyền, PM phải xin quyết định, cập nhật nguồn và rà lại `BA_READY`.
+- `BA_READY` đạt ngày 16/10/2026 theo [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md); `TECH_READY` chưa thiết kế/review.

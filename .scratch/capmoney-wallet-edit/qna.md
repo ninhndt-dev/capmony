@@ -4,14 +4,14 @@
 
 ## Đã có quyết định sản phẩm
 
-- Phạm vi và hành vi ghi tại [spec](spec.md) dựa trên mã R/B/F/H đã xác nhận. PM cần kiểm lại từng AC và ví dụ với nguồn gốc.
+- Phạm vi và hành vi ghi tại [spec](spec.md) dựa trên mã R/B/F/H đã xác nhận. CapmmPM đã kiểm AC và ví dụ với nguồn gốc trong [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md).
 
 ## Chưa rõ hoặc cần review
 
 - Q1 **đã chốt R76:** tên trống khi đổi tên ví không được Lưu; tên/lịch sử cũ giữ nguyên. [Nguồn](../../docs/requirements/46-step-9-wallet-edit-and-return.md).
-- Q2: Có cho hai ví cùng tên không? Chưa có quyết định; không tự đặt quy tắc duy nhất tên ví. **Phân loại:** Chưa có AC yêu cầu tên duy nhất; không chặn BA hiện tại và không tự đặt quy tắc mới. **Trạng thái:** chờ CapmmPM rà; chưa được Ninh xác nhận riêng nếu cần quyết định sản phẩm.
+- Q2: Có cho hai ví cùng tên không? Chưa có quyết định; không tự đặt quy tắc duy nhất tên ví. **Phân loại:** Chưa có AC yêu cầu tên duy nhất; không chặn BA hiện tại và không tự đặt quy tắc mới. **Trạng thái:** CapmmPM đã phân loại là không chặn BA theo AC hiện tại; chi tiết UX/Tech còn chờ thiết kế, và phải hỏi Ninh nếu phát sinh quyết định sản phẩm mới.
 
 ## Ranh giới
 
-- Khi câu hỏi chỉ liên quan cách thể hiện, không tự mở rộng AC. Khi ảnh hưởng hành vi nghiệm thu hoặc quyền, PM phải xin quyết định và cập nhật nguồn trước `BA_READY`.
-- `BA_READY` chưa được đề xuất hoặc xác nhận; `TECH_READY` chưa thiết kế/review.
+- Khi câu hỏi chỉ liên quan cách thể hiện, không tự mở rộng AC. Khi ảnh hưởng hành vi nghiệm thu hoặc quyền, PM phải xin quyết định, cập nhật nguồn và rà lại `BA_READY`.
+- `BA_READY` đạt ngày 16/10/2026 theo [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md); `TECH_READY` chưa thiết kế/review.

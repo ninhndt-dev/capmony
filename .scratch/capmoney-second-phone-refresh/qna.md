@@ -6,7 +6,7 @@ Các quyết định F06, F08, F21, R27, R56, R08, R12 và R71/R73/R74 được 
 
 ## Câu hỏi sản phẩm chặn BA
 
-Chưa phát hiện câu hỏi Ninh phải chọn thêm cho AC của Story này. Nếu PM thấy một nhánh mới làm thay đổi trải nghiệm đã chốt, cần đưa phương án cụ thể cho Ninh trước khi cấp `BA_READY`; không suy quyết định từ đề xuất Tech/UX.
+CapmmPM đã rà AC và chưa phát hiện câu hỏi Ninh phải chọn thêm; Story này đạt `BA_READY` ngày 16/10/2026 theo [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Nếu thiết kế phát sinh nhánh mới làm thay đổi trải nghiệm đã chốt, cần đưa phương án cụ thể cho Ninh và rà lại gate; không suy quyết định từ đề xuất Tech/UX.
 
 ## UX/Tech còn mở, không tự nhận là quyết định của Ninh
 

@@ -4,14 +4,14 @@
 
 ## Đã có quyết định sản phẩm
 
-- Phạm vi và hành vi ghi tại [spec](spec.md) dựa trên mã R/B/F/H đã xác nhận. PM cần kiểm lại từng AC và ví dụ với nguồn gốc.
+- Phạm vi và hành vi ghi tại [spec](spec.md) dựa trên mã R/B/F/H đã xác nhận. CapmmPM đã kiểm AC và ví dụ với nguồn gốc trong [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md).
 
 ## Chưa rõ hoặc cần review
 
-- Q1: Bố cục form sửa và câu chữ lỗi ví ngừng/bản cũ chưa được Ninh chốt; BA giữ hành vi B13/B20/B30, không biến UI đề xuất thành AC. **Phân loại:** Chi tiết UX/Tech; giữ hành vi đã xác nhận. **Trạng thái:** chờ CapmmPM rà; chưa được Ninh xác nhận riêng nếu cần quyết định sản phẩm.
-- Q2: Thời điểm kiểm ngày “hôm nay” theo múi giờ nào là quyết định kỹ thuật có thể ảnh hưởng R43; Tech cần đề xuất và PM/BA đối chiếu trước gate. **Phân loại:** Tech phải đề xuất múi giờ rồi BA/PM đối chiếu R43; có thể ảnh hưởng gate kỹ thuật. **Trạng thái:** chờ CapmmPM rà; chưa được Ninh xác nhận riêng nếu cần quyết định sản phẩm.
+- Q1: Bố cục form sửa và câu chữ lỗi ví ngừng/bản cũ chưa được Ninh chốt; BA giữ hành vi B13/B20/B30, không biến UI đề xuất thành AC. **Phân loại:** Chi tiết UX/Tech; giữ hành vi đã xác nhận. **Trạng thái:** CapmmPM đã phân loại là không chặn BA theo AC hiện tại; chi tiết UX/Tech còn chờ thiết kế, và phải hỏi Ninh nếu phát sinh quyết định sản phẩm mới.
+- Q2: Thời điểm kiểm ngày “hôm nay” theo múi giờ nào là quyết định kỹ thuật có thể ảnh hưởng R43; Tech cần đề xuất và PM/BA đối chiếu trước gate. **Phân loại:** Tech phải đề xuất múi giờ rồi BA/PM đối chiếu R43; có thể ảnh hưởng gate kỹ thuật. **Trạng thái:** CapmmPM đã phân loại là không chặn BA theo AC hiện tại; chi tiết UX/Tech còn chờ thiết kế, và phải hỏi Ninh nếu phát sinh quyết định sản phẩm mới.
 
 ## Ranh giới
 
-- Khi câu hỏi chỉ liên quan cách thể hiện, không tự mở rộng AC. Khi ảnh hưởng hành vi nghiệm thu hoặc quyền, PM phải xin quyết định và cập nhật nguồn trước `BA_READY`.
-- `BA_READY` chưa được đề xuất hoặc xác nhận; `TECH_READY` chưa thiết kế/review.
+- Khi câu hỏi chỉ liên quan cách thể hiện, không tự mở rộng AC. Khi ảnh hưởng hành vi nghiệm thu hoặc quyền, PM phải xin quyết định, cập nhật nguồn và rà lại `BA_READY`.
+- `BA_READY` đạt ngày 16/10/2026 theo [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md); `TECH_READY` chưa thiết kế/review.
