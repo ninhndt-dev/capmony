@@ -1,7 +1,9 @@
 # Feature Spec: CM-25 – Đổi email tài khoản ghi chép
 
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
 **Story:** [story.md](story.md) · **Nguồn chia lát:** [CM-25](../capmoney-overall/issues/25-doi-email-ghi-chep.md)  
-**BA gate:** bản BA bước 9; chưa được PM review, chưa có `BA_READY`.
+**BA gate tại lúc lập bản nháp:** chưa review; được cập nhật bởi dòng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -97,3 +99,4 @@ CM-04 cấp tài khoản/phiên ghi chép; CM-08 có dữ liệu để kiểm gi
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA 20 mục/AC1–AC4; chờ PM review | [CM-25](../capmoney-overall/issues/25-doi-email-ghi-chep.md), [quyền](../../docs/requirements/actors-and-roles.md), [handoff](handoff.md) |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

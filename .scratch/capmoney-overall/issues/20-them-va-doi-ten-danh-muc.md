@@ -10,6 +10,8 @@
 
 ## Acceptance criteria
 
+- [ ] Thêm hoặc đổi tên danh mục thành tên trống không Lưu và không đổi dữ liệu đã lưu. [R78]
+
 - [ ] Chủ tài khoản thêm danh mục riêng và chọn được cho khoản thu/chi mới.
 - [ ] Đổi tên danh mục đã dùng làm giao dịch cũ hiển thị tên mới; danh mục đó vẫn chọn được.
 - [ ] Tài khoản khác không thấy hoặc sửa danh mục của người này.

@@ -1,7 +1,9 @@
 # Feature Spec: Story 18 – Ngừng ví có lịch sử và bảo vệ số dư 0
 
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu bản sau R74–R78 hoặc chỉnh nhãn nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
 **Story:** [story.md](story.md)  
-**BA gate:** chưa đánh giá; bản nháp từ nguồn bước 8, chờ CapmmPM đối chiếu. Không có `BA_READY`/`TECH_READY`.
+**BA gate tại lúc lập bản nháp:** chưa review; được cập nhật bởi dòng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -19,7 +21,7 @@ Từ ví có lịch sử và số dư 0 chọn ngừng. Ví ngừng vẫn mở l
 
 1. Ví có giao dịch trước đây và hiện tại 0; chủ ngừng ví, vẫn đọc lịch sử cũ sau tải lại. [R48, R53]
 2. Thao tác mới không chọn ví ngừng; sửa thông tin giao dịch cũ không đổi số dư ví ngừng vẫn được. [B04, B21]
-3. Nếu tất cả ví ngừng, mở ghi thu/chi từ nút chung: chọn tạo ví mới hoặc bật ví cũ; sau hoàn tất quay về biểu mẫu. [F20]
+3. Nếu tất cả ví ngừng, mở ghi thu/chi từ nút chung: chọn tạo ví mới hoặc bật ví cũ; sau hoàn tất quay về biểu mẫu với ví vừa tạo/bật được chọn sẵn; các trường nhập cũ đã bỏ theo R71/R73. [F20, R71, R73, R77]
 
 ## 5. Alternative & Exceptional Flows
 
@@ -27,6 +29,8 @@ Từ ví có lịch sử và số dư 0 chọn ngừng. Ví ngừng vẫn mở l
 - Sửa ngày, ghi chú hoặc danh mục của khoản gắn ví ngừng được nếu số dư vẫn 0; đổi sang ví ngừng làm ví đó khác 0 bị chặn. [B20–B21]
 - Sửa số dư đầu làm ví ngừng khác 0 cũng bị chặn. [B31]
 - Ví số dư khác 0 không được ngừng; bật lại giữ lịch sử. [R53, B06]
+
+- Sau tạo/bật ví từ luồng mọi ví ngừng, form mới chọn sẵn ví vừa tạo/bật và các trường nhập cũ trước khi rời form vẫn trống. [R77](../../docs/requirements/46-step-9-wallet-edit-and-return.md)
 
 ## 6. Field-level Specifications & Validations
 
@@ -48,13 +52,15 @@ Từ ví có lịch sử và số dư 0 chọn ngừng. Ví ngừng vẫn mở l
 - `BR-18-03` **Ninh đã xác nhận:** Sửa ngày/ghi chú/danh mục không đổi số dư vẫn được; chọn ví ngừng làm ví đích mới hoặc sửa số dư đầu làm lệch 0 thì chặn. [B20–B21, B31] **Ví dụ:** Sửa ghi chú của khoản thu không đổi số dư thì được; đổi ví mới sang ví ngừng bị chặn.
 - `BR-18-04` **Ninh đã xác nhận:** Khi mọi ví ngừng, nút ghi thu/chi dẫn tạo/bật lại ví rồi quay về form; không tạo giao dịch trước khi có ví hoạt động. [F20] **Ví dụ:** Cả A/B đều ngừng: nút ghi thu dẫn tạo C hoặc bật A rồi trở về biểu mẫu.
 
+- `BR-18-05` **Ninh đã xác nhận:** quay về ghi thu/chi chọn sẵn ví vừa tạo/bật, còn nội dung form cũ trước Lưu không khôi phục. **Ví dụ:** bật ví A rồi quay về ghi chi thì ví A đã chọn, số tiền cũ trống. [R77](../../docs/requirements/46-step-9-wallet-edit-and-return.md) [R71, R73]
+
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
 `hoạt động, lịch sử có, số dư 0 → ngừng → hoạt động`; trạng thái ngừng giữ lịch sử và số dư 0. Thao tác giao dịch tác động số dư khi ngừng bị chặn trước commit [B13].
 
 ## 10. Data Fallback & Offline Handling
 
-Không ghi giao dịch offline [R11]. Khi quay lại sau bật/tạo ví, không tự suy giữ bản nhập thu/chi: R71/R73 quy định rời form trước Lưu thì form trống; Tech/UX cần đối chiếu F20 với hai quyết định đó. Lỗi kết quả thao tác phải không báo thành công sai.
+Không ghi giao dịch offline [R11]. Sau bật/tạo ví từ luồng mọi ví ngừng, ví vừa tạo/bật được chọn sẵn theo R77; các trường nhập thu/chi cũ trước khi rời form mở trống theo R71/R73. Tech/UX chỉ chọn cách trình bày. Lỗi kết quả thao tác phải không báo thành công sai.
 
 ## 11. Error Messages & UI Registry (`ERR.*`)
 
@@ -85,6 +91,8 @@ Web ưu tiên iPhone/Android và chỉ dùng khi có Internet. Nhiều phiên c�
 
 AC là điều kiện quan sát được để PM/QA rà; chưa có test thực chạy, chưa `QA_PASS`.
 
+- `AC5` Khi mọi ví ngừng, tạo hoặc bật lại ví A rồi quay về ghi thu/chi: form chọn sẵn A, số tiền/ghi chú cũ đã nhập trước khi rời form không được khôi phục. [R77](../../docs/requirements/46-step-9-wallet-edit-and-return.md) [R71, R73]
+
 ## 17. Figma Mapping / Visual References
 
 Ảnh ứng dụng cũ chỉ là tham khảo theo R02; chưa có Figma/màn hình được Ninh chốt. BA mô tả điểm vào và trạng thái quan sát được, còn bố cục/câu chữ do UX đề xuất và PM kiểm trước triển khai.
@@ -99,8 +107,11 @@ Ngoài phạm vi: Ngừng ví trống #17; xóa ví #19; các thao tác sửa/x�
 
 Xem [Q&A](qna.md). Quy tắc sản phẩm đã có nguồn `R48, R53; B01, B04, B06, B13, B20–B21, B31; F20`; các câu hỏi còn mở là câu hỏi/đề xuất, **chưa được Ninh xác nhận**. Không mở gate chỉ vì đã viết spec.
 
+R77 đã chốt ví được chọn khi quay về theo F20; không còn câu hỏi sản phẩm về nhánh này.
+
 ## 20. Change History & Document Traceability
 
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Bản nháp bước 9 cho Story #18; chờ PM rà BA, Tech thiết kế và reviewer độc lập. | [Issue nguồn](../capmoney-overall/issues/18-ngung-vi-co-lich-su.md), [workflow](../../docs/workflows/capmm-end-to-end.md) |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

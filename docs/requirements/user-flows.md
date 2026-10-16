@@ -53,6 +53,8 @@ Các quy tắc về quyền và xóa tức thì đã chốt ở [người dùng 
 
 **Bổ sung điểm vào chuyển tiền:** R75 yêu cầu mở biểu mẫu chuyển tiền từ nút chung với **cả ví gửi và ví nhận chưa chọn**; người dùng tự chọn hai ví đang sử dụng, khác nhau, trước Lưu. Không suy cách chọn sẵn khi đi từ một ví cụ thể. [Vòng làm rõ #11](45-step-9-transfer-wallet-selection.md)
 
+**Bổ sung luồng quay về ghi thu/chi:** R77 yêu cầu khi mọi ví đang ngừng và người dùng tạo/bật lại ví theo F20, lúc quay về form mới chọn sẵn ví ấy. R71/R73 vẫn làm trống các trường nhập của form cũ đã rời trước Lưu. [Vòng làm rõ #12](46-step-9-wallet-edit-and-return.md)
+
 ## Tổng hợp luồng đã được Ninh xác nhận hiểu đúng
 
 | Luồng | Diễn tiến chính | Lỗi, giới hạn và phục hồi đã chốt |

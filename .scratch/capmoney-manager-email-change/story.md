@@ -1,6 +1,6 @@
 # Story CM-23: Đổi email quản lý
 
-**Lifecycle:** specification  
+**Lifecycle:** design
 **Planio:** Story CM-23 theo [manifest](../../docs/workflows/redmine-story-manifest.csv)  
 **Blocked by:** CM-01, CM-04 (HARD cho Dev/kiểm quyền). Phụ thuộc Dev không ngăn BA soạn bản nháp.
 
@@ -15,7 +15,7 @@
 
 | Gate | Kết quả hiện tại | Bằng chứng | Reviewer khác người lập |
 | --- | --- | --- | --- |
-| `BA_READY` | Chưa đạt: BA draft 16/10/2026; chờ PM đối chiếu 20 mục, nguồn và câu hỏi | [spec](spec.md), [Q&A](qna.md), [handoff](handoff.md) | chưa có |
+| `BA_READY` | **Đạt 16/10/2026**: CapmmPM `/root` rà độc lập 20 mục, nguồn, BR/AC và ranh giới; không còn câu hỏi sản phẩm chặn trong phạm vi AC | [spec](spec.md), [Q&A](qna.md), [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) | CapmmPM `/root` |
 | `TECH_READY` | Chưa đánh giá; thiết kế kỹ thuật/review độc lập chưa có | chưa có `technical-design.md` | chưa có |
 | `READY_FOR_IMPLEMENTATION` | Chưa đánh giá cho từng ticket | chưa tạo ticket Dev | chưa có |
 | `DEV_REVIEWED` | Chưa chạy | chưa có code/PR hoặc lệnh kiểm | chưa có |
@@ -24,4 +24,4 @@
 ## Phụ thuộc và việc tiếp theo
 
 - **Phụ thuộc:** CM-01, CM-04 (HARD cho Dev/kiểm quyền). PM/Tech cần phân loại lại nếu hợp đồng đủ cho phần độc lập; không tự mở Dev.
-- **Tiếp theo:** CapmmPM review BA; PM/Tech xử lý gap ở [Q&A](qna.md). Sau `BA_READY`, Tech lập hợp đồng/thiết kế, reviewer khác người lập kiểm rồi PM xét `TECH_READY`. Không tạo ticket Dev từ Story ứng viên.
+- **Tiếp theo:** CapmmPM đã review BA; PM/Tech xử lý gap ở [Q&A](qna.md). Sau `BA_READY`, Tech lập hợp đồng/thiết kế, reviewer khác người lập kiểm rồi PM xét `TECH_READY`. Không tạo ticket Dev từ Story ứng viên.

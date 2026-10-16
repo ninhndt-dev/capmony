@@ -1,6 +1,8 @@
 # Feature Spec: Story 31 – Chặn bản cũ của khoản thu/chi
 
-**Story:** [story.md](story.md) · **BA gate:** bản nháp, chờ PM review; chưa `BA_READY`.
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
+**Story:** [story.md](story.md) · **BA gate tại lúc lập bản nháp:** chưa PM review; được thay bằng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -93,3 +95,4 @@ Không có Figma được duyệt; ảnh cũ chỉ tham khảo theo R02. Màn so
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA bước 9; chưa PM review/gate. | [Issue #31](../capmoney-overall/issues/31-chan-ban-cu-thu-chi.md), B18/B28/B30, F22 |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

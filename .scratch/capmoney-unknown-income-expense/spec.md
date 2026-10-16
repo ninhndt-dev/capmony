@@ -1,6 +1,8 @@
 # Feature Spec: Story 33 – Đối chiếu Lưu thu/chi chưa rõ trong phiên
 
-**Story:** [story.md](story.md) · **BA gate:** bản nháp, chờ PM review; chưa `BA_READY`.
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
+**Story:** [story.md](story.md) · **BA gate tại lúc lập bản nháp:** chưa PM review; được thay bằng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -40,7 +42,7 @@ Trường thu/chi hợp lệ do #08/#09 định nghĩa. Đối chiếu phải ph
 - `BR-33-01` **Ninh đã xác nhận:** chưa biết kết quả thì báo chưa rõ, giữ nội dung trong phiên. Ví dụ bấm Lưu thu 120.000 rồi mất mạng; UI không hiện “đã lưu” và form vẫn giữ 120.000. [F09]
 - `BR-33-02` **Ninh đã xác nhận:** tự đối chiếu khi có mạng, chặn Lưu lặp đúng thao tác khi còn chờ. Ví dụ bấm Lưu hai lần cho cùng ý định thu 120.000 khi đang kiểm tra → tối đa một khoản được đọc lại. [F09, R64]
 - `BR-33-03` **Ninh đã xác nhận:** người dùng được làm việc khác khi có Internet; quay lại thấy trạng thái/kết quả của thao tác. Ví dụ rời form để xem ví rồi quay lại khi còn chờ → vẫn thấy đang kiểm tra. [R64]
-- `BR-33-04` **Ninh đã xác nhận:** chỉ báo đã lưu khi đã xác nhận; số dư không bị cộng/trừ hai lần. [B01, F09]
+- `BR-33-04` **Ninh đã xác nhận:** chỉ báo đã lưu khi đã xác nhận; số dư không bị cộng/trừ hai lần. [B01, F09] **Ví dụ:** bấm Lưu thu 100.000 hai lần trong lúc chờ thì chưa báo đã lưu; nếu lưu thành công chỉ có một khoản thu và số dư cộng 100.000 một lần.
 
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
@@ -95,3 +97,4 @@ Không có Figma duyệt; ảnh cũ chỉ tham khảo. UX đề xuất nhãn ba 
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA bước 9; chưa PM review/gate. | [Issue #33](../capmoney-overall/issues/33-doi-chieu-luu-thu-chi-chua-ro-trong-phien.md), F09/R64, B01/B24 |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

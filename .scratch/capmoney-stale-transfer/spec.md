@@ -1,6 +1,8 @@
 # Feature Spec: Story 32 – Chặn bản cũ của lần chuyển
 
-**Story:** [story.md](story.md) · **BA gate:** bản nháp, chờ PM review; chưa `BA_READY`.
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
+**Story:** [story.md](story.md) · **BA gate tại lúc lập bản nháp:** chưa PM review; được thay bằng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -38,7 +40,7 @@ Các trường sửa của #14: ngày, số tiền nguyên VND dương, ví gử
 
 - `BR-32-01` **Ninh đã xác nhận:** thao tác từ bản cũ bị chặn cho **toàn bộ** lần chuyển. Ví dụ A sửa chuyển X→Y từ 20.000 thành 30.000, B từ bản 20.000 xóa → B bị chặn, X/Y vẫn phản ánh 30.000. [B30, R51]
 - `BR-32-02` **Ninh đã xác nhận:** giữ phần B vừa nhập, cho tự so sánh/nhập lại/bỏ, không hợp nhất. Ví dụ B nhập ghi chú “học phí” trước khi A đổi ví nhận; sau xung đột, chữ vẫn thấy trong phiên nhưng chưa Lưu. [F22]
-- `BR-32-03` **Ninh đã xác nhận:** xóa/khôi phục tác động hai ví như một đơn vị; thao tác từ bản cũ không tạo nửa lần chuyển. [R55, B30]
+- `BR-32-03` **Ninh đã xác nhận:** xóa/khôi phục tác động hai ví như một đơn vị; thao tác từ bản cũ không tạo nửa lần chuyển. [R55, B30] **Ví dụ:** A xóa lần chuyển X→Y; B khôi phục từ bản cũ bị chặn, số dư X/Y cùng giữ theo trạng thái mới của A.
 
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
@@ -93,3 +95,4 @@ Không có Figma đã duyệt; ảnh CapMoney chỉ tham khảo theo R02. Bố c
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA bước 9; chưa PM review/gate. | [Issue #32](../capmoney-overall/issues/32-chan-ban-cu-lan-chuyen.md), B30, F22, R51/R55 |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

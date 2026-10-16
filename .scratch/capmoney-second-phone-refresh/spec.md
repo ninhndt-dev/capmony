@@ -1,6 +1,8 @@
 # Feature Spec: Story 28 – Tải dữ liệu trên điện thoại thứ hai
 
-**Story:** [story.md](story.md) · **BA gate:** bản nháp, chờ PM review; chưa `BA_READY`.
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
+**Story:** [story.md](story.md) · **BA gate tại lúc lập bản nháp:** chưa PM review; được thay bằng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -44,7 +46,7 @@ Không có trường nhập mới. Khóa đối chiếu là cùng tài khoản �
 
 - `BR-28-01` **Ninh đã xác nhận:** hai điện thoại cùng tài khoản đọc lại cùng dữ liệu đã lưu. Ví dụ A ghi thu 100.000 VND và được báo lưu; B quay lại có Internet thì thấy đúng khoản đó. [R27, R56, F06]
 - `BR-28-02` **Ninh đã xác nhận:** tự tải dữ liệu mới khi B **vẫn ở biểu mẫu** không xóa phần nhập trong phiên. Ví dụ B đang nhập ghi chú “đi chợ”, đưa tab vào nền; A Lưu khoản khác; B mở lại đúng tab/form thì ghi chú còn. Nếu B rời form sang trang khác trước Lưu, áp R71/R73/R74 và form mở trống. [F08, R71, R73, R74]
-- `BR-28-03` **Ninh đã xác nhận:** tài khoản khác không nhận dữ liệu của chủ; số dư theo các giao dịch đã lưu. [R08, R12, B01]
+- `BR-28-03` **Ninh đã xác nhận:** tài khoản khác không nhận dữ liệu của chủ; số dư theo các giao dịch đã lưu. [R08, R12, B01] **Ví dụ:** tài khoản B không thấy khoản thu 100.000 VND của A; A đọc số dư đã cộng khoản thu ấy.
 
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
@@ -100,3 +102,4 @@ Không có Figma đã duyệt; ảnh CapMoney chỉ tham khảo giao diện theo
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA bước 9; chưa PM review/gate. | [Issue #28](../capmoney-overall/issues/28-tai-du-lieu-dien-thoai-thu-hai.md), F06/F08, B01, R27/R56 |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

@@ -1,7 +1,7 @@
 # Story 32: Chặn bản cũ của lần chuyển
 
 **Lifecycle:** design
-**Status:** needs-triage; bản nháp BA bước 9
+**Status nguồn:** `needs-triage` ở issue bước 8; gate hiện hành ở bảng dưới; trạng thái live đối chiếu Planio.
 **Blocked by:** #14 và #15 là HARD; #30 phân biệt hai lần chuyển khác nhau.
 
 ## Phạm vi và nguồn
@@ -15,7 +15,7 @@
 
 | Gate | Kết quả hiện tại | Bằng chứng | Reviewer khác người lập |
 | --- | --- | --- | --- |
-| `BA_READY` | Chưa đánh giá; bản nháp chờ PM đối chiếu | [spec](spec.md), [Q&A](qna.md), [handoff](handoff.md) | Chưa có |
+| `BA_READY` | **Đạt 16/10/2026**: CapmmPM `/root` rà độc lập 20 mục, nguồn, BR/AC và ranh giới; không còn câu hỏi sản phẩm chặn trong phạm vi AC | [spec](spec.md), [Q&A](qna.md), [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) | CapmmPM `/root` |
 | `TECH_READY` | Chưa đánh giá; có `TECH_GAP` cần thiết kế/kiểm chứng | Kiểm phiên bản cả lần chuyển như một đơn vị và bảo toàn số dư hai ví. | Chưa có |
 | `READY_FOR_IMPLEMENTATION` | Chưa đánh giá cho ticket Dev | Chưa chia ticket từ Story này | Chưa có |
 | `DEV_REVIEWED` | Chưa chạy | Chưa có commit/build | Chưa có |
@@ -24,4 +24,4 @@
 ## Phụ thuộc và việc tiếp theo
 
 - #14 và #15 là HARD; #30 phân biệt hai lần chuyển khác nhau.
-- PM độc lập đối chiếu nguồn, 20 mục và AC rồi quyết định `BA_READY`. Sau đó Tech lập thiết kế/hợp đồng, reviewer Tech khác người lập và PM kiểm trước `TECH_READY`; chỉ chia/giao ticket Dev sau các gate.
+- PM đã đối chiếu nguồn, 20 mục và AC và xác nhận `BA_READY`. Sau đó Tech lập thiết kế/hợp đồng, reviewer Tech khác người lập và PM kiểm trước `TECH_READY`; chỉ chia/giao ticket Dev sau các gate.

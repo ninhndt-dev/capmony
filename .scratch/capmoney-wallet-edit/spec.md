@@ -1,7 +1,9 @@
 # Feature Spec: Story 16 – Sửa tên và số dư ban đầu của ví
 
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu bản sau R74–R78 hoặc chỉnh nhãn nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
 **Story:** [story.md](story.md)  
-**BA gate:** chưa đánh giá; bản nháp từ nguồn bước 8, chờ CapmmPM đối chiếu. Không có `BA_READY`/`TECH_READY`.
+**BA gate tại lúc lập bản nháp:** chưa review; được cập nhật bởi dòng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -23,6 +25,7 @@ Từ ví của chính mình mở sửa thông tin; form có tên ví và số d�
 
 ## 5. Alternative & Exceptional Flows
 
+- Đổi tên thành trống không Lưu; tên và lịch sử cũ giữ nguyên. [R76](../../docs/requirements/46-step-9-wallet-edit-and-return.md)
 - Giá trị số dư đầu không nguyên hoặc không phải VND hợp lệ bị từ chối; bản cũ giữ nguyên. [B15, R16]
 - Nếu ví đang ngừng, đổi tên được; sửa số dư đầu làm số dư hiện tại khác 0 bị chặn, phải bật ví lại trước (#17). [B26, B31]
 - Ví/tài khoản khác không được xem hoặc sửa. [R12]
@@ -32,13 +35,13 @@ Từ ví của chính mình mở sửa thông tin; form có tên ví và số d�
 
 | Trường | Quy tắc |
 | --- | --- |
-| Tên ví | Chủ được đổi kể cả ví đã có lịch sử/ngừng; giao dịch cũ hiện tên mới. [B26, B29] |
+| Tên ví | Chủ được đổi kể cả ví đã có lịch sử/ngừng; giao dịch cũ hiện tên mới; tên trống không Lưu. [B26, B29, R76] |
 | Số dư ban đầu | Số nguyên VND, có thể âm; không phải khoản thu. [B10, B15, R30] |
 | Số dư hiện tại | Tính lại bằng B01, không nhập trực tiếp. [B01, R44] |
 
 ## 7. System Parameters & Constants (`PARAM.*`)
 
-`PARAM.INITIAL_BALANCE = số nguyên VND` kể cả âm; không có số dư tối thiểu hay giới hạn tên ví được Ninh chốt ở Story này. Tên bắt buộc khi tạo theo R66; cách xử lý tên rỗng khi sửa cần BA/PM đối chiếu, không tự gán ngưỡng.
+`PARAM.INITIAL_BALANCE = số nguyên VND` kể cả âm; không có số dư tối thiểu hay giới hạn tên ví được Ninh chốt ở Story này. Tên bắt buộc khi tạo theo R66 và khi đổi theo R76; không tự gán quy tắc tên duy nhất hoặc ngưỡng độ dài.
 
 ## 8. Business Rules (`BR-*`)
 
@@ -46,6 +49,8 @@ Từ ví của chính mình mở sửa thông tin; form có tên ví và số d�
 - `BR-16-02` **Ninh đã xác nhận:** Sửa số dư đầu làm số dư hiện tại đổi đúng phần chênh; ví đầu 50 có thu 100 thành số dư 150, sửa số dư đầu thành -20 thì số dư hiện tại 80. [B01, R44] **Ví dụ:** Số dư đầu 50 có thu 100 thành 150; đổi số dư đầu -20 thì còn 80.
 - `BR-16-03` **Ninh đã xác nhận:** Số dư đầu có thể âm, chỉ nguyên VND, không sinh khoản thu lịch sử. [B10, B15, R30] **Ví dụ:** Số dư đầu -20 hợp lệ; 1,5 VND bị từ chối và không tạo khoản thu lịch sử.
 - `BR-16-04` **Ninh đã xác nhận:** Ví đang ngừng luôn giữ số dư 0; sửa số dư đầu làm lệch 0 phải bật lại trước. [B31] **Ví dụ:** Ví ngừng 0 đổi tên được; tăng số dư đầu lên 1 VND bị chặn tới khi bật lại.
+
+- `BR-16-05` **Ninh đã xác nhận:** tên trống khi đổi tên ví không được Lưu. **Ví dụ:** đổi ví “A” thành rỗng rồi bấm Lưu thì ví vẫn tên “A”, giao dịch cũ giữ nguyên. [R76](../../docs/requirements/46-step-9-wallet-edit-and-return.md)
 
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
@@ -84,6 +89,8 @@ Web ưu tiên iPhone/Android và chỉ dùng khi có Internet. Nhiều phiên c�
 
 AC là điều kiện quan sát được để PM/QA rà; chưa có test thực chạy, chưa `QA_PASS`.
 
+- `AC5` Đổi tên ví thành trống bị từ chối; sau tải lại tên ví và lịch sử cũ giữ nguyên. [R76](../../docs/requirements/46-step-9-wallet-edit-and-return.md)
+
 ## 17. Figma Mapping / Visual References
 
 Ảnh ứng dụng cũ chỉ là tham khảo theo R02; chưa có Figma/màn hình được Ninh chốt. BA mô tả điểm vào và trạng thái quan sát được, còn bố cục/câu chữ do UX đề xuất và PM kiểm trước triển khai.
@@ -98,8 +105,11 @@ Ngoài phạm vi: Tạo ví #06/#07; ngừng/bật lại #17/#18; xóa ví #19; 
 
 Xem [Q&A](qna.md). Quy tắc sản phẩm đã có nguồn `R30, R40, R44; B01, B10, B15, B26, B29, B31`; các câu hỏi còn mở là câu hỏi/đề xuất, **chưa được Ninh xác nhận**. Không mở gate chỉ vì đã viết spec.
 
+R76 đã chốt nhánh tên trống khi sửa; tên trùng và giới hạn độ dài chưa được Ninh chốt, không thêm AC riêng.
+
 ## 20. Change History & Document Traceability
 
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Bản nháp bước 9 cho Story #16; chờ PM rà BA, Tech thiết kế và reviewer độc lập. | [Issue nguồn](../capmoney-overall/issues/16-sua-thong-tin-vi.md), [workflow](../../docs/workflows/capmm-end-to-end.md) |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

@@ -43,6 +43,10 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 
 **Bổ sung H07 cho Story #13:** R75 quy định khi mở chuyển tiền từ nút chung, cả ví gửi và ví nhận đều để trống; người dùng chọn đủ hai ví đang sử dụng, khác nhau, trước Lưu. [Vòng làm rõ #11](45-step-9-transfer-wallet-selection.md)
 
+**Bổ sung H04/H06:** R76 không cho Lưu tên trống khi **đổi tên ví**; R77 chọn sẵn ví vừa tạo/bật khi quay về ghi thu/chi từ tình huống mọi ví đang ngừng, trong khi bản nhập thu/chi cũ trước Lưu vẫn bị bỏ. [Vòng làm rõ #12](46-step-9-wallet-edit-and-return.md)
+
+**Bổ sung H05:** R78 không cho Lưu tên trống khi thêm hoặc đổi tên danh mục; không tự suy tên phải duy nhất. [Vòng làm rõ #13](47-step-9-category-name.md)
+
 ## Ninh đã xác nhận về thứ tự ưu tiên
 
 | Mã | Quyết định | Bằng chứng |

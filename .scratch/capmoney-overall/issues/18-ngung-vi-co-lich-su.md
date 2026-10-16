@@ -10,6 +10,8 @@
 
 ## Acceptance criteria
 
+- [ ] Khi mọi ví ngừng, tạo/bật lại một ví rồi quay về ghi thu/chi thì ví vừa tạo/bật được chọn sẵn, còn nội dung đã nhập trước khi rời form không được khôi phục. [R77, R71, R73]
+
 - [ ] Ví có lịch sử nhưng số dư hiện tại 0 được ngừng và vẫn xem được lịch sử; ví ngừng luôn giữ số dư 0.
 - [ ] Sửa, xóa hoặc khôi phục khoản thu/chi hay lần chuyển mà làm ví ngừng khác 0 bị chặn và yêu cầu bật lại; sửa thông tin không đổi số dư vẫn được phép.
 - [ ] Khi mọi ví đã ngừng, nút ghi thu/chi dẫn tạo hoặc bật lại ví, rồi quay về biểu mẫu ghi chép.

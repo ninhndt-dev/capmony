@@ -1,7 +1,9 @@
 # Feature Spec: CM-20 – Thêm và đổi tên danh mục
 
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu bản sau R74–R78 hoặc chỉnh nhãn nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
 **Story:** [story.md](story.md) · **Nguồn chia lát:** [CM-20](../capmoney-overall/issues/20-them-va-doi-ten-danh-muc.md)  
-**BA gate:** bản BA bước 9; chưa được PM review, chưa có `BA_READY`.
+**BA gate tại lúc lập bản nháp:** chưa review; được cập nhật bởi dòng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -27,12 +29,12 @@ Từ phần danh mục của tài khoản ghi chép, có thao tác thêm và đ�
 ## 5. Alternative & Exceptional Flows
 
 - Danh mục của người khác hoặc phiên không hợp lệ không sửa được; yêu cầu trực tiếp cũng bị chặn. [R12]
-- Tên rỗng/không có nội dung sau chuẩn hóa không nên lưu theo **đề xuất BA/Tech**, nhưng chính sách chiều dài, trùng tên và chuẩn hóa cần PM/Tech chốt; không tự coi tên trùng là lỗi sản phẩm.
+- Tên trống không được Lưu theo **Ninh đã xác nhận** [R78](../../docs/requirements/47-step-9-category-name.md); chính sách chiều dài, trùng tên và chuẩn hóa chưa chốt, không tự coi tên trùng là lỗi sản phẩm.
 - Đổi tên đồng thời với ghi giao dịch không làm mất liên kết danh mục; lỗi lưu không được báo thành công sớm. Đây là điều kiện nhất quán Tech cần chứng minh.
 
 ## 6. Field-level Specifications & Validations
 
-Trường tên danh mục do chủ nhập khi thêm/đổi. Định danh danh mục phải giữ ổn định qua đổi tên để giao dịch cũ hiện tên mới. Bộ mười danh mục ban đầu thuộc CM-08; CM-20 dùng cùng danh sách chung thu/chi của chủ. [B05, B16, R45, R54]
+Trường tên danh mục do chủ nhập khi thêm/đổi; tên trống không được Lưu theo [R78](../../docs/requirements/47-step-9-category-name.md). Định danh danh mục phải giữ ổn định qua đổi tên để giao dịch cũ hiện tên mới. Bộ mười danh mục ban đầu thuộc CM-08; CM-20 dùng cùng danh sách chung thu/chi của chủ. [B05, B16, R45, R54]
 
 ## 7. System Parameters & Constants (`PARAM.*`)
 
@@ -43,6 +45,8 @@ Không có ngưỡng độ dài, số danh mục, hoặc quy tắc tên duy nh�
 - `BR-20-01`: danh mục của mỗi chủ là riêng nhưng dùng chung cho thu và chi. **Ví dụ:** A thêm “Đi lại”, A chọn nó cho cả thu và chi; B không thấy “Đi lại” của A. [R12, R32, R45]
 - `BR-20-02`: đổi tên danh mục đã dùng cập nhật tên hiển thị của giao dịch cũ mà không đổi liên kết. **Ví dụ:** khoản chi gắn “Đi lại”, sau đổi thành “Di chuyển” thì lịch sử hiện “Di chuyển”. [R54, B05]
 - `BR-20-03`: danh mục đã dùng vẫn chọn được cho giao dịch mới. **Ví dụ:** “Di chuyển” trong ví dụ trên có trong bộ chọn khoản thu và chi. [R49, B05]
+
+- `BR-20-04`: tên trống khi thêm hoặc đổi danh mục không được Lưu. **Ví dụ:** đổi “Đi lại” thành rỗng rồi bấm Lưu thì tên cũ và giao dịch vẫn giữ nguyên. [R78](../../docs/requirements/47-step-9-category-name.md)
 
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
@@ -79,6 +83,8 @@ Bản đầu khoảng 10 người, web iPhone/Android; chưa có SLA riêng. Đ�
 - `AC3`: danh mục đã đổi tên vẫn chọn được cho giao dịch mới. [R49, B05]
 - `AC4`: tài khoản khác, quản lý và khách không xem/đổi tên danh mục của chủ dù gọi đường xử lý trực tiếp. [R12]
 
+- `AC5`: thêm hoặc đổi tên danh mục bằng tên trống bị từ chối; sau tải lại danh mục và giao dịch đã có không đổi. [R78](../../docs/requirements/47-step-9-category-name.md)
+
 ## 17. Figma Mapping / Visual References
 
 Không áp dụng Figma vì chưa có thiết kế được duyệt; ảnh cũ chỉ tham khảo. [R02]
@@ -91,8 +97,11 @@ CM-08 cấp mười danh mục và đường chọn chung; CM-10 cấp lịch s�
 
 **Ninh đã xác nhận:** R32/R45/R49/R54 và B05/B16. **Chưa rõ:** tên trùng, giới hạn/chuẩn hóa tên và câu chữ lỗi; xem [Q&A](qna.md). Các chi tiết này không cho phép áp đặt quy tắc tên duy nhất khi chưa được duyệt.
 
+R78 đã chốt tên trống khi thêm/đổi; tên trùng và giới hạn chưa có quyết định của Ninh, không thêm AC duy nhất.
+
 ## 20. Change History & Document Traceability
 
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA 20 mục/AC1–AC4; chờ PM review | [CM-20](../capmoney-overall/issues/20-them-va-doi-ten-danh-muc.md), [nghiệp vụ](../../docs/requirements/core-business.md), [handoff](handoff.md) |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

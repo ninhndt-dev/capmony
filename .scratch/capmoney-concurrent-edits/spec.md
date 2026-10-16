@@ -1,6 +1,8 @@
 # Feature Spec: Story 30 – Giữ hai sửa đổi khác nhau gần đồng thời
 
-**Story:** [story.md](story.md) · **BA gate:** bản nháp, chờ PM review; chưa `BA_READY`.
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
+**Story:** [story.md](story.md) · **BA gate tại lúc lập bản nháp:** chưa PM review; được thay bằng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -37,8 +39,8 @@ Các trường được phép sửa ở #11/#14: thu/chi gồm loại, ngày, ti
 ## 8. Business Rules (`BR-*`)
 
 - `BR-30-01` **Ninh đã xác nhận:** sửa hai giao dịch khác nhau được báo lưu đều được giữ. Ví dụ ví đầu 100.000, T1 thu 20.000 và T2 chi 10.000; A sửa T1 thành thu 30.000, B sửa T2 thành chi 15.000, cả hai thành công → ví 115.000. [B01, B27]
-- `BR-30-02` **Ninh đã xác nhận:** chuyển tiền sửa như một đơn vị ảnh hưởng đủ các ví cũ/mới; không có nửa lần chuyển. [R51, B08, B27]
-- `BR-30-03` **Ninh đã xác nhận:** bản cũ của **cùng giao dịch** bị chặn theo B30, không ghi đè. [B18, B30]
+- `BR-30-02` **Ninh đã xác nhận:** chuyển tiền sửa như một đơn vị ảnh hưởng đủ các ví cũ/mới; không có nửa lần chuyển. [R51, B08, B27] **Ví dụ:** A sửa lần chuyển X→Y từ 20.000 thành 30.000 thì X/Y cùng đổi theo chênh 10.000 hoặc cùng giữ bản cũ khi thất bại.
+- `BR-30-03` **Ninh đã xác nhận:** bản cũ của **cùng giao dịch** bị chặn theo B30, không ghi đè. [B18, B30] **Ví dụ:** A đã sửa T thành 120.000; B sửa T từ bản 100.000 thì B bị chặn và T vẫn 120.000.
 
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
@@ -92,3 +94,4 @@ Không có Figma được duyệt; ảnh cũ chỉ tham khảo theo R02. Dùng f
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA bước 9; chưa PM review/gate. | [Issue #30](../capmoney-overall/issues/30-giu-hai-sua-doi-dong-thoi.md), B01/B27/B30 |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

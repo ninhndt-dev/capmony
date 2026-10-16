@@ -10,6 +10,8 @@
 
 ## Acceptance criteria
 
+- [ ] Đổi tên ví thành rỗng không Lưu, tên và lịch sử đã có giữ nguyên. [R76]
+
 - [ ] Chủ tài khoản đổi tên ví đã có giao dịch; giao dịch cũ vẫn thuộc cùng ví và hiện tên mới trong lịch sử.
 - [ ] Số dư ban đầu sửa được bằng số nguyên VND, kể cả âm; sau sửa số dư hiện tại đọc lại theo B01.
 - [ ] Số dư ban đầu không xuất hiện như khoản thu trong lịch sử; tài khoản khác không sửa được ví.

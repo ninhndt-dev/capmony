@@ -1,7 +1,9 @@
 # Feature Spec: CM-24 – Đặt lại mật khẩu tài khoản ghi chép
 
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu bản sau R74–R78 hoặc chỉnh nhãn nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
 **Story:** [story.md](story.md) · **Nguồn chia lát:** [CM-24](../capmoney-overall/issues/24-dat-lai-mat-khau-ghi-chep.md)  
-**BA gate:** bản BA bước 9; chưa được PM review, chưa có `BA_READY`.
+**BA gate tại lúc lập bản nháp:** chưa review; được cập nhật bởi dòng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -96,3 +98,4 @@ CM-04 cấp tài khoản/đăng nhập ghi chép; CM-08 cấp dữ liệu danh m
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA 20 mục/AC1–AC4; chờ PM review | [CM-24](../capmoney-overall/issues/24-dat-lai-mat-khau-ghi-chep.md), [F04/F12](../../docs/requirements/user-flows.md), [handoff](handoff.md) |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

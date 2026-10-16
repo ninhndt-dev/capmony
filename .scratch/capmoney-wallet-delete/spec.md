@@ -1,7 +1,9 @@
 # Feature Spec: CM-19 – Xóa ví đủ điều kiện
 
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
 **Story:** [story.md](story.md) · **Nguồn chia lát:** [CM-19](../capmoney-overall/issues/19-xoa-vi-du-dieu-kien.md)  
-**BA gate:** bản BA bước 9; chưa được PM review, chưa có `BA_READY`.
+**BA gate tại lúc lập bản nháp:** chưa review; được cập nhật bởi dòng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -96,3 +98,4 @@ CM-06 cấp ví; CM-12 và CM-15 cấp lịch sử thu/chi/chuyển đã xóa m�
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA 20 mục/AC1–AC4; chờ PM review | [CM-19](../capmoney-overall/issues/19-xoa-vi-du-dieu-kien.md), [B19](../../docs/requirements/core-business.md), [handoff](handoff.md) |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

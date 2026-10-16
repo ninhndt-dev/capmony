@@ -1,6 +1,8 @@
 # Feature Spec: Story 29 – Giữ giao dịch mới gần đồng thời
 
-**Story:** [story.md](story.md) · **BA gate:** bản nháp, chờ PM review; chưa `BA_READY`.
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
+**Story:** [story.md](story.md) · **BA gate tại lúc lập bản nháp:** chưa PM review; được thay bằng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -38,7 +40,7 @@ Trường và kiểm tra của thu/chi ở #08/#09; chuyển ở #13. Số tiề
 
 - `BR-29-01` **Ninh đã xác nhận:** hai giao dịch khác nhau được báo lưu đều được giữ. Ví dụ ví đầu 100.000, A ghi thu 40.000, B ghi chi 30.000; cả hai thành công thì thấy hai bản, số dư 110.000. [B01, B24]
 - `BR-29-02` **Ninh đã xác nhận:** lần chuyển là một đơn vị trừ ví gửi/cộng ví nhận. Ví dụ A chuyển 20.000 từ X sang Y, B ghi thu 10.000 vào X; cả hai thành công thì X thay đổi -10.000, Y +20.000. [R51, B01, B24]
-- `BR-29-03` **Ninh đã xác nhận:** chỉ bản đã được xác nhận lưu mới được báo thành công; mất phản hồi phải đối chiếu, không nhân đôi. [F09]
+- `BR-29-03` **Ninh đã xác nhận:** chỉ bản đã được xác nhận lưu mới được báo thành công; mất phản hồi phải đối chiếu, không nhân đôi. [F09] **Ví dụ:** A bấm Lưu chi 30.000 VND rồi mất phản hồi; UI báo chưa rõ, đối chiếu trước khi kết luận, không tạo hai khoản chi.
 
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
@@ -92,3 +94,4 @@ Không có Figma đã duyệt; ảnh cũ chỉ tham khảo. Story không bổ su
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA bước 9; chưa PM review/gate. | [Issue #29](../capmoney-overall/issues/29-giu-giao-dich-moi-dong-thoi.md), B01/B24, F09 |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

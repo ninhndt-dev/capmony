@@ -1,7 +1,9 @@
 # Feature Spec: Story 13 – Chuyển tiền giữa hai ví
 
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu bản sau R74–R78 hoặc chỉnh nhãn nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
 **Story:** [story.md](story.md)  
-**BA gate:** chưa đánh giá; bản nháp từ nguồn bước 8 và [R74](../../docs/requirements/44-step-9-transfer-round-1.md), chờ CapmmPM đối chiếu. Không có `BA_READY`/`TECH_READY`.
+**BA gate tại lúc lập bản nháp:** chưa review; được cập nhật bởi dòng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -115,3 +117,4 @@ Xem [Q&A](qna.md). Quy tắc sản phẩm đã có nguồn `R24, R42, R43, R51, 
 | 16/10/2026 | Bản nháp bước 9 cho Story #13; chờ PM rà BA, Tech thiết kế và reviewer độc lập. | [Issue nguồn](../capmoney-overall/issues/13-chuyen-tien-giua-vi.md), [workflow](../../docs/workflows/capmm-end-to-end.md) |
 | 16/10/2026 | Ninh chọn R75: cả hai trường ví trống khi mở từ nút chung; thêm BR-13-06/AC6. | [Vòng #11](../../docs/requirements/45-step-9-transfer-wallet-selection.md) |
 | 16/10/2026 | Ninh chọn mở trống khi rời biểu mẫu chuyển trước Lưu trong cùng phiên; ghi R74, BR-13-05, AC5; không đổi nhánh đã bấm Lưu. | [Vòng #13](../../docs/requirements/44-step-9-transfer-round-1.md) |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

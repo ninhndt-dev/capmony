@@ -1,6 +1,8 @@
 # Feature Spec: Story 34 – Đối chiếu Lưu chuyển tiền chưa rõ trong phiên
 
-**Story:** [story.md](story.md) · **BA gate:** bản nháp, chờ PM review; chưa `BA_READY`.
+**BA gate hiện hành (16/10/2026):** `BA_READY` sau CapmmPM `/root` đối chiếu độc lập nguồn, BR/AC và 20 mục; xem [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md). Thiết kế kỹ thuật và `TECH_READY` còn chờ.
+
+**Story:** [story.md](story.md) · **BA gate tại lúc lập bản nháp:** chưa PM review; được thay bằng gate hiện hành ở trên.
 
 ## 1. Executive Summary / User Story statement
 
@@ -38,8 +40,8 @@ Trường của lần chuyển do #13 xác định: hai ví khác nhau của cù
 
 - `BR-34-01` **Ninh đã xác nhận:** mất phản hồi thì không báo chuyển thành công sớm; giữ nội dung trong phiên. Ví dụ chuyển 50.000 X→Y rồi mất mạng, trạng thái là chưa rõ, không hiện số dư như giao dịch đã xác nhận. [F09]
 - `BR-34-02` **Ninh đã xác nhận:** tự đối chiếu khi có mạng, chặn Lưu lặp đúng lần chuyển. Ví dụ gửi lặp cùng ý định 50.000 X→Y trong lúc chờ → tối đa một lần chuyển có hiệu lực. [F09, R64]
-- `BR-34-03` **Ninh đã xác nhận:** lần chuyển là một đơn vị; khi đã lưu, X giảm/Y tăng một lần, lịch sử chung/lọc ví chỉ một dòng. [R51, R55, R60]
-- `BR-34-04` **Ninh đã xác nhận:** khi có Internet người dùng được làm việc khác; quay lại thấy đang kiểm tra hoặc kết quả đã phân định. [R64]
+- `BR-34-03` **Ninh đã xác nhận:** lần chuyển là một đơn vị; khi đã lưu, X giảm/Y tăng một lần, lịch sử chung/lọc ví chỉ một dòng. [R51, R55, R60] **Ví dụ:** chuyển 50.000 từ X sang Y được xác nhận thì X giảm 50.000, Y tăng 50.000 và bộ lọc của từng ví đều thấy một dòng cùng lần chuyển.
+- `BR-34-04` **Ninh đã xác nhận:** khi có Internet người dùng được làm việc khác; quay lại thấy đang kiểm tra hoặc kết quả đã phân định. [R64] **Ví dụ:** rời form để xem ví khi đang đối chiếu; quay lại thấy “đang kiểm tra”, hoặc “đã lưu” khi hệ thống đã xác nhận.
 
 ## 9. State Machine & Transition Rules (`STATE.*`)
 
@@ -94,3 +96,4 @@ Không có Figma duyệt; ảnh cũ chỉ tham khảo theo R02. UX đề xuất 
 | Ngày | Thay đổi | Nguồn |
 | --- | --- | --- |
 | 16/10/2026 | Soạn bản BA bước 9; chưa PM review/gate. | [Issue #34](../capmoney-overall/issues/34-doi-chieu-luu-chuyen-chua-ro-trong-phien.md), F09/R64, R51/R60 |
+| 16/10/2026 | PM rà bản sau quyết định và chỉnh nguồn; `BA_READY` cho Story này, `TECH_READY` còn chờ. | [PM review](../capmoney-overall/step9-ba-review-2026-10-16.md), [handoff](handoff.md) |

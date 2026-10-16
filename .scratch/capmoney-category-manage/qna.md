@@ -4,6 +4,6 @@
 
 | Mã | Điểm còn mở | Loại / người xử lý | Trạng thái | Giới hạn |
 | --- | --- | --- | --- | --- |
-| Q20.1 | Tên trùng, giới hạn/chuẩn hóa tên và câu chữ lỗi chưa chốt; không tự áp đặt tên duy nhất. | PM/Tech; Ninh nếu thay đổi hành vi sản phẩm | Chưa chốt; chờ review BA/thiết kế | Không suy thành quyết định của Ninh hoặc điều kiện đã kiểm chứng |
+| Q20.1 | Tên trống đã được Ninh chốt là không Lưu tại R78; tên trùng, giới hạn/chuẩn hóa và câu chữ lỗi chưa chốt, không tự áp đặt tên duy nhất. | PM/Tech; Ninh nếu thay đổi hành vi sản phẩm | Chưa chốt; chờ review BA/thiết kế | Không suy thành quyết định của Ninh hoặc điều kiện đã kiểm chứng |
 
 Chưa có câu trả lời mới của Ninh ở lượt soạn này. Nếu PM thấy một lựa chọn làm đổi phạm vi/hành vi đã xác nhận, BA đưa câu hỏi A/B cho Ninh trước khi cấp gate. Các quyết định Tech/UX giữ nhãn đề xuất.
