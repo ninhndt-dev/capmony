@@ -22,7 +22,7 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 | H08 | Lịch sử và chỉnh sửa | Lịch sử chung, lọc theo ví, ngày mới nhất trước; cùng ngày thì giao dịch tạo sau trước, sửa không đổi vị trí. Lọc ví gửi hoặc ví nhận đều hiện một dòng đủ ví gửi → ví nhận và số tiền; lịch sử chung cũng một dòng cho lần chuyển. Xem số tiền và số dư hiện tại, sửa khoản thu/chi hoặc lần chuyển; cập nhật số dư khi sửa giao dịch cũ. | R07, R59–R60; B01, B03, B07–B08, B14, B17, B20–B21; F15–F17 |
 | H09 | Xóa và khôi phục giao dịch | Xác nhận trước khi xóa mềm; mục riêng cho giao dịch đã xóa, khôi phục không hạn thời gian; chuyển tiền xóa/khôi phục cả hai ví như một đơn vị, giữ quy tắc ví đã ngừng và bản giao dịch cũ. | R26, R33, R37, R46, R50, R55; B13, B22, B30; F19 |
 | H10 | Dùng nhiều điện thoại và xử lý lưu chưa rõ | Tải dữ liệu mới khi quay lại, giữ bản nhập dở trong phiên, chặn thao tác từ bản giao dịch cũ; các thao tác khác nhau đã báo lưu đều được giữ; mất mạng lúc lưu thì đối chiếu kết quả trước khi thử lại, không tạo trùng. Khi kết quả chưa rõ, người dùng có Internet được làm việc khác, khi quay lại/mở lại thấy đang kiểm tra nếu chưa rõ hoặc kết quả đã lưu/chưa lưu nếu đã xác định, và không thể lưu lặp đúng thao tác còn chờ. | R11, R27, R56, R64; B18, B24, B27–B30; F06, F08–F09, F21–F22, F25 |
-| H11 | Hỗ trợ người dùng mất email | Theo yêu cầu của người dùng, Ninh tra đúng email cũ, gọi lại số đã lưu từ trước ngoài CapMoney và nhận diện chắc người quen; không có số hoặc không chắc đúng người thì chưa đổi. Email mới phải được xác minh; Ninh không xem dữ liệu tài chính. | R62; F10; bước 3 |
+| H11 | Hỗ trợ người dùng mất email | Theo yêu cầu của người dùng, Ninh tra đúng email cũ, gọi lại số đã lưu từ trước ngoài CapMoney và nhận diện chắc người quen; không có số hoặc không chắc đúng người thì chưa đổi. Lưu người xác nhận, thời điểm và tài khoản được hỗ trợ; email mới phải được xác minh; Ninh không xem dữ liệu tài chính. | R62, R79; F10; bước 3 |
 | H12 | Tự xóa tài khoản ghi chép | Cảnh báo không khôi phục, nhập lại mật khẩu, xác nhận cuối; xóa tài khoản và dữ liệu ngay. Điện thoại khác bị từ chối đọc/sửa ngay, báo và đưa về đăng nhập khi tải lại/quay lại/thao tác tiếp; Ninh có thể mời lại cùng email để lập tài khoản dữ liệu trống. | R63; F05; bước 3 |
 
 **Điều kiện áp dụng cho mọi nhóm:** Web ưu tiên giao diện mobile trên iPhone và Android; dữ liệu tài chính riêng từng người, chỉ chủ tài khoản xem/sửa. Dùng thật cho khoảng 10 người sau khi Ninh và 2–3 người khác thử đủ chức năng, sửa xong các lỗi đã phát hiện theo S02–S13. Không có chức năng ghi offline. [R04–R16; S01–S13]
@@ -67,7 +67,7 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 
 - Nội dung thông báo trên màn hình liên kết đặt lại mật khẩu quản lý hết hạn chưa chốt; cách tự xin liên kết mới đã chốt ở R61.
 - Vị trí triển khai kỹ thuật H10 chưa được chốt; P02 đã chốt thời điểm phải kiểm tra trên hai điện thoại.
-- Chi tiết xử lý phiên sau khi xóa tài khoản, bằng chứng để Ninh xác minh người mất email, bố cục lịch sử và các trạng thái lưu chờ sẽ được làm rõ trước đặc tả/triển khai chức năng tương ứng. Quy tắc lọc ví và thứ tự cùng ngày đã chốt ở R59–R60.
+- Chi tiết xử lý phiên sau khi xóa tài khoản, bố cục lịch sử và các trạng thái lưu chờ được làm rõ ở đặc tả/triển khai chức năng tương ứng. Mức ghi bằng chứng hỗ trợ mất email đã chốt ở R79; quy tắc lọc ví và thứ tự cùng ngày đã chốt ở R59–R60.
 
 ## Xác nhận kết thúc bước 6
 

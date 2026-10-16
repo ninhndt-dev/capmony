@@ -79,7 +79,7 @@ Bảng này chỉ nối các quyết định đã được Ninh trả lời thà
 - Chi tiết bố cục dòng lịch sử còn để bước đặc tả chi tiết; thứ tự giao dịch cùng ngày và cách hiện lần chuyển khi lọc ví đã chốt sau bước 5 tại R59–R60.
 - Thời điểm và cách hiện thông báo khi lời mời hết hạn giữa lúc nhập mã, cũng như cách báo hết hạn của liên kết đặt lại mật khẩu, còn mở; quy tắc không hoàn tất bằng lời mời cũ đã chốt ở F26.
 - Câu chữ thông báo tài khoản đã xóa trên điện thoại khác còn để bước 9; thời điểm báo và thu hồi quyền đã chốt ở R63.
-- Cách trình bày thao tác hỗ trợ người mất email còn để bước 9; kênh gọi lại số có trước, điều kiện Ninh nhận diện chắc người quen và xác minh email mới đã chốt ở R62.
+- Cách trình bày chi tiết thao tác hỗ trợ người mất email còn thuộc UX/Tech; kênh gọi lại số có trước, điều kiện Ninh nhận diện chắc người quen và xác minh email mới đã chốt ở R62. R79 chốt ghi người xác nhận, thời điểm và tài khoản được hỗ trợ.
 - Nội dung thông báo khi liên kết đặt lại mật khẩu quản lý hết hạn còn để bước đặc tả chi tiết; R57–R58 và R61 đã chốt quyền đặt lại, hạn 30 phút và cách tự xin liên kết mới. Trường hợp mất email quản lý sau khi đăng xuất vẫn ngoài phạm vi bản đầu.
 - Cách ghi nhớ và hiển thị trạng thái chờ sau khi đóng trình duyệt còn để bước 9; quy tắc rời biểu mẫu khi có Internet, quay lại/mở lại thấy trạng thái chờ nếu chưa rõ hoặc kết quả đã lưu/chưa lưu nếu đã đối chiếu xong, và chặn lưu lặp đúng thao tác còn chờ theo R64. Tự đối chiếu, không báo thành công sớm, không tạo trùng và không khôi phục bản nhập **chưa bấm Lưu** sau khi đóng trình duyệt vẫn giữ.
 - Cách sắp xếp màn hình, nhãn, điều hướng nhỏ và hiển thị lỗi còn để bước chức năng/đặc tả; chưa suy ra công nghệ lưu bản nháp, API hay mô hình dữ liệu.

@@ -106,6 +106,7 @@ Bản nháp trước diễn giải tám nhóm là **Tài khoản, Ví, Danh mụ
 | R76 | Khi **đổi tên ví đã tạo**, tên trống không được Lưu; tên ví đã lưu và lịch sử giữ nguyên. Không chốt quy tắc tên duy nhất. | Ninh chọn “Không cho lưu tên trống” trên giao diện [vòng làm rõ #12 bước 9](46-step-9-wallet-edit-and-return.md) ngày 16/10/2026 |
 | R77 | Khi tất cả ví đang ngừng và người dùng tạo hoặc bật lại một ví để quay về biểu mẫu ghi thu/chi, ví ấy được **chọn sẵn**; phần nhập thu/chi cũ trước khi rời form không được khôi phục. | Ninh chọn “Chọn sẵn ví vừa tạo/bật” trên giao diện [vòng làm rõ #12 bước 9](46-step-9-wallet-edit-and-return.md) ngày 16/10/2026 |
 | R78 | Khi **thêm hoặc đổi tên danh mục**, tên trống không được Lưu; dữ liệu đã lưu giữ nguyên. Không chốt tên duy nhất, độ dài hay chuẩn hóa khoảng trắng. | Ninh chọn “Không cho Lưu tên trống” trên giao diện [vòng làm rõ #13 bước 9](47-step-9-category-name.md) ngày 16/10/2026 |
+| R79 | Sau khi Ninh gọi lại số đã lưu từ trước ngoài ứng dụng, nhận diện chắc người mất email và xác nhận yêu cầu, CapMoney lưu người xác nhận, thời điểm và tài khoản được hỗ trợ để truy vết lần đổi email. Không yêu cầu lưu số điện thoại, ghi âm hoặc ghi chú nhận diện. | Ninh chọn “Lưu người xác nhận, thời điểm và tài khoản được hỗ trợ” trên giao diện [vòng làm rõ #14 bước 9](48-step-9-lost-email-evidence.md) ngày 16/10/2026 |
 
 ## Đề xuất, chưa được Ninh xác nhận
 
@@ -114,7 +115,7 @@ Bản nháp trước diễn giải tám nhóm là **Tài khoản, Ví, Danh mụ
 ## Những điều chưa được Ninh duyệt riêng
 
 - Chi tiết bảo vệ tài khoản và xử lý sự cố cụ thể. Bản đầu chưa yêu cầu khôi phục từ bản sao lưu sau sự cố nặng theo S04/R52.
-- Cách thể hiện bằng chứng Ninh đã nhận diện người mất email qua cuộc gọi lại số đã biết; câu chữ báo phiên trên điện thoại khác sau khi tài khoản bị xóa.
+- Cách trình bày chi tiết xác nhận CM-26 và câu chữ báo phiên trên điện thoại khác sau khi tài khoản bị xóa. Mức bằng chứng cần lưu cho CM-26 đã chốt ở R79.
 - Chi tiết hiển thị lỗi, hết hạn và trạng thái lưu chưa rõ; bố cục màn hình, tài sản ảnh và font. Quy tắc điều hướng khi đang đối chiếu đã chốt ở R64.
 - Hợp đồng API, mô hình dữ liệu, công nghệ và nơi lưu dữ liệu. Xuất Excel không thuộc bản đầu theo R19.
 - Cách ghi bằng chứng thử nhóm nhỏ, tiêu chí nghiệm thu chi tiết và phiên bản trình duyệt/thiết bị điện thoại cần hỗ trợ. Điều kiện mở rộng đã chốt tại [mục tiêu và phạm vi](goal-and-scope.md); thứ tự demo đã chốt tại [danh mục chức năng](system-functions.md).

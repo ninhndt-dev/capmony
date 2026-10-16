@@ -4,7 +4,7 @@
 
 ## Cách kiểm
 
-- Đối chiếu 26 Story với file nguồn bước 8, phiếu R/S/B/F/H và quyết định bổ sung R74–R78. Mỗi Story có `story.md`, `qna.md`, `handoff.md` và spec 20 mục theo template.
+- Đối chiếu 26 Story với file nguồn bước 8, phiếu R/S/B/F/H và quyết định bổ sung R74–R79. Mỗi Story có `story.md`, `qna.md`, `handoff.md` và spec 20 mục theo template.
 - Kiểm liên kết Markdown nội bộ, số thứ tự 1–20, BR có ví dụ và AC liên tục; đọc các AC theo ranh giới Story, quyền, ngoại lệ và phụ thuộc. Kiểm riêng CM-28 với R71/R73/R74 để không giữ bản nháp sau khi **rời form**; CM-33–35 không kết luận “chắc chưa lưu” từ timeout.
 - Quy tắc nguồn: các nhánh UX/Tech chưa được Ninh chốt được gắn đề xuất. Những nhánh có thể đổi hành vi nghiệm thu được giữ chờ nguồn riêng. Review này không xác nhận hợp đồng API/schema, test chạy, `DEV_REVIEWED` hoặc `QA_PASS`.
 
@@ -28,7 +28,7 @@
 | 23 | [Đổi email quản lý](../capmoney-manager-email-change/spec.md) | `BA_READY`: email mới xác minh trước đổi, phiên cũ hết; TTL/xung đột là Tech safety | Tech thiết kế xác minh/thu hồi |
 | 24 | [Reset mật khẩu ghi chép](../capmoney-recorder-password-reset/spec.md) | `BA_READY`: link 30 phút/thu hồi phiên theo nguồn; dùng một lần gắn nhãn điều kiện an toàn Tech/PM, PM rà lại | Tech thiết kế link/phiên |
 | 25 | [Đổi email ghi chép](../capmoney-recorder-email-change/spec.md) | `BA_READY`: email mới xác minh và dữ liệu/phiên giữ đúng phạm vi | Tech thiết kế xác minh/thu hồi |
-| 26 | [Hỗ trợ mất email](../capmoney-lost-email-support/spec.md) | **Chờ quyết định Q26.1** về mức ghi bằng chứng gọi lại/nhận diện | Ninh trả lời, BA cập nhật rồi PM rà |
+| 26 | [Hỗ trợ mất email](../capmoney-lost-email-support/spec.md) | `BA_READY`: R79 chốt bản ghi người xác nhận, thời điểm, tài khoản ngay khi Ninh xác nhận; AC5 chặn đổi khi chưa xác nhận điều kiện R62; PM rà lại sau sửa | Tech thiết kế bản ghi/quyền/đổi email |
 | 27 | [Xóa tài khoản ghi chép](../capmoney-recorder-account-delete/spec.md) | `BA_READY`: xác nhận cuối, xóa ngay, điện thoại khác mất quyền và mời lại dữ liệu trống | Tech thiết kế xóa/thu hồi |
 | 28 | [Điện thoại thứ hai](../capmoney-second-phone-refresh/spec.md) | `BA_READY`: giữ form **đang mở** khi refresh; rời form trước Lưu tuân R71/R73/R74 | Tech thiết kế tải dữ liệu |
 | 29 | [Hai giao dịch mới](../capmoney-concurrent-creates/spec.md) | `BA_READY`: hai ý định khác nhau đã báo Lưu đều được giữ, số dư đúng | Tech thiết kế đồng thời |
@@ -39,4 +39,4 @@
 | 34 | [Lưu chuyển chưa rõ](../capmoney-unknown-transfer/spec.md) | `BA_READY`: một lần chuyển, hai ví; không suy thất bại từ timeout | Tech chứng minh kết quả âm/request muộn |
 | 35 | [Đối chiếu sau mở lại](../capmoney-unknown-after-reopen/spec.md) | `BA_READY`: giữ đúng định danh thao tác qua đóng/mở, không phục hồi bản nháp chưa gửi | Tech chứng minh định danh bền |
 
-`BA_READY` ở bảng này chỉ áp dụng cho 25 Story được PM review sau bản BA do agent khác lập ở trên; từng `story.md` và `handoff.md` nối đến kết luận này. Không Story mới nào có `TECH_READY` do chưa có thiết kế được reviewer Tech độc lập và PM kiểm.
+`BA_READY` ở bảng này áp dụng cho **26/26 Story CM-10–CM-35** được PM review sau bản BA do agent khác lập và các quyết định bổ sung của Ninh; từng `story.md` và `handoff.md` nối đến kết luận này. Không Story mới nào có `TECH_READY` do chưa có thiết kế được reviewer Tech độc lập và PM kiểm. Về chức năng, bước 9 đã có spec cho 35/35 Story: CM-01 và CM-07–CM-09 có BA review trước đó; CM-02–CM-06 được rà theo quy trình cũ, không tự cấp gate mới.
