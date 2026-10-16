@@ -1,6 +1,7 @@
 package com.capmoney.api.manager.bootstrap.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import com.capmoney.api.http.ApiProblem;
 import com.capmoney.api.manager.bootstrap.repository.BootstrapStore;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -19,16 +20,21 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.postgresql.PostgreSQLContainer;
+import org.testcontainers.DockerClientFactory;
 
 /** Two separate app JVMs race against one retained PostgreSQL, Redis and Mailpit. */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE,
@@ -41,6 +47,7 @@ class ManagerLinkTwoJvmIntegrationTest {
     static Path edge;
     @Autowired BootstrapStore store;
     @Autowired JdbcTemplate jdbc;
+    @Autowired ManagerLinkThrottle throttle;
 
     @DynamicPropertySource
     static void dependencies(DynamicPropertyRegistry registry) throws Exception {
@@ -56,7 +63,7 @@ class ManagerLinkTwoJvmIntegrationTest {
         edge = Files.createTempFile("capmoney-cm02-two-jvm-edge-", ".test");
         Files.writeString(edge, "e".repeat(64));
         Files.setPosixFilePermissions(edge, PosixFilePermissions.fromString("rw-------"));
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.url", ManagerLinkTwoJvmIntegrationTest::jdbcUrl);
         registry.add("spring.datasource.username", postgres::getUsername);
         registry.add("spring.datasource.password", postgres::getPassword);
         registry.add("spring.data.redis.host", redis::getHost);
@@ -86,7 +93,7 @@ class ManagerLinkTwoJvmIntegrationTest {
         Files.setPosixFilePermissions(directory, PosixFilePermissions.fromString("rwx------"));
         Path config = directory.resolve("worker.properties");
         Properties properties = new Properties();
-        properties.setProperty("spring.datasource.url", postgres.getJdbcUrl());
+        properties.setProperty("spring.datasource.url", jdbcUrl());
         properties.setProperty("spring.datasource.username", postgres.getUsername());
         properties.setProperty("spring.datasource.password", postgres.getPassword());
         properties.setProperty("spring.data.redis.host", redis.getHost());
@@ -132,6 +139,55 @@ class ManagerLinkTwoJvmIntegrationTest {
         assertTrue(tokens.find());
         assertEquals(digest(tokens.group(1)), jdbc.queryForObject("SELECT token_digest FROM manager_bootstrap", String.class));
         assertEquals(BootstrapStore.LinkStatus.active, store.linkStatus(digest(tokens.group(1))));
+
+        // SMTP accepts a later renewal, then PostgreSQL becomes unavailable before issued is committed.
+        String proofAfterRace = tokens.group(1);
+        jdbc.update("WITH stamp AS (SELECT clock_timestamp() - interval '72 hours 1 second' AS t) "
+                + "UPDATE manager_bootstrap SET accepted_at=stamp.t, expires_at=stamp.t + interval '72 hours', "
+                + "renewal_reserved_at=stamp.t FROM stamp");
+        AtomicReference<String> acceptedMail = new AtomicReference<>();
+        AtomicBoolean paused = new AtomicBoolean();
+        JavaMailSenderImpl mail = new JavaMailSenderImpl() {
+            @Override public void send(SimpleMailMessage message) {
+                super.send(message);
+                acceptedMail.set(message.getText());
+                DockerClientFactory.instance().client().pauseContainerCmd(postgres.getContainerId()).exec();
+                paused.set(true);
+            }
+        };
+        mail.setHost(smtp.getHost()); mail.setPort(smtp.getMappedPort(1025));
+        ManagerLinkService service = new ManagerLinkService(store,
+                new BootstrapIssuer(store, mail, Clock.systemUTC(), false, "", "http://127.0.0.1:28080"), throttle);
+        try {
+            ApiProblem uncertain = assertThrows(ApiProblem.class, () -> service.renew(proofAfterRace, "192.0.2.60"));
+            assertEquals("DELIVERY_UNCONFIRMED", uncertain.code());
+            assertTrue(paused.get(), "SMTP must have accepted before DB fault");
+        } finally {
+            if (paused.get()) DockerClientFactory.instance().client().unpauseContainerCmd(postgres.getContainerId()).exec();
+        }
+        assertNotNull(acceptedMail.get());
+        var uncertainToken = Pattern.compile("#token=([A-Za-z0-9_-]{43})").matcher(acceptedMail.get());
+        assertTrue(uncertainToken.find());
+        assertEquals(3L, jdbc.queryForObject("SELECT generation FROM manager_bootstrap", Long.class));
+        assertEquals("sending", jdbc.queryForObject("SELECT state FROM manager_bootstrap", String.class));
+        assertEquals(2, mailCount());
+        assertEquals(BootstrapStore.LinkStatus.unavailable, store.linkStatus(digest(uncertainToken.group(1))));
+        jdbc.update("UPDATE manager_bootstrap SET send_started_at=clock_timestamp()-interval '31 seconds', "
+                + "renewal_reserved_at=clock_timestamp()-interval '16 minutes'");
+        assertEquals(BootstrapStore.LinkStatus.retryable, store.linkStatus(digest(proofAfterRace)));
+        JavaMailSenderImpl retryMail = new JavaMailSenderImpl();
+        retryMail.setHost(smtp.getHost()); retryMail.setPort(smtp.getMappedPort(1025));
+        ManagerLinkService retry = new ManagerLinkService(store,
+                new BootstrapIssuer(store, retryMail, Clock.systemUTC(), false, "", "http://127.0.0.1:28080"), throttle);
+        retry.renew(proofAfterRace, "192.0.2.61");
+        assertEquals("issued", jdbc.queryForObject("SELECT state FROM manager_bootstrap", String.class));
+        assertEquals(4L, jdbc.queryForObject("SELECT generation FROM manager_bootstrap", Long.class));
+        assertEquals(3, mailCount());
+        assertEquals(BootstrapStore.LinkStatus.unavailable, store.linkStatus(digest(uncertainToken.group(1))));
+    }
+
+    private static String jdbcUrl() {
+        return postgres.getJdbcUrl() + "&connectTimeout=1&socketTimeout=2&cancelSignalTimeout=1&tcpKeepAlive=true";
     }
 
     private Process worker(Path config, Path ready, Path start, Path log) throws Exception {
