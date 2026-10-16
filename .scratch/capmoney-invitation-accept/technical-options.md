@@ -1,6 +1,8 @@
 # Bước 9: đối chiếu kỹ thuật cho nhận lời mời (#04)
 
-**Trạng thái:** Tech đề xuất, BA → PM → Tech → PM đã rà ngày 14/10/2026. Better Auth và Email OTP chỉ là ứng viên, chưa giao Dev.
+**Ảnh chụp lịch sử trước rebaseline Java:** Better Auth/Next.js trong phần dưới chỉ là ứng viên đã bị thay bởi stack Java Spring, Spring Security, Spring Mail/SMTP, PostgreSQL và React/Vite theo [TS10–TS38](../../docs/requirements/tech-stack-round-2.md) và [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md). Không dùng khảo sát này để nhận `TECH_READY`; Tech phải thiết kế lại mã xác minh, phiên và tính nhất quán, rồi reviewer độc lập và PM rà.
+
+**Trạng thái tại 14/10/2026:** Tech đề xuất, BA → PM → Tech → PM đã rà. Better Auth và Email OTP khi đó chỉ là ứng viên; chưa giao Dev, thiết kế Story chưa được rà lại trên stack Java.
 
 **Phạm vi:** [Đặc tả nhận lời mời](spec.md), [ticket #04](../capmoney-overall/issues/04-nhan-loi-moi.md), F01/F26 và quyền tài khoản ghi chép. #03 phát hành/gửi lại liên kết; #05 xử lý mã sai/hết hạn và lời mời hết hạn.
 

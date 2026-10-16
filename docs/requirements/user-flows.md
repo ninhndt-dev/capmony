@@ -49,6 +49,8 @@ Các quy tắc về quyền và xóa tức thì đã chốt ở [người dùng 
 
 **Bổ sung cho khoản chi tại bước 9:** R72 yêu cầu biểu mẫu **khoản chi** mở từ nút ghi chung khi có ít nhất hai ví đang sử dụng **chưa chọn ví**; người dùng tự chọn trước Lưu. Vào từ ví vẫn theo F14. R73 yêu cầu rời biểu mẫu khoản chi **trước Lưu** rồi quay lại cùng phiên có Internet thì mở trống, không tạo khoản chi hay đổi số dư. Đây là quyết định riêng cho khoản chi, trùng hành vi với R70–R71 của khoản thu nhưng không suy sang chuyển tiền/tạo ví. F09/F25/R64 tiếp tục áp dụng khi đã bấm Lưu giao dịch và kết quả chưa rõ. [Vòng làm rõ #09](43-step-9-expense-round-1.md)
 
+**Bổ sung cho chuyển tiền tại bước 9:** R74 yêu cầu rời biểu mẫu **chuyển tiền trước Lưu** rồi quay lại trong cùng phiên có Internet thì mở trống; phần nhập dở không tạo lần chuyển hoặc đổi số dư hai ví. F21 xử lý đóng trình duyệt trước Lưu; F09/F25/R64 vẫn xử lý lần chuyển **đã bấm Lưu** nhưng kết quả chưa rõ. [Vòng làm rõ #10](44-step-9-transfer-round-1.md)
+
 ## Tổng hợp luồng đã được Ninh xác nhận hiểu đúng
 
 | Luồng | Diễn tiến chính | Lỗi, giới hạn và phục hồi đã chốt |

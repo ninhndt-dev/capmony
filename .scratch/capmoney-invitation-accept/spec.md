@@ -1,5 +1,7 @@
 # Bước 9: đặc tả chi tiết nhận lời mời và đăng nhập cá nhân
 
+**Rebaseline 16/10/2026:** Đặc tả hành vi này đã qua chuỗi rà cũ; chưa có `BA_READY`/`TECH_READY` theo workflow mới. Stack Java Spring/React/Vite đã chốt ở [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); [technical-options](technical-options.md) chỉ là khảo sát lịch sử.
+
 **Ticket:** [04 – Nhận lời mời và đăng nhập cá nhân](../capmoney-overall/issues/04-nhan-loi-moi.md)
 
 **Status:** needs-triage
@@ -42,7 +44,7 @@ Người nhận mở liên kết mời còn hạn, chứng minh quyền dùng em
 - Tại lúc hoàn tất, hệ thống kiểm lại liên kết và mã còn hiệu lực; chỉ tạo tài khoản và cấp phiên ghi chép sau khi mã đúng và người nhận tự đặt mật khẩu. Đường nhập mã/hoàn tất trực tiếp không có lời mời hợp lệ bị từ chối.
 - Hoàn tất lời mời, ghi nhận quyền dùng email, tạo tối đa một tài khoản ghi chép và vô hiệu hóa quyền hoàn tất bằng liên kết/mã cũ phải cho kết quả nhất quán dưới bấm lặp hoặc hai yêu cầu gần đồng thời. Email đã gắn với tài khoản hoạt động không thể tạo tài khoản thứ hai hoặc làm đổi dữ liệu cũ.
 - Quyền quản lý phải được kiểm ở phía hệ thống cho mọi đường truy cập trực tiếp; phiên ghi chép mới không được mời người khác hoặc xem dữ liệu tài chính của tài khoản khác.
-- Mã xác minh, phiên, mật khẩu và kết nối với phương án xác thực chung còn cần Tech kiểm chứng theo [đối chiếu kỹ thuật](technical-options.md). Better Auth Email OTP chỉ là ứng viên, chưa chọn framework, schema hoặc API.
+- Mã xác minh, phiên, mật khẩu và kết nối với phương án xác thực chung còn cần Tech thiết kế/kiểm chứng trên stack Java Spring, Spring Security, Spring Mail/SMTP và React/Vite đã được Ninh chọn ở [TS10–TS38](../../docs/requirements/tech-stack-round-2.md). [Đối chiếu kỹ thuật cũ](technical-options.md) là lịch sử Better Auth/Next.js, không cấp `TECH_READY` hay hợp đồng API cho stack hiện hành.
 
 ### Chưa rõ ở mức thiết kế/Tech
 

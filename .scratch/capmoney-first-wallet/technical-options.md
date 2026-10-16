@@ -1,6 +1,8 @@
 # Bước 9: đối chiếu kỹ thuật tạo ví đầu tiên (#06)
 
-**Trạng thái:** Tech đề xuất; BA → PM → Tech → PM đã rà ngày 14/10/2026. R67 đã được Ninh xác nhận; còn spike trước khi chọn công nghệ hoặc giao Dev.
+**Ảnh chụp lịch sử trước rebaseline Java:** Các câu hỏi về tính một lần của Lưu, số nguyên VND và đối chiếu R67 còn hữu ích, nhưng lựa chọn công nghệ trong bản này không thay [TS10–TS38](../../docs/requirements/tech-stack-round-2.md) và [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md). Tech cần thiết kế lại trên Java Spring/PostgreSQL và React/Vite, có reviewer độc lập/PM rà trước `TECH_READY`.
+
+**Trạng thái tại 14/10/2026:** Tech đề xuất; BA → PM → Tech → PM đã rà. R67 đã được Ninh xác nhận; stack Java sau đó đã được chốt, còn cần thiết kế/spike Story trên stack mới trước khi giao Dev.
 
 **Phạm vi:** [Đặc tả #06](spec.md), [ticket #06](../capmoney-overall/issues/06-tao-vi-dau-tien.md), R12/R23/R30/R66–R67, B01/B10/B15, F02/F13/F18/F21. #04 cấp tài khoản ghi chép; #07 tạo ví tiếp theo; #08–#09 ghi giao dịch.
 

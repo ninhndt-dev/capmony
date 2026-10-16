@@ -1,6 +1,8 @@
 # Bước 9: đối chiếu kỹ thuật mã sai và lời mời hết hạn (#05)
 
-**Trạng thái:** Tech đề xuất; BA → PM → Tech → PM đã rà ngày 14/10/2026. Còn spike trước khi chọn công nghệ hoặc giao Dev.
+**Ảnh chụp lịch sử trước rebaseline Java:** Các tham chiếu Better Auth và mặc định plugin bên dưới không còn là ứng viên triển khai hiện hành. Stack đã chốt là Java Spring, Spring Security, Spring Mail/SMTP, PostgreSQL và React/Vite theo [TS10–TS38](../../docs/requirements/tech-stack-round-2.md) và [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md). Quy tắc F07/F26 vẫn là yêu cầu; Tech cần thiết kế và review độc lập hợp đồng mới trước `TECH_READY`.
+
+**Trạng thái tại 14/10/2026:** Tech đề xuất; BA → PM → Tech → PM đã rà. Stack Java sau đó đã được chốt; còn cần thiết kế/spike Story trên stack mới trước khi giao Dev.
 
 **Phạm vi:** [Đặc tả #05](spec.md), [ticket #05](../capmoney-overall/issues/05-loi-moi-het-han-va-ma-sai.md), F01/F03/F07/F26. Gửi lại **cùng URL còn hạn** theo R65 thuộc #03; hoàn tất tài khoản bằng mã đúng thuộc #04.
 

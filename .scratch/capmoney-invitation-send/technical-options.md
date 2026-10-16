@@ -1,6 +1,8 @@
 # Bước 9: đối chiếu kỹ thuật cho gửi lời mời (#03)
 
-**Trạng thái:** Tech đề xuất, BA → PM → Tech → PM đã rà quyết định R65 ngày 14/10/2026. Chưa chốt stack hoặc giao Dev.
+**Ảnh chụp lịch sử trước rebaseline Java:** Các tham chiếu Next.js, Better Auth và Resend bên dưới là phương án khảo sát cũ, không còn là lựa chọn stack hay bằng chứng `TECH_READY`. Hợp đồng nghiệp vụ/quyền vẫn phải được thiết kế lại trên Java Spring, Spring Security, Spring Mail/SMTP, PostgreSQL và React/Vite theo [TS10–TS38](../../docs/requirements/tech-stack-round-2.md) và [ADR 0003](../../docs/adr/0003-java-spring-and-deployment.md); reviewer Tech độc lập và PM rà lại trước khi giao Dev.
+
+**Trạng thái tại 14/10/2026:** Tech đề xuất, BA → PM → Tech → PM đã rà quyết định R65. Chưa giao Dev; stack sau đó đã được chốt lại theo TS10–TS38, thiết kế Story chưa được rà lại.
 
 - Phải kiểm quyền tài khoản quản lý tại phía hệ thống cho từng yêu cầu gửi, kể cả đường gọi trực tiếp. Đường tự đăng ký cần bị chặn; [Next.js Authentication](https://nextjs.org/docs/app/guides/authentication) yêu cầu kiểm quyền ở Server Actions/Route Handlers. Cách xác thực còn phụ thuộc spike [#01](../capmoney-manager-setup/technical-options.md): `disableSignUp: true` của Better Auth cũng chặn lệnh đăng ký gọi từ server.
 - Trạng thái lời mời phải bền vững qua nhiều phiên xử lý. Tech cần chứng minh một lời mời chỉ dùng cho email đích, hết hạn sau 72 giờ từ lúc yêu cầu gửi đầu được nhà cung cấp tiếp nhận, không thể dùng sau khi đã hoàn tất, và không có hai lời mời có thể dùng do gửi gần đồng thời. Việc xác minh mã và hoàn tất tài khoản thuộc #04–#05.

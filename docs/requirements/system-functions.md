@@ -39,6 +39,8 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 
 **Bổ sung H06 cho Story #09 tại bước 9:** R72 quy định khi mở ghi **khoản chi** từ nút chung với ít nhất hai ví đang sử dụng thì chưa chọn ví, người dùng tự chọn trước Lưu; vào từ ví vẫn theo F14. R73 quy định rời biểu mẫu khoản chi **trước Lưu** rồi quay lại cùng phiên có Internet thì form trống, không tạo khoản chi hay đổi số dư. Đây là xác nhận riêng cho khoản chi; không suy sang chuyển tiền hoặc tạo ví. [Vòng làm rõ #09](43-step-9-expense-round-1.md)
 
+**Bổ sung H07 cho Story #13 tại bước 9:** R74 quy định rời biểu mẫu **chuyển tiền trước Lưu** rồi quay lại cùng phiên có Internet thì biểu mẫu trống; phần nhập dở không tạo lần chuyển hoặc đổi số dư hai ví. Quy tắc này không xóa trạng thái đối chiếu của lần chuyển đã bấm Lưu. [Vòng làm rõ #10](44-step-9-transfer-round-1.md)
+
 ## Ninh đã xác nhận về thứ tự ưu tiên
 
 | Mã | Quyết định | Bằng chứng |

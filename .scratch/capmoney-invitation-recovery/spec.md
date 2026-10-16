@@ -1,5 +1,7 @@
 # Bước 9: đặc tả chi tiết mã sai và lời mời hết hạn
 
+**Rebaseline 16/10/2026:** Đặc tả hành vi này đã qua chuỗi rà cũ; chưa có `BA_READY`/`TECH_READY` theo workflow mới. Stack Java Spring/React/Vite đã chốt ở [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); [technical-options](technical-options.md) chỉ là khảo sát lịch sử.
+
 **Ticket:** [05 – Xử lý mã sai hoặc lời mời hết hạn](../capmoney-overall/issues/05-loi-moi-het-han-va-ma-sai.md)
 
 **Status:** needs-triage

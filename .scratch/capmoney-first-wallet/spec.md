@@ -1,5 +1,7 @@
 # Bước 9: đặc tả chi tiết tạo ví đầu tiên
 
+**Rebaseline 16/10/2026:** Đặc tả hành vi này đã qua chuỗi rà cũ; chưa có `BA_READY`/`TECH_READY` theo workflow mới. Stack Java Spring/React/Vite đã chốt ở [TS10–TS38](../../docs/requirements/tech-stack-round-2.md); [technical-options](technical-options.md) chỉ là khảo sát lịch sử.
+
 **Ticket:** [06 – Tạo ví đầu tiên](../capmoney-overall/issues/06-tao-vi-dau-tien.md)
 
 **Status:** needs-triage
