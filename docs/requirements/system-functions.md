@@ -41,6 +41,8 @@ Mọi nhóm dưới đây đều thuộc bản đầu và phải hoạt động 
 
 **Bổ sung H07 cho Story #13 tại bước 9:** R74 quy định rời biểu mẫu **chuyển tiền trước Lưu** rồi quay lại cùng phiên có Internet thì biểu mẫu trống; phần nhập dở không tạo lần chuyển hoặc đổi số dư hai ví. Quy tắc này không xóa trạng thái đối chiếu của lần chuyển đã bấm Lưu. [Vòng làm rõ #10](44-step-9-transfer-round-1.md)
 
+**Bổ sung H07 cho Story #13:** R75 quy định khi mở chuyển tiền từ nút chung, cả ví gửi và ví nhận đều để trống; người dùng chọn đủ hai ví đang sử dụng, khác nhau, trước Lưu. [Vòng làm rõ #11](45-step-9-transfer-wallet-selection.md)
+
 ## Ninh đã xác nhận về thứ tự ưu tiên
 
 | Mã | Quyết định | Bằng chứng |

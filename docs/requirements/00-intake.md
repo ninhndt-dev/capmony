@@ -102,6 +102,7 @@ Bản nháp trước diễn giải tám nhóm là **Tài khoản, Ví, Danh mụ
 | R72 | Khi mở ghi **khoản chi** từ nút ghi chung và có từ hai ví đang sử dụng, biểu mẫu ban đầu chưa chọn ví; người dùng tự chọn ví đang sử dụng trước khi Lưu. Vào từ ví vẫn theo F14. Quyết định riêng cho khoản chi, không suy sang chuyển tiền hoặc tạo ví. | Ninh chọn A trên giao diện, Q1 [vòng làm rõ #09 bước 9](43-step-9-expense-round-1.md) ngày 14/10/2026 |
 | R73 | Khi đang nhập **khoản chi**, rời biểu mẫu trước Lưu rồi quay lại trong cùng phiên có Internet thì biểu mẫu trống; phần nhập dở không tạo khoản chi hay đổi số dư. Quyết định riêng cho khoản chi, không suy sang chuyển tiền hoặc tạo ví. | Ninh chọn A trên giao diện, Q2 [vòng làm rõ #09 bước 9](43-step-9-expense-round-1.md) ngày 14/10/2026 |
 | R74 | Khi đang nhập **lần chuyển tiền**, rời biểu mẫu trước Lưu rồi quay lại trong cùng phiên có Internet thì biểu mẫu trống; phần nhập dở không tạo lần chuyển hoặc đổi số dư hai ví. Quyết định riêng cho chuyển tiền, không áp dụng cho thao tác đã bấm Lưu mà kết quả chưa rõ. | Ninh chọn “Mở trống như thu/chi” trên giao diện [vòng làm rõ #10 bước 9](44-step-9-transfer-round-1.md) ngày 16/10/2026 |
+| R75 | Khi mở biểu mẫu **chuyển tiền từ nút chung**, ban đầu cả ví gửi và ví nhận đều để trống; người dùng tự chọn hai ví đang sử dụng, khác nhau, của mình trước Lưu. | Ninh chọn “Cả hai để trống, tự chọn trước Lưu” trên giao diện [vòng làm rõ #11 bước 9](45-step-9-transfer-wallet-selection.md) ngày 16/10/2026 |
 
 ## Đề xuất, chưa được Ninh xác nhận
 

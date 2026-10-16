@@ -51,6 +51,8 @@ Các quy tắc về quyền và xóa tức thì đã chốt ở [người dùng 
 
 **Bổ sung cho chuyển tiền tại bước 9:** R74 yêu cầu rời biểu mẫu **chuyển tiền trước Lưu** rồi quay lại trong cùng phiên có Internet thì mở trống; phần nhập dở không tạo lần chuyển hoặc đổi số dư hai ví. F21 xử lý đóng trình duyệt trước Lưu; F09/F25/R64 vẫn xử lý lần chuyển **đã bấm Lưu** nhưng kết quả chưa rõ. [Vòng làm rõ #10](44-step-9-transfer-round-1.md)
 
+**Bổ sung điểm vào chuyển tiền:** R75 yêu cầu mở biểu mẫu chuyển tiền từ nút chung với **cả ví gửi và ví nhận chưa chọn**; người dùng tự chọn hai ví đang sử dụng, khác nhau, trước Lưu. Không suy cách chọn sẵn khi đi từ một ví cụ thể. [Vòng làm rõ #11](45-step-9-transfer-wallet-selection.md)
+
 ## Tổng hợp luồng đã được Ninh xác nhận hiểu đúng
 
 | Luồng | Diễn tiến chính | Lỗi, giới hạn và phục hồi đã chốt |
