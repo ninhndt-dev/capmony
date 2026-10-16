@@ -25,6 +25,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.DockerClientFactory;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 
 /** Real HTTP, PostgreSQL, Redis and SMTP/Mailpit on newly created retained test resources. */
@@ -58,7 +59,8 @@ class ManagerLinkMailpitIntegrationTest {
         Path edge = Files.createTempFile("capmoney-cm02-mailpit-edge-", ".test");
         Files.writeString(edge, EDGE);
         Files.setPosixFilePermissions(edge, PosixFilePermissions.fromString("rw-------"));
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.url", () -> postgres.getJdbcUrl()
+                + "&connectTimeout=1&socketTimeout=2&cancelSignalTimeout=1&tcpKeepAlive=true");
         registry.add("spring.datasource.username", postgres::getUsername);
         registry.add("spring.datasource.password", postgres::getPassword);
         registry.add("spring.data.redis.host", redis::getHost);
@@ -86,6 +88,29 @@ class ManagerLinkMailpitIntegrationTest {
         var status = post("/api/manager/setup-link/status", "{\"token\":\"" + oldToken + "\"}", "192.0.2.31");
         assertEquals(200, status.statusCode());
         assertTrue(status.body().contains("expired"));
+        var docker = DockerClientFactory.instance().client();
+        docker.pauseContainerCmd(redis.getContainerId()).exec();
+        try {
+            var unavailable = post("/api/manager/setup-link/renew", "{\"token\":\"" + oldToken + "\"}",
+                    "192.0.2.40");
+            assertEquals(503, unavailable.statusCode());
+            assertTrue(unavailable.body().contains("DEPENDENCY_UNAVAILABLE"));
+        } finally {
+            docker.unpauseContainerCmd(redis.getContainerId()).exec();
+        }
+        assertEquals(1L, jdbc.queryForObject("SELECT generation FROM manager_bootstrap", Long.class));
+        assertEquals(0, messageCount());
+        docker.pauseContainerCmd(postgres.getContainerId()).exec();
+        try {
+            var unavailable = post("/api/manager/setup-link/renew", "{\"token\":\"" + oldToken + "\"}",
+                    "192.0.2.41");
+            assertEquals(503, unavailable.statusCode());
+            assertTrue(unavailable.body().contains("DEPENDENCY_UNAVAILABLE"));
+        } finally {
+            docker.unpauseContainerCmd(postgres.getContainerId()).exec();
+        }
+        assertEquals(1L, jdbc.queryForObject("SELECT generation FROM manager_bootstrap", Long.class));
+        assertEquals(0, messageCount());
         assertEquals(204, post("/api/manager/setup-link/renew", "{\"token\":\"" + oldToken + "\"}",
                 "192.0.2.32").statusCode());
         assertEquals("issued", jdbc.queryForObject("SELECT state FROM manager_bootstrap", String.class));

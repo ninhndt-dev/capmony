@@ -21,7 +21,7 @@
 
 Migration mới cho `manager_bootstrap` thêm `renewal_proof_digest varchar(64) NULL`, có check định dạng hex và không đồng thời giữ proof sau `consumed`. Trường này chỉ giữ digest của link hết hạn đã chứng minh quyền xin lại khi một lần gửi mới đang `sending/unknown/failed`; không dùng trong `ManagerSetupStore.complete`. Sau khi link mới `issued`, xóa proof. Khi link mới hết hạn, chính `token_digest` của generation đó là proof cho lần xin tiếp theo. Không lưu token nguyên bản, email/token trong log hay browser storage.
 
-`renew` khóa row singleton (`PESSIMISTIC_WRITE`) và đọc `clock_timestamp()` trong transaction. Chỉ bắt đầu khi không có `manager_account`, email DB khớp `MANAGER_EMAIL`, và:
+`renew` khóa row singleton (`PESSIMISTIC_WRITE`) và đọc `clock_timestamp()` trong transaction. Chỉ bắt đầu khi không có `manager_account`, email đích lấy từ singleton do CLI phát hành link đầu đã ghi (không nhận từ request hay phụ thuộc `MANAGER_EMAIL` hiện tại), và:
 
 1. `state=issued`, digest token khớp `token_digest`, `now >= expires_at`; hoặc
 2. `state=failed/unknown` (hay `sending` đã quá lease), digest khớp `renewal_proof_digest` từ một lần renew trước.
@@ -46,5 +46,5 @@ Không dùng mã `SETUP_LINK_UNAVAILABLE` của POST setup để tự suy luận
 
 - **BA/PM:** chốt quy tắc cần link hết hạn khi xin lại, cách vào đường dẫn trực tiếp, ngưỡng quota/cooldown và câu chữ sau kết quả SMTP chưa rõ. Rebaseline spec 20 mục, AC có mã, review BA/PM trước `BA_READY`.
 - **Tech reviewer độc lập:** kiểm race reserve/complete/status, gửi SMTP ngoài transaction, proof sau failed/unknown, quota Redis nhiều JVM, khả năng retry khi DB commit chưa rõ và quan hệ với CM-01; PM kiểm phạm vi rồi mới `TECH_READY`.
-- **Dev/QA:** migration trên DB thử riêng; đồng hồ trước/đúng/sau 72 giờ; old/new email đến lệch thứ tự; SMTP reject/timeout; Redis/DB outage; hai JVM renew đồng thời và renew đua complete; sau khi manager được tạo không phát mail. Test tích hợp hiện có mới kiểm hai request song song trong một JVM và cơ sở dữ liệu thật; hai JVM riêng, Mailpit thật, WebKit/Chromium với API thật và thiết bị vật lý vẫn là kiểm chứng tiếp theo. Không reset/xóa dữ liệu thật để test.
+- **Dev/QA:** migration trên DB thử riêng; đồng hồ trước/đúng/sau 72 giờ; old/new email đến lệch thứ tự; SMTP reject/timeout; Redis/DB outage; hai JVM renew đồng thời và renew đua complete; sau khi manager được tạo không phát mail. Tự kiểm đã có hai JVM độc lập, SMTP/Mailpit thật và Redis/DB ngừng trước reserve; xem [bằng chứng](implementation-evidence.md). Lỗi DB sau SMTP/commit, WebKit/Chromium với API thật, thiết bị vật lý và QA độc lập vẫn cần kiểm. Không reset/xóa dữ liệu thật để test.
 - CM-01 #44 và #45 còn gate độc lập; chỉ dùng hợp đồng/code đã có làm nền thiết kế, không coi CM-02 sẵn sàng triển khai hay CM-01 đã QA_PASS.

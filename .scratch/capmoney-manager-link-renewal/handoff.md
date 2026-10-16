@@ -16,13 +16,13 @@
 
 ## CapmmDev / Story CM-02 / 16-10-2026
 
-**DONE:** Theo yêu cầu Ninh triển khai tiếp, đã code API, migration, throttle Redis và giao diện xin lại link hết hạn; thêm test tích hợp và [browser regression](browser-regression.cjs).
+**DONE:** Theo yêu cầu Ninh triển khai tiếp, đã code API, migration, throttle Redis và giao diện xin lại link hết hạn; thêm test tích hợp, [browser regression](browser-regression.cjs), SMTP/Mailpit thật, hai JVM renew đồng thời và lỗi Redis/DB trước reserve.
 
 **RESULT:** Code đã build và tự kiểm theo [bằng chứng](implementation-evidence.md). Chưa có `DEV_REVIEWED`/`QA_PASS` độc lập.
 
 **NEED HUMAN:** Người khác tác giả code review thiết kế/code và QA trên build pin; PM/BA đối chiếu lựa chọn yêu cầu phải mở link hết hạn cùng ngưỡng quota. Không cần Ninh duyệt từng thao tác triển khai vì đã cho phép trước.
 
-**PENDING:** Hoàn tất các kiểm chứng còn thiếu trong evidence, chốt gate đúng workflow và trạng thái Planio theo bằng chứng thật.
+**PENDING:** Kiểm DB lỗi sau SMTP/commit, browser qua API thật, thiết bị vật lý và review/QA độc lập như [evidence](implementation-evidence.md); chốt gate đúng workflow và trạng thái Planio theo bằng chứng thật.
 
 **DETAIL:** Bản thay đổi trên `main` sau khi commit/push. Các test chạy trên tài nguyên thử mới, giữ tài nguyên cũ.
 
